@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-11-2024 a las 14:45:31
+-- Tiempo de generación: 04-11-2024 a las 15:44:33
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -63,6 +63,13 @@ CREATE TABLE `configuracions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `configuracions`
+--
+
+INSERT INTO `configuracions` (`id`, `razon_social`, `alias`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 'UNIBIENES S.A.', 'UB', 'logo.jpg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -384,7 +391,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `configuracions`
 --
 ALTER TABLE `configuracions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`

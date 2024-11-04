@@ -1,7 +1,6 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
 import { useUsuarios } from "@/composables/usuarios/useUsuarios";
-import { useSucursals } from "@/composables/sucursals/useSucursals";
 import { watch, ref, computed, defineEmits, onMounted, nextTick } from "vue";
 const props = defineProps({
     open_dialog: {
@@ -15,7 +14,6 @@ const props = defineProps({
 });
 
 const { oUsuario, limpiarUsuario } = useUsuarios();
-const { getSucursals } = useSucursals();
 const accion = ref(props.accion_dialog);
 const dialog = ref(props.open_dialog);
 let form = useForm(oUsuario.value);
@@ -143,7 +141,7 @@ const cargarListas = () => {
 };
 
 const cargarSucursals = async () => {
-    listSucursals.value = await getSucursals();
+    listSucursals.value = [];
 };
 
 onMounted(() => {

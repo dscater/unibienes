@@ -18,30 +18,17 @@ use PgSql\Lob;
 class UsuarioController extends Controller
 {
     public $validacion = [
-        "nombre" => "required|min:1",
-        "paterno" => "required|min:1",
-        "ci" => "required|min:1",
-        "ci_exp" => "required",
-        "dir" => "required|min:1",
-        "fono" => "required|min:1",
-        "tipo" => "required",
+        "nombres" => "required|min:1",
+        "apellidos" => "required|min:1",
+        "role_id" => "required",
     ];
 
     public $mensajes = [
-        "nombre.required" => "Este campo es obligatorio",
-        "nombre.min" => "Debes ingresar al menos :min caracteres",
-        "paterno.required" => "Este campo es obligatorio",
-        "paterno.min" => "Debes ingresar al menos :min caracteres",
-        "ci.required" => "Este campo es obligatorio",
-        "ci.unique" => "Este C.I. ya fue registrado",
-        "ci.min" => "Debes ingresar al menos :min caracteres",
-        "ci_exp.required" => "Este campo es obligatorio",
-        "email.unique" => "El correo electrónico ya fue registrado",
-        "dir.required" => "Este campo es obligatorio",
-        "dir.min" => "Debes ingresar al menos :min caracteres",
-        "fono.required" => "Este campo es obligatorio",
-        "fono.min" => "Debes ingresar al menos :min caracteres",
-        "tipo.required" => "Este campo es obligatorio",
+        "nombres.required" => "Este campo es obligatorio",
+        "nombres.min" => "Debes ingresar al menos :min caracteres",
+        "apellidos.required" => "Este campo es obligatorio",
+        "apellidos.min" => "Debes ingresar al menos :min caracteres",
+        "role_id.required" => "Este campo es obligatorio",
     ];
 
     public function index()
@@ -51,7 +38,7 @@ class UsuarioController extends Controller
 
     public function listado()
     {
-        $usuarios = User::where("id", "!=", 1)->where("tipo", "!=", "CLIENTE")->get();
+        $usuarios = User::with(["role"])->where("id", "!=", 1)->get();
         return response()->JSON([
             "usuarios" => $usuarios
         ]);
@@ -59,7 +46,7 @@ class UsuarioController extends Controller
 
     public function byTipo(Request $request)
     {
-        $usuarios = User::where("id", "!=", 1);
+        $usuarios = User::with(["role"])->where("id", "!=", 1);
         if (isset($request->tipo) && trim($request->tipo) != "") {
             $usuarios = $usuarios->where("tipo", $request->tipo);
         }
@@ -78,7 +65,7 @@ class UsuarioController extends Controller
     public function api(Request $request)
     {
         // Log::debug($request);
-        $usuarios = User::where("id", "!=", 1)->where("tipo", "!=", "CLIENTE");
+        $usuarios = User::with(["role"])->where("id", "!=", 1);
         $usuarios = $usuarios->get();
         return response()->JSON(["data" => $usuarios]);
     }
@@ -86,7 +73,7 @@ class UsuarioController extends Controller
     public function paginado(Request $request)
     {
         $search = $request->search;
-        $usuarios = User::where("id", "!=", 1)->where("tipo", "!=", "CLIENTE");
+        $usuarios = User::with(["role"])->where("id", "!=", 1);
 
         if (trim($search) != "") {
             $usuarios->where("nombre", "LIKE", "%$search%");

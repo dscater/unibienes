@@ -533,7 +533,6 @@ const logout = () => {
                 </div> -->
                 <div
                     class="menu-item"
-                    :class="[route_current == 'usuarios.index' ? 'active' : '']"
                 >
                     <Link :href="route('usuarios.index')" class="menu-link">
                         <div class="menu-icon">

@@ -19,7 +19,6 @@ const breadbrums = [
 import { useApp } from "@/composables/useApp";
 import { computed, onMounted, ref } from "vue";
 import { Head, usePage } from "@inertiajs/vue3";
-import { useSucursals } from "@/composables/sucursals/useSucursals";
 
 const { getSucursals } = useSucursals();
 const { setLoading } = useApp();
@@ -30,11 +29,6 @@ const cargarListas = () => {
 
 const listSucursals = ref([]);
 const cargarSucursals = async () => {
-    listSucursals.value = await getSucursals();
-    listSucursals.value.unshift({
-        id: "todos",
-        nombre: "TODOS",
-    });
 };
 
 onMounted(() => {

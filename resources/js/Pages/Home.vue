@@ -61,7 +61,7 @@ const { props } = usePage();
         <div class="col-xl-3 col-md-6">
             <div class="widget widget-stats bg-principal">
                 <div class="stats-icon">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-list"></i>
                 </div>
                 <div class="stats-info text-white">
                     <h4>Publicaciones</h4>
