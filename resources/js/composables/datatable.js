@@ -10,6 +10,7 @@ export function initDataTable(
     if (element.length !== 0 && !$.fn.dataTable.isDataTable(element)) {
         const options = {
             responsive: true,
+            serverSide: true, // Habilitar procesamiento en el lado del servidor
             columns: columns,
             language: {
                 decimal: ",",
@@ -43,7 +44,23 @@ export function initDataTable(
             options.ajax = {
                 url: ajaxUrl,
                 type: "GET",
-                dataSrc: "data",
+                data: function (d) {
+                    // Mapear los parámetros de paginación para Laravel
+                    return {
+                        draw: d.draw,
+                        start: d.start,
+                        length: d.length,
+                        search: d.search.value,
+                        order: d.order,
+                        columns: d.columns,
+                    };
+                },
+                dataSrc: function (json) {
+                    // Mapea el JSON recibido desde Laravel para DataTable
+                    json.recordsTotal = json.recordsTotal;
+                    json.recordsFiltered = json.recordsFiltered;
+                    return json.data; // Regresa solo los datos de los registros
+                },
                 error: function (xhr, error, thrown) {
                     console.error("Error al cargar los datos: ", thrown);
                     console.log("Detalles del error: ", xhr.responseText);

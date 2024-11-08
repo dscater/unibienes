@@ -53,6 +53,7 @@ onMounted(() => {
                             :src="oConfiguracion.url_logo"
                             alt="Logo"
                             class="logo_login"
+                            lazy
                         />
                     </div>
                     <!-- BEGIN login-header -->
@@ -95,6 +96,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Contraseña"
                                     v-model="form.password"
+                                    autocomplete="false"
                                 />
                                 <label
                                     for="name"
@@ -111,13 +113,28 @@ onMounted(() => {
                                     <strong>{{ form.errors.usuario }}</strong>
                                 </span>
                             </div>
-                            <div class="mb-20px">
+                            <div class="mb-15px">
                                 <button
                                     type="submit"
                                     class="btn btn-theme d-block w-100 h-45px btn-lg"
                                 >
                                     Ingresar
                                 </button>
+                            </div>
+                            <div class="mb-15px">
+                                <button
+                                    type="submit"
+                                    class="btn btn-default d-block w-100 h-45px btn-lg"
+                                >
+                                    Registrarse
+                                </button>
+                            </div>
+                            <div class="mb-20px">
+                                <a
+                                    :href="route('portal.index')"
+                                    class="text-white d-block w-100 text-center"
+                                    >Volver al portal</a
+                                >
                             </div>
                         </form>
                     </div>

@@ -531,26 +531,57 @@ const logout = () => {
                         <div class="menu-text">Ventas</div>
                     </Link>
                 </div> -->
-                <div
-                    class="menu-item"
-                >
-                    <Link :href="route('usuarios.index')" class="menu-link">
+                <div class="menu-item">
+                    <Link
+                        :href="route('parametrizacions.index')"
+                        class="menu-link"
+                    >
                         <div class="menu-icon">
                             <i class="fa fa-list"></i>
                         </div>
                         <div class="menu-text">Parametrización</div>
                     </Link>
                 </div>
-                <div
-                    class="menu-item"
-                    :class="[route_current == 'usuarios.index' ? 'active' : '']"
-                >
-                    <Link :href="route('usuarios.index')" class="menu-link">
+                <div class="menu-item has-sub">
+                    <a href="javascript:;" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-users"></i>
                         </div>
-                        <div class="menu-text">Gestión de Usuarios</div>
-                    </Link>
+                        <div class="menu-text">Gestión de usuarios</div>
+                        <div class="menu-caret"></div>
+                    </a>
+                    <div class="menu-submenu">
+                        <div
+                            class="menu-item"
+                            :class="[
+                                route_current == 'usuarios.index'
+                                    ? 'active'
+                                    : '',
+                            ]"
+                        >
+                            <Link
+                                :href="route('usuarios.index')"
+                                class="menu-link"
+                                ><div class="menu-text">Usuarios</div></Link
+                            >
+                        </div>
+                    </div>
+                    <div class="menu-submenu">
+                        <div
+                            class="menu-item"
+                            :class="[
+                                route_current == 'roles.index'
+                                    ? 'active'
+                                    : '',
+                            ]"
+                        >
+                            <Link
+                                :href="route('roles.index')"
+                                class="menu-link"
+                                ><div class="menu-text">Roles</div></Link
+                            >
+                        </div>
+                    </div>
                 </div>
                 <div
                     class="menu-item"

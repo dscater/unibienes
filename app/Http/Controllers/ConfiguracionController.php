@@ -11,9 +11,7 @@ class ConfiguracionController extends Controller
 {
     public $validacion = [
         "razon_social" => "required|min:2",
-        "nombre_sistema" => "required|min:2",
-        "actividad" => "required|min:2",
-        "dir" => "required|min:2",
+        "alias" => "required",
     ];
 
     public $messages = [
@@ -31,13 +29,13 @@ class ConfiguracionController extends Controller
 
     public function index(Request $request)
     {
-        if (!UserController::verificaPermiso("configuracions.index")) {
-            abort(401, "No autorizado");
-        }
+        // if (!UserController::verificaPermiso("configuracions.index")) {
+        //     abort(401, "No autorizado");
+        // }
 
         $configuracion = Configuracion::first();
 
-        return Inertia::render("Configuracions/Index", compact("configuracion"));
+        return Inertia::render("Admin/Configuracions/Index", compact("configuracion"));
     }
 
     public function getConfiguracion()

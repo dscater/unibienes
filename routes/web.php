@@ -2,19 +2,17 @@
 
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\ParametrizacionController;
+use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('inicio');
-    }
-    return Inertia::render('Auth/Login');
-})->name("porta.index");
+Route::get('/', [PortalController::class, 'index'])->name("portal.index");
 
 Route::get('/login', function () {
     if (Auth::check()) {
@@ -54,6 +52,22 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::delete("usuarios/{user}", [UsuarioController::class, 'destroy'])->name("usuarios.destroy");
     Route::resource("usuarios", UsuarioController::class)->only(
         ["index", "store"]
+    );
+
+    // PARAMETRIZACIÓN
+    Route::get("parametrizacions/api", [ParametrizacionController::class, 'api'])->name("parametrizacions.api");
+    Route::get("parametrizacions/paginado", [ParametrizacionController::class, 'paginado'])->name("parametrizacions.paginado");
+    Route::get("parametrizacions/listado", [ParametrizacionController::class, 'listado'])->name("parametrizacions.listado");
+    Route::resource("parametrizacions", ParametrizacionController::class)->only(
+        ["index", "store", "show", "update", "destroy"]
+    );
+
+    // ROLES
+    Route::get("roles/api", [RoleController::class, 'api'])->name("roles.api");
+    Route::get("roles/paginado", [RoleController::class, 'paginado'])->name("roles.paginado");
+    Route::get("roles/listado", [RoleController::class, 'listado'])->name("roles.listado");
+    Route::resource("roles", RoleController::class)->only(
+        ["index", "store", "show", "update", "destroy"]
     );
 
     // REPORTES

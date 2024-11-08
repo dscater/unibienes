@@ -33,9 +33,9 @@ class UserController extends Controller
 
     public static function verificaPermiso($permiso)
     {
-        if (in_array($permiso, self::$permisos[Auth::user()->tipo])) {
-            return true;
-        }
+        // if (in_array($permiso, self::$permisos[Auth::user()->tipo])) {
+        //     return true;
+        // }
         return false;
     }
 

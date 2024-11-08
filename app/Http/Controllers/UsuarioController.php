@@ -33,7 +33,7 @@ class UsuarioController extends Controller
 
     public function index()
     {
-        return Inertia::render("Usuarios/Index");
+        return Inertia::render("Admin/Usuarios/Index");
     }
 
     public function listado()
@@ -66,8 +66,14 @@ class UsuarioController extends Controller
     {
         // Log::debug($request);
         $usuarios = User::with(["role"])->where("id", "!=", 1);
-        $usuarios = $usuarios->get();
-        return response()->JSON(["data" => $usuarios]);
+        $usuarios = $usuarios->paginate(10);
+
+        return response()->JSON([
+            'data' => $usuarios->items(),
+            'recordsTotal' => $usuarios->total(),
+            'recordsFiltered' => $usuarios->total(),
+            'draw' => intval($request->input('draw')),
+        ]);
     }
 
     public function paginado(Request $request)
@@ -84,7 +90,10 @@ class UsuarioController extends Controller
 
         $usuarios = $usuarios->paginate($request->itemsPerPage);
         return response()->JSON([
-            "usuarios" => $usuarios
+            'data' => $usuarios->items(),
+            'recordsTotal' => $usuarios->total(),
+            'recordsFiltered' => $usuarios->total(),
+            'draw' => intval($request->input('draw')),
         ]);
     }
 

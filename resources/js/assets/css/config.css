@@ -1,8 +1,8 @@
 :root {
-    --principal: #004A80;
+    --principal: #00497e;
     --principal_hover: #134869;
-    --principal_transparent: #004A80bd;
-    --secundario: #004A80;
+    --principal_transparent: #004a80bd;
+    --secundario: #004a80;
     --secundario_hover: #9fc4e4;
     --fondo_app: #e8e9eb;
     --correcto: #d2e7c9;
@@ -24,6 +24,21 @@ html {
 .readonly {
     cursor: not-allowed;
     background-color: rgb(228, 228, 228) !important;
+}
+.tabla_datos {
+    position: relative;
+}
+
+.loading_table {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.815);
 }
 
 .mr-1 {
