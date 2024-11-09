@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("role_id");
-            $table->string("modulo");
-            $table->string("seccion");
-            $table->string("ruta");
+            $table->unsignedBigInteger("modulo_id");
             $table->timestamps();
-            
+
             $table->foreign("role_id")->on("roles")->references("id");
+            $table->foreign("modulo_id")->on("modulos")->references("id");
         });
     }
 

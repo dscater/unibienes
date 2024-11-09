@@ -16,7 +16,7 @@ const breadbrums = [
 </script>
 <script setup>
 import { useApp } from "@/composables/useApp";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router } from "@inertiajs/vue3";
 import { useRoles } from "@/composables/roles/useRoles";
 import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -46,18 +46,19 @@ const columns = [
         title: "ACCIONES",
         data: null,
         render: function (data, type, row) {
-            return `
-                <button class="mx-0 rounded-0 btn btn-warning editar" data-id="${
-                    row.id
-                }"><i class="fa fa-edit"></i></button>
-                <button class="mx-0 rounded-0 btn btn-danger eliminar"
+            let buttons = `<button class="mx-0 rounded-0 btn btn-info permisos" data-id="${row.id}" title="Permisos"><i class="fa fa-list-check"></i></button>
+            <button class="mx-0 rounded-0 btn btn-warning editar" data-id="${row.id}"><i class="fa fa-edit"></i></button>`;
+            if (data.id != 1 && data.id != 2) {
+                buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
                  data-id="${row.id}"
                  data-nombre="${row.nombre}"
                  data-url="${route(
                      "roles.destroy",
                      row.id
-                 )}"><i class="fa fa-trash"></i></button>
-            `;
+                 )}"><i class="fa fa-trash"></i></button>`;
+            }
+
+            return buttons;
         },
     },
 ];
@@ -72,6 +73,12 @@ const agregarRegistro = () => {
 };
 
 const accionesRow = () => {
+    // permisos
+    $("#table-role").on("click", "button.permisos", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        router.get(route("roles.edit", id));
+    });
     // editar
     $("#table-role").on("click", "button.editar", function (e) {
         e.preventDefault();

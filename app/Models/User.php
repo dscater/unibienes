@@ -4,10 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Http\Controllers\UserController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function getPermisosAttribute()
     {
-        return UserController::getPermisosUser();
+        return $this->getPermisos();
     }
 
     public function getFechaRegistroTAttribute()
@@ -100,5 +100,26 @@ class User extends Authenticatable
         $nombre_user = substr(mb_strtoupper($nom), 0, 1); //inicial 1er_nombre
         $nombre_user .= mb_strtoupper($apep);
         return $nombre_user;
+    }
+
+
+    public function getPermisos()
+    {
+        $role_id = Auth::user()->role_id;
+        $role = Role::find($role_id);
+        if ($role->permisos == 1) {
+            // todos los permisos de administración
+            return "*";
+        }
+        $permisos = Permiso::join("modulos", "modulos.id", "=", "permisos.modulo_id")
+            ->where("permisos.role_id", $role->id)
+            ->pluck("modulos.nombre");
+
+        return $permisos;
+    }
+
+    public static function verificaPermiso($permiso)
+    {
+        return false;
     }
 }

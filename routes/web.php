@@ -39,7 +39,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get("getUser", [UserController::class, 'getUser'])->name('users.getUser');
-    Route::get("permisos", [UserController::class, 'permisos']);
+    Route::get("permisosUsuario", [UserController::class, 'permisosUsuario']);
 
     // USUARIOS
     Route::put("usuarios/password/{user}", [UsuarioController::class, 'actualizaPassword'])->name("usuarios.password");
@@ -66,8 +66,9 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("roles/api", [RoleController::class, 'api'])->name("roles.api");
     Route::get("roles/paginado", [RoleController::class, 'paginado'])->name("roles.paginado");
     Route::get("roles/listado", [RoleController::class, 'listado'])->name("roles.listado");
+    Route::post("roles/actualizaPermiso/{role}", [RoleController::class, 'actualizaPermiso'])->name("roles.actualizaPermiso");
     Route::resource("roles", RoleController::class)->only(
-        ["index", "store", "show", "update", "destroy"]
+        ["index", "store", "edit", "show", "update", "destroy"]
     );
 
     // REPORTES

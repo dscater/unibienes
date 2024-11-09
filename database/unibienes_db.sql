@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 08-11-2024 a las 21:14:59
+-- Tiempo de generación: 09-11-2024 a las 16:42:39
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -69,7 +69,7 @@ CREATE TABLE `configuracions` (
 --
 
 INSERT INTO `configuracions` (`id`, `razon_social`, `alias`, `logo`, `created_at`, `updated_at`) VALUES
-(1, 'UNIBIENES S.A.', 'UB', '1731083884_1.png', NULL, '2024-11-08 20:38:04');
+(1, 'UNIBIENES S.A.', 'UB', 'logo.png', '2024-11-09 18:47:19', '2024-11-09 18:47:19');
 
 -- --------------------------------------------------------
 
@@ -96,30 +96,8 @@ CREATE TABLE `historial_accions` (
 --
 
 INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
-(1, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 2<br/>nombre: ROLE 2<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:16<br/>updated_at: 2024-11-08 20:48:16<br/>', NULL, 'ROLES', '2024-11-08', '20:48:16', '2024-11-09 00:48:16', '2024-11-09 00:48:16'),
-(2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 3<br/>nombre: ROLE 3<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:37<br/>updated_at: 2024-11-08 20:48:37<br/>', NULL, 'ROLES', '2024-11-08', '20:48:37', '2024-11-09 00:48:37', '2024-11-09 00:48:37'),
-(3, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 4<br/>nombre: 4<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:40<br/>updated_at: 2024-11-08 20:48:40<br/>', NULL, 'ROLES', '2024-11-08', '20:48:40', '2024-11-09 00:48:40', '2024-11-09 00:48:40'),
-(4, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 5<br/>nombre: 5<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:43<br/>updated_at: 2024-11-08 20:48:43<br/>', NULL, 'ROLES', '2024-11-08', '20:48:43', '2024-11-09 00:48:43', '2024-11-09 00:48:43'),
-(5, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 6<br/>nombre: 6<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:46<br/>updated_at: 2024-11-08 20:48:46<br/>', NULL, 'ROLES', '2024-11-08', '20:48:46', '2024-11-09 00:48:46', '2024-11-09 00:48:46'),
-(6, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 7<br/>nombre: 7<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:48<br/>updated_at: 2024-11-08 20:48:48<br/>', NULL, 'ROLES', '2024-11-08', '20:48:48', '2024-11-09 00:48:48', '2024-11-09 00:48:48'),
-(7, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 8<br/>nombre: 8<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:51<br/>updated_at: 2024-11-08 20:48:51<br/>', NULL, 'ROLES', '2024-11-08', '20:48:51', '2024-11-09 00:48:51', '2024-11-09 00:48:51'),
-(8, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 9<br/>nombre: 9<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:54<br/>updated_at: 2024-11-08 20:48:54<br/>', NULL, 'ROLES', '2024-11-08', '20:48:54', '2024-11-09 00:48:54', '2024-11-09 00:48:54'),
-(9, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 10<br/>nombre: 10<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:59<br/>updated_at: 2024-11-08 20:48:59<br/>', NULL, 'ROLES', '2024-11-08', '20:48:59', '2024-11-09 00:48:59', '2024-11-09 00:48:59'),
-(10, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 11<br/>nombre: 11<br/>permisos: 0<br/>created_at: 2024-11-08 20:49:02<br/>updated_at: 2024-11-08 20:49:02<br/>', NULL, 'ROLES', '2024-11-08', '20:49:02', '2024-11-09 00:49:02', '2024-11-09 00:49:02'),
-(11, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 11<br/>nombre: 11<br/>permisos: 0<br/>created_at: 2024-11-08 20:49:02<br/>updated_at: 2024-11-08 20:49:02<br/>', NULL, 'ROLES', '2024-11-08', '21:11:25', '2024-11-09 01:11:25', '2024-11-09 01:11:25'),
-(12, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 10<br/>nombre: 10<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:59<br/>updated_at: 2024-11-08 20:48:59<br/>', NULL, 'ROLES', '2024-11-08', '21:11:32', '2024-11-09 01:11:32', '2024-11-09 01:11:32'),
-(13, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 9<br/>nombre: 9<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:54<br/>updated_at: 2024-11-08 20:48:54<br/>', NULL, 'ROLES', '2024-11-08', '21:11:34', '2024-11-09 01:11:34', '2024-11-09 01:11:34'),
-(14, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 8<br/>nombre: 8<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:51<br/>updated_at: 2024-11-08 20:48:51<br/>', NULL, 'ROLES', '2024-11-08', '21:11:37', '2024-11-09 01:11:37', '2024-11-09 01:11:37'),
-(15, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 7<br/>nombre: 7<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:48<br/>updated_at: 2024-11-08 20:48:48<br/>', NULL, 'ROLES', '2024-11-08', '21:11:39', '2024-11-09 01:11:39', '2024-11-09 01:11:39'),
-(16, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 6<br/>nombre: 6<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:46<br/>updated_at: 2024-11-08 20:48:46<br/>', NULL, 'ROLES', '2024-11-08', '21:11:43', '2024-11-09 01:11:43', '2024-11-09 01:11:43'),
-(17, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 5<br/>nombre: 5<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:43<br/>updated_at: 2024-11-08 20:48:43<br/>', NULL, 'ROLES', '2024-11-08', '21:11:46', '2024-11-09 01:11:46', '2024-11-09 01:11:46'),
-(18, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 4<br/>nombre: 4<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:40<br/>updated_at: 2024-11-08 20:48:40<br/>', NULL, 'ROLES', '2024-11-08', '21:11:49', '2024-11-09 01:11:49', '2024-11-09 01:11:49'),
-(19, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 3<br/>nombre: ROLE 3<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:37<br/>updated_at: 2024-11-08 20:48:37<br/>', NULL, 'ROLES', '2024-11-08', '21:11:52', '2024-11-09 01:11:52', '2024-11-09 01:11:52'),
-(20, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ROLE', 'id: 2<br/>nombre: ROLE 2<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:16<br/>updated_at: 2024-11-08 20:48:16<br/>', 'id: 2<br/>nombre: ROLE 2<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:16<br/>updated_at: 2024-11-08 20:48:16<br/>', 'ROLES', '2024-11-08', '21:12:35', '2024-11-09 01:12:35', '2024-11-09 01:12:35'),
-(21, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ROLE', 'id: 2<br/>nombre: ROLE 2<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:16<br/>updated_at: 2024-11-08 20:48:16<br/>', 'id: 2<br/>nombre: ROLE 2<br/>permisos: 0<br/>created_at: 2024-11-08 20:48:16<br/>updated_at: 2024-11-08 20:48:16<br/>', 'ROLES', '2024-11-08', '21:12:48', '2024-11-09 01:12:48', '2024-11-09 01:12:48'),
-(22, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 12<br/>nombre: SUBASTADOR<br/>permisos: 0<br/>created_at: 2024-11-08 21:12:53<br/>updated_at: 2024-11-08 21:12:53<br/>', NULL, 'ROLES', '2024-11-08', '21:12:53', '2024-11-09 01:12:53', '2024-11-09 01:12:53'),
-(23, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ROLE', 'id: 12<br/>nombre: SUBASTADOR<br/>permisos: 0<br/>created_at: 2024-11-08 21:12:53<br/>updated_at: 2024-11-08 21:12:53<br/>', NULL, 'ROLES', '2024-11-08', '21:12:57', '2024-11-09 01:12:57', '2024-11-09 01:12:57'),
-(24, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 3<br/>nombre: SUBASTADOR<br/>permisos: 0<br/>created_at: 2024-11-08 21:13:10<br/>updated_at: 2024-11-08 21:13:10<br/>', NULL, 'ROLES', '2024-11-08', '21:13:10', '2024-11-09 01:13:10', '2024-11-09 01:13:10');
+(1, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 2<br/>nombre: CLIENTE<br/>permisos: 0<br/>created_at: 2024-11-09 14:49:17<br/>updated_at: 2024-11-09 14:49:17<br/>', NULL, 'ROLES', '2024-11-09', '14:49:17', '2024-11-09 18:49:17', '2024-11-09 18:49:17'),
+(2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 3<br/>nombre: SUBASTADOR<br/>permisos: 0<br/>created_at: 2024-11-09 14:49:25<br/>updated_at: 2024-11-09 14:49:25<br/>', NULL, 'ROLES', '2024-11-09', '14:49:25', '2024-11-09 18:49:25', '2024-11-09 18:49:25');
 
 -- --------------------------------------------------------
 
@@ -138,18 +116,57 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2024_01_31_165641_create_configuracions_table', 1),
-(2, '2024_11_02_153309_create_roles_table', 1),
-(3, '2024_11_02_153315_create_permisos_table', 1),
-(4, '2024_11_02_153315_create_users_table', 1),
-(5, '2024_11_02_153316_create_historial_accions_table', 1),
-(6, '2024_11_02_153653_create_parametrizacions_table', 1),
-(7, '2024_11_02_153834_create_clientes_table', 1),
-(8, '2024_11_02_154016_create_publicacions_table', 1),
-(9, '2024_11_02_154050_create_publicacion_imagens_table', 1),
-(10, '2024_11_02_154054_create_publicacion_detalles_table', 1),
-(11, '2024_11_04_143215_create_subastas_table', 1),
-(12, '2024_11_04_143347_create_subasta_clientes_table', 1);
+(14, '2024_01_31_165641_create_configuracions_table', 1),
+(15, '2024_11_02_153309_create_roles_table', 1),
+(16, '2024_11_02_153315_create_modulos_table', 1),
+(17, '2024_11_02_153316_create_permisos_table', 1),
+(18, '2024_11_02_153317_create_users_table', 1),
+(19, '2024_11_02_153318_create_historial_accions_table', 1),
+(20, '2024_11_02_153653_create_parametrizacions_table', 1),
+(21, '2024_11_02_153834_create_clientes_table', 1),
+(22, '2024_11_02_154016_create_publicacions_table', 1),
+(23, '2024_11_02_154050_create_publicacion_imagens_table', 1),
+(24, '2024_11_02_154054_create_publicacion_detalles_table', 1),
+(25, '2024_11_04_143215_create_subastas_table', 1),
+(26, '2024_11_04_143347_create_subasta_clientes_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulos`
+--
+
+CREATE TABLE `modulos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `modulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `modulos`
+--
+
+INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `created_at`, `updated_at`) VALUES
+(1, 'Parametrización', 'parametrizacion.index', 'VER', 'VER DATOS DE PARAMETRIZACIÓN', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(2, 'Parametrización', 'parametrizacion.edit', 'EDITAR', 'EDITAR DATOS DE PARAMETRIZACIÓN', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(3, 'Gestión de usuarios', 'usuarios.index', 'VER', 'VER LA LISTA DE USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(4, 'Gestión de usuarios', 'usuarios.create', 'CREAR', 'CREAR USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(5, 'Gestión de usuarios', 'usuarios.edit', 'EDITAR', 'EDITAR USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(6, 'Gestión de usuarios', 'usuarios.destroy', 'ELIMINAR', 'ELIMINAR USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(7, 'Roles y Permisos', 'roles.index', 'VER', 'VER LA LISTA DE ROLES Y PERMISOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
+(8, 'Roles y Permisos', 'roles.create', 'CREAR', 'CREAR ROLES Y PERMISOS', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(9, 'Roles y Permisos', 'roles.edit', 'EDITAR', 'EDITAR ROLES Y PERMISOS', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(10, 'Roles y Permisos', 'roles.destroy', 'ELIMINAR', 'ELIMINAR ROLES Y PERMISOS', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(11, 'Configuración', 'configuracions.index', 'VER', 'VER INFORMACIÓN DE LA CONFIGURACIÓN DEL SISTEMA', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(12, 'Configuración', 'configuracions.edit', 'EDITAR', 'EDITAR LA CONFIGURACIÓN DEL SISTEMA', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(13, 'Publicaciones', 'publicacions.index', 'VER', 'VER LA LISTA DE PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(14, 'Publicaciones', 'publicacions.create', 'CREAR', 'CREAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(15, 'Publicaciones', 'publicacions.edit', 'EDITAR', 'EDITAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(16, 'Publicaciones', 'publicacions.destroy', 'ELIMINAR', 'ELIMINAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27');
 
 -- --------------------------------------------------------
 
@@ -178,12 +195,20 @@ CREATE TABLE `parametrizacions` (
 CREATE TABLE `permisos` (
   `id` bigint UNSIGNED NOT NULL,
   `role_id` bigint UNSIGNED NOT NULL,
-  `modulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `seccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ruta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modulo_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `permisos`
+--
+
+INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 13, '2024-11-09 20:42:05', '2024-11-09 20:42:05'),
+(2, 3, 14, '2024-11-09 20:42:06', '2024-11-09 20:42:06'),
+(3, 3, 15, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
+(4, 3, 16, '2024-11-09 20:42:07', '2024-11-09 20:42:07');
 
 -- --------------------------------------------------------
 
@@ -244,7 +269,8 @@ CREATE TABLE `publicacion_imagens` (
 CREATE TABLE `roles` (
   `id` bigint UNSIGNED NOT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `permisos` int NOT NULL,
+  `permisos` int NOT NULL DEFAULT '0',
+  `usuarios` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -253,10 +279,10 @@ CREATE TABLE `roles` (
 -- Volcado de datos para la tabla `roles`
 --
 
-INSERT INTO `roles` (`id`, `nombre`, `permisos`, `created_at`, `updated_at`) VALUES
-(1, 'SUPER USUARIO', 1, NULL, NULL),
-(2, 'ROLE 2', 0, '2024-11-09 00:48:16', '2024-11-09 00:48:16'),
-(3, 'SUBASTADOR', 0, '2024-11-09 01:13:10', '2024-11-09 01:13:10');
+INSERT INTO `roles` (`id`, `nombre`, `permisos`, `usuarios`, `created_at`, `updated_at`) VALUES
+(1, 'SUPER USUARIO', 1, 0, '2024-11-09 18:47:19', '2024-11-09 18:47:19'),
+(2, 'CLIENTE', 0, 0, '2024-11-09 18:49:17', '2024-11-09 18:49:17'),
+(3, 'SUBASTADOR', 0, 1, '2024-11-09 18:49:25', '2024-11-09 18:49:25');
 
 -- --------------------------------------------------------
 
@@ -315,7 +341,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, '2024-11-04', NULL, NULL);
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, '2024-11-09', '2024-11-09 18:47:19', '2024-11-09 18:47:19');
 
 --
 -- Índices para tablas volcadas
@@ -348,6 +374,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `modulos`
+--
+ALTER TABLE `modulos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `parametrizacions`
 --
 ALTER TABLE `parametrizacions`
@@ -358,7 +390,8 @@ ALTER TABLE `parametrizacions`
 --
 ALTER TABLE `permisos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `permisos_role_id_foreign` (`role_id`);
+  ADD KEY `permisos_role_id_foreign` (`role_id`),
+  ADD KEY `permisos_modulo_id_foreign` (`modulo_id`);
 
 --
 -- Indices de la tabla `publicacions`
@@ -429,13 +462,19 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `modulos`
+--
+ALTER TABLE `modulos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `parametrizacions`
@@ -447,7 +486,7 @@ ALTER TABLE `parametrizacions`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacions`
@@ -511,6 +550,7 @@ ALTER TABLE `historial_accions`
 -- Filtros para la tabla `permisos`
 --
 ALTER TABLE `permisos`
+  ADD CONSTRAINT `permisos_modulo_id_foreign` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`),
   ADD CONSTRAINT `permisos_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 
 --

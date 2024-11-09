@@ -11,6 +11,10 @@
     --progress: #4b5563;
 }
 
+.gritter-item-wrapper .gritter-item .gritter-close:before {
+    content: "X" !important;
+}
+
 .bg-principal {
     background-color: var(--principal);
     color: white;
@@ -102,6 +106,10 @@ html {
 
 .app-sidebar .menu .menu-item.active > .menu-link {
     background-color: var(--secundario);
+}
+
+.app-sidebar.bg-dark .menu-item .menu-submenu .menu-item.active .menu-text {
+    color: var(--secundario_hover) !important;
 }
 
 /* #modal-dialog-form .modal-dialog .modal-content{

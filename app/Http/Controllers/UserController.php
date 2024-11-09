@@ -21,28 +21,12 @@ class UserController extends Controller
         "OPERADOR" => [],
     ];
 
-    public static function getPermisosUser()
-    {
-        $array_permisos = self::$permisos;
-        // if ($array_permisos[Auth::user()->tipo]) {
-        //     return $array_permisos[Auth::user()->tipo];
-        // }
-        return [];
-    }
 
 
-    public static function verificaPermiso($permiso)
-    {
-        // if (in_array($permiso, self::$permisos[Auth::user()->tipo])) {
-        //     return true;
-        // }
-        return false;
-    }
-
-    public function permisos(Request $request)
+    public function permisosUsuario(Request $request)
     {
         return response()->JSON([
-            "permisos" => $this->permisos[Auth::user()->tipo]
+            "permisos" => Auth::user()->getPermisos()
         ]);
     }
 

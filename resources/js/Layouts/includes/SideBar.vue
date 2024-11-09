@@ -531,7 +531,18 @@ const logout = () => {
                         <div class="menu-text">Ventas</div>
                     </Link>
                 </div> -->
-                <div class="menu-item">
+                <div
+                    v-if="
+                        user_logeado.permisos == '*' ||
+                        user_logeado.permisos.includes('parametrizacions.index')
+                    "
+                    class="menu-item"
+                    :class="[
+                        route_current == 'parametrizacions.index'
+                            ? 'active'
+                            : '',
+                    ]"
+                >
                     <Link
                         :href="route('parametrizacions.index')"
                         class="menu-link"
@@ -542,7 +553,20 @@ const logout = () => {
                         <div class="menu-text">Parametrización</div>
                     </Link>
                 </div>
-                <div class="menu-item has-sub">
+                <div
+                    v-if="
+                        user_logeado.permisos == '*' ||
+                        user_logeado.permisos.includes('usuarios.index') ||
+                        user_logeado.permisos.includes('roles.index')
+                    "
+                    class="menu-item has-sub"
+                    :class="[
+                        route_current == 'usuarios.index' ||
+                        route_current == 'roles.index'
+                            ? 'expand active'
+                            : '',
+                    ]"
+                >
                     <a href="javascript:;" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-users"></i>
@@ -550,13 +574,26 @@ const logout = () => {
                         <div class="menu-text">Gestión de usuarios</div>
                         <div class="menu-caret"></div>
                     </a>
-                    <div class="menu-submenu">
+                    <div
+                        class="menu-submenu"
+                        :style="{
+                            display:
+                                route_current == 'usuarios.index' ||
+                                route_current == 'roles.index'
+                                    ? 'block'
+                                    : 'none',
+                        }"
+                    >
                         <div
+                            v-if="
+                                user_logeado.permisos == '*' ||
+                                user_logeado.permisos.includes('usuarios.index')
+                            "
                             class="menu-item"
                             :class="[
                                 route_current == 'usuarios.index'
                                     ? 'active'
-                                    : '',
+                                    : 'none',
                             ]"
                         >
                             <Link
@@ -565,25 +602,27 @@ const logout = () => {
                                 ><div class="menu-text">Usuarios</div></Link
                             >
                         </div>
-                    </div>
-                    <div class="menu-submenu">
                         <div
+                            v-if="
+                                user_logeado.permisos == '*' ||
+                                user_logeado.permisos.includes('roles.index')
+                            "
                             class="menu-item"
                             :class="[
-                                route_current == 'roles.index'
-                                    ? 'active'
-                                    : '',
+                                route_current == 'roles.index' ? 'active' : '',
                             ]"
                         >
-                            <Link
-                                :href="route('roles.index')"
-                                class="menu-link"
+                            <Link :href="route('roles.index')" class="menu-link"
                                 ><div class="menu-text">Roles</div></Link
                             >
                         </div>
                     </div>
                 </div>
                 <div
+                    v-if="
+                        user_logeado.permisos == '*' ||
+                        user_logeado.permisos.includes('configuracions.index')
+                    "
                     class="menu-item"
                     :class="[
                         route_current == 'configuracions.index' ? 'active' : '',
