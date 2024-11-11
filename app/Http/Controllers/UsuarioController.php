@@ -29,6 +29,8 @@ class UsuarioController extends Controller
         "apellidos.required" => "Este campo es obligatorio",
         "apellidos.min" => "Debes ingresar al menos :min caracteres",
         "role_id.required" => "Este campo es obligatorio",
+        "usuario.required" => "Este campo es obligatorio",
+        "password.required" => "Este campo es obligatorio",
     ];
 
     public function index()
@@ -99,47 +101,24 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        $this->validacion['ci'] = 'required|min:4|numeric|unique:users,ci';
-        if ($request->hasFile('foto')) {
-            $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png|max:4096';
-        }
-
-        if ($request->tipo != 'ADMINISTRADOR') {
-            $this->validacion['sucursal_id'] = 'required';
-        } else {
-            unset($request["sucursal_id"]);
-        }
+        $this->validacion['usuario'] = 'required|min:4|unique:users,usuario';
+        $this->validacion['password'] = 'required|min:4';
         $request->validate($this->validacion, $this->mensajes);
-
         DB::beginTransaction();
         try {
-            $cont = 0;
-            do {
-                $nombre_usuario = User::getNombreUsuario($request->nombre, $request->paterno);
-                if ($cont > 0) {
-                    $nombre_usuario = $nombre_usuario . $cont;
-                }
-                $request['usuario'] = $nombre_usuario;
-                $cont++;
-            } while (User::where('usuario', $nombre_usuario)->get()->first());
-
-            $request['password'] = 'NoNulo';
             $request['fecha_registro'] = date('Y-m-d');
 
             // crear el Usuario
-            $nuevo_usuario = User::create(array_map('mb_strtoupper', $request->except('foto')));
-            if ($request->tipo == 'ADMINISTRADOR') {
-                $nuevo_usuario->sucursal_id = null;
-            }
-
-            $nuevo_usuario->password = Hash::make($request->ci);
-            $nuevo_usuario->save();
-            if ($request->hasFile('foto')) {
-                $file = $request->foto;
-                $nom_foto = time() . '_' . $nuevo_usuario->usuario . '.' . $file->getClientOriginalExtension();
-                $nuevo_usuario->foto = $nom_foto;
-                $file->move(public_path() . '/imgs/users/', $nom_foto);
-            }
+            $nuevo_usuario = User::create([
+                "usuario" => mb_strtoupper($request->usuario),
+                "nombres" => mb_strtoupper($request->nombres),
+                "apellidos" => mb_strtoupper($request->apellidos),
+                "password" => "123456",
+                "role_id" => $request->role_id,
+                "acceso" => $request->acceso,
+                "fecha_registro" => $request->fecha_registro,
+            ]);
+            $nuevo_usuario->password = Hash::make($request->password);
             $nuevo_usuario->save();
 
             $datos_original = HistorialAccion::getDetalleRegistro($nuevo_usuario, "users");
@@ -180,30 +159,25 @@ class UsuarioController extends Controller
 
     public function update(User $user, Request $request)
     {
-        $this->validacion['ci'] = 'required|min:4|numeric|unique:users,ci,' . $user->id;
-        if ($request->hasFile('foto')) {
-            $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png|max:4096';
-        }
-        if ($request->tipo != 'ADMINISTRADOR') {
-            $this->validacion['sucursal_id'] = 'required';
+        $this->validacion['usuario'] = 'required|min:4|unique:users,usuario,' . $user->id;
+        if ($request->password && trim($request->password)) {
+            $this->validacion['password'] = 'required|min:4';
+        } else {
+            unset($request["password"]);
         }
         $request->validate($this->validacion, $this->mensajes);
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($user, "users");
-            $user->update(array_map('mb_strtoupper', $request->except('foto')));
-            if ($request->tipo == 'ADMINISTRADOR') {
-                $user->sucursal_id = null;
-            }
-            if ($request->hasFile('foto')) {
-                $antiguo = $user->foto;
-                if ($antiguo != 'default.png') {
-                    \File::delete(public_path() . '/imgs/users/' . $antiguo);
-                }
-                $file = $request->foto;
-                $nom_foto = time() . '_' . $user->usuario . '.' . $file->getClientOriginalExtension();
-                $user->foto = $nom_foto;
-                $file->move(public_path() . '/imgs/users/', $nom_foto);
+            $user->update([
+                "usuario" => mb_strtoupper($request->usuario),
+                "nombres" => mb_strtoupper($request->nombres),
+                "apellidos" => mb_strtoupper($request->apellidos),
+                "role_id" => $request->role_id,
+                "acceso" => $request->acceso,
+            ]);
+            if ($request->password && trim($request->password)) {
+                $user->password = Hash::make($request->password);
             }
             $user->save();
 
@@ -272,12 +246,12 @@ class UsuarioController extends Controller
     {
         DB::beginTransaction();
         try {
-            $usos = Venta::where("user_id", $user->id)->get();
-            if (count($usos) > 0) {
-                throw ValidationException::withMessages([
-                    'error' =>  "No es posible eliminar este registro porque esta siendo utilizado por otros registros",
-                ]);
-            }
+            // $usos = Venta::where("user_id", $user->id)->get();
+            // if (count($usos) > 0) {
+            //     throw ValidationException::withMessages([
+            //         'error' =>  "No es posible eliminar este registro porque esta siendo utilizado por otros registros",
+            //     ]);
+            // }
 
             $antiguo = $user->foto;
             if ($antiguo != 'default.png') {

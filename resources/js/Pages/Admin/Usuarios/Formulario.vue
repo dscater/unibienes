@@ -46,20 +46,18 @@ watch(
 
 const { flash } = usePage().props;
 
-const listTipos = ["ADMINISTRADOR", "SUPERVISOR DE SUCURSAL", "OPERADOR"];
-const listExpedido = [
-    { value: "LP", label: "La Paz" },
-    { value: "CB", label: "Cochabamba" },
-    { value: "SC", label: "Santa Cruz" },
-    { value: "CH", label: "Chuquisaca" },
-    { value: "OR", label: "Oruro" },
-    { value: "PT", label: "Potosi" },
-    { value: "TJ", label: "Tarija" },
-    { value: "PD", label: "Pando" },
-    { value: "BN", label: "Beni" },
-];
-const listSucursals = ref([]);
-
+const listRoles = ref([]);
+// const listExpedido = [
+//     { value: "LP", label: "La Paz" },
+//     { value: "CB", label: "Cochabamba" },
+//     { value: "SC", label: "Santa Cruz" },
+//     { value: "CH", label: "Chuquisaca" },
+//     { value: "OR", label: "Oruro" },
+//     { value: "PT", label: "Potosi" },
+//     { value: "TJ", label: "Tarija" },
+//     { value: "PD", label: "Pando" },
+//     { value: "BN", label: "Beni" },
+// ];
 const foto = ref(null);
 
 function cargaArchivo(e, key) {
@@ -137,11 +135,13 @@ const cerrarDialog = () => {
 };
 
 const cargarListas = () => {
-    cargarSucursals();
+    cargarRoles();
 };
 
-const cargarSucursals = async () => {
-    listSucursals.value = [];
+const cargarRoles = async () => {
+    axios.get(route("roles.listado")).then((response) => {
+        listRoles.value = response.data.roles;
+    });
 };
 
 onMounted(() => {
@@ -180,16 +180,16 @@ onMounted(() => {
                                     type="text"
                                     class="form-control"
                                     :class="{
-                                        'parsley-error': form.errors?.nombre,
+                                        'parsley-error': form.errors?.nombres,
                                     }"
-                                    v-model="form.nombre"
+                                    v-model="form.nombres"
                                 />
                                 <ul
-                                    v-if="form.errors?.nombre"
+                                    v-if="form.errors?.nombres"
                                     class="parsley-errors-list filled"
                                 >
                                     <li class="parsley-required">
-                                        {{ form.errors?.nombre }}
+                                        {{ form.errors?.nombres }}
                                     </li>
                                 </ul>
                             </div>
@@ -199,144 +199,57 @@ onMounted(() => {
                                     type="text"
                                     class="form-control"
                                     :class="{
-                                        'parsley-error': form.errors?.paterno,
+                                        'parsley-error': form.errors?.apellidos,
                                     }"
-                                    v-model="form.paterno"
+                                    v-model="form.apellidos"
                                 />
 
                                 <ul
-                                    v-if="form.errors?.paterno"
+                                    v-if="form.errors?.apellidos"
                                     class="parsley-errors-list filled"
                                 >
                                     <li class="parsley-required">
-                                        {{ form.errors?.paterno }}
+                                        {{ form.errors?.apellidos }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-4 mt-2">
-                                <label>Ap. Materno</label>
+                                <label>Usuario*</label>
                                 <input
                                     type="text"
                                     class="form-control"
                                     :class="{
-                                        'parsley-error': form.errors?.materno,
+                                        'parsley-error': form.errors?.usuario,
                                     }"
-                                    v-model="form.materno"
+                                    v-model="form.usuario"
                                 />
 
                                 <ul
-                                    v-if="form.errors?.materno"
+                                    v-if="form.errors?.usuario"
                                     class="parsley-errors-list filled"
                                 >
                                     <li class="parsley-required">
-                                        {{ form.errors?.materno }}
+                                        {{ form.errors?.usuario }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-4 mt-2">
-                                <label>Cédula de Identidad*</label>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    :class="{
-                                        'parsley-error': form.errors?.ci,
-                                    }"
-                                    v-model="form.ci"
-                                />
-
-                                <ul
-                                    v-if="form.errors?.ci"
-                                    class="parsley-errors-list filled"
-                                >
-                                    <li class="parsley-required">
-                                        {{ form.errors?.ci }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <label>Extensión C.I.*</label>
-                                <select
-                                    class="form-select"
-                                    :class="{
-                                        'parsley-error': form.errors?.ci_exp,
-                                    }"
-                                    v-model="form.ci_exp"
-                                >
-                                    <option value="">- Seleccione -</option>
-                                    <option
-                                        v-for="item in listExpedido"
-                                        :value="item.value"
-                                    >
-                                        {{ item.label }}
-                                    </option>
-                                </select>
-
-                                <ul
-                                    v-if="form.errors?.ci_exp"
-                                    class="parsley-errors-list filled"
-                                >
-                                    <li class="parsley-required">
-                                        {{ form.errors?.ci_exp }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <label>Dirección*</label>
+                                <label>Contraseña*</label>
                                 <input
                                     type="text"
                                     class="form-control"
                                     :class="{
-                                        'parsley-error': form.errors?.dir,
+                                        'parsley-error': form.errors?.password,
                                     }"
-                                    v-model="form.dir"
+                                    v-model="form.password"
                                 />
 
                                 <ul
-                                    v-if="form.errors?.dir"
+                                    v-if="form.errors?.password"
                                     class="parsley-errors-list filled"
                                 >
                                     <li class="parsley-required">
-                                        {{ form.errors?.dir }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <label>Email</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    :class="{
-                                        'parsley-error': form.errors?.email,
-                                    }"
-                                    v-model="form.email"
-                                />
-
-                                <ul
-                                    v-if="form.errors?.email"
-                                    class="parsley-errors-list filled"
-                                >
-                                    <li class="parsley-required">
-                                        {{ form.errors?.email }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <label>Teléfono/Celular*</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    :class="{
-                                        'parsley-error': form.errors?.fono,
-                                    }"
-                                    v-model="form.fono"
-                                />
-
-                                <ul
-                                    v-if="form.errors?.fono"
-                                    class="parsley-errors-list filled"
-                                >
-                                    <li class="parsley-required">
-                                        {{ form.errors?.fono }}
+                                        {{ form.errors?.password }}
                                     </li>
                                 </ul>
                             </div>
@@ -345,47 +258,13 @@ onMounted(() => {
                                 <select
                                     class="form-select"
                                     :class="{
-                                        'parsley-error': form.errors?.tipo,
+                                        'parsley-error': form.errors?.role_id,
                                     }"
-                                    v-model="form.tipo"
+                                    v-model="form.role_id"
                                 >
                                     <option value="">- Seleccione -</option>
                                     <option
-                                        v-for="item in listTipos"
-                                        :value="item"
-                                    >
-                                        {{ item }}
-                                    </option>
-                                </select>
-
-                                <ul
-                                    v-if="form.errors?.tipo"
-                                    class="parsley-errors-list filled"
-                                >
-                                    <li class="parsley-required">
-                                        {{ form.errors?.tipo }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div
-                                class="col-md-4 mt-2"
-                                v-show="
-                                    form.tipo == 'SUPERVISOR DE SUCURSAL' ||
-                                    form.tipo == 'OPERADOR'
-                                "
-                            >
-                                <label>Seleccionar Sucursal*</label>
-                                <select
-                                    class="form-select"
-                                    :class="{
-                                        'parsley-error':
-                                            form.errors?.sucursal_id,
-                                    }"
-                                    v-model="form.sucursal_id"
-                                >
-                                    <option value="">- Seleccione -</option>
-                                    <option
-                                        v-for="item in listSucursals"
+                                        v-for="item in listRoles"
                                         :value="item.id"
                                     >
                                         {{ item.nombre }}
@@ -393,15 +272,15 @@ onMounted(() => {
                                 </select>
 
                                 <ul
-                                    v-if="form.errors?.sucursal_id"
+                                    v-if="form.errors?.role_id"
                                     class="parsley-errors-list filled"
                                 >
                                     <li class="parsley-required">
-                                        {{ form.errors?.sucursal_id }}
+                                        {{ form.errors?.role_id }}
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-md-4 mt-2">
+                            <!-- <div class="col-md-4 mt-2">
                                 <label>Foto</label>
                                 <input
                                     type="file"
@@ -421,7 +300,7 @@ onMounted(() => {
                                         {{ form.errors?.foto }}
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <div class="col-md-4 mt-2">
                                 <label for="flexSwitchCheckChecked"
                                     >Acceso*</label

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 09-11-2024 a las 16:42:39
+-- Tiempo de generación: 11-11-2024 a las 19:00:10
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -97,7 +97,16 @@ CREATE TABLE `historial_accions` (
 
 INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
 (1, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 2<br/>nombre: CLIENTE<br/>permisos: 0<br/>created_at: 2024-11-09 14:49:17<br/>updated_at: 2024-11-09 14:49:17<br/>', NULL, 'ROLES', '2024-11-09', '14:49:17', '2024-11-09 18:49:17', '2024-11-09 18:49:17'),
-(2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 3<br/>nombre: SUBASTADOR<br/>permisos: 0<br/>created_at: 2024-11-09 14:49:25<br/>updated_at: 2024-11-09 14:49:25<br/>', NULL, 'ROLES', '2024-11-09', '14:49:25', '2024-11-09 18:49:25', '2024-11-09 18:49:25');
+(2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 3<br/>nombre: SUBASTADOR<br/>permisos: 0<br/>created_at: 2024-11-09 14:49:25<br/>updated_at: 2024-11-09 14:49:25<br/>', NULL, 'ROLES', '2024-11-09', '14:49:25', '2024-11-09 18:49:25', '2024-11-09 18:49:25'),
+(3, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 2<br/>usuario: <br/>nombres: JUAN<br/>apellidos: PERES<br/>password: $2y$12$YxC5k7RWd3YQ5YJDQpLIqObcSLUq9dFp4F06lUCP6jNLlQHnFFoWG<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:52:30<br/>updated_at: 2024-11-11 18:52:30<br/>', NULL, 'USUARIOS', '2024-11-11', '18:52:30', '2024-11-11 22:52:30', '2024-11-11 22:52:30'),
+(4, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:53:46<br/>', NULL, 'USUARIOS', '2024-11-11', '18:53:46', '2024-11-11 22:53:46', '2024-11-11 22:53:46'),
+(5, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:53:46<br/>', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:53:46<br/>', 'USUARIOS', '2024-11-11', '18:57:41', '2024-11-11 22:57:41', '2024-11-11 22:57:41'),
+(6, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:53:46<br/>', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 0<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:57:46<br/>', 'USUARIOS', '2024-11-11', '18:57:46', '2024-11-11 22:57:46', '2024-11-11 22:57:46'),
+(7, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 0<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:57:46<br/>', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:57:49<br/>', 'USUARIOS', '2024-11-11', '18:57:49', '2024-11-11 22:57:49', '2024-11-11 22:57:49'),
+(8, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 3<br/>usuario: MCORTEZ<br/>nombres: MARIA<br/>apellidos: CORTEZ<br/>password: $2y$12$PrR22gifVFrrbSlFA7llQO/fHMXd44rsRNmnXHSw3l3HXlgpuhOxy<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:58:08<br/>updated_at: 2024-11-11 18:58:08<br/>', NULL, 'USUARIOS', '2024-11-11', '18:58:08', '2024-11-11 22:58:08', '2024-11-11 22:58:08'),
+(9, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$LnOBPoS4tX9dOqqNCGBqxe.8ARCSLww1RORqJIbD17cmiBA8pndpq<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:57:49<br/>', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$WZgVRPmi0Kk2Oaayiyx2iuJ6N/903xLpnDAWle/AgR0oAXQaiSSAa<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:58:47<br/>', 'USUARIOS', '2024-11-11', '18:58:47', '2024-11-11 22:58:47', '2024-11-11 22:58:47'),
+(10, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$WZgVRPmi0Kk2Oaayiyx2iuJ6N/903xLpnDAWle/AgR0oAXQaiSSAa<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:58:47<br/>', 'id: 2<br/>usuario: JPERES<br/>nombres: JUAN<br/>apellidos: PERES MAMANI<br/>password: $2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:53:46<br/>updated_at: 2024-11-11 18:59:01<br/>', 'USUARIOS', '2024-11-11', '18:59:01', '2024-11-11 22:59:01', '2024-11-11 22:59:01'),
+(11, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN USUARIO', 'id: 3<br/>usuario: MCORTEZ<br/>nombres: MARIA<br/>apellidos: CORTEZ<br/>password: $2y$12$PrR22gifVFrrbSlFA7llQO/fHMXd44rsRNmnXHSw3l3HXlgpuhOxy<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-11<br/>created_at: 2024-11-11 18:58:08<br/>updated_at: 2024-11-11 18:58:08<br/>', NULL, 'USUARIOS', '2024-11-11', '18:59:56', '2024-11-11 22:59:56', '2024-11-11 22:59:56');
 
 -- --------------------------------------------------------
 
@@ -331,6 +340,7 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role_id` bigint UNSIGNED DEFAULT NULL,
   `acceso` int NOT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_registro` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -340,8 +350,9 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, '2024-11-09', '2024-11-09 18:47:19', '2024-11-09 18:47:19');
+INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-09 18:47:19', '2024-11-09 18:47:19'),
+(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', '2024-11-11 22:53:46', '2024-11-11 22:59:01');
 
 --
 -- Índices para tablas volcadas
@@ -462,7 +473,7 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -528,7 +539,7 @@ ALTER TABLE `subasta_clientes`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

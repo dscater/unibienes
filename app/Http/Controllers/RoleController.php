@@ -32,9 +32,9 @@ class RoleController extends Controller
 
     public function listado()
     {
-        $usuarios = Role::select("roles.*")->get();
+        $roles = Role::select("roles.*")->where("usuarios", 1)->get();
         return response()->JSON([
-            "usuarios" => $usuarios
+            "roles" => $roles
         ]);
     }
 

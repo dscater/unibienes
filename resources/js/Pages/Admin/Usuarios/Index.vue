@@ -43,6 +43,7 @@ const columns = [
     {
         title: "",
         data: "url_foto",
+        sortable: false,
         render: function (data, type, row) {
             return `<img src="${data}" class="rounded h-30px my-n1 mx-n1"/>`;
         },
@@ -62,6 +63,7 @@ const columns = [
     {
         title: "ACCESO",
         data: "acceso",
+        sortable: false,
         render: function (data, type, row) {
             if (data == 1) {
                 return `<span class="badge bg-success">HABILITADO</span>`;
@@ -82,8 +84,8 @@ const columns = [
                     row.id
                 }"><i class="fa fa-edit"></i></button>
                 <button class="mx-0 rounded-0 btn btn-danger eliminar"
-                 data-id="${row.id}" 
-                 data-nombre="${row.full_name}" 
+                 data-id="${row.id}"
+                 data-nombre="${row.full_name}"
                  data-url="${route(
                      "usuarios.destroy",
                      row.id
@@ -232,7 +234,17 @@ onBeforeUnmount(() => {
                         width="100%"
                         class="table table-striped table-bordered align-middle text-nowrap tabla_datos"
                     >
-                        <thead></thead>
+                        <thead>
+                            <tr>
+                                <th width="2%"></th>
+                                <th width="2%"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
                         <div class="loading_table" v-show="loading_table">
                             Cargando...
                         </div>

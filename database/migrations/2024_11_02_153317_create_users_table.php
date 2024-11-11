@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger("role_id")->nullable();
             $table->integer("acceso");
+            $table->string("foto", 255)->nullable();
             $table->date("fecha_registro");
             $table->timestamps();
 
             $table->foreign("role_id")->on("roles")->references("id");
-
         });
     }
 
