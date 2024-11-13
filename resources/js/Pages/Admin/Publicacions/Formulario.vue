@@ -254,7 +254,7 @@ onMounted(() => {});
                                             form.errors?.oferta_inicial,
                                     }"
                                     v-model="form.oferta_inicial"
-                                    step="1"
+                                    step="0.01"
                                 />
                                 <ul
                                     v-if="form.errors?.oferta_inicial"
@@ -364,7 +364,7 @@ onMounted(() => {});
                                             form.errors?.monto_garantia,
                                     }"
                                     v-model="form.monto_garantia"
-                                    step="1"
+                                    step="0.01"
                                 />
                                 <ul
                                     v-if="form.errors?.monto_garantia"

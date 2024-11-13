@@ -86,8 +86,7 @@ const columns = [
                 props_page.auth?.user.permisos == "*" ||
                 props_page.auth?.user.permisos.includes("publicacions.edit")
             ) {
-                buttons += `<button class="mx-0 rounded-0 btn btn-info permisos" data-id="${row.id}" title="Permisos"><i class="fa fa-list-check"></i></button>
-<button class="mx-0 rounded-0 btn btn-warning editar" data-id="${row.id}"><i class="fa fa-edit"></i></button>`;
+                buttons += `<button class="mx-0 rounded-0 btn btn-warning editar" data-id="${row.id}"><i class="fa fa-edit"></i></button>`;
             }
 
             if (

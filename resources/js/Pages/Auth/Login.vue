@@ -78,7 +78,7 @@ onMounted(() => {
                                     type="text"
                                     name="usuario"
                                     class="form-control fs-13px h-45px border-0"
-                                    placeholder="Usuario"
+                                    placeholder="Usuario/Correo"
                                     id="name"
                                     v-model="form.usuario"
                                     autofocus
@@ -86,7 +86,7 @@ onMounted(() => {
                                 <label
                                     for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Usuario</label
+                                    >Usuario/Correo</label
                                 >
                             </div>
                             <div class="form-floating mb-20px">
@@ -122,12 +122,12 @@ onMounted(() => {
                                 </button>
                             </div>
                             <div class="mb-15px">
-                                <button
-                                    type="submit"
+                                <Link
+                                    :href="route('registro')"
                                     class="btn btn-default d-block w-100 h-45px btn-lg"
                                 >
                                     Registrarse
-                                </button>
+                                </Link>
                             </div>
                             <div class="mb-20px">
                                 <a

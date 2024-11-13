@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ParametrizacionController;
@@ -21,6 +22,14 @@ Route::get('/login', function () {
     }
     return Inertia::render('Auth/Login');
 })->name("login");
+
+Route::post('/registro/validaForm1', [RegisteredUserController::class, 'validaForm1'])->name("registro.validaForm1");
+Route::get('/registro', function () {
+    if (Auth::check()) {
+        return redirect()->route('inicio');
+    }
+    return Inertia::render('Auth/Register');
+})->name("registro");
 
 Route::get("configuracions/getConfiguracion", [ConfiguracionController::class, 'getConfiguracion'])->name("configuracions.getConfiguracion");
 

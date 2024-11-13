@@ -39,9 +39,11 @@ class PublicacionController extends Controller
         "monto_garantia.numeric" => "Debes ingresar un valor númerico",
         "monto_garantia.min" => "Debes ingresar al menos :min",
         "publicacion_detalles.required" => "Este campo es obligatorio",
+        "publicacion_detalles.min" => "Debes agregar al menos :min caracteristicas",
         "publicacion_detalles.*.required" => "Este campo es obligatorio",
         "publicacion_detalles.*.min" => "Debes ingresar al menos :min caracteres",
         "publicacion_imagens.required" => "Este campo es obligatorio",
+        "publicacion_imagens.min" => "Debes ingresar al menos :min imagenes",
     ];
 
     public function index()

@@ -19,6 +19,9 @@
     background-color: var(--principal);
     color: white;
 }
+.text-white {
+    color: white!important;
+}
 
 html {
     overflow-y: scroll;
