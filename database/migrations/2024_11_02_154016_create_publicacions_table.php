@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("ubicacion");
             $table->string("observaciones")->nullable();
             $table->date("fecha_limite");
-            $table->date("hora_limite");
+            $table->time("hora_limite");
             $table->decimal("monto_garantia", 24, 2);
             $table->timestamps();
 

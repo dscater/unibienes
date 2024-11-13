@@ -16,7 +16,7 @@ const breadbrums = [
 </script>
 <script setup>
 import { useApp } from "@/composables/useApp";
-import { Head, Link, router } from "@inertiajs/vue3";
+import { Head, Link, router, usePage } from "@inertiajs/vue3";
 import { useRoles } from "@/composables/roles/useRoles";
 import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -24,6 +24,7 @@ import PanelToolbar from "@/Components/PanelToolbar.vue";
 // import { useMenu } from "@/composables/useMenu";
 import Formulario from "./Formulario.vue";
 // const { mobile, identificaDispositivo } = useMenu();
+const { props: props_page } = usePage();
 const { setLoading } = useApp();
 onMounted(() => {
     setTimeout(() => {
@@ -46,16 +47,29 @@ const columns = [
         title: "ACCIONES",
         data: null,
         render: function (data, type, row) {
-            let buttons = `<button class="mx-0 rounded-0 btn btn-info permisos" data-id="${row.id}" title="Permisos"><i class="fa fa-list-check"></i></button>
+            let buttons = ``;
+
+            if (
+                props_page.auth?.user.permisos == "*" ||
+                props_page.auth?.user.permisos.includes("roles.edit")
+            ) {
+                buttons += `<button class="mx-0 rounded-0 btn btn-info permisos" data-id="${row.id}" title="Permisos"><i class="fa fa-list-check"></i></button>
             <button class="mx-0 rounded-0 btn btn-warning editar" data-id="${row.id}"><i class="fa fa-edit"></i></button>`;
+            }
+
             if (data.id != 1 && data.id != 2) {
-                buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
+                if (
+                    props_page.auth?.user.permisos == "*" ||
+                    props_page.auth?.user.permisos.includes("roles.destroy")
+                ) {
+                    buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
                  data-id="${row.id}"
                  data-nombre="${row.nombre}"
                  data-url="${route(
                      "roles.destroy",
                      row.id
                  )}"><i class="fa fa-trash"></i></button>`;
+                }
             }
 
             return buttons;
@@ -170,6 +184,12 @@ onBeforeUnmount(() => {
                 <div class="panel-heading">
                     <h4 class="panel-title btn-nuevo">
                         <button
+                            v-if="
+                                props_page.auth?.user.permisos == '*' ||
+                                props_page.auth?.user.permisos.includes(
+                                    'roles.create'
+                                )
+                            "
                             type="button"
                             class="btn btn-primary"
                             @click="agregarRegistro"

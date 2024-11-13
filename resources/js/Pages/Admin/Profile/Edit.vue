@@ -133,12 +133,14 @@ const enviaFormulario = () => {
                             <div class="info_foto">
                                 <img class="image" :src="user.url_foto" />
                                 <br />
-                                <h4 class="mt-1 mb-3">{{ user.tipo }}</h4>
+                                <h4 class="mt-1 mb-3">
+                                    {{ user.role?.nombre }}
+                                </h4>
                                 <label
                                     v-if="!imagen_cargada"
                                     class="btn_principal"
                                     for="file_foto"
-                                    ><b>Cambiar foto</b
+                                    ><b>Cambiar fotoss</b
                                     ><input
                                         type="file"
                                         id="file_foto"

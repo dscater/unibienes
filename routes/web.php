@@ -5,6 +5,7 @@ use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ParametrizacionController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -69,6 +70,15 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::post("roles/actualizaPermiso/{role}", [RoleController::class, 'actualizaPermiso'])->name("roles.actualizaPermiso");
     Route::resource("roles", RoleController::class)->only(
         ["index", "store", "edit", "show", "update", "destroy"]
+    );
+
+    // PUBLICACIONES
+    Route::get("publicacions/api", [PublicacionController::class, 'api'])->name("publicacions.api");
+    Route::get("publicacions/paginado", [PublicacionController::class, 'paginado'])->name("publicacions.paginado");
+    Route::get("publicacions/listado", [PublicacionController::class, 'listado'])->name("publicacions.listado");
+    Route::post("publicacions/actualizaPermiso/{role}", [PublicacionController::class, 'actualizaPermiso'])->name("publicacions.actualizaPermiso");
+    Route::resource("publicacions", PublicacionController::class)->only(
+        ["index", "store", "show", "update", "destroy"]
     );
 
     // REPORTES

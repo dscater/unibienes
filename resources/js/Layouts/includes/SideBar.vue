@@ -519,18 +519,23 @@ const logout = () => {
                         <div class="menu-text">Inicio</div>
                     </Link>
                 </div>
-                <!-- <div
-                    v-if="user_logeado.permisos.includes('subastas.index')"
+                <div
+                    v-if="
+                        user_logeado.permisos == '*' ||
+                        user_logeado.permisos.includes('publicacions.index')
+                    "
                     class="menu-item"
-                    :class="[route_current == 'subastas.index' ? 'active' : '']"
+                    :class="[
+                        route_current == 'publicacions.index' ? 'active' : '',
+                    ]"
                 >
-                    <Link :href="route('subastas.index')" class="menu-link">
+                    <Link :href="route('publicacions.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-list"></i>
                         </div>
-                        <div class="menu-text">Ventas</div>
+                        <div class="menu-text">Publicaciones</div>
                     </Link>
-                </div> -->
+                </div>
                 <div
                     v-if="
                         user_logeado.permisos == '*' ||
