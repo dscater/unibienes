@@ -20,9 +20,13 @@
     color: white;
 }
 .text-white {
-    color: white!important;
+    color: white !important;
 }
 
+.header .navbar-toggle .icon-bar{
+    background-color: white !important;
+
+}
 html {
     overflow-y: scroll;
     overflow-y: overlay;
@@ -34,6 +38,22 @@ html {
 }
 .tabla_datos {
     position: relative;
+}
+
+.nav.text-white {
+    background-color: var(--principal);
+}
+.nav.text-white li a {
+    color: white !important;
+}
+
+.nav.text-white li.active a {
+    font-weight: bold;
+    color: rgb(212, 228, 183) !important;
+}
+
+.nav.text-white li.dropdown .dropdown-menu {
+    background-color: var(--principal);
 }
 
 .loading_table {

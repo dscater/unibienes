@@ -19,6 +19,7 @@ class Publicacion extends Model
         "fecha_limite",
         "hora_limite",
         "monto_garantia",
+        "estado_sub",
     ];
 
     protected $appends = ["fecha_hora_limite", "fecha_limite_t", "hora_limite_t"];

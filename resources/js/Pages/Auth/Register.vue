@@ -736,7 +736,7 @@ onMounted(() => {
                                     >Ya tengo una cuenta</Link
                                 >
                             </div>
-                            <div class="mt-20px">
+                            <div class="mt-20px mb-20px">
                                 <a
                                     :href="route('portal.index')"
                                     class="text-white d-block w-100 text-center"

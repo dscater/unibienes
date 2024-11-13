@@ -6,7 +6,7 @@ export default {
 };
 </script>
 <script setup>
-import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/vue3";
 
 import { useConfiguracion } from "@/composables/configuracion/useConfiguracion";
 const { props } = usePage();
@@ -20,9 +20,34 @@ var url_assets = "";
 var url_principal = "";
 
 const submit = () => {
-    form.post(route("login"), {
-        onFinish: () => form.reset("password"),
-    });
+    axios
+        .post(route("login"), form)
+        .then((response) => {
+            form.reset("password");
+            if (response.data.user.role_id != 2) {
+                router.get(route("inicio"));
+            } else {
+                window.location.reload();
+            }
+        })
+        .catch((error) => {
+            console.log(error.response);
+            if (error.response.data.errors) {
+                const errors = error.response.data.errors;
+                form.errors = {};
+                for (const field in errors) {
+                    if (errors.hasOwnProperty(field)) {
+                        form.errors[field] = errors[field][0]; // Asignar solo el primer error
+                    }
+                }
+            }
+        });
+
+    // form.post(route("login"), {
+    //     onFinish: () => {
+    //         window.location.reload();
+    //     },
+    // });
 };
 
 onMounted(() => {
@@ -128,6 +153,13 @@ onMounted(() => {
                                 >
                                     Registrarse
                                 </Link>
+                            </div>
+                            <div class="mb-20px">
+                                <a
+                                    :href="route('portal.index')"
+                                    class="text-white d-block w-100 text-center"
+                                    >¿Olvidaste tu contraseña?</a
+                                >
                             </div>
                             <div class="mb-20px">
                                 <a

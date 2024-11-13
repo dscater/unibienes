@@ -61,7 +61,6 @@ class PublicacionController extends Controller
 
     public function api(Request $request)
     {
-
         $length = $request->input('length', 10); // Valor de `length` enviado por DataTable
         $start = $request->input('start', 0); // Índice de inicio enviado por DataTable
         $page = ($start / $length) + 1; // Cálculo de la página actual
@@ -71,6 +70,11 @@ class PublicacionController extends Controller
         if ($search && trim($search) != '') {
             $publicacions->where("nombre", "LIKE", "%$search%");
         }
+
+        if (Auth::user()->role_id > 2) {
+            $publicacions->where("user_id", Auth::user()->id);
+        }
+
         $publicacions = $publicacions->paginate($length, ['*'], 'page', $page);
 
         return response()->JSON([
@@ -97,6 +101,20 @@ class PublicacionController extends Controller
             'recordsFiltered' => $publicacions->total(),
             'draw' => intval($request->input('draw')),
         ]);
+    }
+
+    public function porCategoriaLimitado(Request $request)
+    {
+        $categoria = $request->categoria;
+        $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles"])
+            ->select("publicacions.*")
+            ->where("categoria", $categoria)
+            ->where("estado_sub", 1)
+            ->orderBy("created_at", "desc")
+            ->get()
+            ->take(6);
+
+        return response()->JSON($publicacions);
     }
 
     public function store(Request $request)

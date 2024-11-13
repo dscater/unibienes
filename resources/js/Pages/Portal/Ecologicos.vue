@@ -6,7 +6,6 @@ export default {
 </script>
 <script setup>
 import { onMounted, ref } from "vue";
-import { Link } from "@inertiajs/vue3";
 const listVehiculos = ref([]);
 const listOtrosBienes = ref([]);
 const listEcologicos = ref([]);
@@ -58,8 +57,8 @@ onMounted(() => {
 });
 </script>
 <template>
-    <!-- BEGIN #vehiculos -->
-    <div id="vehiculos" class="section-container">
+    <!-- BEGIN #trending-items -->
+    <div id="trending-items" class="section-container">
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
@@ -103,21 +102,14 @@ onMounted(() => {
                     <!-- END item -->
                 </div>
                 <!-- END col-2 -->
-                <div class="col-12 text-center mt-20px">
-                    <Link
-                        :href="route('portal.vehiculos')"
-                        class="btn btn-primary"
-                        ><i class="fa fa-arrow-right"></i> Ver más</Link
-                    >
-                </div>
             </div>
             <!-- END row -->
         </div>
         <!-- END container -->
     </div>
-    <!-- END #vehiculos -->
-    <!-- BEGIN #otros_bienes -->
-    <div id="otros_bienes" class="section-container bg-component">
+    <!-- END #trending-items -->
+    <!-- BEGIN #trending-items -->
+    <div id="trending-items" class="section-container">
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
@@ -162,18 +154,13 @@ onMounted(() => {
                 </div>
                 <!-- END col-2 -->
             </div>
-            <div class="col-12 text-center mt-20px">
-                <Link :href="route('portal.otros_bienes')" class="btn btn-primary"
-                    ><i class="fa fa-arrow-right"></i> Ver más</Link
-                >
-            </div>
             <!-- END row -->
         </div>
         <!-- END container -->
     </div>
-    <!-- END #otros_bienes -->
-    <!-- BEGIN #ecologicos -->
-    <div id="ecologicos" class="section-container">
+    <!-- END #trending-items -->
+    <!-- BEGIN #trending-items -->
+    <div id="trending-items" class="section-container">
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
@@ -218,14 +205,9 @@ onMounted(() => {
                 </div>
                 <!-- END col-2 -->
             </div>
-            <div class="col-12 text-center mt-20px">
-                <Link :href="route('portal.ecologicos')" class="btn btn-primary"
-                    ><i class="fa fa-arrow-right"></i> Ver más</Link
-                >
-            </div>
             <!-- END row -->
         </div>
         <!-- END container -->
     </div>
-    <!-- END #ecologicos -->
+    <!-- END #trending-items -->
 </template>

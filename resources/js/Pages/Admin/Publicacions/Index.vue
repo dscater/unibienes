@@ -95,7 +95,7 @@ const columns = [
             ) {
                 buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
      data-id="${row.id}"
-     data-nombre="${row.nombre}"
+     data-nombre="${row.id} | ${row.categoria}"
      data-url="${route(
          "publicacions.destroy",
          row.id
@@ -238,7 +238,14 @@ onBeforeUnmount(() => {
                     >
                         <thead>
                             <tr>
-                                <th width="5%"></th>
+                                <th width="2%"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th width="5%"></th>
                             </tr>
