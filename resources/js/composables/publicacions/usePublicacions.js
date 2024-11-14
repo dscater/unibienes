@@ -11,6 +11,7 @@ const oPublicacion = reactive({
     observaciones: "",
     fecha_limite: "",
     hora_limite: "",
+    fecha_hora_limite:"",
     monto_garantia: "",
     publicacion_detalles: [],
     publicacion_imagens: [],
@@ -149,6 +150,7 @@ export const usePublicacions = () => {
             oPublicacion.observaciones = item.observaciones;
             oPublicacion.fecha_limite = item.fecha_limite;
             oPublicacion.hora_limite = item.hora_limite;
+            oPublicacion.fecha_hora_limite = item.fecha_hora_limite;
             oPublicacion.monto_garantia = item.monto_garantia;
             oPublicacion.publicacion_detalles = item.publicacion_detalles;
             oPublicacion.publicacion_imagens = item.publicacion_imagens;

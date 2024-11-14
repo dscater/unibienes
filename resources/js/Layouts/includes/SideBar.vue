@@ -526,7 +526,7 @@ const logout = () => {
                     "
                     class="menu-item"
                     :class="[
-                        route_current == 'publicacions.index' ? 'active' : '',
+                        route_current == 'publicacions.index' || route_current == 'subastas.clientes' ? 'active' : '',
                     ]"
                 >
                     <Link :href="route('publicacions.index')" class="menu-link">

@@ -66,7 +66,7 @@ class PublicacionController extends Controller
         $page = ($start / $length) + 1; // Cálculo de la página actual
         $search = $request->input('search');
 
-        $publicacions = Publicacion::with(["user"])->select("publicacions.*");
+        $publicacions = Publicacion::with(["user", "subasta.subasta_clientes"])->select("publicacions.*");
         if ($search && trim($search) != '') {
             $publicacions->where("nombre", "LIKE", "%$search%");
         }
@@ -211,6 +211,22 @@ class PublicacionController extends Controller
     public function show(Publicacion $publicacion)
     {
         return response()->JSON($publicacion->load(["publicacion_detalles", "publicacion_imagens"]));
+    }
+
+    public function habilitaPublicacion(Publicacion $publicacion)
+    {
+        $publicacion->estado_sub = 1;
+        $publicacion->save();
+
+        // registrar subasta
+        if (!$publicacion->subasta) {
+            $publicacion->subasta()->create([
+                "estado" => 1,
+                "fecha_registro" => date("Y-m-d")
+            ]);
+        }
+
+        return redirect()->route("publicacions.index")->with("bien", "Registro realizado");
     }
 
     public function update(Publicacion $publicacion, Request $request)

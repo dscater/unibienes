@@ -28,7 +28,12 @@ class Cliente extends Model
         "fecha_registro",
     ];
 
-    protected $appends = ["full_ci"];
+    protected $appends = ["full_ci", "full_name"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->nombre . ' ' . $this->paterno . ($this->materno ? ' ' . $this->materno : '');
+    }
 
     public function getFullCiAttribute()
     {

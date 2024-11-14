@@ -22,7 +22,22 @@ class Publicacion extends Model
         "estado_sub",
     ];
 
-    protected $appends = ["fecha_hora_limite", "fecha_limite_t", "hora_limite_t"];
+    protected $appends = ["fecha_hora_limite", "fecha_limite_t", "hora_limite_t", "estado_sub_t"];
+
+    public function getEstadoSubTAttribute()
+    {
+        $estado = "PENDIENTE";
+
+        if ($this->estado_sub === 1) {
+            $estado = "PUBLICADO";
+        }
+
+        if ($this->estado_sub === 2) {
+            $estado = "TERMINADO";
+        }
+
+        return $estado;
+    }
 
     public function getFechaHoraLimiteAttribute()
     {
@@ -52,5 +67,10 @@ class Publicacion extends Model
     public function publicacion_imagens()
     {
         return $this->hasMany(PublicacionImagen::class, 'publicacion_id');
+    }
+
+    public function subasta()
+    {
+        return $this->hasOne(Subasta::class, 'publicacion_id');
     }
 }

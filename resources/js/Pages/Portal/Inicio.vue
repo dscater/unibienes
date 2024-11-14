@@ -107,7 +107,7 @@ onMounted(() => {
                     <Link
                         :href="route('portal.vehiculos')"
                         class="btn btn-primary"
-                        ><i class="fa fa-arrow-right"></i> Ver más</Link
+                        >Ver más <i class="fa fa-arrow-right"></i></Link
                     >
                 </div>
             </div>
@@ -164,7 +164,7 @@ onMounted(() => {
             </div>
             <div class="col-12 text-center mt-20px">
                 <Link :href="route('portal.otros_bienes')" class="btn btn-primary"
-                    ><i class="fa fa-arrow-right"></i> Ver más</Link
+                    >Ver más <i class="fa fa-arrow-right"></i></Link
                 >
             </div>
             <!-- END row -->
@@ -220,7 +220,7 @@ onMounted(() => {
             </div>
             <div class="col-12 text-center mt-20px">
                 <Link :href="route('portal.ecologicos')" class="btn btn-primary"
-                    ><i class="fa fa-arrow-right"></i> Ver más</Link
+                    >Ver más <i class="fa fa-arrow-right"></i></Link
                 >
             </div>
             <!-- END row -->

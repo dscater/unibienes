@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubastaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -94,10 +95,14 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("publicacions/api", [PublicacionController::class, 'api'])->name("publicacions.api");
     Route::get("publicacions/paginado", [PublicacionController::class, 'paginado'])->name("publicacions.paginado");
     Route::get("publicacions/listado", [PublicacionController::class, 'listado'])->name("publicacions.listado");
-    Route::post("publicacions/actualizaPermiso/{role}", [PublicacionController::class, 'actualizaPermiso'])->name("publicacions.actualizaPermiso");
+    Route::put("publicacions/habilitaPublicacion/{publicacion}", [PublicacionController::class, 'habilitaPublicacion'])->name("publicacions.habilitaPublicacion");
     Route::resource("publicacions", PublicacionController::class)->only(
         ["index", "store", "show", "update", "destroy"]
     );
+
+    // subastas
+    Route::get("publicacions/subastas/clientes/{subasta}", [SubastaController::class, 'clientes'])->name("subastas.clientes");
+    Route::get("publicacions/subastas/getClientesApi/{subasta}", [SubastaController::class, 'getClientesApi'])->name("subastas.getClientesApi");
 
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->integer("garantia");
             $table->decimal("puja");
             $table->string("comprobante", 255);
-            $table->integer("estado");
+            $table->integer("estado_comprobante");
+            $table->integer("estado_puja");
             $table->timestamps();
 
             $table->foreign("subasta_id")->on("subastas")->references("id");

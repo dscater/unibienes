@@ -23,6 +23,7 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
 // import { useMenu } from "@/composables/useMenu";
 import Formulario from "./Formulario.vue";
+import Habilitar from "./Habilitar.vue";
 // const { mobile, identificaDispositivo } = useMenu();
 const { props: props_page } = usePage();
 const { setLoading } = useApp();
@@ -77,29 +78,49 @@ const columns = [
         data: "monto_garantia",
     },
     {
+        title: "Monto de garantía",
+        data: null,
+        render: function (data, type, row) {
+            let clase = `bg-default text-black`;
+            if (row.estado_sub === 1) {
+                clase = `bg-success`;
+            }
+            return `<span class="badge ${clase}">${row.estado_sub_t}</span>`;
+        },
+    },
+    {
         title: "ACCIONES",
         data: null,
         render: function (data, type, row) {
             let buttons = ``;
 
+            if (row.estado_sub == 1 || row.estado_sub == 2) {
+                buttons += `<button class="mx-0 rounded-0 btn btn-primary verSubasta" data-id="${row.subasta.id}">${row.subasta.subasta_clientes.length}<br/><i class="fa fa-users"></i></button> `;
+            }
+
             if (
                 props_page.auth?.user.permisos == "*" ||
                 props_page.auth?.user.permisos.includes("publicacions.edit")
             ) {
-                buttons += `<button class="mx-0 rounded-0 btn btn-warning editar" data-id="${row.id}"><i class="fa fa-edit"></i></button>`;
+                if (row.estado_sub == 0) {
+                    buttons += `<button class="mx-0 rounded-0 btn btn-success habilitar" data-id="${row.id}"><i class="fa fa-check-circle"></i></button> `;
+                    buttons += `<button class="mx-0 rounded-0 btn btn-warning editar" data-id="${row.id}"><i class="fa fa-edit"></i></button>`;
+                }
             }
 
             if (
                 props_page.auth?.user.permisos == "*" ||
                 props_page.auth?.user.permisos.includes("publicacions.destroy")
             ) {
-                buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
+                if (row.estado_sub == 0) {
+                    buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
      data-id="${row.id}"
      data-nombre="${row.id} | ${row.categoria}"
      data-url="${route(
          "publicacions.destroy",
          row.id
      )}"><i class="fa fa-trash"></i></button>`;
+                }
             }
             return buttons;
         },
@@ -108,6 +129,7 @@ const columns = [
 const loading = ref(false);
 const accion_dialog = ref(0);
 const open_dialog = ref(false);
+const open_dialog_hab = ref(false);
 
 const agregarRegistro = () => {
     limpiarPublicacion();
@@ -116,6 +138,22 @@ const agregarRegistro = () => {
 };
 
 const accionesRow = () => {
+    // verSubasta
+    $("#table-publicacion").on("click", "button.verSubasta", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        router.get(route("subastas.clientes", id));
+    });
+
+    // habilitar
+    $("#table-publicacion").on("click", "button.habilitar", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        axios.get(route("publicacions.show", id)).then((response) => {
+            setPublicacion(response.data);
+            open_dialog_hab.value = true;
+        });
+    });
     // editar
     $("#table-publicacion").on("click", "button.editar", function (e) {
         e.preventDefault();
@@ -268,4 +306,10 @@ onBeforeUnmount(() => {
         @envio-formulario="updateDatatable"
         @cerrar-dialog="open_dialog = false"
     ></Formulario>
+
+    <Habilitar
+        :open_dialog="open_dialog_hab"
+        @envio-formulario="updateDatatable"
+        @cerrar-dialog="open_dialog_hab = false"
+    ></Habilitar>
 </template>
