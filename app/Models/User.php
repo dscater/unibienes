@@ -93,6 +93,10 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class, 'user_id');
+    }
     // FUNCIONES
     public static function getNombreUsuario($nom, $apep)
     {

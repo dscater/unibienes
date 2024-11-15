@@ -44,4 +44,12 @@ class Subasta extends Model
     {
         return $this->hasMany(SubastaCliente::class, 'subasta_id');
     }
+
+    public function subasta_clientes_puja()
+    {
+        return $this->hasMany(SubastaCliente::class, 'subasta_id')
+            ->where("estado_comprobante", 1)
+            ->where("puja", ">", 0)
+            ->orderBy("puja", "desc");
+    }
 }

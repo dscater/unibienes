@@ -3,12 +3,14 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\ParametrizacionController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubastaClienteController;
 use App\Http\Controllers\SubastaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
@@ -41,6 +43,7 @@ Route::get("ecologicos", [PortalController::class, 'ecologicos'])->name("portal.
 
 // publicaciones
 Route::get("publicacions/porCategoriaLimitado", [PublicacionController::class, 'porCategoriaLimitado'])->name("publicacions.porCategoriaLimitado");
+Route::get("publicacions/{publicacion}", [PublicacionController::class, 'publicacionPortal'])->name("publicacions.publicacionPortal");
 
 // ADMINISTRACION
 Route::middleware('auth')->prefix("admin")->group(function () {
@@ -101,8 +104,20 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     );
 
     // subastas
+    Route::get("publicacions/getsubasta/infoSubastaPorPublicacion", [SubastaController::class, 'infoSubastaPorPublicacion'])->name("subastas.infoSubastaPorPublicacion");
     Route::get("publicacions/subastas/clientes/{subasta}", [SubastaController::class, 'clientes'])->name("subastas.clientes");
     Route::get("publicacions/subastas/getClientesApi/{subasta}", [SubastaController::class, 'getClientesApi'])->name("subastas.getClientesApi");
+    Route::post("publicacions/subastas/registrarComprobante", [SubastaController::class, 'registrarComprobante'])->name("subastas.registrarComprobante");
+
+    // subastas clientes
+    Route::get("publicacions/subastas_clientes/verificaSubastaCliente", [SubastaClienteController::class, 'verificaSubastaCliente'])->name("subasta_clientes.verificaSubastaCliente");
+    Route::get("publicacions/subastas_clientes/show/{subasta_cliente}", [SubastaClienteController::class, 'show'])->name("subasta_clientes.show");
+    Route::get("publicacions/subastas_clientes/getInfo/{subasta_cliente}", [SubastaClienteController::class, 'getInfo'])->name("subasta_clientes.getInfo");
+    Route::put("publicacions/subastas_clientes/update/{subasta_cliente}", [SubastaClienteController::class, 'update'])->name("subasta_clientes.update");
+
+
+    // NOTIFICACIONES
+    Route::get("notificacions/listadoPorUsuario", [NotificacionController::class, 'listadoPorUsuario'])->name("notificacions.listadoPorUsuario");
 
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");

@@ -11,11 +11,16 @@ const props = defineProps({
         type: Number,
         default: 0,
     },
+    subasta_cliente: {
+        tpye: Object,
+        default: null,
+    },
 });
 
 const { oPublicacion, limpiarPublicacion } = usePublicacions();
 const accion = ref(props.accion_dialog);
 const dialog = ref(props.open_dialog);
+const oSubastaCliente = ref(props.subasta_cliente);
 let form = useForm(oPublicacion);
 watch(
     () => props.open_dialog,
@@ -35,50 +40,54 @@ watch(
         accion.value = newValue;
     }
 );
+watch(
+    () => props.accion_dialog,
+    (newValue) => {
+        accion.value = newValue;
+    }
+);
+watch(
+    () => props.subasta_cliente,
+    (newValue) => {
+        oSubastaCliente.value = newValue;
+    }
+);
 
 const { flash } = usePage().props;
 
 const tituloDialog = computed(() => {
-    return accion.value == 0
-        ? `<i class="fa fa-check-circle"></i> Habilitar publicación`
-        : `<i class="fa fa-edit"></i> Editar Publicación`;
+    return `<i class="fa fa-check-circle"></i> Verificar comprobante`;
 });
 
-const enviarFormulario = () => {
-    let url = route("publicacions.habilitaPublicacion", form.id);
-
-    form.post(url, {
-        preserveScroll: true,
-        forceFormData: true,
-        onSuccess: () => {
+const actualizarComprobante = (estado_comprobante) => {
+    let url = route("subasta_clientes.update", oSubastaCliente.value.id);
+    axios
+        .post(url, {
+            estado_comprobante,
+            _method: "PUT",
+        })
+        .then((response) => {
             dialog.value = false;
             Swal.fire({
                 icon: "success",
                 title: "Correcto",
-                text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
+                text: `Proceso realizado`,
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
             limpiarPublicacion();
-            emits("envio-formulario");
-        },
-        onError: (err) => {
+            emits("envio-formulario", response.data);
+        })
+        .catch((error) => {
             console.log("ERROR");
             Swal.fire({
                 icon: "info",
                 title: "Error",
-                text: `${
-                    flash.error
-                        ? flash.error
-                        : err.error
-                        ? err.error
-                        : "Hay errores en el formulario"
-                }`,
+                text: `Ocurrió un error inesperado intente nuevamente`,
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-        },
-    });
+        });
 };
 
 const emits = defineEmits(["cerrar-dialog", "envio-formulario"]);
@@ -90,6 +99,7 @@ watch(dialog, (newVal) => {
 });
 
 const cerrarDialog = () => {
+    oSubastaCliente.value = null;
     dialog.value = false;
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
 };
@@ -121,44 +131,37 @@ onMounted(() => {});
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="enviarFormulario()">
-                        <h5>
-                            ¿Está seguro(a) de habilitar la publicación? Una vez
-                            habilitado no podrá deshacerlo.
-                        </h5>
-                        <h4 class="w-100 text-center">
-                            Información de publicación
-                        </h4>
-                        <p>
-                            <strong>Categoría: </strong
-                            >{{ oPublicacion.categoria }}
-                        </p>
-                        <p>
-                            <strong>Moneda: </strong>{{ oPublicacion.moneda }}
-                        </p>
-                        <p>
-                            <strong>Oferta inicial: </strong
-                            >{{ oPublicacion.oferta_inicial }}
-                        </p>
-                        <p>
-                            <strong>Ubicación: </strong
-                            >{{ oPublicacion.ubicacion }}
-                        </p>
-                        <p>
-                            <strong>Observaciones: </strong
-                            >{{ oPublicacion.observaciones }}
-                        </p>
-                        <p>
-                            <strong>Fecha y hora límite de subasta: </strong
-                            >{{ oPublicacion.fecha_hora_limite }}
-                        </p>
-                        <p>
-                            <strong>Monto de garantía: </strong
-                            >{{ oPublicacion.monto_garantia }}
-                        </p>
-                    </form>
+                    <div class="row" v-if="oSubastaCliente">
+                        <div class="col-12">
+                            <template
+                                v-if="
+                                    oSubastaCliente.tipo_comprobante == 'file'
+                                "
+                            >
+                                <iframe
+                                    :src="oSubastaCliente.url_comprobante"
+                                    frameborder="0"
+                                    height="600px"
+                                ></iframe>
+                            </template>
+                            <template v-else>
+                                <img
+                                    :src="oSubastaCliente.url_comprobante"
+                                    alt=""
+                                    width="100%"
+                                />
+                            </template>
+                            <a
+                                :href="oSubastaCliente.url_comprobante"
+                                target="_blank"
+                                class="btn btn-primary ml-auto"
+                                >Abrir archivo
+                                <i class="fa fa-external-link"></i
+                            ></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-end">
                     <a
                         href="javascript:;"
                         class="btn btn-white"
@@ -167,15 +170,27 @@ onMounted(() => {});
                     >
                     <button
                         type="button"
-                        @click="enviarFormulario()"
+                        @click="actualizarComprobante(2)"
+                        class="btn btn-danger"
+                    >
+                        <i class="fa fa-times"></i>
+                        Rechazar comprobante
+                    </button>
+                    <button
+                        type="button"
+                        @click="actualizarComprobante(1)"
                         class="btn btn-success"
                     >
                         <i class="fa fa-check"></i>
-                        Habilitar
+                        Aprobar comproabante
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </template>
-<style scoped></style>
+<style scoped>
+iframe {
+    width: 100%;
+}
+</style>

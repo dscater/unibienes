@@ -78,7 +78,7 @@ const columns = [
         data: "monto_garantia",
     },
     {
-        title: "Monto de garantía",
+        title: "Estado",
         data: null,
         render: function (data, type, row) {
             let clase = `bg-default text-black`;

@@ -21,8 +21,7 @@ import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
 // import { useMenu } from "@/composables/useMenu";
-import Formulario from "./Formulario.vue";
-import Habilitar from "./Habilitar.vue";
+import VerificarComprobante from "./VerificarComprobante.vue";
 // const { mobile, identificaDispositivo } = useMenu();
 const props = defineProps({
     subasta: {
@@ -40,7 +39,7 @@ onMounted(() => {
 
 const columns = [
     {
-        title: "Cliente",
+        title: "Nombre del Cliente",
         data: "cliente.full_name",
     },
     {
@@ -48,53 +47,56 @@ const columns = [
         data: "puja",
     },
     {
-        title: "Comprobante",
-        data: null,
-        render: function (data, type, row) {
-            return `Comprobante`;
-        },
-    },
-    {
         title: "Estado comprobante",
-        data: null,
+        data: "estado_comprobante",
         render: function (data, type, row) {
-            return `Estado Comprobante`;
+            let estado = `SIN VERIFICAR`;
+            let clase = `bg-gray`;
+            if (row.estado_comprobante == 1) {
+                estado = `VERIFICADO`;
+                clase = `bg-success`;
+            } else if (row.estado_comprobante == 2) {
+                estado = `RECHAZADO`;
+                clase = `bg-danger`;
+            }
+
+            let span = `<span class="badge ${clase}">${estado}</span>`;
+            return span;
         },
     },
     {
         title: "ACCIONES",
         data: null,
+        sortable: false,
         render: function (data, type, row) {
             let buttons = ``;
             if (
                 props_page.auth?.user.permisos == "*" ||
-                props_page.auth?.user.permisos.includes("subastas.edit")
+                props_page.auth?.user.permisos.includes("publicacions.edit")
             ) {
-                if (row.estado_sub == 0) {
+                if (row.subasta.estado == 1) {
                     buttons += `<button class="mx-0 rounded-0 btn btn-success comprobante" data-id="${row.id}"><i class="fa fa-check-circle"></i></button> `;
                 }
             }
+
+            let url_show = route("subasta_clientes.show", row.id);
+            buttons += `<a href="${url_show}" class="mx-0 rounded-0 btn btn-primary comprobante" data-id="${row.id}"><i class="fa fa-eye"></i></a> `;
+
             return buttons;
         },
     },
 ];
 const loading = ref(false);
-const accion_dialog = ref(0);
-const open_dialog = ref(false);
-const open_dialog_hab = ref(false);
-
-const agregarRegistro = () => {
-    accion_dialog.value = 0;
-    open_dialog.value = true;
-};
-
+const open_dialog_verif = ref(false);
+const itemSubastaCliente = ref(null);
 const accionesRow = () => {
     // comprobante
     $("#table-subasta").on("click", "button.comprobante", function (e) {
         e.preventDefault();
         let id = $(this).attr("data-id");
-        axios.get(route("subastas.show", id)).then((response) => {
-            open_dialog_hab.value = true;
+        axios.get(route("subasta_clientes.getInfo", id)).then((response) => {
+            itemSubastaCliente.value = response.data;
+            open_dialog_verif.value = true;
         });
     });
 };
@@ -144,7 +146,9 @@ onBeforeUnmount(() => {
     <!-- BEGIN breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
-        <li class="breadcrumb-item"><Link :href="route('publicacions.index')">Publicaciones</Link></li>
+        <li class="breadcrumb-item">
+            <Link :href="route('publicacions.index')">Publicaciones</Link>
+        </li>
         <li class="breadcrumb-item active">Subasta Clientes</li>
     </ol>
     <!-- END breadcrumb -->
@@ -158,7 +162,13 @@ onBeforeUnmount(() => {
             <div class="panel panel-inverse">
                 <!-- BEGIN panel-heading -->
                 <div class="panel-heading">
-                    <h4 class="panel-title btn-nuevo"></h4>
+                    <h4 class="panel-title btn-nuevo">
+                        <Link
+                            :href="route('publicacions.index')"
+                            class="btn btn-outline-default d-inline-block"
+                            ><i class="fa fa-arrow-left"></i> Volver</Link
+                        >
+                    </h4>
                     <panel-toolbar
                         :mostrar_loading="loading"
                         @loading="updateDatatable"
@@ -174,10 +184,9 @@ onBeforeUnmount(() => {
                     >
                         <thead>
                             <tr>
+                                <th></th>
+                                <th></th>
                                 <th width="2%"></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
                                 <th width="5%"></th>
                             </tr>
                         </thead>
@@ -192,17 +201,10 @@ onBeforeUnmount(() => {
             <!-- END panel -->
         </div>
     </div>
-
-    <Formulario
-        :open_dialog="open_dialog"
-        :accion_dialog="accion_dialog"
+    <VerificarComprobante
+        :open_dialog="open_dialog_verif"
+        :subasta_cliente="itemSubastaCliente"
         @envio-formulario="updateDatatable"
-        @cerrar-dialog="open_dialog = false"
-    ></Formulario>
-
-    <Habilitar
-        :open_dialog="open_dialog_hab"
-        @envio-formulario="updateDatatable"
-        @cerrar-dialog="open_dialog_hab = false"
-    ></Habilitar>
+        @cerrar-dialog="open_dialog_verif = false"
+    ></VerificarComprobante>
 </template>

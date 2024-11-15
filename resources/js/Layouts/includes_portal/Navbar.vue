@@ -49,6 +49,7 @@ var handleHeaderFixedTop = function () {
 };
 
 onMounted(() => {
+    handleHeaderFixedTop();
     window.addEventListener("load", () => {
         handleHeaderFixedTop();
     });
@@ -135,6 +136,18 @@ onMounted(() => {
                             >
                                 <Link :href="route('portal.ecologicos')"
                                     >Ecológico</Link
+                                >
+                            </li>
+                            <li
+                                v-if="user && user.role_id == 2"
+                                :class="[
+                                    route_current == 'portal.ecologicos'
+                                        ? 'active'
+                                        : '',
+                                ]"
+                            >
+                                <Link :href="route('portal.ecologicos')"
+                                    >Mis subastas</Link
                                 >
                             </li>
                         </ul>

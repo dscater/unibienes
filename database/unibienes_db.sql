@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 14-11-2024 a las 23:23:19
+-- Tiempo de generación: 15-11-2024 a las 22:42:01
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -124,7 +124,8 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (19, 2, 'CREACIÓN', 'EL USUARIO JPERES REGISTRO UNA PUBLICACIÓN', 'id: 4<br/>user_id: 2<br/>categoria: OTROS BIENES<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 20000<br/>ubicacion: LA PAZ<br/>observaciones: OBS. PUBLICACION<br/>fecha_limite: 2024-11-20<br/>hora_limite: 10:00<br/>monto_garantia: 10000<br/>created_at: 2024-11-13 14:32:59<br/>updated_at: 2024-11-13 14:32:59<br/>', NULL, 'PUBLICACIONES', '2024-11-13', '14:32:59', '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
 (20, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 4<br/>usuario: APAREDES<br/>nombres: ALBERTO<br/>apellidos: PAREDES<br/>password: $2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 18:13:05<br/>updated_at: 2024-11-13 18:13:05<br/>', NULL, 'USUARIOS', '2024-11-13', '18:13:05', '2024-11-13 22:13:05', '2024-11-13 22:13:05'),
 (21, 4, 'CREACIÓN', 'EL USUARIO APAREDES REGISTRO UNA PUBLICACIÓN', 'id: 5<br/>user_id: 4<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 8000<br/>ubicacion: COCHABAMBA<br/>observaciones: OBS. VEHICULO<br/>fecha_limite: 2024-11-20<br/>hora_limite: 12:00<br/>monto_garantia: 1000<br/>created_at: 2024-11-13 18:15:26<br/>updated_at: 2024-11-13 18:15:26<br/>', NULL, 'PUBLICACIONES', '2024-11-13', '18:15:26', '2024-11-13 22:15:26', '2024-11-13 22:15:26'),
-(22, 2, 'MODIFICACIÓN', 'EL USUARIO JPERES MODIFICÓ UNA PUBLICACIÓN', 'id: 3<br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBSERVACIONES PUBLICACION UNO<br/>fecha_limite: 2024-12-20<br/>hora_limite: 10:00:00<br/>monto_garantia: 600.00<br/>estado_sub: 0<br/>created_at: 2024-11-12 23:47:31<br/>updated_at: 2024-11-12 23:56:49<br/>', 'id: 3<br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBSERVACIONES PUBLICACION UNO<br/>fecha_limite: 2024-12-20<br/>hora_limite: 10:00:00<br/>monto_garantia: 600.00<br/>estado_sub: 0<br/>created_at: 2024-11-12 23:47:31<br/>updated_at: 2024-11-12 23:56:49<br/>', 'PUBLICACIONES', '2024-11-14', '22:32:03', '2024-11-15 02:32:03', '2024-11-15 02:32:03');
+(22, 2, 'MODIFICACIÓN', 'EL USUARIO JPERES MODIFICÓ UNA PUBLICACIÓN', 'id: 3<br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBSERVACIONES PUBLICACION UNO<br/>fecha_limite: 2024-12-20<br/>hora_limite: 10:00:00<br/>monto_garantia: 600.00<br/>estado_sub: 0<br/>created_at: 2024-11-12 23:47:31<br/>updated_at: 2024-11-12 23:56:49<br/>', 'id: 3<br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBSERVACIONES PUBLICACION UNO<br/>fecha_limite: 2024-12-20<br/>hora_limite: 10:00:00<br/>monto_garantia: 600.00<br/>estado_sub: 0<br/>created_at: 2024-11-12 23:47:31<br/>updated_at: 2024-11-12 23:56:49<br/>', 'PUBLICACIONES', '2024-11-14', '22:32:03', '2024-11-15 02:32:03', '2024-11-15 02:32:03'),
+(23, 2, 'MODIFICACIÓN', 'EL USUARIO JPERES MODIFICÓ UNA PUBLICACIÓN', 'id: 4<br/>user_id: 2<br/>categoria: OTROS BIENES<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 20000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBS. PUBLICACION<br/>fecha_limite: 2024-11-20<br/>hora_limite: 10:00:00<br/>monto_garantia: 10000.00<br/>estado_sub: 0<br/>created_at: 2024-11-13 14:32:59<br/>updated_at: 2024-11-13 14:32:59<br/>', 'id: 4<br/>user_id: 2<br/>categoria: OTROS BIENES<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 20000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBS. PUBLICACION<br/>fecha_limite: 2024-11-20<br/>hora_limite: 10:00:00<br/>monto_garantia: 10000.00<br/>estado_sub: 0<br/>created_at: 2024-11-13 14:32:59<br/>updated_at: 2024-11-13 14:32:59<br/>', 'PUBLICACIONES', '2024-11-15', '15:52:34', '2024-11-15 19:52:34', '2024-11-15 19:52:34');
 
 -- --------------------------------------------------------
 
@@ -155,7 +156,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (23, '2024_11_02_154050_create_publicacion_imagens_table', 1),
 (24, '2024_11_02_154054_create_publicacion_detalles_table', 1),
 (25, '2024_11_04_143215_create_subastas_table', 1),
-(26, '2024_11_04_143347_create_subasta_clientes_table', 1);
+(26, '2024_11_04_143347_create_subasta_clientes_table', 1),
+(27, '2024_11_15_215421_create_notificacions_table', 2),
+(28, '2024_11_15_215426_create_notificacion_users_table', 2);
 
 -- --------------------------------------------------------
 
@@ -194,6 +197,52 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 (14, 'Publicaciones', 'publicacions.create', 'CREAR', 'CREAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
 (15, 'Publicaciones', 'publicacions.edit', 'EDITAR', 'EDITAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
 (16, 'Publicaciones', 'publicacions.destroy', 'ELIMINAR', 'ELIMINAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notificacions`
+--
+
+CREATE TABLE `notificacions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `descripcion` varchar(900) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `modulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registro_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `notificacions`
+--
+
+INSERT INTO `notificacions` (`id`, `descripcion`, `fecha`, `hora`, `modulo`, `registro_id`, `created_at`, `updated_at`) VALUES
+(1, 'EL CLIENTE CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-11-15', '22:23:00', 'SUBASTA CLIENTE', 1, '2024-11-16 02:23:49', '2024-11-16 02:23:49');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notificacion_users`
+--
+
+CREATE TABLE `notificacion_users` (
+  `id` bigint UNSIGNED NOT NULL,
+  `notificacion_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `visto` int NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `notificacion_users`
+--
+
+INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 1, '2024-11-16 02:23:49', '2024-11-16 02:26:24');
 
 -- --------------------------------------------------------
 
@@ -265,7 +314,7 @@ CREATE TABLE `publicacions` (
 
 INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
 (3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-12-20', '10:00:00', 600.00, 1, '2024-11-13 03:47:31', '2024-11-15 02:45:15'),
-(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 0, '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
+(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 1, '2024-11-13 18:32:59', '2024-11-15 19:52:40'),
 (5, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-11-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-11-13 22:15:26');
 
 -- --------------------------------------------------------
@@ -295,7 +344,9 @@ INSERT INTO `publicacion_detalles` (`id`, `publicacion_id`, `caracteristica`, `d
 (11, 4, 'DIRECCION', 'ZONA LOS OLIVOS', '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
 (12, 4, 'CARACTESITICA3', 'DETALLE 3', '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
 (13, 5, 'CARACTERISTICA1', 'DETALLE1', '2024-11-13 22:15:26', '2024-11-13 22:15:26'),
-(14, 5, 'CARACTERISTICA2', 'DETALLE2', '2024-11-13 22:15:26', '2024-11-13 22:15:26');
+(14, 5, 'CARACTERISTICA2', 'DETALLE2', '2024-11-13 22:15:26', '2024-11-13 22:15:26'),
+(15, 4, 'CARACTERISTICA 4', 'DETALLE 4', '2024-11-15 19:52:34', '2024-11-15 19:52:34'),
+(16, 4, 'CARACTERISTICA 5', 'DETALLE 5', '2024-11-15 19:52:34', '2024-11-15 19:52:34');
 
 -- --------------------------------------------------------
 
@@ -370,7 +421,8 @@ CREATE TABLE `subastas` (
 --
 
 INSERT INTO `subastas` (`id`, `publicacion_id`, `estado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, '2024-11-14', '2024-11-15 02:45:15', '2024-11-15 02:45:15');
+(1, 3, 1, '2024-11-14', '2024-11-15 02:45:15', '2024-11-15 02:45:15'),
+(2, 4, 1, '2024-11-15', '2024-11-15 19:52:40', '2024-11-15 19:52:40');
 
 -- --------------------------------------------------------
 
@@ -390,6 +442,13 @@ CREATE TABLE `subasta_clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `subasta_clientes`
+--
+
+INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `puja`, `comprobante`, `estado_comprobante`, `estado_puja`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 0.00, '11731709429.png', 1, 0, '2024-11-15 23:55:18', '2024-11-16 02:41:42');
 
 -- --------------------------------------------------------
 
@@ -456,6 +515,20 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `modulos`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `notificacions`
+--
+ALTER TABLE `notificacions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `notificacion_users`
+--
+ALTER TABLE `notificacion_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notificacion_users_notificacion_id_foreign` (`notificacion_id`),
+  ADD KEY `notificacion_users_user_id_foreign` (`user_id`);
 
 --
 -- Indices de la tabla `parametrizacions`
@@ -540,19 +613,31 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `notificacions`
+--
+ALTER TABLE `notificacions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `notificacion_users`
+--
+ALTER TABLE `notificacion_users`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `parametrizacions`
@@ -576,7 +661,7 @@ ALTER TABLE `publicacions`
 -- AUTO_INCREMENT de la tabla `publicacion_detalles`
 --
 ALTER TABLE `publicacion_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacion_imagens`
@@ -594,13 +679,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `subastas`
 --
 ALTER TABLE `subastas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `subasta_clientes`
 --
 ALTER TABLE `subasta_clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -623,6 +708,13 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `historial_accions`
   ADD CONSTRAINT `historial_accions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `notificacion_users`
+--
+ALTER TABLE `notificacion_users`
+  ADD CONSTRAINT `notificacion_users_notificacion_id_foreign` FOREIGN KEY (`notificacion_id`) REFERENCES `notificacions` (`id`),
+  ADD CONSTRAINT `notificacion_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `permisos`

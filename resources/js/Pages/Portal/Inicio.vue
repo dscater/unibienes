@@ -7,6 +7,7 @@ export default {
 <script setup>
 import { onMounted, ref } from "vue";
 import { Link } from "@inertiajs/vue3";
+import PublicacionLista from "@/Components/PublicacionLista.vue";
 const listVehiculos = ref([]);
 const listOtrosBienes = ref([]);
 const listEcologicos = ref([]);
@@ -79,26 +80,9 @@ onMounted(() => {
                 >
                     <!-- BEGIN item -->
                     <div class="item item-thumbnail">
-                        <a href="" class="item-image">
-                            <img
-                                :src="item.publicacion_imagens[0].url_imagen"
-                                alt=""
-                            />
-                        </a>
-                        <div class="item-info">
-                            <h4 class="item-title">
-                                {{ item.ubicacion }}
-                            </h4>
-                            <p class="item-price">
-                                Oferta inicial: {{ item.oferta_inicial }}
-                            </p>
-                            <p class="item-desc">
-                                Monto garantía: {{ item.monto_garantia }}
-                            </p>
-                            <p class="item-desc">
-                                {{ item.moneda }}
-                            </p>
-                        </div>
+                        <PublicacionLista
+                            :publicacion="item"
+                        ></PublicacionLista>
                     </div>
                     <!-- END item -->
                 </div>
@@ -107,8 +91,8 @@ onMounted(() => {
                     <Link
                         :href="route('portal.vehiculos')"
                         class="btn btn-primary"
-                        >Ver más <i class="fa fa-arrow-right"></i></Link
-                    >
+                        >Ver más <i class="fa fa-arrow-right"></i
+                    ></Link>
                 </div>
             </div>
             <!-- END row -->
@@ -137,35 +121,20 @@ onMounted(() => {
                 >
                     <!-- BEGIN item -->
                     <div class="item item-thumbnail">
-                        <a href="" class="item-image">
-                            <img
-                                :src="item.publicacion_imagens[0].url_imagen"
-                                alt=""
-                            />
-                        </a>
-                        <div class="item-info">
-                            <h4 class="item-title">
-                                {{ item.ubicacion }}
-                            </h4>
-                            <p class="item-price">
-                                Oferta inicial: {{ item.oferta_inicial }}
-                            </p>
-                            <p class="item-desc">
-                                Monto garantía: {{ item.monto_garantia }}
-                            </p>
-                            <p class="item-desc">
-                                {{ item.moneda }}
-                            </p>
-                        </div>
+                        <PublicacionLista
+                            :publicacion="item"
+                        ></PublicacionLista>
                     </div>
                     <!-- END item -->
                 </div>
                 <!-- END col-2 -->
             </div>
             <div class="col-12 text-center mt-20px">
-                <Link :href="route('portal.otros_bienes')" class="btn btn-primary"
-                    >Ver más <i class="fa fa-arrow-right"></i></Link
-                >
+                <Link
+                    :href="route('portal.otros_bienes')"
+                    class="btn btn-primary"
+                    >Ver más <i class="fa fa-arrow-right"></i
+                ></Link>
             </div>
             <!-- END row -->
         </div>
@@ -193,26 +162,9 @@ onMounted(() => {
                 >
                     <!-- BEGIN item -->
                     <div class="item item-thumbnail">
-                        <a href="" class="item-image">
-                            <img
-                                :src="item.publicacion_imagens[0].url_imagen"
-                                alt=""
-                            />
-                        </a>
-                        <div class="item-info">
-                            <h4 class="item-title">
-                                {{ item.ubicacion }}
-                            </h4>
-                            <p class="item-price">
-                                Oferta inicial: {{ item.oferta_inicial }}
-                            </p>
-                            <p class="item-desc">
-                                Monto garantía: {{ item.monto_garantia }}
-                            </p>
-                            <p class="item-desc">
-                                {{ item.moneda }}
-                            </p>
-                        </div>
+                        <PublicacionLista
+                            :publicacion="item"
+                        ></PublicacionLista>
                     </div>
                     <!-- END item -->
                 </div>
@@ -220,8 +172,8 @@ onMounted(() => {
             </div>
             <div class="col-12 text-center mt-20px">
                 <Link :href="route('portal.ecologicos')" class="btn btn-primary"
-                    >Ver más <i class="fa fa-arrow-right"></i></Link
-                >
+                    >Ver más <i class="fa fa-arrow-right"></i
+                ></Link>
             </div>
             <!-- END row -->
         </div>

@@ -19,7 +19,24 @@ class SubastaCliente extends Model
         "estado_puja",
     ];
 
-    protected $appends = ["estado_comprobante_t", "estado_puja_t"];
+    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante"];
+
+    public function getUrlComprobanteAttribute()
+    {
+        return asset("files/comprobantes/" . $this->comprobante);
+    }
+
+    public function getTipoComprobanteAttribute()
+    {
+        $array_comprobante = explode(".", $this->comprobante);
+        $extension = $array_comprobante[1];
+        $array_imgs = ["jpg", "jpeg", "webp", "png"];
+
+        if (in_array($extension, $array_imgs)) {
+            return "imagen";
+        }
+        return "file";
+    }
 
     public function getEstadoComprobanteTAttribute()
     {
@@ -50,6 +67,6 @@ class SubastaCliente extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Subasta::class, 'cliente_id');
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 }

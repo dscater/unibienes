@@ -213,6 +213,12 @@ class PublicacionController extends Controller
         return response()->JSON($publicacion->load(["publicacion_detalles", "publicacion_imagens"]));
     }
 
+    public function publicacionPortal(Publicacion $publicacion)
+    {
+        $publicacion = $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.subasta_clientes_puja"]);
+        return Inertia::render("Portal/Publicacion", compact("publicacion"));
+    }
+
     public function habilitaPublicacion(Publicacion $publicacion)
     {
         $publicacion->estado_sub = 1;

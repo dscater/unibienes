@@ -11,12 +11,12 @@ const dialog_atencion = ref(false);
 
 const verificaUser = () => {
     if (user.value) {
-        // console.log("LOGEADO");
+        console.log("LOGEADO");
         return true;
     }
 
     dialog_atencion.value = true;
-    // console.log("SIN LOGEAR");
+    console.log("SIN LOGEAR");
     return false;
 };
 
