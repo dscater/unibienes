@@ -1,188 +1,254 @@
-<script>
-const breadbrums = [
-    {
-        title: "Inicio",
-        disabled: false,
-        url: route("inicio"),
-        name_url: "inicio",
-    },
-    {
-        title: "Parametrización",
-        disabled: false,
-        url: "",
-        name_url: "",
-    },
-];
-</script>
 <script setup>
-import { useApp } from "@/composables/useApp";
-import { Head, Link } from "@inertiajs/vue3";
-import { useParametrizacions } from "@/composables/parametrizacions/useParametrizacions";
-import { initDataTable } from "@/composables/datatable.js";
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import PanelToolbar from "@/Components/PanelToolbar.vue";
-// import { useMenu } from "@/composables/useMenu";
-import Formulario from "./Formulario.vue";
-// const { mobile, identificaDispositivo } = useMenu();
-const { setLoading } = useApp();
-onMounted(() => {
-    setTimeout(() => {
-        setLoading(false);
-    }, 300);
+import App from "@/Layouts/App.vue";
+defineOptions({
+    layout: App,
 });
 
-const { getParametrizacions, setUsuario, limpiarUsuario, deleteUsuario } =
-    useParametrizacions();
+import { onMounted, ref } from "vue";
+// componentes
+import { usePage, Head, useForm } from "@inertiajs/vue3";
+const props_page = defineProps({
+    parametrizacion: {
+        type: Object,
+        default: null,
+    },
+});
+const { props } = usePage();
 
-const columns = [
-    {
-        title: "",
-        data: "id",
-    },
-    {
-        title: "Tiempo de inactividad de cuenta de usuario cliente",
-        data: "inactividad_cliente",
-    },
-    {
-        title: "Tipo de cambio de moneda",
-        data: "tipo_cambio",
-    },
-    {
-        title: "Servidor de correos",
-        data: null,
-        render: function (data, type, row) {
-            let info_correo = `<p><strong>:</strong> ${data.host}</p>`;
-            info_correo += `<p><strong>Puerto:</strong> ${data.puerto}</p>`;
-            info_correo += `<p><strong>Encriptado:</strong> ${data.encriptado}</p>`;
-            info_correo += `<p><strong>Correo:</strong> ${data.correo}</p>`;
-            info_correo += `<p><strong>Nombre:</strong> ${data.nombre}</p>`;
-            info_correo += `<p><strong>Driver:</strong> ${data.driver}</p>`;
-            return info_correo;
-        },
-    },
-    {
-        title: "Cantidad de imágenes de publicación",
-        data: "nro_imagenes_pub",
-    },
-    {
-        title: "Tiempo de publicación después de cierre de subasta",
-        data: "tiempo_pub",
-    },
-    {
-        title: "Términos y condiciones",
-        data: null,
-        render: function (data, type, row) {
-            return data.substr(10);
-        },
-    },
-    {
-        title: "Acción",
-        data: null,
-        render: function (data, type, row) {
-            return `
-                <button class="mx-0 rounded-0 btn btn-info password" data-id="${row.id}"><i class="fa fa-key"></i></button>
-            `;
-        },
-    },
-];
-const loading = ref(false);
-const accion_dialog = ref(0);
-const open_dialog = ref(false);
+let form = null;
+const oServidor = ref({
+    host: "smtp.hostinger.com",
+    puerto: "587",
+    encriptado: "tls",
+    correo: "",
+    nombre: "",
+    password: "",
+    driver: "smtp",
+});
+if (props_page.parametrizacion != null) {
+    props_page.parametrizacion["_method"] = "put";
+    oServidor.value = JSON.parse(props.parametrizacion.servidor_correo);
+    props_page.parametrizacion["host"] = oServidor.value.host;
+    props_page.parametrizacion["puerto"] = oServidor.value.puerto;
+    props_page.parametrizacion["encriptado"] = oServidor.value.encriptado;
+    props_page.parametrizacion["correo"] = oServidor.value.correo;
+    props_page.parametrizacion["nombre"] = oServidor.value.nombre;
+    props_page.parametrizacion["password"] = oServidor.value.password;
+    props_page.parametrizacion["driver"] = oServidor.value.driver;
+    form = useForm(props_page.parametrizacion);
 
-const agregarRegistro = () => {
-    limpiarUsuario();
-    accion_dialog.value = 0;
-    open_dialog.value = true;
-};
+    console.log(form.host);
+} else {
+    form = useForm({
+        _method: "put",
+        id: 0,
+        inactividad_cliente: "",
+        tipo_cambio: "",
+        host: "smtp.hostinger.com",
+        puerto: "587",
+        encriptado: "tls",
+        correo: "",
+        nombre: "",
+        password: "",
+        driver: "smtp",
+        nro_imagenes_pub: "",
+        tiempo_pub: "",
+        terminos_condiciones: "",
+    });
+}
 
-const accionesRow = () => {
-    // editar
-    $("#table-parametrizacion").on("click", "button.editar", function (e) {
-        e.preventDefault();
-        let id = $(this).attr("data-id");
-        axios.get(route("parametrizacions.show", id)).then((response) => {
-            setUsuario(response.data);
-            accion_dialog.value = 1;
-            open_dialog.value = true;
-        });
+const enviarFormulario = () => {
+    console.log("A");
+    form.post(route("parametrizacions.update"), {
+        onSuccess: () => {
+            // Mostrar mensaje de éxito
+            console.log("correcto");
+            limpiaRefs();
+            Swal.fire({
+                icon: "success",
+                title: "Correcto",
+                html: `<strong>Proceso realizado con éxito</strong>`,
+                showCancelButton: false,
+                confirmButtonColor: "#056ee9",
+                confirmButtonText: "Aceptar",
+            });
+        },
+        onError: (err, code) => {
+            console.log(err);
+            console.log(err.response);
+            console.log("error");
+        },
     });
 };
+const logo = ref(null);
+function cargaArchivo(e, key) {
+    form[key] = null;
+    form[key] = e.target.files[0];
 
-var datatable = null;
-const datatableInitialized = ref(false);
-const updateDatatable = () => {
-    datatable.ajax.reload();
-};
-
-onMounted(async () => {
-    datatable = initDataTable("#table-parametrizacion", columns, route("parametrizacions.api"));
-    datatableInitialized.value = true;
-    accionesRow();
-});
-onBeforeUnmount(() => {
-    if (datatable) {
-        datatable.clear();
-        datatable.destroy(false); // Destruye la instancia del DataTable
-        datatable = null;
-        datatableInitialized.value = false;
-    }
-});
+    // Generar la URL del archivo cargado
+    const fileUrl = URL.createObjectURL(form[key]);
+    form["url_" + key] = fileUrl;
+}
+function limpiaRefs() {
+    logo.value = null;
+}
+onMounted(() => {});
 </script>
 <template>
     <Head title="Parametrización"></Head>
-
-    <!-- BEGIN breadcrumb -->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
-        <li class="breadcrumb-item active">Parametrización</li>
-    </ol>
-    <!-- END breadcrumb -->
-    <!-- BEGIN page-header -->
-    <h1 class="page-header">Parametrización</h1>
-    <!-- END page-header -->
-
+    <h3 class="text-center text-h4">PARAMETRIZACIÓN</h3>
     <div class="row">
-        <div class="col-md-12">
-            <!-- BEGIN panel -->
-            <div class="panel panel-inverse">
-                <!-- BEGIN panel-heading -->
-                <div class="panel-heading">
-                    <h4 class="panel-title btn-nuevo">
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            @click="agregarRegistro"
+        <form @submit.prevent="enviarFormulario()">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-4 form-group mb-3">
+                        <label for=""
+                            >Tiempo de Inactividad de cuenta de usuario
+                            cliente(años)*</label
                         >
-                            <i class="fa fa-plus"></i> Nuevo
-                        </button>
-                    </h4>
-                    <panel-toolbar
-                        :mostrar_loading="loading"
-                        @loading="updateDatatable"
-                    />
+                        <input
+                            type="number"
+                            class="form-control"
+                            step="1"
+                            v-model="form.inactividad_cliente"
+                        />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.inactividad_cliente"
+                            >{{ form.errors.inactividad_cliente }}</span
+                        >
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Tipo de cambio de moneda*</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            v-model="form.tipo_cambio"
+                            step="0.01"
+                        />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.tipo_cambio"
+                            >{{ form.errors.tipo_cambio }}</span
+                        >
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Cantidad imágenes de publicación*</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            v-model="form.nro_imagenes_pub"
+                            step="1"
+                        />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.nro_imagenes_pub"
+                            >{{ form.errors.nro_imagenes_pub }}</span
+                        >
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for=""
+                            >Tiempo de Publicación después de cierre de subasta
+                            (dias)*</label
+                        >
+                        <input
+                            type="number"
+                            class="form-control"
+                            v-model="form.tiempo_pub"
+                            step="1"
+                        />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.tiempo_pub"
+                            >{{ form.errors.tiempo_pub }}</span
+                        >
+                    </div>
                 </div>
-                <!-- END panel-heading -->
-                <!-- BEGIN panel-body -->
-                <div class="panel-body">
-                    <table
-                        id="table-parametrizacion"
-                        width="100%"
-                        class="table table-striped table-bordered align-middle text-nowrap tabla_datos"
+                <div class="row">
+                    <h5>Servidor de correos</h5>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Host*</label>
+                        <input class="form-control" v-model="form.host" />
+                        <span class="text-danger" v-if="form.errors?.host">{{
+                            form.errors.host
+                        }}</span>
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Puerto*</label>
+                        <input class="form-control" v-model="form.puerto" />
+                        <span class="text-danger" v-if="form.errors?.puerto">{{
+                            form.errors.puerto
+                        }}</span>
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Encriptado*</label>
+                        <input class="form-control" v-model="form.encriptado" />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.encriptado"
+                            >{{ form.errors.encriptado }}</span
+                        >
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Correo*</label>
+                        <input class="form-control" v-model="form.correo" />
+                        <span class="text-danger" v-if="form.errors?.correo">{{
+                            form.errors.correo
+                        }}</span>
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Nombre*</label>
+                        <input class="form-control" v-model="form.nombre" />
+                        <span class="text-danger" v-if="form.errors?.nombre">{{
+                            form.errors.nombre
+                        }}</span>
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Password*</label>
+                        <input class="form-control" v-model="form.password" />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.password"
+                            >{{ form.errors.password }}</span
+                        >
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Driver*</label>
+                        <input class="form-control" v-model="form.driver" />
+                        <span class="text-danger" v-if="form.errors?.driver">{{
+                            form.errors.driver
+                        }}</span>
+                    </div>
+                </div>
+                <div class="row"></div>
+                <div class="col-md-12 form-group mb-3">
+                    <label for="">Terminos y condiciones*</label>
+                    <textarea
+                        class="form-control"
+                        v-model="form.terminos_condiciones"
+                    ></textarea>
+                    <span
+                        class="text-danger"
+                        v-if="form.errors?.terminos_condiciones"
+                        >{{ form.errors.terminos_condiciones }}</span
                     >
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
                 </div>
-                <!-- END panel-body -->
             </div>
-            <!-- END panel -->
-        </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    Guardar cambios
+                </button>
+            </div>
+        </form>
     </div>
-
-    <Formulario
-        :open_dialog="open_dialog"
-        :accion_dialog="accion_dialog"
-        @envio-formulario="updateDatatable"
-        @cerrar-dialog="open_dialog = false"
-    ></Formulario>
 </template>
+<style scoped>
+.logo_muestra {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+.logo_muestra img {
+    max-width: 100%;
+}
+</style>

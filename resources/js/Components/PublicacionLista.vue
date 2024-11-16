@@ -27,5 +27,13 @@ const item = ref(props.publicacion);
         <p class="item-desc">
             {{ item.moneda }}
         </p>
+        <p class="w-100">
+            <Link
+                class="btn btn-primary btn-sm"
+                :href="route('publicacions.publicacionPortal', item.id)"
+            >
+                <i class="fa fa-arrow-right"></i>
+            </Link>
+        </p>
     </div>
 </template>

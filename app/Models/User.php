@@ -26,6 +26,8 @@ class User extends Authenticatable
         "password",
         "acceso",
         "fecha_registro",
+        "ultima_sesion",
+        "status",
     ];
     protected $appends = ["permisos", "url_foto", "foto_b64", "full_name", "fecha_registro_t"];
 

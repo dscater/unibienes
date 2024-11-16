@@ -44,6 +44,35 @@ class SubastaController extends Controller
         ]);
     }
 
+    public function registrarPuja(Request $request)
+    {
+        $request->validate([
+            "monto_puja" => "required|int"
+        ], [
+            "monto_puja.required" => "Debes cargar un archivo",
+            "monto_puja.int" => "Debes ingresar un valor entero",
+        ]);
+
+        $subasta_cliente_id = $request->subasta_cliente_id;
+        $monto_puja = $request->monto_puja;
+        $subasta_cliente = SubastaCliente::find($subasta_cliente_id);
+
+        $subasta_cliente->update([
+            "puja" => $monto_puja,
+        ]);
+
+        // actualizar ganador
+        $subasta = $subasta_cliente->subasta;
+        $subasta->subasta_clientes()->update(["estado_puja" => 0]);
+
+        $maxima_puja = SubastaCliente::where("subasta_id", $subasta->id)->orderBy("puja", "desc")->get()->first();
+        $maxima_puja->estado_puja = 1;
+        $maxima_puja->save();
+
+        $publicacion = $subasta->publicacion;
+        return response()->JSON($publicacion->load(["subasta.subasta_clientes_puja"]));
+    }
+
     public function registrarComprobante(Request $request)
     {
         $request->validate([
@@ -104,7 +133,7 @@ class SubastaController extends Controller
 
                 // REGISTRAR NOTIFICACION
                 $notificacion = Notificacion::create([
-                    "descripcion" => "EL CLIENTE " . $cliente->full_name . " REGISTRO SU COMPROBANTE",
+                    "descripcion" => $cliente->full_name . " REGISTRO SU COMPROBANTE",
                     "fecha" => date("Y-m-d"),
                     "hora" => date("H:i"),
                     "modulo" => "SUBASTA CLIENTE",

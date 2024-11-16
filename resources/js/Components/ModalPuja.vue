@@ -25,10 +25,7 @@ const monto_puja = ref(0);
 const input_file = ref(null);
 const enviando = ref(false);
 const errors = ref(null);
-const form = ref({
-    publicacion_id: oPublicacion.value.id,
-    comprobante: null,
-});
+
 const emits = defineEmits(["cerrar-dialog", "envio-formulario"]);
 
 const cargarFile = (e) => {
@@ -85,6 +82,7 @@ const txtBotonEnviar = computed(() => {
 });
 
 const cerrarDialog = () => {
+    error_monto.value = false;
     dialog.value = false;
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
 };
@@ -92,9 +90,13 @@ const cerrarDialog = () => {
 const registrarPuja = () => {
     enviando.value = true;
     axios
-        .post(route("subastas.registrarPuja"), form)
+        .post(route("subastas.registrarPuja"), {
+            monto_puja: monto_puja.value,
+            subasta_cliente_id: oSubastaCliente.value.id,
+        })
         .then((response) => {
-            enviando.value = true;
+            error_monto.value = false;
+            enviando.value = false;
             dialog.value = false;
             Swal.fire({
                 icon: "success",
@@ -105,10 +107,11 @@ const registrarPuja = () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-            emits("envio-formulario");
+            emits("envio-formulario", response.data);
         })
         .catch((error) => {
             enviando.value = false;
+            error_monto.value = false;
             console.log("ERROR");
             console.log(error);
             if (error.status == 422) {
@@ -231,12 +234,13 @@ onMounted(() => {});
                                         class="form-control"
                                         v-model="monto_puja"
                                         @keyup.prevent="verificaMontoPuja"
+                                        @change="verificaMontoPuja"
                                         step="1"
                                     />
                                     <span
                                         class="text-danger d-block"
-                                        v-if="errors && errors.puja"
-                                        >{{ errors.puja[0] }}</span
+                                        v-if="errors && errors.monto_puja"
+                                        >{{ errors.monto_puja[0] }}</span
                                     >
                                     <span
                                         class="text-danger d-block"
@@ -264,7 +268,7 @@ onMounted(() => {});
                         @click="registrarPuja()"
                         class="btn btn-primary"
                         v-html="txtBotonEnviar"
-                        :disabled="enviando"
+                        :disabled="enviando || error_monto"
                     ></button>
                 </div>
             </div>

@@ -33,11 +33,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-
-
+        Auth::user()->ultima_sesion = date("Y-m-d");
+        Auth::user()->save();
         if ($request->ajax()) {
             return response()->JSON(["user" => Auth::user()]);
         }
+
 
         if (Auth::user()->role_id === 2) {
             return redirect()->intended(route('portal.index'));

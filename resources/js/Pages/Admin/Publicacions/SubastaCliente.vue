@@ -110,42 +110,72 @@ onBeforeUnmount(() => {});
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">
                     <div class="row">
+                        <div class="col-12 p-3">
+                            <p>
+                                <strong>Categoría: </strong>
+                                {{
+                                    subasta_cliente.subasta.publicacion
+                                        .categoria
+                                }}
+                            </p>
+                            <p>
+                                <strong>Monto garantía: </strong>
+                                {{
+                                    subasta_cliente.subasta.publicacion
+                                        .monto_garantia
+                                }}
+                            </p>
+                            <p>
+                                <strong>Moneda: </strong>
+                                {{
+                                    subasta_cliente.subasta.publicacion
+                                        .moneda
+                                }}
+                            </p>
+                        </div>
                         <div class="col-12">
-                            <p>
-                                <strong>Nombre Cliente:</strong>
-                                {{ itemSubastaCliente?.cliente?.full_name }}
-                            </p>
-                            <p>
-                                <strong>Puja actual:</strong>
-                                {{ itemSubastaCliente?.puja }}
-                            </p>
-                            <p>
-                                <strong>Estado comprobante: </strong>
-                                <span
-                                    class="badge"
-                                    :class="{
-                                        'bg-gray':
-                                            itemSubastaCliente.estado_comprobante ==
-                                            0,
-                                        'bg-success':
-                                            itemSubastaCliente.estado_comprobante ==
-                                            1,
-                                        'bg-danger':
-                                            itemSubastaCliente.estado_comprobante ==
-                                            2,
-                                    }"
-                                    v-text="estadoComprobante"
-                                ></span>
-                            </p>
-                            <p>
-                                <strong>Verificar comprobante: </strong>
-                                <button
-                                    class="btn btn-success"
-                                    @click="verificaComprobante"
-                                >
-                                    <i class="fa fa-check"></i>
-                                </button>
-                            </p>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>
+                                        <strong>Nombre Cliente:</strong>
+                                        {{
+                                            itemSubastaCliente?.cliente
+                                                ?.full_name
+                                        }}
+                                    </p>
+                                    <p>
+                                        <strong>Puja actual:</strong>
+                                        {{ itemSubastaCliente?.puja }}
+                                    </p>
+                                    <p>
+                                        <strong>Estado comprobante: </strong>
+                                        <span
+                                            class="badge"
+                                            :class="{
+                                                'bg-gray':
+                                                    itemSubastaCliente.estado_comprobante ==
+                                                    0,
+                                                'bg-success':
+                                                    itemSubastaCliente.estado_comprobante ==
+                                                    1,
+                                                'bg-danger':
+                                                    itemSubastaCliente.estado_comprobante ==
+                                                    2,
+                                            }"
+                                            v-text="estadoComprobante"
+                                        ></span>
+                                    </p>
+                                    <p>
+                                        <strong>Verificar comprobante: </strong>
+                                        <button
+                                            class="btn btn-success"
+                                            @click="verificaComprobante"
+                                        >
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

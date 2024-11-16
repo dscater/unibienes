@@ -6,23 +6,17 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    publicacion: {
-        type: Object,
-        default: null,
-    },
-    detalles: {
-        type: Array,
-        default: [],
-    },
 });
 
 const dialog = ref(props.open_dialog);
 const oPublicacion = ref(props.publicacion);
 const aDetalles = ref(props.detalles);
+const terminos_condiciones = ref("");
 watch(
     () => props.open_dialog,
     async (newValue) => {
         dialog.value = newValue;
+        getTerminosCondiciones();
         if (dialog.value) {
             document
                 .getElementsByTagName("body")[0]
@@ -30,23 +24,11 @@ watch(
         }
     }
 );
-watch(
-    () => props.publicacion,
-    async (newValue) => {
-        oPublicacion.value = newValue;
-    }
-);
-watch(
-    () => props.detalles,
-    async (newValue) => {
-        aDetalles.value = newValue;
-    }
-);
 
 const { flash } = usePage().props;
 
 const tituloDialog = computed(() => {
-    return `<i class="fa fa-list"></i> Detalles de la subasta`;
+    return `<i class="fa fa-list"></i> Términos y condiciones`;
 });
 
 const emits = defineEmits(["cerrar-dialog"]);
@@ -60,6 +42,12 @@ watch(dialog, (newVal) => {
 const cerrarDialog = () => {
     dialog.value = false;
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
+};
+
+const getTerminosCondiciones = () => {
+    axios.get(route("getTerminosCondiciones")).then((response) => {
+        terminos_condiciones.value = response.data;
+    });
 };
 
 onMounted(() => {});
@@ -89,32 +77,7 @@ onMounted(() => {});
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <table class="table table-bordered table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td class="font-weight-bold" width="30%">
-                                            Moneda
-                                        </td>
-                                        <td>
-                                            {{ oPublicacion.moneda }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold" width="30%">
-                                            Fecha límite de subasta
-                                        </td>
-                                        <td>
-                                            {{ oPublicacion.fecha_hora_limite }}
-                                        </td>
-                                    </tr>
-                                    <tr v-for="item in aDetalles">
-                                        <td class="font-weight-bold">
-                                            {{ item.caracteristica }}
-                                        </td>
-                                        <td>{{ item.detalle }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <p v-html="terminos_condiciones"></p>
                         </div>
                     </div>
                 </div>
@@ -130,3 +93,8 @@ onMounted(() => {});
         </div>
     </div>
 </template>
+<style scoped>
+#modal-dialog-form {
+    background-color: rgba(0, 0, 0, 0.719);
+}
+</style>

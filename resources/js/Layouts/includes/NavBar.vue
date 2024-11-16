@@ -66,9 +66,12 @@ const mostrarNotificaciones = () => {
 const intervalNotificaciones = ref(null);
 
 onMounted(() => {
-    intervalNotificaciones.value = setInterval(() => {
-        getNotificacions();
-    }, 1500);
+    if (props.auth && props.auth.user.role_id == 2) {
+        intervalNotificaciones.value = setInterval(() => {
+            getNotificacions();
+        }, 1500);
+    }
+
     url_assets = props.url_assets;
     url_principal = props.url_principal;
 });
@@ -100,7 +103,7 @@ onBeforeUnmount(() => {
         <!-- END navbar-header -->
         <!-- BEGIN header-nav -->
         <div class="navbar-nav text-white">
-            <div class="navbar-item dropdown">
+            <div class="navbar-item dropdown" v-if="props.auth.user.role_id == 2">
                 <a
                     href="#"
                     data-bs-toggle="dropdown"

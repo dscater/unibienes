@@ -1,5 +1,6 @@
 <script>
 import Login from "@/Layouts/Login.vue";
+import TerminosCondiciones from "./TerminosCondiciones.vue";
 import { onMounted, ref, computed } from "vue";
 export default {
     layout: Login,
@@ -63,6 +64,7 @@ var url_principal = "";
 const validando = ref(false);
 const validado = ref(false);
 const muestraCheck = ref(false);
+const modal_dialog_tc = ref(false);
 
 const validarForm1 = () => {
     validando.value = true;
@@ -132,6 +134,10 @@ const submit = () => {
     }
 };
 
+const verTerminosCondiciones = () => {
+    modal_dialog_tc.value = true;
+};
+
 onMounted(() => {
     url_assets = props.url_assets;
     url_principal = props.url_principal;
@@ -140,6 +146,10 @@ onMounted(() => {
 
 <template>
     <Head title="Registro"></Head>
+    <TerminosCondiciones
+        :open_dialog="modal_dialog_tc"
+        @cerrar-dialog="modal_dialog_tc = false"
+    ></TerminosCondiciones>
     <div class="contenedor_login">
         <div id="app" class="app">
             <div class="login login-v2 fw-bold">
@@ -683,7 +693,12 @@ onMounted(() => {
                                             v-model="form.terminos"
                                         />
                                         Acepto los
-                                        <a href="" class="text-white"
+                                        <a
+                                            href="#"
+                                            class="text-white"
+                                            @click.prevent="
+                                                verTerminosCondiciones
+                                            "
                                             >términos y condiciones</a
                                         >
                                     </label>

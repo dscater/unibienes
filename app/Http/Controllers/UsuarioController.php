@@ -40,7 +40,7 @@ class UsuarioController extends Controller
 
     public function listado()
     {
-        $usuarios = User::with(["role"])->where("id", "!=", 1)->get();
+        $usuarios = User::with(["role"])->where("id", "!=", 1)->where("status", 1)->get();
         return response()->JSON([
             "usuarios" => $usuarios
         ]);
@@ -57,7 +57,7 @@ class UsuarioController extends Controller
             $usuarios->orderBy("users.id", "desc");
         }
 
-        $usuarios = $usuarios->get();
+        $usuarios = $usuarios->where("status", 1)->get();
 
         return response()->JSON([
             "usuarios" => $usuarios
@@ -68,7 +68,7 @@ class UsuarioController extends Controller
     {
         // Log::debug($request);
         $usuarios = User::with(["role"])->where("id", "!=", 1);
-        $usuarios = $usuarios->paginate(10);
+        $usuarios = $usuarios->where("status", 1)->paginate(10);
 
         return response()->JSON([
             'data' => $usuarios->items(),
@@ -90,7 +90,7 @@ class UsuarioController extends Controller
             $usuarios->orWhere("ci", "LIKE", "%$search%");
         }
 
-        $usuarios = $usuarios->paginate($request->itemsPerPage);
+        $usuarios = $usuarios->where("status", 1)->paginate($request->itemsPerPage);
         return response()->JSON([
             'data' => $usuarios->items(),
             'recordsTotal' => $usuarios->total(),

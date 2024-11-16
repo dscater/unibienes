@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 15-11-2024 a las 22:42:01
+-- Tiempo de generación: 16-11-2024 a las 17:22:15
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -54,7 +54,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `user_id`, `nombre`, `paterno`, `materno`, `ci`, `complemento`, `ci_exp`, `fono`, `dpto_residencia`, `email`, `foto_ci_anverso`, `foto_ci_reverso`, `banco`, `nro_cuenta`, `moneda`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 3, 'CARLOS', 'MARTINES', 'CHOQUE', '1234567', '', 'LP', '7777777', 'LA PAZ', 'carlos@gmail.com', '131731515614.png', '131731515614.jpg', 'BANCO UNIÓN', '100000121212', 'BOLIVIANOS', '2024-11-13', '2024-11-13 20:33:34', '2024-11-13 20:33:34');
+(1, 3, 'CARLOS', 'MARTINES', 'CHOQUE', '1234567', '', 'LP', '7777777', 'LA PAZ', 'carlos@gmail.com', '131731515614.png', '131731515614.jpg', 'BANCO UNIÓN', '100000121212', 'BOLIVIANOS', '2024-11-13', '2024-11-13 20:33:34', '2024-11-13 20:33:34'),
+(2, 5, 'MARIA', 'PAREDES', 'MAMANI', '44444444', '', 'CB', '67767677', 'CHUQUISACA', 'maria@gmail.com', '151731771365.jpg', '151731771365.jpg', 'BANCO UNIÓN', '10000000333333', 'BOLIVIANOS', '2024-11-16', '2024-11-16 19:36:05', '2024-11-16 19:36:05');
 
 -- --------------------------------------------------------
 
@@ -220,7 +221,9 @@ CREATE TABLE `notificacions` (
 --
 
 INSERT INTO `notificacions` (`id`, `descripcion`, `fecha`, `hora`, `modulo`, `registro_id`, `created_at`, `updated_at`) VALUES
-(1, 'EL CLIENTE CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-11-15', '22:23:00', 'SUBASTA CLIENTE', 1, '2024-11-16 02:23:49', '2024-11-16 02:23:49');
+(1, 'CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-11-15', '22:23:00', 'SUBASTA CLIENTE', 1, '2024-11-16 02:23:49', '2024-11-16 02:23:49'),
+(2, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-16', '15:37:00', 'SUBASTA CLIENTE', 2, '2024-11-16 19:37:08', '2024-11-16 19:37:08'),
+(3, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-16', '15:43:00', 'SUBASTA CLIENTE', 3, '2024-11-16 19:43:37', '2024-11-16 19:43:37');
 
 -- --------------------------------------------------------
 
@@ -242,7 +245,9 @@ CREATE TABLE `notificacion_users` (
 --
 
 INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 1, '2024-11-16 02:23:49', '2024-11-16 02:26:24');
+(1, 1, 2, 1, '2024-11-16 02:23:49', '2024-11-16 02:26:24'),
+(2, 2, 2, 1, '2024-11-16 19:37:08', '2024-11-16 19:37:23'),
+(3, 3, 2, 1, '2024-11-16 19:43:37', '2024-11-16 20:06:27');
 
 -- --------------------------------------------------------
 
@@ -261,6 +266,13 @@ CREATE TABLE `parametrizacions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `parametrizacions`
+--
+
+INSERT INTO `parametrizacions` (`id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `created_at`, `updated_at`) VALUES
+(1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"unibienes@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"123\", \"encriptado\": \"tls\"}', 3, 3, 'Terminos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-16 20:48:31');
 
 -- --------------------------------------------------------
 
@@ -448,7 +460,9 @@ CREATE TABLE `subasta_clientes` (
 --
 
 INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `puja`, `comprobante`, `estado_comprobante`, `estado_puja`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 0.00, '11731709429.png', 1, 0, '2024-11-15 23:55:18', '2024-11-16 02:41:42');
+(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 1, '2024-11-15 23:55:18', '2024-11-16 19:42:45'),
+(2, 1, 2, 1, 1012.00, '21731771428.pdf', 1, 0, '2024-11-16 19:37:08', '2024-11-16 19:42:45'),
+(3, 2, 2, 1, 20001.00, '21731771817.pdf', 1, 1, '2024-11-16 19:43:37', '2024-11-16 19:43:57');
 
 -- --------------------------------------------------------
 
@@ -466,6 +480,8 @@ CREATE TABLE `users` (
   `acceso` int NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_registro` date NOT NULL,
+  `ultima_sesion` date DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -474,11 +490,12 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-09 18:47:19', '2024-11-09 18:47:19'),
-(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', '2024-11-11 22:53:46', '2024-11-11 22:59:01'),
-(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$2Ta3YiC1ZUWeQpT8wgA0OeqOnhVfpoFVIapyquf1VBlDX/sqaPFAS', 2, 1, NULL, '2024-11-13', '2024-11-13 20:33:34', '2024-11-13 20:33:34'),
-(4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', '2024-11-13 22:13:05', '2024-11-13 22:13:05');
+INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-16', 1, '2024-11-09 18:47:19', '2024-11-16 21:12:13'),
+(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', NULL, 1, '2024-11-11 22:53:46', '2024-11-11 22:59:01'),
+(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$2Ta3YiC1ZUWeQpT8wgA0OeqOnhVfpoFVIapyquf1VBlDX/sqaPFAS', 2, 1, NULL, '2024-11-13', NULL, 1, '2024-11-13 20:33:34', '2024-11-13 20:33:34'),
+(4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', NULL, 1, '2024-11-13 22:13:05', '2024-11-13 22:13:05'),
+(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, NULL, '2024-11-16', NULL, 1, '2024-11-16 19:36:05', '2024-11-16 19:36:05');
 
 --
 -- Índices para tablas volcadas
@@ -601,7 +618,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracions`
@@ -631,19 +648,19 @@ ALTER TABLE `modulos`
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `parametrizacions`
 --
 ALTER TABLE `parametrizacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -685,13 +702,13 @@ ALTER TABLE `subastas`
 -- AUTO_INCREMENT de la tabla `subasta_clientes`
 --
 ALTER TABLE `subasta_clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

@@ -51,7 +51,12 @@ class SubastaClienteController extends Controller
     public function update(SubastaCliente $subasta_cliente, Request $request)
     {
         $subasta_cliente->estado_comprobante = $request->estado_comprobante;
+        if ($request->estado_comprobante == 0) {
+            $subasta_cliente->estado_puja = 0;
+        }
         $subasta_cliente->update();
+        // --verificar nuevo ganador
+
         return response()->JSON($subasta_cliente);
     }
 }

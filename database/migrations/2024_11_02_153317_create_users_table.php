@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer("acceso");
             $table->string("foto", 255)->nullable();
             $table->date("fecha_registro");
+            $table->date("ultima_sesion")->default(null);
+            $table->integer("status")->default(1);
             $table->timestamps();
 
             $table->foreign("role_id")->on("roles")->references("id");

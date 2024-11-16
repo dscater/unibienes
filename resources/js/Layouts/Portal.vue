@@ -1,5 +1,5 @@
 <script setup>
-import { ref, provide } from "vue";
+import { ref, provide, onMounted } from "vue";
 import { usePage, Link } from "@inertiajs/vue3";
 import Navbar from "./includes_portal/Navbar.vue";
 import Footer from "./includes_portal/Footer.vue";
@@ -41,6 +41,13 @@ const verificarPujaUser = async (user_id, publicacion_id) => {
 
 provide("verificaUser", verificaUser);
 provide("verificarPujaUser", verificarPujaUser);
+
+onMounted(() => {
+    window.addEventListener("load", function () {
+        const pace = document.querySelectorAll(".pace-active");
+        pace[0].remove();
+    });
+});
 </script>
 <template>
     <!-- BEGIN #app -->
@@ -63,6 +70,12 @@ provide("verificarPujaUser", verificarPujaUser);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body bg-principal border">
+                    <button
+                        class="btnCerrarLoginRegistro"
+                        @click="dialog_atencion = false"
+                    >
+                        X
+                    </button>
                     <div class="row">
                         <div class="col-12 text-center">
                             <h4 class="w-100 text-center">
@@ -94,5 +107,11 @@ provide("verificarPujaUser", verificarPujaUser);
     height: 80%;
     display: flex;
     align-items: center;
+}
+
+.btnCerrarLoginRegistro{
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 </style>

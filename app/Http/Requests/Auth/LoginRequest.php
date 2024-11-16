@@ -50,6 +50,12 @@ class LoginRequest extends FormRequest
                 'usuario' => trans('auth.failed'),
             ]);
         }
+        if (Auth::user()->status == 0) {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'usuario' => "Cuenta inhabilitada",
+            ]);
+        }
         if (Auth::user()->acceso == 0) {
             Auth::logout();
             throw ValidationException::withMessages([

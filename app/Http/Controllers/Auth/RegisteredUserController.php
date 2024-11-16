@@ -127,7 +127,7 @@ class RegisteredUserController extends Controller
         $foto_ci_reverso->move($path . $nom_file_ci_reverso);
         event(new Registered($user));
         Auth::login($user);
-        return redirect(route('inicio', absolute: false));
+        return redirect(route('portal.index', absolute: false));
     }
 
     public function validaForm1(Request $request)

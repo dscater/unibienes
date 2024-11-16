@@ -117,6 +117,45 @@ class PublicacionController extends Controller
         return response()->JSON($publicacions);
     }
 
+
+
+    public function porCategoriaPagina(Request $request)
+    {
+        $categoria = $request->categoria;
+        $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
+            ->select("publicacions.*")
+            ->where("categoria", $categoria)
+            ->where("estado_sub", 1)
+            ->orderBy("created_at", "desc")
+            ->paginate(10);
+
+        return response()->JSON([
+            "publicacions" => $publicacions,
+        ]);
+    }
+
+
+    public function porClientePaginado(Request $request)
+    {
+        $publicacions = [];
+        if (Auth::user()->role_id == 2) {
+            $cliente = Auth::user()->cliente;
+            $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
+                ->select("publicacions.*")
+                ->join("subastas", "subastas.publicacion_id", "=", "publicacions.id")
+                ->join("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id")
+                ->whereIn("estado_sub", [1, 2])
+                ->where("subasta_clientes.cliente_id", $cliente->id)
+                ->orderBy("created_at", "desc")
+                ->paginate(10);
+        }
+
+        return response()->JSON([
+            "publicacions" => $publicacions,
+        ]);
+    }
+
+
     public function store(Request $request)
     {
         $parametrizacion = Parametrizacion::get()->first();

@@ -141,12 +141,12 @@ onMounted(() => {
                             <li
                                 v-if="user && user.role_id == 2"
                                 :class="[
-                                    route_current == 'portal.ecologicos'
+                                    route_current == 'portal.mis_subastas'
                                         ? 'active'
                                         : '',
                                 ]"
                             >
-                                <Link :href="route('portal.ecologicos')"
+                                <Link :href="route('portal.mis_subastas')"
                                     >Mis subastas</Link
                                 >
                             </li>

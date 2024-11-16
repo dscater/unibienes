@@ -33,6 +33,7 @@ Route::get('/registro', function () {
     }
     return Inertia::render('Auth/Register');
 })->name("registro");
+Route::get('/getTerminosCondiciones', [PortalController::class, 'getTerminosCondiciones'])->name("getTerminosCondiciones");
 
 Route::get("configuracions/getConfiguracion", [ConfiguracionController::class, 'getConfiguracion'])->name("configuracions.getConfiguracion");
 
@@ -40,9 +41,12 @@ Route::get("configuracions/getConfiguracion", [ConfiguracionController::class, '
 Route::get("vehiculos", [PortalController::class, 'vehiculos'])->name("portal.vehiculos");
 Route::get("otros_bienes", [PortalController::class, 'otros_bienes'])->name("portal.otros_bienes");
 Route::get("ecologicos", [PortalController::class, 'ecologicos'])->name("portal.ecologicos");
+Route::get("mis_subastas", [PortalController::class, 'mis_subastas'])->name("portal.mis_subastas");
 
 // publicaciones
 Route::get("publicacions/porCategoriaLimitado", [PublicacionController::class, 'porCategoriaLimitado'])->name("publicacions.porCategoriaLimitado");
+Route::get("publicacions/porCategoriaPagina", [PublicacionController::class, 'porCategoriaPagina'])->name("publicacions.porCategoriaPagina");
+Route::get("publicacions/porClientePaginado", [PublicacionController::class, 'porClientePaginado'])->name("publicacions.porClientePaginado");
 Route::get("publicacions/{publicacion}", [PublicacionController::class, 'publicacionPortal'])->name("publicacions.publicacionPortal");
 
 // ADMINISTRACION
@@ -81,8 +85,9 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("parametrizacions/api", [ParametrizacionController::class, 'api'])->name("parametrizacions.api");
     Route::get("parametrizacions/paginado", [ParametrizacionController::class, 'paginado'])->name("parametrizacions.paginado");
     Route::get("parametrizacions/listado", [ParametrizacionController::class, 'listado'])->name("parametrizacions.listado");
+    Route::put("parametrizacions/update", [ParametrizacionController::class, 'update'])->name("parametrizacions.update");
     Route::resource("parametrizacions", ParametrizacionController::class)->only(
-        ["index", "store", "show", "update", "destroy"]
+        ["index", "show"]
     );
 
     // ROLES
@@ -107,6 +112,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("publicacions/getsubasta/infoSubastaPorPublicacion", [SubastaController::class, 'infoSubastaPorPublicacion'])->name("subastas.infoSubastaPorPublicacion");
     Route::get("publicacions/subastas/clientes/{subasta}", [SubastaController::class, 'clientes'])->name("subastas.clientes");
     Route::get("publicacions/subastas/getClientesApi/{subasta}", [SubastaController::class, 'getClientesApi'])->name("subastas.getClientesApi");
+    Route::post("publicacions/subastas/registrarPuja", [SubastaController::class, 'registrarPuja'])->name("subastas.registrarPuja");
     Route::post("publicacions/subastas/registrarComprobante", [SubastaController::class, 'registrarComprobante'])->name("subastas.registrarComprobante");
 
     // subastas clientes

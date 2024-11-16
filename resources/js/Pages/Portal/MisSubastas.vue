@@ -6,7 +6,9 @@ export default {
 };
 </script>
 <script setup>
+import { usePage, Head, router, Link } from "@inertiajs/vue3";
 import { onMounted, ref } from "vue";
+const { props: props_page } = usePage();
 const listVehiculos = ref([]);
 const page = ref(1);
 const last_page = ref(1);
@@ -14,10 +16,9 @@ const total = ref(0);
 
 const obtenerVehiculos = () => {
     axios
-        .get(route("publicacions.porCategoriaPagina"), {
+        .get(route("publicacions.porClientePaginado"), {
             params: {
                 page: page.value,
-                categoria: "ECOLÓGICO",
             },
         })
         .then((response) => {
@@ -44,7 +45,7 @@ onMounted(() => {
             <!-- BEGIN section-title -->
             <h4 class="section-title clearfix">
                 <span class="flex-1">
-                    Ecológicos
+                    Vehículos
                     <small></small>
                 </span>
             </h4>
@@ -56,11 +57,7 @@ onMounted(() => {
                     class="col-lg-6 col-md-6 col-sm-12"
                     v-for="item in listVehiculos"
                 >
-                    <Publicacion
-                        :publicacion="item"
-                        :column="true"
-                        :link="true"
-                    ></Publicacion>
+                    <Publicacion :publicacion="item" :link="true"></Publicacion>
                 </div>
                 <!-- END col-2 -->
             </div>
