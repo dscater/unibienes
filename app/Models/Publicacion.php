@@ -19,10 +19,10 @@ class Publicacion extends Model
         "fecha_limite",
         "hora_limite",
         "monto_garantia",
-        "estado_sub",
+        "estado_sub", // [0:eliminado, 1:vigente, 2:tiempo_concluido_mostrar, 3:tiempo_concluido_NO_mostrar, 4:tiempo_concluido_NO_mostrar_SinGanador]
     ];
 
-    protected $appends = ["fecha_hora_limite", "fecha_limite_t", "hora_limite_t", "estado_sub_t"];
+    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t"];
 
     public function getEstadoSubTAttribute()
     {
@@ -40,6 +40,11 @@ class Publicacion extends Model
     }
 
     public function getFechaHoraLimiteAttribute()
+    {
+        return date("d/m/Y H:i:s", strtotime($this->fecha_limite . ' ' . $this->hora_limite));
+    }
+
+    public function getFechaHoraLimiteAMAttribute()
     {
         return date("d/m/Y H:i a", strtotime($this->fecha_limite . ' ' . $this->hora_limite));
     }

@@ -11,7 +11,7 @@ class Subasta extends Model
 
     protected $fillable = [
         "publicacion_id",
-        "estado",
+        "estado", // [0:sin_ganador_finalizado ,1: vigente: 2: finalizado_con_ganador]
         "fecha_registro",
     ];
 

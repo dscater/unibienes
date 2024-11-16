@@ -117,15 +117,13 @@ class PublicacionController extends Controller
         return response()->JSON($publicacions);
     }
 
-
-
     public function porCategoriaPagina(Request $request)
     {
         $categoria = $request->categoria;
         $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
             ->select("publicacions.*")
             ->where("categoria", $categoria)
-            ->where("estado_sub", 1)
+            ->whereIn("estado_sub", [1, 2])
             ->orderBy("created_at", "desc")
             ->paginate(10);
 
@@ -133,7 +131,6 @@ class PublicacionController extends Controller
             "publicacions" => $publicacions,
         ]);
     }
-
 
     public function porClientePaginado(Request $request)
     {
@@ -144,7 +141,7 @@ class PublicacionController extends Controller
                 ->select("publicacions.*")
                 ->join("subastas", "subastas.publicacion_id", "=", "publicacions.id")
                 ->join("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id")
-                ->whereIn("estado_sub", [1, 2])
+                ->whereIn("estado_sub", [1, 2, 3])
                 ->where("subasta_clientes.cliente_id", $cliente->id)
                 ->orderBy("created_at", "desc")
                 ->paginate(10);
@@ -154,7 +151,6 @@ class PublicacionController extends Controller
             "publicacions" => $publicacions,
         ]);
     }
-
 
     public function store(Request $request)
     {
@@ -245,6 +241,28 @@ class PublicacionController extends Controller
                 'error' =>  $e->getMessage(),
             ]);
         }
+    }
+
+    public function verificaGanador(Publicacion $publicacion)
+    {
+        $subasta = $publicacion->subasta;
+        $subasta_clientes = $subasta->subasta_clientes_puja;
+        if (count($subasta_clientes) > 0) {
+            $publicacion->estado_sub = 2;
+            $subasta->estado = 2;
+            $subasta_cliente = $subasta_clientes[0];
+            $subasta_cliente->estado_puja = 2;
+            $subasta_cliente->save();
+        } else {
+            // sin ganador
+            $publicacion->estado_sub = 2;
+            $subasta->estado = 0;
+        }
+
+        $subasta->save();
+        $publicacion->save();
+
+        return response()->JSON(true);
     }
 
     public function show(Publicacion $publicacion)
@@ -410,7 +428,7 @@ class PublicacionController extends Controller
     {
         DB::beginTransaction();
         try {
-            // $usos = User::where("publicacion_id", $publicacion->id)->get();
+            // $usos = Subasta::where("publicacion_id", $publicacion->id)->get();
             // if (count($usos) > 0) {
             //     throw ValidationException::withMessages([
             //         'error' =>  "No es posible eliminar este registro porque esta siendo utilizado por otros registros",
@@ -418,7 +436,8 @@ class PublicacionController extends Controller
             // }
 
             $datos_original = HistorialAccion::getDetalleRegistro($publicacion, "publicacions");
-            $publicacion->delete();
+            $publicacion->estado_sub = 0;
+            $publicacion->save();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',

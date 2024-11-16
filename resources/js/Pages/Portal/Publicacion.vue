@@ -113,8 +113,19 @@ onMounted(() => {
         @cerrar-dialog="modal_dialog_puja = false"
         @envio-formulario="actualizaPublicacion"
     ></ModalPuja>
-    <Publicacion
-        :publicacion="oPublicacion"
-        :detalle_lista="true"
-    ></Publicacion>
+
+    <div id="product" class="section-container pt-20px">
+        <div class="container">
+            <Publicacion
+                :publicacion="oPublicacion"
+                :detalle_lista="true"
+            ></Publicacion>
+        </div>
+    </div>
 </template>
+
+<style scoped>
+.section-container {
+    min-height: 70vh !important;
+}
+</style>

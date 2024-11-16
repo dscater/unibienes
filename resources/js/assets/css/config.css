@@ -23,9 +23,8 @@
     color: white !important;
 }
 
-.header .navbar-toggle .icon-bar{
+.header .navbar-toggle .icon-bar {
     background-color: white !important;
-
 }
 html {
     overflow-y: scroll;
@@ -54,6 +53,10 @@ html {
 
 .nav.text-white li.dropdown .dropdown-menu {
     background-color: var(--principal);
+}
+
+.product .product-detail .product-image .product-main-image {
+    min-height: 200px;
 }
 
 .loading_table {

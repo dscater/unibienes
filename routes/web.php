@@ -49,6 +49,10 @@ Route::get("publicacions/porCategoriaPagina", [PublicacionController::class, 'po
 Route::get("publicacions/porClientePaginado", [PublicacionController::class, 'porClientePaginado'])->name("publicacions.porClientePaginado");
 Route::get("publicacions/{publicacion}", [PublicacionController::class, 'publicacionPortal'])->name("publicacions.publicacionPortal");
 
+Route::get('profile_cliente', [ProfileController::class, 'profile_cliente'])->name('profile.profile_cliente');
+Route::get('getInfoCliente', [ProfileController::class, 'getInfoCliente'])->name('profile.getInfoCliente');
+Route::post('updateInfoCliente', [ProfileController::class, 'updateInfoCliente'])->name('profile.updateInfoCliente');
+
 // ADMINISTRACION
 Route::middleware('auth')->prefix("admin")->group(function () {
     // INICIO
@@ -64,7 +68,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profile/update_foto', [ProfileController::class, 'update_foto'])->name('profile.update_foto');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::get("getUser", [UserController::class, 'getUser'])->name('users.getUser');
     Route::get("permisosUsuario", [UserController::class, 'permisosUsuario']);
 
@@ -104,6 +107,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("publicacions/paginado", [PublicacionController::class, 'paginado'])->name("publicacions.paginado");
     Route::get("publicacions/listado", [PublicacionController::class, 'listado'])->name("publicacions.listado");
     Route::put("publicacions/habilitaPublicacion/{publicacion}", [PublicacionController::class, 'habilitaPublicacion'])->name("publicacions.habilitaPublicacion");
+    Route::post("publicacions/verificaGanador/{publicacion}", [PublicacionController::class, 'verificaGanador'])->name("publicacions.verificaGanador");
     Route::resource("publicacions", PublicacionController::class)->only(
         ["index", "store", "show", "update", "destroy"]
     );

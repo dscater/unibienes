@@ -104,7 +104,7 @@ onMounted(() => {});
                                             Fecha límite de subasta
                                         </td>
                                         <td>
-                                            {{ oPublicacion.fecha_hora_limite }}
+                                            {{ oPublicacion.fecha_hora_limite_am }}
                                         </td>
                                     </tr>
                                     <tr v-for="item in aDetalles">

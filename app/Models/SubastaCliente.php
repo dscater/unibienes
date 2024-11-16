@@ -16,7 +16,7 @@ class SubastaCliente extends Model
         "puja",
         "comprobante",
         "estado_comprobante",
-        "estado_puja",
+        "estado_puja", //[0:no_ganador, 1:ganador_parcial, 2:ganador]
     ];
 
     protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante"];

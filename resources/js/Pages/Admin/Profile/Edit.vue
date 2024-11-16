@@ -140,7 +140,7 @@ const enviaFormulario = () => {
                                     v-if="!imagen_cargada"
                                     class="btn_principal"
                                     for="file_foto"
-                                    ><b>Cambiar fotoss</b
+                                    ><b>Cambiar foto</b
                                     ><input
                                         type="file"
                                         id="file_foto"

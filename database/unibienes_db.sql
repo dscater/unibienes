@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 16-11-2024 a las 17:22:15
+-- Tiempo de generación: 16-11-2024 a las 22:28:58
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -54,7 +54,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `user_id`, `nombre`, `paterno`, `materno`, `ci`, `complemento`, `ci_exp`, `fono`, `dpto_residencia`, `email`, `foto_ci_anverso`, `foto_ci_reverso`, `banco`, `nro_cuenta`, `moneda`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 3, 'CARLOS', 'MARTINES', 'CHOQUE', '1234567', '', 'LP', '7777777', 'LA PAZ', 'carlos@gmail.com', '131731515614.png', '131731515614.jpg', 'BANCO UNIÓN', '100000121212', 'BOLIVIANOS', '2024-11-13', '2024-11-13 20:33:34', '2024-11-13 20:33:34'),
+(1, 3, 'CARLOS', 'MARTINES', 'CHOQUE', '1234567', '', 'LP', '7777777', 'LA PAZ', 'carlos@gmail.com', '131731515614.png', '131731515614.jpg', 'BANCO UNIÓN', '100000121212', 'BOLIVIANOS', '2024-11-13', '2024-11-13 20:33:34', '2024-11-17 02:28:20'),
 (2, 5, 'MARIA', 'PAREDES', 'MAMANI', '44444444', '', 'CB', '67767677', 'CHUQUISACA', 'maria@gmail.com', '151731771365.jpg', '151731771365.jpg', 'BANCO UNIÓN', '10000000333333', 'BOLIVIANOS', '2024-11-16', '2024-11-16 19:36:05', '2024-11-16 19:36:05');
 
 -- --------------------------------------------------------
@@ -197,7 +197,10 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 (13, 'Publicaciones', 'publicacions.index', 'VER', 'VER LA LISTA DE PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
 (14, 'Publicaciones', 'publicacions.create', 'CREAR', 'CREAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
 (15, 'Publicaciones', 'publicacions.edit', 'EDITAR', 'EDITAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(16, 'Publicaciones', 'publicacions.destroy', 'ELIMINAR', 'ELIMINAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27');
+(16, 'Publicaciones', 'publicacions.destroy', 'ELIMINAR', 'ELIMINAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
+(17, 'Reportes', 'reportes.publicacions', 'REPORTE PUBLICACIONES', 'GENERAR REPORTES DE PUBLICACIONES', NULL, NULL),
+(18, 'Reportes', 'reportes.subasta_clientes', 'REPORTE CLIENTES POR SUBASTA', 'GENERAR REPORTES DE LOS CLIENTES POR CADA UNA DE LAS SUBASTAS', NULL, NULL),
+(19, 'Reportes', 'reportes.clientes', 'REPORTE DE CLIENTES', 'GENERAR REPORTES DE LOS CLIENTES REGISTRADOS', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -296,7 +299,10 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 (1, 3, 13, '2024-11-09 20:42:05', '2024-11-09 20:42:05'),
 (2, 3, 14, '2024-11-09 20:42:06', '2024-11-09 20:42:06'),
 (3, 3, 15, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
-(4, 3, 16, '2024-11-09 20:42:07', '2024-11-09 20:42:07');
+(4, 3, 16, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
+(6, 3, 17, '2024-11-17 01:24:48', '2024-11-17 01:24:48'),
+(7, 3, 18, '2024-11-17 01:24:49', '2024-11-17 01:24:49'),
+(8, 3, 19, '2024-11-17 01:24:49', '2024-11-17 01:24:49');
 
 -- --------------------------------------------------------
 
@@ -325,7 +331,7 @@ CREATE TABLE `publicacions` (
 --
 
 INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
-(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-12-20', '10:00:00', 600.00, 1, '2024-11-13 03:47:31', '2024-11-15 02:45:15'),
+(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 2, '2024-11-13 03:47:31', '2024-11-17 00:59:54'),
 (4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 1, '2024-11-13 18:32:59', '2024-11-15 19:52:40'),
 (5, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-11-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-11-13 22:15:26');
 
@@ -433,7 +439,7 @@ CREATE TABLE `subastas` (
 --
 
 INSERT INTO `subastas` (`id`, `publicacion_id`, `estado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, '2024-11-14', '2024-11-15 02:45:15', '2024-11-15 02:45:15'),
+(1, 3, 2, '2024-11-14', '2024-11-15 02:45:15', '2024-11-17 00:59:54'),
 (2, 4, 1, '2024-11-15', '2024-11-15 19:52:40', '2024-11-15 19:52:40');
 
 -- --------------------------------------------------------
@@ -460,7 +466,7 @@ CREATE TABLE `subasta_clientes` (
 --
 
 INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `puja`, `comprobante`, `estado_comprobante`, `estado_puja`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 1, '2024-11-15 23:55:18', '2024-11-16 19:42:45'),
+(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 2, '2024-11-15 23:55:18', '2024-11-17 00:59:54'),
 (2, 1, 2, 1, 1012.00, '21731771428.pdf', 1, 0, '2024-11-16 19:37:08', '2024-11-16 19:42:45'),
 (3, 2, 2, 1, 20001.00, '21731771817.pdf', 1, 1, '2024-11-16 19:43:37', '2024-11-16 19:43:57');
 
@@ -493,9 +499,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-16', 1, '2024-11-09 18:47:19', '2024-11-16 21:12:13'),
 (2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', NULL, 1, '2024-11-11 22:53:46', '2024-11-11 22:59:01'),
-(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$2Ta3YiC1ZUWeQpT8wgA0OeqOnhVfpoFVIapyquf1VBlDX/sqaPFAS', 2, 1, NULL, '2024-11-13', NULL, 1, '2024-11-13 20:33:34', '2024-11-13 20:33:34'),
+(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$2Ta3YiC1ZUWeQpT8wgA0OeqOnhVfpoFVIapyquf1VBlDX/sqaPFAS', 2, 1, NULL, '2024-11-13', '2024-11-16', 1, '2024-11-13 20:33:34', '2024-11-17 00:29:25'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', NULL, 1, '2024-11-13 22:13:05', '2024-11-13 22:13:05'),
-(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, NULL, '2024-11-16', NULL, 1, '2024-11-16 19:36:05', '2024-11-16 19:36:05');
+(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, NULL, '2024-11-16', '2024-11-16', 1, '2024-11-16 19:36:05', '2024-11-17 01:09:09');
 
 --
 -- Índices para tablas volcadas
@@ -642,7 +648,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`
@@ -666,7 +672,7 @@ ALTER TABLE `parametrizacions`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacions`

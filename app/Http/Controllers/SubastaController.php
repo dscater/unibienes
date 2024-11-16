@@ -56,21 +56,30 @@ class SubastaController extends Controller
         $subasta_cliente_id = $request->subasta_cliente_id;
         $monto_puja = $request->monto_puja;
         $subasta_cliente = SubastaCliente::find($subasta_cliente_id);
-
-        $subasta_cliente->update([
-            "puja" => $monto_puja,
-        ]);
-
-        // actualizar ganador
         $subasta = $subasta_cliente->subasta;
-        $subasta->subasta_clientes()->update(["estado_puja" => 0]);
-
-        $maxima_puja = SubastaCliente::where("subasta_id", $subasta->id)->orderBy("puja", "desc")->get()->first();
-        $maxima_puja->estado_puja = 1;
-        $maxima_puja->save();
-
         $publicacion = $subasta->publicacion;
-        return response()->JSON($publicacion->load(["subasta.subasta_clientes_puja"]));
+
+        // validar limite fecha subasta
+        $fecha_hora_limite = date("Y-m-d H:i", strtotime($publicacion->fecha_limite . ' ' . $publicacion->hora_limite));
+        $fecha_hora_actual = date("Y-m-d H:i");
+
+        if ($fecha_hora_actual < $fecha_hora_limite) {
+            $subasta_cliente->update([
+                "puja" => $monto_puja,
+            ]);
+
+            // actualizar ganador
+            $subasta->subasta_clientes()->update(["estado_puja" => 0]);
+
+            $maxima_puja = SubastaCliente::where("subasta_id", $subasta->id)->orderBy("puja", "desc")->get()->first();
+            $maxima_puja->estado_puja = 1;
+            $maxima_puja->save();
+
+            return response()->JSON($publicacion->load(["subasta.subasta_clientes_puja"]));
+        }
+        return response()->JSON([
+            "message" => "No se pudo registrar su oferta/puja debido a que la hora y fecha limite de subasta ya vencio"
+        ], 422);
     }
 
     public function registrarComprobante(Request $request)

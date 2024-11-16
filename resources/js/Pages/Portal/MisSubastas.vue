@@ -57,7 +57,11 @@ onMounted(() => {
                     class="col-lg-6 col-md-6 col-sm-12"
                     v-for="item in listVehiculos"
                 >
-                    <Publicacion :publicacion="item" :link="true"></Publicacion>
+                    <Publicacion
+                        :publicacion="item"
+                        :link="true"
+                        :column="true"
+                    ></Publicacion>
                 </div>
                 <!-- END col-2 -->
             </div>
