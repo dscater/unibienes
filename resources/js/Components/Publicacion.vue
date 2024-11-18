@@ -6,8 +6,8 @@ import ModalPuja from "@/Components/ModalPuja.vue";
 </script>
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
-const { props: props_page } = usePage();
 import { onMounted, ref, inject } from "vue";
+const { props: props_page } = usePage();
 const props = defineProps({
     publicacion: {
         type: Object,

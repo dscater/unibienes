@@ -66,9 +66,34 @@ class UsuarioController extends Controller
 
     public function api(Request $request)
     {
-        // Log::debug($request);
-        $usuarios = User::with(["role"])->where("id", "!=", 1);
-        $usuarios = $usuarios->where("status", 1)->paginate(10);
+        $length = $request->input('length', 10); // Valor de `length` enviado por DataTable
+        $start = $request->input('start', 0); // Índice de inicio enviado por DataTable
+        $page = ($start / $length) + 1; // Cálculo de la página actual
+        $search = $request->input('search');
+
+        $usuarios = User::with(["role"])
+            ->selectRaw("users.*, CONCAT(users.nombres,' ',users.apellidos) as full_name")
+            ->join("roles", "roles.id", "=", "users.role_id")
+            ->where("users.id", "!=", 1);
+        if ($search && trim($search) != '') {
+            $usuarios->where("roles.nombre", "LIKE", "%$search%");
+            $usuarios->orWhereRaw("users.usuario LIKE ?", ["%$search%"]);
+            $usuarios->orWhereRaw("CONCAT(users.nombres,' ',users.apellidos) LIKE ?", ["%$search%"]);
+        }
+
+        // order
+        if (isset($request->order)) {
+            $order = $request->order;
+            $nro_col = $order[0]["column"];
+            $asc_desc = $order[0]["dir"];
+            $columns = $request->columns;
+            if ($columns[$nro_col]["data"]) {
+                $col_data = $columns[$nro_col]["data"];
+                $usuarios->orderBy($col_data, $asc_desc);
+            }
+        }
+
+        $usuarios = $usuarios->where("status", 1)->paginate($length, ['*'], 'page', $page);
 
         return response()->JSON([
             'data' => $usuarios->items(),

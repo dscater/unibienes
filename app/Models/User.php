@@ -119,7 +119,8 @@ class User extends Authenticatable
         }
         $permisos = Permiso::join("modulos", "modulos.id", "=", "permisos.modulo_id")
             ->where("permisos.role_id", $role->id)
-            ->pluck("modulos.nombre");
+            ->pluck("modulos.nombre")
+            ->toArray();
 
         return $permisos;
     }

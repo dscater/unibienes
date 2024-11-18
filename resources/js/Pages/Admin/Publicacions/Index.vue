@@ -47,7 +47,7 @@ const columns = [
     },
     {
         title: "Usuario",
-        data: "user.full_name",
+        data: "full_name",
     },
     {
         title: "Categoría",
@@ -79,7 +79,7 @@ const columns = [
     },
     {
         title: "Estado",
-        data: null,
+        data: "estado_sub",
         render: function (data, type, row) {
             let clase = `bg-default text-black`;
             if (row.estado_sub === 1) {
@@ -91,10 +91,15 @@ const columns = [
     {
         title: "ACCIONES",
         data: null,
+        sortable: false,
         render: function (data, type, row) {
             let buttons = ``;
 
-            if (row.estado_sub == 1 || row.estado_sub == 2  || row.estado_sub == 3) {
+            if (
+                row.estado_sub == 1 ||
+                row.estado_sub == 2 ||
+                row.estado_sub == 3
+            ) {
                 buttons += `<button class="mx-0 rounded-0 btn btn-primary verSubasta" data-id="${row.subasta.id}">${row.subasta.subasta_clientes.length}<br/><i class="fa fa-users"></i></button> `;
             }
 

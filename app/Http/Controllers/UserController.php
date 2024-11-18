@@ -6,6 +6,7 @@ use App\Models\Publicacion;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -31,7 +32,7 @@ class UserController extends Controller
         if (Auth::check()) {
             $oUser = new User();
             $permisos = $oUser->getPermisos();
-            if ($permisos == '*' || in_array('usuarios.index', $permisos)) {
+            if ($permisos == '*' || (is_array($permisos) && in_array('usuarios.index', $permisos))) {
                 $array_infos[] = [
                     'label' => 'USUARIOS',
                     'cantidad' => User::where('id', '!=', 1)->count(),
@@ -40,7 +41,8 @@ class UserController extends Controller
                     "url" => "usuarios.index"
                 ];
             }
-            if ($permisos == '*' || in_array('usuarios.index', $permisos)) {
+
+            if ($permisos == '*' || (is_array($permisos) && in_array('publicacions.index', $permisos))) {
                 $publicacions = Publicacion::count();
 
                 $array_infos[] = [

@@ -66,7 +66,7 @@ const mostrarNotificaciones = () => {
 const intervalNotificaciones = ref(null);
 
 onMounted(() => {
-    if (props.auth && props.auth.user.role_id == 2) {
+    if (props.auth.user.permisos.includes('publicacions.index') && !props.auth.user.permisos.includes('publicacions.todos')) {
         intervalNotificaciones.value = setInterval(() => {
             getNotificacions();
         }, 1500);
@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
         <!-- END navbar-header -->
         <!-- BEGIN header-nav -->
         <div class="navbar-nav text-white">
-            <div class="navbar-item dropdown" v-if="props.auth.user.role_id == 2">
+            <div class="navbar-item dropdown" v-if="props.auth.user.permisos.includes('publicacions.index') && !props.auth.user.permisos.includes('publicacions.todos')">
                 <a
                     href="#"
                     data-bs-toggle="dropdown"

@@ -75,6 +75,7 @@ const columns = [
     },
     {
         title: "ACCIONES",
+        sortable: false,
         data: null,
         render: function (data, type, row) {
             let buttons = ``;

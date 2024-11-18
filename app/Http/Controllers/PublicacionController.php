@@ -53,7 +53,14 @@ class PublicacionController extends Controller
 
     public function listado()
     {
-        $publicacions = Publicacion::select("publicacions.*")->get();
+        $publicacions = Publicacion::select("publicacions.*");
+
+        $permisos = Auth::user()->permisos;
+        if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
+            $publicacions->where("user_id", Auth::user()->id);
+        }
+
+        $publicacions = $publicacions->get();
         return response()->JSON([
             "publicacions" => $publicacions
         ]);
@@ -66,13 +73,36 @@ class PublicacionController extends Controller
         $page = ($start / $length) + 1; // Cálculo de la página actual
         $search = $request->input('search');
 
-        $publicacions = Publicacion::with(["user", "subasta.subasta_clientes"])->select("publicacions.*");
+        $publicacions = Publicacion::with(["user", "subasta.subasta_clientes"])
+            ->selectRaw("publicacions.*, CONCAT(users.nombres,' ',users.apellidos) as full_name, publicacions.fecha_limite as fecha_hora_limite")
+            ->join("users", "users.id", "=", "publicacions.user_id");
         if ($search && trim($search) != '') {
-            $publicacions->where("nombre", "LIKE", "%$search%");
+            $publicacions->whereRaw("CONCAT(users.nombres,' ',users.apellidos) LIKE ?", ["%$search%"]);
+            $publicacions->orWhere("categoria", "LIKE", "%$search%");
+            $publicacions->orWhere("moneda", "LIKE", "%$search%");
+            $publicacions->orWhere("oferta_inicial", "LIKE", "%$search%");
+            $publicacions->orWhere("ubicacion", "LIKE", "%$search%");
+            $publicacions->orWhere("observaciones", "LIKE", "%$search%");
+            $publicacions->orWhereRaw("DATE_FORMAT(CONCAT(fecha_limite,' ',hora_limite), '%d/%m/%Y %H:%i') LIKE ?", ["%$search%"]);
+            $publicacions->orWhere("monto_garantia", "LIKE", "%$search%");
         }
 
-        if (Auth::user()->role_id > 2) {
+        // verificar permiso
+        $permisos = Auth::user()->permisos;
+        if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
             $publicacions->where("user_id", Auth::user()->id);
+        }
+
+        // order
+        if (isset($request->order)) {
+            $order = $request->order;
+            $nro_col = $order[0]["column"];
+            $asc_desc = $order[0]["dir"];
+            $columns = $request->columns;
+            if ($columns[$nro_col]["data"]) {
+                $col_data = $columns[$nro_col]["data"];
+                $publicacions->orderBy($col_data, $asc_desc);
+            }
         }
 
         $publicacions = $publicacions->paginate($length, ['*'], 'page', $page);
@@ -92,6 +122,11 @@ class PublicacionController extends Controller
 
         if (trim($search) != "") {
             $publicacions->where("nombre", "LIKE", "%$search%");
+        }
+
+        $permisos = Auth::user()->permisos;
+        if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
+            $publicacions->where("user_id", Auth::user()->id);
         }
 
         $publicacions = $publicacions->paginate($request->itemsPerPage);
@@ -135,17 +170,16 @@ class PublicacionController extends Controller
     public function porClientePaginado(Request $request)
     {
         $publicacions = [];
-        if (Auth::user()->role_id == 2) {
-            $cliente = Auth::user()->cliente;
-            $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
-                ->select("publicacions.*")
-                ->join("subastas", "subastas.publicacion_id", "=", "publicacions.id")
-                ->join("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id")
-                ->whereIn("estado_sub", [1, 2, 3])
-                ->where("subasta_clientes.cliente_id", $cliente->id)
-                ->orderBy("created_at", "desc")
-                ->paginate(10);
-        }
+        $cliente = Auth::user()->cliente;
+        $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
+            ->select("publicacions.*")
+            ->join("subastas", "subastas.publicacion_id", "=", "publicacions.id")
+            ->join("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id")
+            ->whereIn("estado_sub", [1, 2, 3])
+            ->where("subasta_clientes.cliente_id", $cliente->id);
+
+        $publicacions = $publicacions->orderBy("created_at", "desc")
+            ->paginate(10);
 
         return response()->JSON([
             "publicacions" => $publicacions,

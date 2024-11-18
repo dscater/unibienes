@@ -119,7 +119,13 @@ onMounted(() => {});
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <div
+                class="col-12"
+                v-if="
+                    props.auth.user.permisos == '*' ||
+                    props.auth.user.permisos.includes('configuracions.edit')
+                "
+            >
                 <button type="submit" class="btn btn-primary">
                     Guardar cambios
                 </button>

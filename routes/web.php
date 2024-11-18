@@ -60,7 +60,7 @@ Route::get('getInfoCliente', [ProfileController::class, 'getInfoCliente'])->name
 Route::post('updateInfoCliente', [ProfileController::class, 'updateInfoCliente'])->name('profile.updateInfoCliente');
 
 // ADMINISTRACION
-Route::middleware('auth')->prefix("admin")->group(function () {
+Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function () {
     // INICIO
     Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
 

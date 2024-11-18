@@ -8,6 +8,7 @@ use App\Models\Publicacion;
 use App\Models\SubastaCliente;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use PDF;
@@ -119,6 +120,12 @@ class ReporteController extends Controller
     {
         $formato =  $request->formato;
         $publicacions = Publicacion::select("publicacions.*");
+
+        $permisos = Auth::user()->permisos;
+        if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
+            $publicacions->where("user_id", Auth::user()->id);
+        }
+
         $publicacions = $publicacions->get();
 
         if ($formato == "pdf") {
@@ -238,6 +245,11 @@ class ReporteController extends Controller
     {
         $formato =  $request->formato;
         $publicacions = Publicacion::select("publicacions.*");
+
+        $permisos = Auth::user()->permisos;
+        if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
+            $publicacions->where("user_id", Auth::user()->id);
+        }
         $publicacions = $publicacions->whereNotIn("estado_sub", [0, 5])->get();
 
         if ($formato == "pdf") {
@@ -413,6 +425,11 @@ class ReporteController extends Controller
         }
         if ($categoria != 'todos') {
             $publicacions->where("publicacions.categoria", $categoria);
+        }
+
+        $permisos = Auth::user()->permisos;
+        if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
+            $publicacions->where("user_id", Auth::user()->id);
         }
 
         $publicacions = $publicacions->get();

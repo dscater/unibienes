@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 18-11-2024 a las 16:49:37
+-- Tiempo de generación: 18-11-2024 a las 18:56:28
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -302,7 +302,6 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 (2, 3, 14, '2024-11-09 20:42:06', '2024-11-09 20:42:06'),
 (3, 3, 15, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
 (4, 3, 16, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
-(6, 3, 17, '2024-11-17 01:24:48', '2024-11-17 01:24:48'),
 (7, 3, 18, '2024-11-17 01:24:49', '2024-11-17 01:24:49'),
 (8, 3, 19, '2024-11-17 01:24:49', '2024-11-17 01:24:49');
 
@@ -387,9 +386,9 @@ CREATE TABLE `publicacion_imagens` (
 --
 
 INSERT INTO `publicacion_imagens` (`id`, `publicacion_id`, `imagen`, `created_at`, `updated_at`) VALUES
-(1, 3, '01731455251.png', '2024-11-13 03:47:31', '2024-11-13 03:47:31'),
-(5, 3, '31731455936.jpg', '2024-11-13 03:57:11', '2024-11-13 03:58:56'),
-(6, 3, '21731456084.jpg', '2024-11-13 03:59:15', '2024-11-13 04:01:24'),
+(1, 3, '01731455251.jpg', '2024-11-13 03:47:31', '2024-11-13 03:47:31'),
+(5, 3, '31731455936.jpeg', '2024-11-13 03:57:11', '2024-11-13 03:58:56'),
+(6, 3, '21731456084.jpeg', '2024-11-13 03:59:15', '2024-11-13 04:01:24'),
 (7, 4, '01731508379.jpg', '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
 (8, 4, '11731508379.jpeg', '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
 (9, 4, '21731508379.jpeg', '2024-11-13 18:32:59', '2024-11-13 18:32:59'),
@@ -525,7 +524,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-18', 1, '2024-11-09 18:47:19', '2024-11-18 16:07:03'),
 (2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', '2024-11-18', 1, '2024-11-11 22:53:46', '2024-11-18 17:37:03'),
-(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$Y9US/kI3U/vJasdsRi2RSenSF87ZwH7U4V0YWQTR6UuAa20a7FTfO', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-11-18', 1, '2024-11-13 20:33:34', '2024-11-18 19:39:56'),
+(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-11-18', 1, '2024-11-13 20:33:34', '2024-11-18 19:39:56'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', NULL, 1, '2024-11-13 22:13:05', '2024-11-13 22:13:05'),
 (5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, NULL, '2024-11-16', '2024-11-18', 1, '2024-11-16 19:36:05', '2024-11-18 20:49:04');
 

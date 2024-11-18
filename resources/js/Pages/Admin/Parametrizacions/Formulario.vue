@@ -45,6 +45,7 @@ watch(
 );
 
 const { flash } = usePage().props;
+const { auth } = usePage().props;
 
 const listTipos = ["ADMINISTRADOR", "SUPERVISOR DE SUCURSAL", "OPERADOR"];
 const listExpedido = [
@@ -459,6 +460,9 @@ onMounted(() => {
                         ><i class="fa fa-times"></i> Cerrar</a
                     >
                     <button
+                        v-if="
+                            auth.user.permisos.includes('parametrizacion.edit')
+                        "
                         type="button"
                         @click="enviarFormulario()"
                         class="btn btn-primary"
