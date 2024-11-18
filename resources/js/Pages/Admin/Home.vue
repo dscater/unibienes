@@ -42,38 +42,6 @@ const { props } = usePage();
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="widget widget-stats bg-principal">
-                <div class="stats-icon">
-                    <i class="fa fa-users"></i>
-                </div>
-                <div class="stats-info text-white">
-                    <h4>Usuarios</h4>
-                    <p>0</p>
-                </div>
-                <div class="stats-link">
-                    <a href="#"
-                        >Ver más <i class="fa fa-arrow-alt-circle-right"></i
-                    ></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="widget widget-stats bg-principal">
-                <div class="stats-icon">
-                    <i class="fa fa-list"></i>
-                </div>
-                <div class="stats-info text-white">
-                    <h4>Publicaciones</h4>
-                    <p>0</p>
-                </div>
-                <div class="stats-link">
-                    <a href="#"
-                        >Ver más <i class="fa fa-arrow-alt-circle-right"></i
-                    ></a>
-                </div>
-            </div>
-        </div>
         <!-- BEGIN col-3 -->
         <div class="col-xl-3 col-md-6" v-for="item in array_infos">
             <div class="widget widget-stats" :class="[item.color]">

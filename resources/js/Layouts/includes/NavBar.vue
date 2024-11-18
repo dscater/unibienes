@@ -87,7 +87,7 @@ onBeforeUnmount(() => {
     <div id="header" class="app-header bg-principal">
         <!-- BEGIN navbar-header -->
         <div class="navbar-header">
-            <a href="index.html" class="navbar-brand"
+            <a href="" class="navbar-brand"
                 ><img :src="oConfiguracion.url_logo" alt=""
             /></a>
             <button

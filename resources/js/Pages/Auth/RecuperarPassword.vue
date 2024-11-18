@@ -9,11 +9,19 @@ export default {
 import { Head, Link, router, useForm, usePage } from "@inertiajs/vue3";
 
 import { useConfiguracion } from "@/composables/configuracion/useConfiguracion";
+const propsPage = defineProps({
+    recuperar_password: {
+        type: Object,
+        default: null,
+    },
+});
 const { props } = usePage();
 const { oConfiguracion } = useConfiguracion();
 const form = useForm({
-    usuario: "",
+    id: propsPage.recuperar_password.id,
+    cod: "",
     password: "",
+    password_confirmation: "",
 });
 
 var url_assets = "";
@@ -21,14 +29,21 @@ var url_principal = "";
 
 const submit = () => {
     axios
-        .post(route("login"), form)
+        .post(
+            route("registrar_recuperacion", propsPage.recuperar_password.id),
+            form
+        )
         .then((response) => {
             form.reset("password");
-            if (response.data.user.role_id != 2) {
-                router.get(route("inicio"));
-            } else {
-                window.location.reload();
-            }
+            form.reset("password_confirmation");
+
+            Swal.fire({
+                icon: "success",
+                title: "Correcto",
+                text: `${response.data.message}`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
         })
         .catch((error) => {
             console.log(error.response);
@@ -40,6 +55,14 @@ const submit = () => {
                         form.errors[field] = errors[field][0]; // Asignar solo el primer error
                     }
                 }
+            } else {
+                Swal.fire({
+                    icon: "info",
+                    title: "Error",
+                    text: `${error.response.data.message}`,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: `Aceptar`,
+                });
             }
         });
 
@@ -57,7 +80,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Head title="Login"></Head>
+    <Head title="Recuperar contraseña"></Head>
     <div class="contenedor_login">
         <div id="app" class="app">
             <!-- BEGIN login -->
@@ -101,17 +124,17 @@ onMounted(() => {
                             <div class="form-floating mb-20px">
                                 <input
                                     type="text"
-                                    name="usuario"
+                                    name="cod"
                                     class="form-control fs-13px h-45px border-0"
-                                    placeholder="Usuario/Correo"
+                                    placeholder="Código de verificación"
                                     id="name"
-                                    v-model="form.usuario"
+                                    v-model="form.cod"
                                     autofocus
                                 />
                                 <label
                                     for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Usuario/Correo</label
+                                    >Ingresa el código de verificación</label
                                 >
                             </div>
                             <div class="form-floating mb-20px">
@@ -119,46 +142,54 @@ onMounted(() => {
                                     type="password"
                                     name="password"
                                     class="form-control fs-13px h-45px border-0"
-                                    placeholder="Contraseña"
+                                    placeholder="Nueva Contraseña"
                                     v-model="form.password"
                                     autocomplete="false"
                                 />
                                 <label
                                     for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Contraseña</label
+                                    >Nueva Contraseña</label
                                 >
                             </div>
-                            <div class="w-100" v-if="form.errors?.usuario">
+                            <div class="w-100" v-if="form.errors?.cod">
                                 <span
                                     class="invalid-feedback alert alert-danger"
                                     style="display: block"
                                     role="alert"
                                 >
-                                    <strong>{{ form.errors.usuario }}</strong>
+                                    <strong>{{ form.errors.cod }}</strong>
                                 </span>
+                            </div>
+                            <div class="form-floating mb-20px">
+                                <input
+                                    type="password"
+                                    name="password_confirmation"
+                                    class="form-control fs-13px h-45px border-0"
+                                    placeholder="Confirma la Contraseña"
+                                    v-model="form.password_confirmation"
+                                    autocomplete="false"
+                                />
+                                <label
+                                    for="name"
+                                    class="d-flex align-items-center text-gray-600 fs-13px"
+                                    >Confirma la Contraseña</label
+                                >
                             </div>
                             <div class="mb-15px">
                                 <button
                                     type="submit"
                                     class="btn btn-theme d-block w-100 h-45px btn-lg"
                                 >
-                                    Ingresar
+                                    Actualizar contraseña
                                 </button>
                             </div>
-                            <div class="mb-15px">
+                            <div class="mt-20px mb-20px">
                                 <Link
-                                    :href="route('registro')"
-                                    class="btn btn-default d-block w-100 h-45px btn-lg"
-                                >
-                                    Registrarse
-                                </Link>
-                            </div>
-                            <div class="mb-20px">
-                                <Link
-                                    :href="route('olvido_contrasena')"
+                                    :href="route('login')"
                                     class="text-white d-block w-100 text-center"
-                                    >¿Olvidaste tu contraseña?</Link>
+                                    >Iniciar sesión</Link
+                                >
                             </div>
                             <div class="mb-20px">
                                 <a

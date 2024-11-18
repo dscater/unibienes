@@ -85,7 +85,7 @@ const columns = [
             if (row.estado_sub === 1) {
                 clase = `bg-success`;
             }
-            return `<span class="badge ${clase}">${row.estado_sub_t}</span>`;
+            return `<span class="badge ${clase}">${row.estado_txt}</span>`;
         },
     },
     {
@@ -94,7 +94,7 @@ const columns = [
         render: function (data, type, row) {
             let buttons = ``;
 
-            if (row.estado_sub == 1 || row.estado_sub == 2) {
+            if (row.estado_sub == 1 || row.estado_sub == 2  || row.estado_sub == 3) {
                 buttons += `<button class="mx-0 rounded-0 btn btn-primary verSubasta" data-id="${row.subasta.id}">${row.subasta.subasta_clientes.length}<br/><i class="fa fa-users"></i></button> `;
             }
 

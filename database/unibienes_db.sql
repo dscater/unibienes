@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 16-11-2024 a las 22:28:58
+-- Tiempo de generación: 18-11-2024 a las 16:49:37
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -54,8 +54,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `user_id`, `nombre`, `paterno`, `materno`, `ci`, `complemento`, `ci_exp`, `fono`, `dpto_residencia`, `email`, `foto_ci_anverso`, `foto_ci_reverso`, `banco`, `nro_cuenta`, `moneda`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 3, 'CARLOS', 'MARTINES', 'CHOQUE', '1234567', '', 'LP', '7777777', 'LA PAZ', 'carlos@gmail.com', '131731515614.png', '131731515614.jpg', 'BANCO UNIÓN', '100000121212', 'BOLIVIANOS', '2024-11-13', '2024-11-13 20:33:34', '2024-11-17 02:28:20'),
-(2, 5, 'MARIA', 'PAREDES', 'MAMANI', '44444444', '', 'CB', '67767677', 'CHUQUISACA', 'maria@gmail.com', '151731771365.jpg', '151731771365.jpg', 'BANCO UNIÓN', '10000000333333', 'BOLIVIANOS', '2024-11-16', '2024-11-16 19:36:05', '2024-11-16 19:36:05');
+(1, 3, 'CARLOS', 'MARTINES', 'CHOQUE', '1234567', '', 'LP', '7777777', 'LA PAZ', 'carlos@gmail.com', '131731936498.jpeg', '131731936498.png', 'BANCO UNIÓN', '100000121212', 'BOLIVIANOS', '2024-11-13', '2024-11-13 20:33:34', '2024-11-18 17:28:18'),
+(2, 5, 'MARIA', 'PAREDES', 'MAMANI', '44444444', '', 'CB', '67767677', 'CHUQUISACA', 'maria@gmail.com', '151731936654.jpeg', '151731936654.jpeg', 'BANCO UNIÓN', '10000000333333', 'BOLIVIANOS', '2024-11-16', '2024-11-16 19:36:05', '2024-11-18 17:30:54');
 
 -- --------------------------------------------------------
 
@@ -159,7 +159,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2024_11_04_143215_create_subastas_table', 1),
 (26, '2024_11_04_143347_create_subasta_clientes_table', 1),
 (27, '2024_11_15_215421_create_notificacions_table', 2),
-(28, '2024_11_15_215426_create_notificacion_users_table', 2);
+(28, '2024_11_15_215426_create_notificacion_users_table', 2),
+(29, '2024_11_18_141518_create_recuperar_passwords_table', 3);
 
 -- --------------------------------------------------------
 
@@ -182,25 +183,26 @@ CREATE TABLE `modulos` (
 --
 
 INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `created_at`, `updated_at`) VALUES
-(1, 'Parametrización', 'parametrizacion.index', 'VER', 'VER DATOS DE PARAMETRIZACIÓN', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(2, 'Parametrización', 'parametrizacion.edit', 'EDITAR', 'EDITAR DATOS DE PARAMETRIZACIÓN', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(3, 'Gestión de usuarios', 'usuarios.index', 'VER', 'VER LA LISTA DE USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(4, 'Gestión de usuarios', 'usuarios.create', 'CREAR', 'CREAR USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(5, 'Gestión de usuarios', 'usuarios.edit', 'EDITAR', 'EDITAR USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(6, 'Gestión de usuarios', 'usuarios.destroy', 'ELIMINAR', 'ELIMINAR USUARIOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(7, 'Roles y Permisos', 'roles.index', 'VER', 'VER LA LISTA DE ROLES Y PERMISOS', '2024-11-09 19:51:26', '2024-11-09 19:51:26'),
-(8, 'Roles y Permisos', 'roles.create', 'CREAR', 'CREAR ROLES Y PERMISOS', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(9, 'Roles y Permisos', 'roles.edit', 'EDITAR', 'EDITAR ROLES Y PERMISOS', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(10, 'Roles y Permisos', 'roles.destroy', 'ELIMINAR', 'ELIMINAR ROLES Y PERMISOS', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(11, 'Configuración', 'configuracions.index', 'VER', 'VER INFORMACIÓN DE LA CONFIGURACIÓN DEL SISTEMA', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(12, 'Configuración', 'configuracions.edit', 'EDITAR', 'EDITAR LA CONFIGURACIÓN DEL SISTEMA', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(13, 'Publicaciones', 'publicacions.index', 'VER', 'VER LA LISTA DE PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(14, 'Publicaciones', 'publicacions.create', 'CREAR', 'CREAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(15, 'Publicaciones', 'publicacions.edit', 'EDITAR', 'EDITAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(16, 'Publicaciones', 'publicacions.destroy', 'ELIMINAR', 'ELIMINAR PUBLICACIONES', '2024-11-09 19:51:27', '2024-11-09 19:51:27'),
-(17, 'Reportes', 'reportes.publicacions', 'REPORTE PUBLICACIONES', 'GENERAR REPORTES DE PUBLICACIONES', NULL, NULL),
-(18, 'Reportes', 'reportes.subasta_clientes', 'REPORTE CLIENTES POR SUBASTA', 'GENERAR REPORTES DE LOS CLIENTES POR CADA UNA DE LAS SUBASTAS', NULL, NULL),
-(19, 'Reportes', 'reportes.clientes', 'REPORTE DE CLIENTES', 'GENERAR REPORTES DE LOS CLIENTES REGISTRADOS', NULL, NULL);
+(1, 'Parametrización', 'parametrizacion.index', 'VER', 'VER DATOS DE PARAMETRIZACIÓN', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(2, 'Parametrización', 'parametrizacion.edit', 'EDITAR', 'EDITAR DATOS DE PARAMETRIZACIÓN', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(3, 'Gestión de usuarios', 'usuarios.index', 'VER', 'VER LA LISTA DE USUARIOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(4, 'Gestión de usuarios', 'usuarios.create', 'CREAR', 'CREAR USUARIOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(5, 'Gestión de usuarios', 'usuarios.edit', 'EDITAR', 'EDITAR USUARIOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(6, 'Gestión de usuarios', 'usuarios.destroy', 'ELIMINAR', 'ELIMINAR USUARIOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(7, 'Roles y Permisos', 'roles.index', 'VER', 'VER LA LISTA DE ROLES Y PERMISOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(8, 'Roles y Permisos', 'roles.create', 'CREAR', 'CREAR ROLES Y PERMISOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(9, 'Roles y Permisos', 'roles.edit', 'EDITAR', 'EDITAR ROLES Y PERMISOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(10, 'Roles y Permisos', 'roles.destroy', 'ELIMINAR', 'ELIMINAR ROLES Y PERMISOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(11, 'Configuración', 'configuracions.index', 'VER', 'VER INFORMACIÓN DE LA CONFIGURACIÓN DEL SISTEMA', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(12, 'Configuración', 'configuracions.edit', 'EDITAR', 'EDITAR LA CONFIGURACIÓN DEL SISTEMA', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(13, 'Publicaciones', 'publicacions.index', 'VER', 'VER LA LISTA DE PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(14, 'Publicaciones', 'publicacions.create', 'CREAR', 'CREAR PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(15, 'Publicaciones', 'publicacions.edit', 'EDITAR', 'EDITAR PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(16, 'Publicaciones', 'publicacions.destroy', 'ELIMINAR', 'ELIMINAR PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(17, 'Publicaciones', 'publicacions.todos', 'TODAS LAS PUBLICACIONES', 'VER TODAS LAS PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(18, 'Reportes', 'reportes.publicacions', 'REPORTE PUBLICACIONES', 'GENERAR REPORTES DE PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(19, 'Reportes', 'reportes.subasta_clientes', 'REPORTE CLIENTES POR SUBASTA', 'GENERAR REPORTES DE LOS CLIENTES POR CADA UNA DE LAS SUBASTAS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(20, 'Reportes', 'reportes.clientes', 'REPORTE DE CLIENTES', 'GENERAR REPORTES DE LOS CLIENTES REGISTRADOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12');
 
 -- --------------------------------------------------------
 
@@ -275,7 +277,7 @@ CREATE TABLE `parametrizacions` (
 --
 
 INSERT INTO `parametrizacions` (`id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `created_at`, `updated_at`) VALUES
-(1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"unibienes@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"123\", \"encriptado\": \"tls\"}', 3, 3, 'Terminos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-16 20:48:31');
+(1, 1, 6.96, '{\"host\": \"smtp.gmail.com\", \"correo\": \"correosyseventos@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"465\", \"password\": \"plgfbgxjaqsyciai\", \"encriptado\": \"ssl\"}', 3, 2, 'Terminos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-18 20:36:02');
 
 -- --------------------------------------------------------
 
@@ -331,7 +333,7 @@ CREATE TABLE `publicacions` (
 --
 
 INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
-(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 2, '2024-11-13 03:47:31', '2024-11-17 00:59:54'),
+(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-11-18 20:37:51'),
 (4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 1, '2024-11-13 18:32:59', '2024-11-15 19:52:40'),
 (5, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-11-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-11-13 22:15:26');
 
@@ -398,6 +400,28 @@ INSERT INTO `publicacion_imagens` (`id`, `publicacion_id`, `imagen`, `created_at
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `recuperar_passwords`
+--
+
+CREATE TABLE `recuperar_passwords` (
+  `id` bigint UNSIGNED NOT NULL,
+  `cod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `status` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `recuperar_passwords`
+--
+
+INSERT INTO `recuperar_passwords` (`id`, `cod`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'dTkMMd', 3, 0, '2024-11-18 19:21:04', '2024-11-18 19:21:04');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `roles`
 --
 
@@ -457,6 +481,8 @@ CREATE TABLE `subasta_clientes` (
   `comprobante` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado_comprobante` int NOT NULL,
   `estado_puja` int NOT NULL DEFAULT '0',
+  `fecha_oferta` date DEFAULT NULL,
+  `hora_oferta` time DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -465,10 +491,10 @@ CREATE TABLE `subasta_clientes` (
 -- Volcado de datos para la tabla `subasta_clientes`
 --
 
-INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `puja`, `comprobante`, `estado_comprobante`, `estado_puja`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 2, '2024-11-15 23:55:18', '2024-11-17 00:59:54'),
-(2, 1, 2, 1, 1012.00, '21731771428.pdf', 1, 0, '2024-11-16 19:37:08', '2024-11-16 19:42:45'),
-(3, 2, 2, 1, 20001.00, '21731771817.pdf', 1, 1, '2024-11-16 19:43:37', '2024-11-16 19:43:57');
+INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `puja`, `comprobante`, `estado_comprobante`, `estado_puja`, `fecha_oferta`, `hora_oferta`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 2, NULL, NULL, '2024-11-15 23:55:18', '2024-11-17 00:59:54'),
+(2, 1, 2, 1, 1012.00, '21731771428.pdf', 1, 0, NULL, NULL, '2024-11-16 19:37:08', '2024-11-16 19:42:45'),
+(3, 2, 2, 1, 20001.00, '21731771817.pdf', 1, 1, NULL, NULL, '2024-11-16 19:43:37', '2024-11-16 19:43:57');
 
 -- --------------------------------------------------------
 
@@ -497,11 +523,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-16', 1, '2024-11-09 18:47:19', '2024-11-16 21:12:13'),
-(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', NULL, 1, '2024-11-11 22:53:46', '2024-11-11 22:59:01'),
-(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$2Ta3YiC1ZUWeQpT8wgA0OeqOnhVfpoFVIapyquf1VBlDX/sqaPFAS', 2, 1, NULL, '2024-11-13', '2024-11-16', 1, '2024-11-13 20:33:34', '2024-11-17 00:29:25'),
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-18', 1, '2024-11-09 18:47:19', '2024-11-18 16:07:03'),
+(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', '2024-11-18', 1, '2024-11-11 22:53:46', '2024-11-18 17:37:03'),
+(3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$Y9US/kI3U/vJasdsRi2RSenSF87ZwH7U4V0YWQTR6UuAa20a7FTfO', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-11-18', 1, '2024-11-13 20:33:34', '2024-11-18 19:39:56'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', NULL, 1, '2024-11-13 22:13:05', '2024-11-13 22:13:05'),
-(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, NULL, '2024-11-16', '2024-11-16', 1, '2024-11-16 19:36:05', '2024-11-17 01:09:09');
+(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, NULL, '2024-11-16', '2024-11-18', 1, '2024-11-16 19:36:05', '2024-11-18 20:49:04');
 
 --
 -- Índices para tablas volcadas
@@ -589,6 +615,12 @@ ALTER TABLE `publicacion_imagens`
   ADD KEY `publicacion_imagens_publicacion_id_foreign` (`publicacion_id`);
 
 --
+-- Indices de la tabla `recuperar_passwords`
+--
+ALTER TABLE `recuperar_passwords`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -642,13 +674,13 @@ ALTER TABLE `historial_accions`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`
@@ -691,6 +723,12 @@ ALTER TABLE `publicacion_detalles`
 --
 ALTER TABLE `publicacion_imagens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `recuperar_passwords`
+--
+ALTER TABLE `recuperar_passwords`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

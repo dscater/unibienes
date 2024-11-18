@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\NotificacionController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\ParametrizacionController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicacionController;
+use App\Http\Controllers\RecuperarContrasenaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SubastaClienteController;
@@ -34,6 +36,10 @@ Route::get('/registro', function () {
     return Inertia::render('Auth/Register');
 })->name("registro");
 Route::get('/getTerminosCondiciones', [PortalController::class, 'getTerminosCondiciones'])->name("getTerminosCondiciones");
+Route::get('/olvido_contrasena', [RecuperarContrasenaController::class, 'olvido_contrasena'])->name("olvido_contrasena");
+Route::post('/solicitar_recuperacion', [RecuperarContrasenaController::class, 'solicitar_recuperacion'])->name("solicitar_recuperacion");
+Route::get('/recuperar_password/{recuperar_password}', [RecuperarContrasenaController::class, 'recuperar_password'])->name("recuperar_password");
+Route::post('/registrar_recuperacion/{recuperar_password}', [RecuperarContrasenaController::class, 'registrar_recuperacion'])->name("registrar_recuperacion");
 
 Route::get("configuracions/getConfiguracion", [ConfiguracionController::class, 'getConfiguracion'])->name("configuracions.getConfiguracion");
 
@@ -84,6 +90,9 @@ Route::middleware('auth')->prefix("admin")->group(function () {
         ["index", "store"]
     );
 
+    // CLIENTES
+    Route::get("clientes/listado", [ClienteController::class, 'listado'])->name("clientes.listado");
+
     // PARAMETRIZACIÓN
     Route::get("parametrizacions/api", [ParametrizacionController::class, 'api'])->name("parametrizacions.api");
     Route::get("parametrizacions/paginado", [ParametrizacionController::class, 'paginado'])->name("parametrizacions.paginado");
@@ -132,5 +141,18 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");
     Route::get('reportes/r_usuarios', [ReporteController::class, 'r_usuarios'])->name("reportes.r_usuarios");
+
+    Route::get('reportes/publicacions', [ReporteController::class, 'publicacions'])->name("reportes.publicacions");
+    Route::get('reportes/r_publicacions', [ReporteController::class, 'r_publicacions'])->name("reportes.r_publicacions");
+
+    Route::get('reportes/subasta_clientes', [ReporteController::class, 'subasta_clientes'])->name("reportes.subasta_clientes");
+    Route::get('reportes/r_subasta_clientes', [ReporteController::class, 'r_subasta_clientes'])->name("reportes.r_subasta_clientes");
+
+
+    Route::get('reportes/g_subasta_clientes', [ReporteController::class, 'g_subasta_clientes'])->name("reportes.g_subasta_clientes");
+    Route::get('reportes/gr_subasta_clientes', [ReporteController::class, 'gr_subasta_clientes'])->name("reportes.gr_subasta_clientes");
+
+    Route::get('reportes/clientes', [ReporteController::class, 'clientes'])->name("reportes.clientes");
+    Route::get('reportes/r_clientes', [ReporteController::class, 'r_clientes'])->name("reportes.r_clientes");
 });
 require __DIR__ . '/auth.php';

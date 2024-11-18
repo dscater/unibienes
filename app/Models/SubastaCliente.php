@@ -17,9 +17,21 @@ class SubastaCliente extends Model
         "comprobante",
         "estado_comprobante",
         "estado_puja", //[0:no_ganador, 1:ganador_parcial, 2:ganador]
+        "fecha_oferta",
+        "hora_oferta"
     ];
 
-    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante"];
+    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante", "fecha_oferta_t", "hora_oferta_t"];
+
+
+    public function getHoraOfertaTAttribute()
+    {
+        return date("H:i", strtotime($this->hora_oferta));
+    }
+    public function getFechaOfertaTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_oferta));
+    }
 
     public function getUrlComprobanteAttribute()
     {

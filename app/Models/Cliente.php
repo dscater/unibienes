@@ -28,7 +28,22 @@ class Cliente extends Model
         "fecha_registro",
     ];
 
-    protected $appends = ["full_ci", "full_name"];
+    protected $appends = ["fecha_registro_t", "full_ci", "full_name", "url_ci_anverso", "url_ci_reverso"];
+
+    public function getFechaRegistroTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_registro));
+    }
+
+    public function getUrlCiAnversoAttribute()
+    {
+        return asset("imgs/users/" . $this->foto_ci_anverso);
+    }
+
+    public function getUrlCiReversoAttribute()
+    {
+        return asset("imgs/users/" . $this->foto_ci_reverso);
+    }
 
     public function getFullNameAttribute()
     {
@@ -38,5 +53,10 @@ class Cliente extends Model
     public function getFullCiAttribute()
     {
         return $this->ci . ' ' . $this->ci_exp;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

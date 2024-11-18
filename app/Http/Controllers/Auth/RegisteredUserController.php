@@ -123,8 +123,8 @@ class RegisteredUserController extends Controller
 
         $path = public_path("imgs/users/");
 
-        $foto_ci_anverso->move($path . $nom_file_ci_anverso);
-        $foto_ci_reverso->move($path . $nom_file_ci_reverso);
+        $foto_ci_anverso->move($path, $nom_file_ci_anverso);
+        $foto_ci_reverso->move($path, $nom_file_ci_reverso);
         event(new Registered($user));
         Auth::login($user);
         return redirect(route('portal.index', absolute: false));

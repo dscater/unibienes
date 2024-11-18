@@ -436,7 +436,7 @@ class PublicacionController extends Controller
             // }
 
             $datos_original = HistorialAccion::getDetalleRegistro($publicacion, "publicacions");
-            $publicacion->estado_sub = 0;
+            $publicacion->estado_sub = 5;
             $publicacion->save();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,

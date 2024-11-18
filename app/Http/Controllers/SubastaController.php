@@ -66,6 +66,8 @@ class SubastaController extends Controller
         if ($fecha_hora_actual < $fecha_hora_limite) {
             $subasta_cliente->update([
                 "puja" => $monto_puja,
+                "fecha_oferta" => date("Y-m-d"),
+                "hora_oferta" => date("H:i"),
             ]);
 
             // actualizar ganador

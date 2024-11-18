@@ -43,8 +43,35 @@ const columns = [
         data: "cliente.full_name",
     },
     {
+        title: "C.I.",
+        data: "cliente.full_ci",
+    },
+    {
+        title: "Celular",
+        data: "cliente.fono",
+    },
+    {
+        title: "Correo",
+        data: "cliente.email",
+    },
+    {
         title: "Puja actual",
         data: "puja",
+    },
+    {
+        title: "Estado",
+        data: "estado_puja",
+        render: function (data, type, row) {
+            let estado = `-`;
+            let clase = `bg-gray`;
+            if (row.estado_puja == 2) {
+                estado = `GANADOR`;
+                clase = `bg-success`;
+            }
+
+            let span = `<span class="badge ${clase}">${estado}</span>`;
+            return span;
+        },
     },
     {
         title: "Estado comprobante",
@@ -184,6 +211,10 @@ onBeforeUnmount(() => {
                     >
                         <thead>
                             <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th width="2%"></th>

@@ -526,7 +526,10 @@ const logout = () => {
                     "
                     class="menu-item"
                     :class="[
-                        route_current == 'publicacions.index' || route_current == 'subastas.clientes' ? 'active' : '',
+                        route_current == 'publicacions.index' ||
+                        route_current == 'subastas.clientes'
+                            ? 'active'
+                            : '',
                     ]"
                 >
                     <Link :href="route('publicacions.index')" class="menu-link">
@@ -654,21 +657,66 @@ const logout = () => {
                     <div class="menu-submenu">
                         <div
                             v-if="
+                                user_logeado.permisos == '*' ||
                                 user_logeado.permisos.includes(
-                                    'reportes.usuarios'
+                                    'reportes.publicacions'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.usuarios'
+                                route_current == 'reportes.publicacions'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.usuarios')"
+                                :href="route('reportes.publicacions')"
                                 class="menu-link"
-                                ><div class="menu-text">Usuarios</div></Link
+                                ><div class="menu-text">
+                                    Publicaciones
+                                </div></Link
+                            >
+                        </div>
+                        <div
+                            v-if="
+                                user_logeado.permisos == '*' ||
+                                user_logeado.permisos.includes(
+                                    'reportes.subasta_clientes'
+                                )
+                            "
+                            class="menu-item"
+                            :class="[
+                                route_current == 'reportes.subasta_clientes'
+                                    ? 'active'
+                                    : '',
+                            ]"
+                        >
+                            <Link
+                                :href="route('reportes.subasta_clientes')"
+                                class="menu-link"
+                                ><div class="menu-text">
+                                    Clientes por Subasta
+                                </div></Link
+                            >
+                        </div>
+                        <div
+                            v-if="
+                                user_logeado.permisos == '*' ||
+                                user_logeado.permisos.includes(
+                                    'reportes.clientes'
+                                )
+                            "
+                            class="menu-item"
+                            :class="[
+                                route_current == 'reportes.clientes'
+                                    ? 'active'
+                                    : '',
+                            ]"
+                        >
+                            <Link
+                                :href="route('reportes.clientes')"
+                                class="menu-link"
+                                ><div class="menu-text">Clientes</div></Link
                             >
                         </div>
                     </div>
@@ -684,21 +732,24 @@ const logout = () => {
                     <div class="menu-submenu">
                         <div
                             v-if="
+                                user_logeado.permisos == '*' ||
                                 user_logeado.permisos.includes(
-                                    'reportes.usuarios'
+                                    'reportes.subasta_clientes'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.usuarios'
+                                route_current == 'reportes.g_subasta_clientes'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.usuarios')"
+                                :href="route('reportes.g_subasta_clientes')"
                                 class="menu-link"
-                                ><div class="menu-text">Usuarios</div></Link
+                                ><div class="menu-text">
+                                    Clientes por subasta
+                                </div></Link
                             >
                         </div>
                     </div>

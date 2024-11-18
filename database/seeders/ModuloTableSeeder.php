@@ -130,5 +130,34 @@ class ModuloTableSeeder extends Seeder
             "accion" => "ELIMINAR",
             "descripcion" => "ELIMINAR PUBLICACIONES"
         ]);
+        
+        Modulo::create([
+            "modulo" => "Publicaciones",
+            "nombre" => "publicacions.todos",
+            "accion" => "TODAS LAS PUBLICACIONES",
+            "descripcion" => "VER TODAS LAS PUBLICACIONES"
+        ]);
+
+        // REPORTES
+        Modulo::create([
+            "modulo" => "Reportes",
+            "nombre" => "reportes.publicacions",
+            "accion" => "REPORTE PUBLICACIONES",
+            "descripcion" => "GENERAR REPORTES DE PUBLICACIONES"
+        ]);
+        
+        Modulo::create([
+            "modulo" => "Reportes",
+            "nombre" => "reportes.subasta_clientes",
+            "accion" => "REPORTE CLIENTES POR SUBASTA",
+            "descripcion" => "GENERAR REPORTES DE LOS CLIENTES POR CADA UNA DE LAS SUBASTAS"
+        ]);
+        
+        Modulo::create([
+            "modulo" => "Reportes",
+            "nombre" => "reportes.clientes",
+            "accion" => "REPORTE DE CLIENTES",
+            "descripcion" => "GENERAR REPORTES DE LOS CLIENTES REGISTRADOS"
+        ]);
     }
 }

@@ -24,7 +24,7 @@ class ProfileController extends Controller
             'user' => $request->user()->load(["role"]),
         ]);
     }
-    public function profile_cliente(Request $request): Response
+    public function profile_cliente(Request $request)
     {
         if (Auth::check()) {
             return Inertia::render('Portal/Perfil', [
@@ -128,7 +128,7 @@ class ProfileController extends Controller
             $extension = "." . $foto_ci_anverso->getClientOriginalExtension();
             $nom_file_ci_anverso = '1' . $user->id . time() . $extension;
             $datos_update["foto_ci_anverso"] = $nom_file_ci_anverso;
-            $foto_ci_anverso->move($path . $nom_file_ci_anverso);
+            $foto_ci_anverso->move($path, $nom_file_ci_anverso);
         }
         if ($request->hasFile("foto_ci_reverso")) {
             \File::delete($path . $cliente->foto_ci_anverso);
@@ -136,7 +136,7 @@ class ProfileController extends Controller
             $extension = "." . $foto_ci_reverso->getClientOriginalExtension();
             $nom_file_ci_reverso = '1' . $user->id . time() . $extension;
             $datos_update["foto_ci_reverso"] = $nom_file_ci_reverso;
-            $foto_ci_reverso->move($path . $nom_file_ci_reverso);
+            $foto_ci_reverso->move($path, $nom_file_ci_reverso);
         }
 
         $cliente->update($datos_update);

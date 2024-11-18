@@ -1,6 +1,6 @@
 <script>
 import Login from "@/Layouts/Login.vue";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 export default {
     layout: Login,
 };
@@ -12,25 +12,30 @@ import { useConfiguracion } from "@/composables/configuracion/useConfiguracion";
 const { props } = usePage();
 const { oConfiguracion } = useConfiguracion();
 const form = useForm({
-    usuario: "",
-    password: "",
+    correo: "",
 });
 
 var url_assets = "";
 var url_principal = "";
+const enviando = ref(false);
 
 const submit = () => {
+    enviando.value = true;
     axios
-        .post(route("login"), form)
+        .post(route("solicitar_recuperacion"), form)
         .then((response) => {
-            form.reset("password");
-            if (response.data.user.role_id != 2) {
-                router.get(route("inicio"));
-            } else {
-                window.location.reload();
-            }
+            enviando.value = false;
+            form.reset();
+            Swal.fire({
+                icon: "success",
+                title: "Correcto",
+                html: `Registro correcto<br/> Revisa tu correo electrónico`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
         })
         .catch((error) => {
+            enviando.value = false;
             console.log(error.response);
             if (error.response.data.errors) {
                 const errors = error.response.data.errors;
@@ -57,7 +62,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Head title="Login"></Head>
+    <Head title="Olvidaste tu contraseña"></Head>
     <div class="contenedor_login">
         <div id="app" class="app">
             <!-- BEGIN login -->
@@ -98,74 +103,72 @@ onMounted(() => {
                     <!-- BEGIN login-content -->
                     <div class="login-content">
                         <form @submit.prevent="submit()">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <ul>
+                                            <li>
+                                                Ingresa el correo electrónico
+                                                con el que te registraste
+                                            </li>
+                                            <li>
+                                                Te envíaremos un link y un
+                                                código, para que puedas
+                                                recuperar tu contraseña
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-floating mb-20px">
                                 <input
                                     type="text"
-                                    name="usuario"
+                                    name="correo"
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Usuario/Correo"
                                     id="name"
-                                    v-model="form.usuario"
+                                    v-model="form.correo"
                                     autofocus
                                 />
                                 <label
                                     for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Usuario/Correo</label
+                                    >Correo electrónico</label
                                 >
                             </div>
-                            <div class="form-floating mb-20px">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    class="form-control fs-13px h-45px border-0"
-                                    placeholder="Contraseña"
-                                    v-model="form.password"
-                                    autocomplete="false"
-                                />
-                                <label
-                                    for="name"
-                                    class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Contraseña</label
-                                >
-                            </div>
-                            <div class="w-100" v-if="form.errors?.usuario">
+                            <div class="w-100" v-if="form.errors?.correo">
                                 <span
                                     class="invalid-feedback alert alert-danger"
                                     style="display: block"
                                     role="alert"
                                 >
-                                    <strong>{{ form.errors.usuario }}</strong>
+                                    <strong>{{ form.errors.correo }}</strong>
                                 </span>
                             </div>
                             <div class="mb-15px">
                                 <button
+                                    :disabled="enviando"
                                     type="submit"
                                     class="btn btn-theme d-block w-100 h-45px btn-lg"
                                 >
-                                    Ingresar
+                                    Solicitar recuperación
                                 </button>
                             </div>
                             <div class="mb-15px">
                                 <Link
-                                    :href="route('registro')"
-                                    class="btn btn-default d-block w-100 h-45px btn-lg"
+                                    :href="route('login')"
+                                    class="text-center d-block w-100 text-white"
                                 >
-                                    Registrarse
+                                    Iniciar sesión
                                 </Link>
                             </div>
-                            <div class="mb-20px">
+                            <div class="mb-15px">
                                 <Link
-                                    :href="route('olvido_contrasena')"
-                                    class="text-white d-block w-100 text-center"
-                                    >¿Olvidaste tu contraseña?</Link>
-                            </div>
-                            <div class="mb-20px">
-                                <a
-                                    :href="route('portal.index')"
-                                    class="text-white d-block w-100 text-center"
-                                    >Volver al portal</a
+                                    :href="route('registro')"
+                                    class="text-center d-block w-100 text-white"
                                 >
+                                    Registrarte
+                                </Link>
                             </div>
                         </form>
                     </div>

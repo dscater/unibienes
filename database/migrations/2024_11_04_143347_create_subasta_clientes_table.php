@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("comprobante", 255);
             $table->integer("estado_comprobante");
             $table->integer("estado_puja");
+            $table->date("fecha_oferta")->nullable();
             $table->timestamps();
 
             $table->foreign("subasta_id")->on("subastas")->references("id");

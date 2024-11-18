@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Publicacion extends Model
 {
@@ -19,10 +20,24 @@ class Publicacion extends Model
         "fecha_limite",
         "hora_limite",
         "monto_garantia",
-        "estado_sub", // [0:eliminado, 1:vigente, 2:tiempo_concluido_mostrar, 3:tiempo_concluido_NO_mostrar, 4:tiempo_concluido_NO_mostrar_SinGanador]
+        "estado_sub", // [0:sin_publicar, 1:vigente, 2:tiempo_concluido_mostrar, 3:tiempo_concluido_NO_mostrar, 4:tiempo_concluido_NO_mostrar_SinGanador,5:eliminado]
     ];
 
-    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t"];
+    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt"];
+
+    public function getEstadoTxtAttribute()
+    {
+        $estado = "SIN PUBLICAR";
+        if ($this->estado_sub == 1) {
+            $estado = "VIGENTE";
+        }
+
+        if ($this->estado_sub == 2 || $this->estado_sub == 3 || $this->estado_sub == 4) {
+            $estado = "FINALIZADO";
+        }
+
+        return $estado;
+    }
 
     public function getEstadoSubTAttribute()
     {
@@ -77,5 +92,41 @@ class Publicacion extends Model
     public function subasta()
     {
         return $this->hasOne(Subasta::class, 'publicacion_id');
+    }
+
+    public function actualizaPublicacionesEstado()
+    {
+        $parametrizacion = Parametrizacion::first();
+        $dias_maximo = 8;
+        if ($parametrizacion) {
+            $dias_maximo = (int)$parametrizacion->tiempo_pub;
+        }
+        $fecha_mostrar = date("Y-m-d", strtotime("-" . $dias_maximo . " days"));
+        $publicaciones = Publicacion::where("fecha_limite", "<=", $fecha_mostrar)
+            ->where("estado_sub", 2)
+            ->get();
+        foreach ($publicaciones as $item) {
+            $item->estado_sub = 3;
+            $item->save();
+        }
+        return true;
+    }
+
+    public static function actualizaEstadoUsuario()
+    {
+        $parametrizacion = Parametrizacion::first();
+        $anios_maximo = 1;
+        if ($parametrizacion) {
+            $anios_maximo = (int)$parametrizacion->inactividad_cliente;
+        }
+        $fecha_ultima = date("Y-m-d", strtotime("-" . $anios_maximo . " year"));
+        $users = User::where("ultima_sesion", "<=", $fecha_ultima)
+            ->where("status", 1)
+            ->get();
+        foreach ($users as $item) {
+            $item->status = 0;
+            $item->save();
+        }
+        return true;
     }
 }

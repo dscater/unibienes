@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Publicacion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,14 +36,19 @@ class AuthenticatedSessionController extends Controller
 
         Auth::user()->ultima_sesion = date("Y-m-d");
         Auth::user()->save();
+
+        $oPub = new Publicacion();
+        $oPub->actualizaEstadoUsuario();
+        $oPub->actualizaPublicacionesEstado();
+
         if ($request->ajax()) {
             return response()->JSON(["user" => Auth::user()]);
         }
 
-
         if (Auth::user()->role_id === 2) {
             return redirect()->intended(route('portal.index'));
         }
+
         return redirect()->intended(route('inicio'));
     }
 
