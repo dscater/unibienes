@@ -38,6 +38,11 @@ class UsuarioController extends Controller
         return Inertia::render("Admin/Usuarios/Index");
     }
 
+    public function clientes()
+    {
+        return Inertia::render("Admin/Usuarios/Clientes");
+    }
+
     public function listado()
     {
         $usuarios = User::with(["role"])->where("id", "!=", 1)->where("status", 1)->get();
@@ -74,7 +79,48 @@ class UsuarioController extends Controller
         $usuarios = User::with(["role"])
             ->selectRaw("users.*, CONCAT(users.nombres,' ',users.apellidos) as full_name")
             ->join("roles", "roles.id", "=", "users.role_id")
-            ->where("users.id", "!=", 1);
+            ->where("users.id", "!=", 1)
+            ->where("users.role_id", "!=", 2);
+        if ($search && trim($search) != '') {
+            $usuarios->where("roles.nombre", "LIKE", "%$search%");
+            $usuarios->orWhereRaw("users.usuario LIKE ?", ["%$search%"]);
+            $usuarios->orWhereRaw("CONCAT(users.nombres,' ',users.apellidos) LIKE ?", ["%$search%"]);
+        }
+
+        // order
+        if (isset($request->order)) {
+            $order = $request->order;
+            $nro_col = $order[0]["column"];
+            $asc_desc = $order[0]["dir"];
+            $columns = $request->columns;
+            if ($columns[$nro_col]["data"]) {
+                $col_data = $columns[$nro_col]["data"];
+                $usuarios->orderBy($col_data, $asc_desc);
+            }
+        }
+
+        $usuarios = $usuarios->where("status", 1)->paginate($length, ['*'], 'page', $page);
+
+        return response()->JSON([
+            'data' => $usuarios->items(),
+            'recordsTotal' => $usuarios->total(),
+            'recordsFiltered' => $usuarios->total(),
+            'draw' => intval($request->input('draw')),
+        ]);
+    }
+
+    public function api_clientes(Request $request)
+    {
+        $length = $request->input('length', 10); // Valor de `length` enviado por DataTable
+        $start = $request->input('start', 0); // Índice de inicio enviado por DataTable
+        $page = ($start / $length) + 1; // Cálculo de la página actual
+        $search = $request->input('search');
+
+        $usuarios = User::with(["role", "cliente"])
+            ->selectRaw("users.*, CONCAT(users.nombres,' ',users.apellidos) as full_name")
+            ->join("roles", "roles.id", "=", "users.role_id")
+            ->where("users.id", "!=", 1)
+            ->where("users.role_id", "=", 2);
         if ($search && trim($search) != '') {
             $usuarios->where("roles.nombre", "LIKE", "%$search%");
             $usuarios->orWhereRaw("users.usuario LIKE ?", ["%$search%"]);
@@ -169,7 +215,7 @@ class UsuarioController extends Controller
 
     public function show(User $user)
     {
-        return response()->JSON($user);
+        return response()->JSON($user->load(["cliente"]));
     }
 
     public function actualizaAcceso(User $user, Request $request)
@@ -278,12 +324,13 @@ class UsuarioController extends Controller
             //     ]);
             // }
 
-            $antiguo = $user->foto;
-            if ($antiguo != 'default.png') {
-                \File::delete(public_path() . '/imgs/users/' . $antiguo);
-            }
+            // $antiguo = $user->foto;
+            // if ($antiguo != 'default.png') {
+            //     \File::delete(public_path() . '/imgs/users/' . $antiguo);
+            // }
             $datos_original = HistorialAccion::getDetalleRegistro($user, "users");
-            $user->delete();
+            $user->status = 0;
+            $user->save();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',

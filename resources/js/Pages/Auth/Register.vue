@@ -7,7 +7,7 @@ export default {
 };
 </script>
 <script setup>
-import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage, router } from "@inertiajs/vue3";
 
 import { useConfiguracion } from "@/composables/configuracion/useConfiguracion";
 const { props } = usePage();
@@ -123,14 +123,75 @@ const txtBtnValidar = computed(() => {
     return `Validar <i class="fa fa-check"></i>`;
 });
 
+const enviando = ref(false);
 const submit = () => {
-    if (validado) {
-        form.post(route("register"), {
-            onFinish: () => {
-                form.reset("password");
-                form.reset("password_confirmation");
+    if (validado.value) {
+        console.log(validado.value);
+        enviando.value = true;
+        let config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
             },
-        });
+        };
+        let formdata = new FormData();
+        formdata.append("nombre", form.nombre);
+        formdata.append("paterno", form.paterno);
+        formdata.append("materno", form.materno);
+        formdata.append("ci", form.ci);
+        formdata.append("complemento", form.complemento);
+        formdata.append("ci_exp", form.ci_exp);
+        formdata.append("fono", form.fono);
+        formdata.append("dpto_residencia", form.dpto_residencia);
+        formdata.append("email", form.email);
+        formdata.append("foto_ci_anverso", form.foto_ci_anverso);
+        formdata.append("foto_ci_reverso", form.foto_ci_reverso);
+        formdata.append("banco", form.banco);
+        formdata.append("nro_cuenta", form.nro_cuenta);
+        formdata.append("moneda", form.moneda);
+        formdata.append("password", form.password);
+        formdata.append("password_confirmation", form.password_confirmation);
+        formdata.append("terminos", form.terminos);
+        axios
+            .post(route("register"), form, config)
+            .then((response) => {
+                window.location = route("portal.index");
+            })
+            .catch((error) => {
+                enviando.value = false;
+                if (error.response.data.errors) {
+                    const errors = error.response.data.errors;
+                    form.errors = {};
+                    for (const field in errors) {
+                        if (errors.hasOwnProperty(field)) {
+                            form.errors[field] = errors[field][0]; // Asignar solo el primer error
+                        }
+                    }
+                } else {
+                    Swal.fire({
+                        icon: "info",
+                        title: "Error",
+                        text: `${error.response.data.message}`,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: `Aceptar`,
+                    });
+                }
+            });
+        // form.post(route("register"), {
+        //     onSuccess: () => {
+        //         router.get(route("portal.index"));
+        //         window.location.reload();
+        //         setTimeout(() => {
+        //             enviando.value = false;
+        //         }, 1000);
+        //     },
+        //     onFinish: () => {
+        //         setTimeout(() => {
+        //             enviando.value = false;
+        //         }, 1000);
+        //         form.reset("password");
+        //         form.reset("password_confirmation");
+        //     },
+        // });
     }
 };
 
@@ -146,6 +207,9 @@ onMounted(() => {
 
 <template>
     <Head title="Registro"></Head>
+    <div class="loading" v-if="enviando">
+        <i class="fa fa-spinner fa-spin fa-3x text-blue"></i>
+    </div>
     <TerminosCondiciones
         :open_dialog="modal_dialog_tc"
         @cerrar-dialog="modal_dialog_tc = false"
@@ -780,5 +844,16 @@ onMounted(() => {
 .login-cover .login-cover-bg {
     /* background: linear-gradient(to bottom, #153f59, #94b8d7); */
     background: var(--principal);
+}
+
+.loading {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(212, 212, 212, 0.863);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

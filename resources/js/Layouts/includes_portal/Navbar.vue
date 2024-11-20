@@ -18,6 +18,7 @@ const logout = () => {
     axios
         .post(route("logout"))
         .then((response) => {
+            router.get("portal.index");
             window.location.reload();
         })
         .catch((error) => {

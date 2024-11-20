@@ -189,6 +189,7 @@ class PublicacionController extends Controller
     public function store(Request $request)
     {
         $parametrizacion = Parametrizacion::get()->first();
+        $this->validacion["publicacion_detalles"] = "required|array|min:3";
         if ($parametrizacion) {
             $this->validacion["publicacion_imagens"] = "required|array|min:" . $parametrizacion->nro_imagenes_pub;
         } else {
@@ -200,8 +201,8 @@ class PublicacionController extends Controller
         // Validar detalles 
         $errors = [];
         foreach ($request->publicacion_detalles as $pd) {
-            if (strlen($pd["caracteristica"]) < 3 || strlen($pd['detalle']) < 3) {
-                $errors["publicacion_detalles"] = 'Debes completar todas las caracteristicas y detalles';
+            if (strlen($pd["caracteristica"]) < 1 || strlen($pd['detalle']) < 1) {
+                $errors["publicacion_detalles"] = 'Debes ingresar al menos 1 caracter en cada detalle y caracteristica';
                 break;
             }
         }
@@ -329,6 +330,7 @@ class PublicacionController extends Controller
     public function update(Publicacion $publicacion, Request $request)
     {
         $parametrizacion = Parametrizacion::get()->first();
+        $this->validacion["publicacion_detalles"] = "required|array|min:3";
         if ($parametrizacion) {
             $this->validacion["publicacion_imagens"] = "required|array|min:" . $parametrizacion->nro_imagenes_pub;
         } else {
@@ -340,8 +342,8 @@ class PublicacionController extends Controller
         // Validar detalles 
         $errors = [];
         foreach ($request->publicacion_detalles as $pd) {
-            if (strlen($pd["caracteristica"]) < 3 || strlen($pd['detalle']) < 3) {
-                $errors["publicacion_detalles"] = 'Debes completar todas las caracteristicas y detalles';
+            if (strlen($pd["caracteristica"]) < 1 || strlen($pd['detalle']) < 1) {
+                $errors["publicacion_detalles"] = 'Debes ingresar al menos 1 caracter en cada detalle y caracteristica';
                 break;
             }
         }

@@ -587,6 +587,7 @@ const logout = () => {
                         :style="{
                             display:
                                 route_current == 'usuarios.index' ||
+                                route_current == 'usuarios.clientes' ||
                                 route_current == 'roles.index'
                                     ? 'block'
                                     : 'none',
@@ -608,6 +609,24 @@ const logout = () => {
                                 :href="route('usuarios.index')"
                                 class="menu-link"
                                 ><div class="menu-text">Usuarios</div></Link
+                            >
+                        </div>
+                        <div
+                            v-if="
+                                user_logeado.permisos == '*' ||
+                                user_logeado.permisos.includes('usuarios.index')
+                            "
+                            class="menu-item"
+                            :class="[
+                                route_current == 'usuarios.clientes'
+                                    ? 'active'
+                                    : 'none',
+                            ]"
+                        >
+                            <Link
+                                :href="route('usuarios.clientes')"
+                                class="menu-link"
+                                ><div class="menu-text">Clientes</div></Link
                             >
                         </div>
                         <div

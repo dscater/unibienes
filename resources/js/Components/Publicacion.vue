@@ -59,7 +59,7 @@ const realizarOferta = async () => {
             // mostrar info para registrar puja
             oSubastaCliente.value = data_puja.value.subasta_cliente;
             // if (oSubastaCliente.value.estado_comprobante == 1) {
-                modal_dialog_puja.value = true;
+            modal_dialog_puja.value = true;
             // } else if (oSubastaCliente.value.estado_comprobante == 2) {
             //     // mostrar registro de comprobante nuevo
             //     modal_dialog_comprobante.value = true;
@@ -201,206 +201,231 @@ onMounted(() => {
         @cerrar-dialog="modal_dialog_puja = false"
         @envio-formulario="actualizaPublicacion"
     ></ModalPuja>
-    <div class="product">
-        <!-- BEGIN product-detail -->
-        <div class="product-detail" :class="props.column ? 'flex-column' : ''">
-            <!-- BEGIN product-image -->
+    <div class="product mb-3">
+        <div class="row">
+            <!-- BEGIN product-detail -->
             <div
-                class="product-image flex-column"
-                :class="[props.column ? ' w-100' : '']"
+                class="p-3"
+                :class="[
+                    props.column ? 'flex-column' : '',
+                    props.detalle_lista
+                        ? 'col-md-6 product_info_imagen'
+                        : 'col-md-12',
+                ]"
             >
-                <!-- BEGIN product-main-image -->
-                <div class="product-main-image">
-                    <SliderImagenes
-                        :imagenes="publicacion.publicacion_imagens"
-                    ></SliderImagenes>
+                <!-- tiempo restante -->
+                <div class="tiempoRestante" v-if="swRealizarOferta">
+                    <strong>Quedan</strong>
+                    <span v-text="strRestante"></span>
                 </div>
-                <!-- END product-main-image -->
-                <div class="row fila_detalle">
-                    <div class="col-12 text-center" v-if="link">
-                        <Link
-                            class="btn btn-primary btn-sm"
-                            :href="
-                                route(
-                                    'publicacions.publicacionPortal',
-                                    oPublicacion.id
-                                )
-                            "
-                        >
-                            <i class="fa fa-arrow-right"></i>
-                        </Link>
+                <!-- BEGIN product-image -->
+                <div
+                    class="product-image flex-column"
+                    :class="[props.column ? ' w-100' : '']"
+                >
+                    <!-- BEGIN product-main-image -->
+                    <div class="product-main-image">
+                        <SliderImagenes
+                            :imagenes="publicacion.publicacion_imagens"
+                        ></SliderImagenes>
                     </div>
-                    <!-- tiempo restante -->
-                    <div class="tiempoRestante" v-if="swRealizarOferta">
-                        <strong>Quedan</strong>
-                        <span v-text="strRestante"></span>
-                    </div>
-                    <!-- FIN tiempo restante -->
-                    <div class="col-12 px-5">
-                        <h4 class="w-100 text-center">Detalles</h4>
-                        <div class="row">
-                            <div
-                                class="col-md-4 border"
-                                v-for="item in primerosTres"
+                    <!-- END product-main-image -->
+                    <div class="row fila_detalle">
+                        <div class="col-12 text-center" v-if="link">
+                            <Link
+                                class="btn btn-primary btn-sm"
+                                :href="
+                                    route(
+                                        'publicacions.publicacionPortal',
+                                        oPublicacion.id
+                                    )
+                                "
                             >
-                                <div class="row">
-                                    <div class="col-12 bg-primary text-white">
-                                        {{ item.caracteristica }}
-                                    </div>
-                                    <div class="col-12">
-                                        {{ item.detalle }}
+                                <i class="fa fa-arrow-right"></i>
+                            </Link>
+                        </div>
+                        <!-- FIN tiempo restante -->
+                        <div class="col-12 px-5">
+                            <h4 class="w-100 text-center">Detalles</h4>
+                            <div class="row">
+                                <div
+                                    class="col-md-4 border"
+                                    v-for="item in primerosTres"
+                                >
+                                    <div class="row">
+                                        <div
+                                            class="col-12 bg-primary text-white"
+                                        >
+                                            {{ item.caracteristica }}
+                                        </div>
+                                        <div class="col-12">
+                                            {{ item.detalle }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12 text-center mt-2 mb-2">
-                                <button
-                                    class="btn btn-primary"
-                                    @click="verDetallesPublicacion"
-                                >
-                                    Detalles de la subasta
-                                    <i class="fa fa-external-link-alt"></i>
-                                </button>
+                                <div class="col-12 text-center mt-2 mb-2">
+                                    <button
+                                        class="btn btn-primary"
+                                        @click="verDetallesPublicacion"
+                                    >
+                                        Detalles de la subasta
+                                        <i class="fa fa-external-link-alt"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- END product-image -->
-            <!-- BEGIN product-info -->
-            <div class="product-info">
-                <!-- BEGIN product-info-header -->
-                <div class="product-info-header">
-                    <h1 class="product-title w-100 text-center">Ofertas</h1>
-                </div>
-                <div class="row">
-                    <div class="col-12" v-if="!detalle_lista">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr class="bg-primary">
-                                    <td class="text-white font-weight-bold h5">
-                                        Oferta inicial
-                                    </td>
-                                    <td class="text-white font-weight-bold h5">
-                                        {{ oPublicacion.oferta_inicial }}
-                                    </td>
-                                </tr>
-                                <template
-                                    v-if="
-                                        oPublicacion.subasta &&
-                                        oPublicacion.subasta
-                                            .subasta_clientes_puja.length > 0
-                                    "
-                                >
-                                    <tr class="bg-success">
+                <!-- END product-image -->
+                <!-- BEGIN product-info -->
+                <div class="product-info p-3">
+                    <!-- BEGIN product-info-header -->
+                    <!-- <div class="product-info-header">
+                        <h4 class="product-title w-100 text-center">Ofertas</h4>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-12" v-if="column">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr class="bg-primary">
                                         <td
                                             class="text-white font-weight-bold h5"
                                         >
-                                            Oferta actual
+                                            Oferta inicial
                                         </td>
                                         <td
                                             class="text-white font-weight-bold h5"
                                         >
-                                            {{
-                                                oPublicacion.subasta
-                                                    .subasta_clientes_puja[0]
-                                                    .puja
-                                            }}
+                                            {{ oPublicacion.oferta_inicial }}
                                         </td>
                                     </tr>
-                                </template>
-                                <template v-else>
-                                    <tr>
-                                        <td colspan="2" class="text-center">
-                                            Sin registros aún
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-12" v-if="detalle_lista">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr class="bg-primary">
-                                    <th class="text-white" width="2%">#</th>
-                                    <th class="text-white">Oferta</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template
-                                    v-if="
-                                        oPublicacion.subasta &&
-                                        oPublicacion.subasta
-                                            .subasta_clientes_puja.length > 0
-                                    "
-                                >
-                                    <tr
-                                        v-for="(item, index) in oPublicacion
-                                            .subasta.subasta_clientes_puja"
-                                        :class="[
-                                            index == 0 ? 'h3' : '',
-                                            index == 1 ? 'h4' : '',
-                                        ]"
+                                    <template
+                                        v-if="
+                                            oPublicacion.subasta &&
+                                            oPublicacion.subasta
+                                                .subasta_clientes_puja.length >
+                                                0
+                                        "
                                     >
-                                        <td>{{ index + 1 }}</td>
-                                        <td>{{ item.puja }}</td>
-                                    </tr>
-                                </template>
-                                <template v-else>
-                                    <tr>
-                                        <td colspan="2" class="text-center">
-                                            Sin registros aún
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
+                                        <tr class="bg-success">
+                                            <td
+                                                class="text-white font-weight-bold h5"
+                                            >
+                                                Oferta actual
+                                            </td>
+                                            <td
+                                                class="text-white font-weight-bold h5"
+                                            >
+                                                {{
+                                                    oPublicacion.subasta
+                                                        .subasta_clientes_puja[0]
+                                                        .puja
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    <template v-else>
+                                        <tr>
+                                            <td colspan="2" class="text-center">
+                                                Sin registros aún
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <!-- END product-info-header -->
-                <!-- BEGIN product-purchase-container -->
-                <div class="text-center">
-                    <div
-                        v-if="
-                            oSubastaCliente && oSubastaCliente.estado_puja == 2
-                        "
-                        class="alert alert-success"
-                    >
-                        GANADOR
-                    </div>
-                    <button
-                        class="btn btn-theme btn-lg"
-                        @click="realizarOferta"
-                        :class="[
-                            !oSubastaCliente || oSubastaCliente.estado_puja == 0
-                                ? 'btn-danger'
-                                : 'btn-success bg-green',
-                        ]"
-                        v-if="swRealizarOferta"
-                        v-text="btnTxtRealizarOferta"
-                    ></button>
-                    <div v-else>
-                        <span class="text-danger font-weight-bold"
-                            >SUBASTA CONCLUIDA</span
+                    <!-- END product-info-header -->
+                    <!-- BEGIN product-purchase-container -->
+                    <div class="text-center">
+                        <div
+                            v-if="
+                                oSubastaCliente &&
+                                oSubastaCliente.estado_puja == 2
+                            "
+                            class="alert alert-success"
                         >
+                            GANADOR
+                        </div>
+                        <button
+                            class="btn btn-theme btn-lg"
+                            @click="realizarOferta"
+                            :class="[
+                                !oSubastaCliente ||
+                                oSubastaCliente.estado_puja == 0
+                                    ? 'btn-danger'
+                                    : 'btn-success bg-green',
+                            ]"
+                            v-if="swRealizarOferta"
+                            v-text="btnTxtRealizarOferta"
+                        ></button>
+                        <div v-else>
+                            <span class="text-danger font-weight-bold"
+                                >SUBASTA CONCLUIDA</span
+                            >
+                        </div>
                     </div>
+                    <!-- END product-purchase-container -->
                 </div>
-                <!-- END product-purchase-container -->
+                <!-- END product-info -->
             </div>
-            <!-- END product-info -->
+            <div class="col-md-6 p-3" v-if="detalle_lista">
+                <div class="product-info-header">
+                    <h4 class="product-title w-100 text-center">Ofertas</h4>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="bg-primary">
+                            <th class="text-white" width="2%">#</th>
+                            <th class="text-white">Oferta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template
+                            v-if="
+                                oPublicacion.subasta &&
+                                oPublicacion.subasta.subasta_clientes_puja
+                                    .length > 0
+                            "
+                        >
+                            <tr
+                                v-for="(item, index) in oPublicacion.subasta
+                                    .subasta_clientes_puja"
+                                :class="[
+                                    index == 0 ? 'h3' : '',
+                                    index == 1 ? 'h4' : '',
+                                ]"
+                            >
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ item.puja }}</td>
+                            </tr>
+                        </template>
+                        <template v-else>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    Sin registros aún
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END product-detail -->
         </div>
-        <!-- END product-detail -->
     </div>
 </template>
 <style scoped>
 .fila_detalle {
     position: relative;
 }
+.product-detail {
+    position: relative;
+}
+
 .tiempoRestante {
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.767);
     color: white;
     text-align: center;
     padding: 5px;
@@ -408,7 +433,12 @@ onMounted(() => {
     width: 20%;
     border-radius: 5px;
     position: absolute;
-    left: 50px;
-    top: -25px;
+    left: 10px;
+    top: 0px;
+    z-index: 500;
+}
+
+.product_info_imagen {
+    border-right: solid 1px rgb(204, 204, 204);
 }
 </style>

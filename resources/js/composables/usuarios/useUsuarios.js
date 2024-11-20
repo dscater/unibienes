@@ -137,7 +137,7 @@ export const useUsuarios = () => {
         }
     };
 
-    const setUsuario = (item = null) => {
+    const setUsuario = (item = null, cliente = null) => {
         if (item) {
             oUsuario.value.id = item.id;
             oUsuario.value.usuario = item.usuario;
@@ -147,6 +147,10 @@ export const useUsuarios = () => {
             oUsuario.value.acceso = item.acceso + "";
             oUsuario.value.password = "";
             oUsuario.value._method = "PUT";
+            if (cliente) {
+                console.log(item)
+                oUsuario.value.cliente = item.cliente;
+            }
             return oUsuario;
         }
         return false;

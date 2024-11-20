@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $this->validacion["foto_ci_anverso"] = "required|file|mimes:pdf,jpg,jpeg,png,webp|max:5120";
         $this->validacion["foto_ci_reverso"] = "required|file|mimes:pdf,jpg,jpeg,png,webp|max:5120";
@@ -127,6 +127,14 @@ class RegisteredUserController extends Controller
         $foto_ci_reverso->move($path, $nom_file_ci_reverso);
         event(new Registered($user));
         Auth::login($user);
+
+
+        if ($request->ajax()) {
+            return response()->JSON([
+                "sw" => true
+            ]);
+        }
+
         return redirect(route('portal.index', absolute: false));
     }
 

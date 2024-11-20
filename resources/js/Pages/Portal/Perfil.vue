@@ -50,9 +50,13 @@ function guardarImagen() {
                     title: "Correcto",
                     text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
                     confirmButtonColor: "#3085d6",
-                    confirmButtonText: `Aceptar`,
+                    // confirmButtonText: `Aceptar`,
+                    showConfirmButton:false,
                 });
                 imagen_cargada.value = false;
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             },
             onError: (err) => {
                 Swal.fire({

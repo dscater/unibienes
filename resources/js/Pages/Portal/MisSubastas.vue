@@ -45,7 +45,7 @@ onMounted(() => {
             <!-- BEGIN section-title -->
             <h4 class="section-title clearfix">
                 <span class="flex-1">
-                    Vehículos
+                    Mis subastas
                     <small></small>
                 </span>
             </h4>
@@ -53,14 +53,12 @@ onMounted(() => {
             <!-- BEGIN row -->
             <div class="row gx-2">
                 <!-- BEGIN col-2 -->
-                <div
-                    class="col-lg-6 col-md-6 col-sm-12"
-                    v-for="item in listVehiculos"
-                >
+                <div class="col-12" v-for="item in listVehiculos">
                     <Publicacion
                         :publicacion="item"
                         :link="true"
                         :column="true"
+                        :detalle_lista="true"
                     ></Publicacion>
                 </div>
                 <!-- END col-2 -->

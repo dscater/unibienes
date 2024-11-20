@@ -108,7 +108,7 @@ img.oculto {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    background-color: rgba(255, 255, 255, 0.801);
+    background-color: rgb(226, 226, 226);
     padding: 8px 13px;
     border-radius: 50%;
     transition: all 0.3s;
@@ -120,6 +120,11 @@ img.oculto {
 }
 .contenedor_sliders .slider {
     width: 100%;
+}
+
+.contenedor_sliders .slider img{
+    height: 250px;
+    object-fit: contain;
 }
 
 .contenedor_puntos {
