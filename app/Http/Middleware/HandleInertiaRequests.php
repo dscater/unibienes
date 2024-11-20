@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -16,9 +17,10 @@ class HandleInertiaRequests extends Middleware
 
     public function rootView(Request $request)
     {
-
-
-        if ($request->route()->getPrefix() == 'admin' || in_array($request->route()->getName(), ['login', 'registro', 'terminos_condiciones', 'olvido_contrasena', 'recuperar_password'])) {
+        $nom_ruta = $request->route()->getName();
+        $prefix = $request->route()->getPrefix();
+        $validate_prefix = ["admin", "/admin"];
+        if (in_array($prefix, $validate_prefix) || in_array($nom_ruta, ['login', 'registro', 'terminos_condiciones', 'olvido_contrasena', 'recuperar_password'])) {
             return 'app';
         }
         return 'portal';

@@ -11,6 +11,10 @@
     --progress: #4b5563;
 }
 
+.pace.pace-active {
+    display: none;
+}
+
 .gritter-item-wrapper .gritter-item .gritter-close:before {
     content: "X" !important;
 }

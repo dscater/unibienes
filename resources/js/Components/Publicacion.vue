@@ -6,7 +6,7 @@ import ModalPuja from "@/Components/ModalPuja.vue";
 </script>
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
-import { onMounted, ref, inject } from "vue";
+import { onMounted, ref, inject, computed } from "vue";
 const { props: props_page } = usePage();
 const props = defineProps({
     publicacion: {
@@ -58,12 +58,12 @@ const realizarOferta = async () => {
 
             // mostrar info para registrar puja
             oSubastaCliente.value = data_puja.value.subasta_cliente;
-            if (oSubastaCliente.value.estado_comprobante == 1) {
+            // if (oSubastaCliente.value.estado_comprobante == 1) {
                 modal_dialog_puja.value = true;
-            } else if (oSubastaCliente.value.estado_comprobante == 2) {
-                // mostrar registro de comprobante nuevo
-                modal_dialog_comprobante.value = true;
-            }
+            // } else if (oSubastaCliente.value.estado_comprobante == 2) {
+            //     // mostrar registro de comprobante nuevo
+            //     modal_dialog_comprobante.value = true;
+            // }
         } else {
             // mostrar registro de comprobante
             modal_dialog_comprobante.value = true;
@@ -168,6 +168,12 @@ const verificaSwOferta = () => {
         swRealizarOferta.value = false;
     }
 };
+
+const btnTxtRealizarOferta = computed(() => {
+    if (oSubastaCliente.value && oSubastaCliente.value.estado_comprobante == 0)
+        return "Pendiente";
+    return "Realizar una oferta";
+});
 
 onMounted(() => {
     obtieneInfoSubastaCliente();
@@ -372,9 +378,8 @@ onMounted(() => {
                                 : 'btn-success bg-green',
                         ]"
                         v-if="swRealizarOferta"
-                    >
-                        Realizar una oferta
-                    </button>
+                        v-text="btnTxtRealizarOferta"
+                    ></button>
                     <div v-else>
                         <span class="text-danger font-weight-bold"
                             >SUBASTA CONCLUIDA</span
