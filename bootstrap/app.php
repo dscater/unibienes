@@ -30,5 +30,6 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($response->getStatusCode() === 401) {
                 return Inertia::render("Errors/401");
             }
+            return $response;
         });
     })->create();
