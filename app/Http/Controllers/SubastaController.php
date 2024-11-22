@@ -197,7 +197,7 @@ class SubastaController extends Controller
         }
         return response()->JSON([
             "monto_puja_actual" => $monto_puja_actual,
-            "subasta" => $subasta,
+            "subasta" => $subasta->load(["subasta_clientes_puja"]),
         ]);
     }
 }

@@ -175,19 +175,19 @@ onMounted(() => {
                     <form @submit.prevent="enviarFormulario()">
                         <div class="row">
                             <div class="col-12">
-                                <p><strong>Nombre: </strong> {{ oUsuario.cliente.full_name }}</p>
-                                <p><strong>C.I.: </strong>{{ oUsuario.cliente.full_ci }}</p>
-                                <p><strong>Complemento: </strong>{{ oUsuario.cliente.complemento }}</p>
-                                <p><strong>Número de celular: </strong>{{ oUsuario.cliente.fono }}</p>
-                                <p><strong>Departamento de residencia: </strong>{{ oUsuario.cliente.dpto_residencia }}</p>
-                                <p class="mb-4"><strong>Correo electrónico: </strong>{{ oUsuario.cliente.email }}</p>
+                                <p><strong>Nombre: </strong> {{ oUsuario.cliente?.full_name }}</p>
+                                <p><strong>C.I.: </strong>{{ oUsuario.cliente?.full_ci }}</p>
+                                <p><strong>Complemento: </strong>{{ oUsuario.cliente?.complemento }}</p>
+                                <p><strong>Número de celular: </strong>{{ oUsuario.cliente?.fono }}</p>
+                                <p><strong>Departamento de residencia: </strong>{{ oUsuario.cliente?.dpto_residencia }}</p>
+                                <p class="mb-4"><strong>Correo electrónico: </strong>{{ oUsuario.cliente?.email }}</p>
                                 <h4>Datos complementario</h4>
-                                <p><strong>Foto del C.I. anverso: </strong><a :href="oUsuario.cliente.url_ci_anverso" target="_blank">Descargar</a></p>
-                                <p class="mb-4"><strong>Foto del C.I. reverso: </strong><a :href="oUsuario.cliente.url_ci_reverso" target="_blank">Descargar</a></p>
+                                <p><strong>Foto del C.I. anverso: </strong><a :href="oUsuario.cliente?.url_ci_anverso" target="_blank">Descargar</a></p>
+                                <p class="mb-4"><strong>Foto del C.I. reverso: </strong><a :href="oUsuario.cliente?.url_ci_reverso" target="_blank">Descargar</a></p>
                                 <h4>Datos para devolución</h4>
-                                <p><strong>Banco: </strong>{{ oUsuario.cliente.banco }}</p>
-                                <p><strong>Número de cuenta: </strong>{{ oUsuario.cliente.nro_cuenta }}</p>
-                                <p><strong>Moneda de cuenta bancaria:</strong>{{ oUsuario.cliente.moneda }}</p>
+                                <p><strong>Banco: </strong>{{ oUsuario.cliente?.banco }}</p>
+                                <p><strong>Número de cuenta: </strong>{{ oUsuario.cliente?.nro_cuenta }}</p>
+                                <p><strong>Moneda de cuenta bancaria:</strong>{{ oUsuario.cliente?.moneda }}</p>
                             </div>
                         </div>
                     </form>

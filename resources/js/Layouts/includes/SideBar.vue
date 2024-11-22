@@ -423,6 +423,7 @@ onMounted(async () => {
 
     if (props_page.auth) {
         user_logeado.value = props_page.auth?.user;
+        console.log(user_logeado.value.permisos);
     }
 
     setTimeout(() => {
@@ -565,7 +566,8 @@ const logout = () => {
                     v-if="
                         user_logeado.permisos == '*' ||
                         user_logeado.permisos.includes('usuarios.index') ||
-                        user_logeado.permisos.includes('roles.index')
+                        user_logeado.permisos.includes('roles.index') ||
+                        user_logeado.permisos.includes('clientes.index')
                     "
                     class="menu-item has-sub"
                     :class="[
@@ -614,7 +616,7 @@ const logout = () => {
                         <div
                             v-if="
                                 user_logeado.permisos == '*' ||
-                                user_logeado.permisos.includes('usuarios.index')
+                                user_logeado.permisos.includes('clientes.index')
                             "
                             class="menu-item"
                             :class="[

@@ -25,8 +25,18 @@ const obtenerVehiculos = () => {
             page.value = registros.current_page;
             last_page.value = registros.last_page;
             listVehiculos.value = registros.data;
+            total.value = registros.total;
         });
 };
+
+const updatePage = (value) => {
+    page.value = page.value + value;
+    if (page.value < 0) page.value = 1;
+    if (page.value > total.value) page.value = last_page;
+    console.log(page.value);
+    obtenerVehiculos();
+};
+
 
 const cargarListas = () => {
     obtenerVehiculos();
@@ -65,14 +75,20 @@ onMounted(() => {
                 <!-- END col-2 -->
             </div>
             <!-- END row -->
-            <div class="row mb-3" v-if="page == 1 && listVehiculos.length > 0">
+            <div class="row mb-3" v-if="page >= 1 && listVehiculos.length > 0">
                 <div class="col-12 text-center">
-                    <button class="btn bg-dark text-white mx-1" v-if="page > 1">
+                    <button
+                        class="btn bg-dark text-white mx-1"
+                        v-if="page > 1"
+                        @click.prevent="updatePage(-1)"
+                    >
                         <i class="fa fa-angle-left"></i>
                     </button>
+                    Pág. {{ page }}/{{ last_page }}
                     <button
                         class="btn bg-dark text-white mx-1"
                         v-if="page < last_page"
+                        @click.prevent="updatePage(1)"
                     >
                         <i class="fa fa-angle-right"></i>
                     </button>

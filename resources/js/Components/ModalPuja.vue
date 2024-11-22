@@ -19,7 +19,7 @@ const props = defineProps({
 const dialog = ref(props.open_dialog);
 const oPublicacion = ref(props.publicacion);
 const oSubastaCliente = ref(props.subasta_cliente);
-const oSubata = ref(null);
+const oSubasta = ref(null);
 const montoInicial = ref(0);
 const monto_puja = ref(0);
 const input_file = ref(null);
@@ -147,10 +147,14 @@ const obtenerSubastaMontoInicial = () => {
             },
         })
         .then((response) => {
-            oSubata.value = response.data.subasta;
+            oSubasta.value = response.data.subasta;
             montoInicial.value = response.data.monto_puja_actual;
             if (montoInicial.value && montoInicial.value != "-") {
-                monto_puja.value = parseInt(montoInicial.value) + 1;
+                console.log(oSubasta.value);
+                monto_puja.value = parseInt(montoInicial.value);
+                if (oSubasta.value.subasta_clientes_puja.length > 0) {
+                    monto_puja.value++;
+                }
             }
         });
 };
@@ -159,11 +163,16 @@ const error_monto = ref(false);
 const mensajeError = ref("");
 
 const verificaMontoPuja = () => {
+    console.log(oSubasta.value);
     if (montoInicial.value && montoInicial.value != "-") {
-        let monto_valdacion = parseInt(montoInicial.value) + 1;
+        let monto_valdacion = parseInt(montoInicial.value);
+        mensajeError.value = `Debes ingresar un monto mayor o igual a ${monto_valdacion}`;
+        if (oSubasta.value.subasta_clientes_puja.length > 0) {
+            mensajeError.value = `Debes ingresar un monto mayor a la puja actual de ${monto_valdacion}`;
+            monto_valdacion++;
+        }
         if (monto_puja.value && monto_puja.value < monto_valdacion) {
             error_monto.value = true;
-            mensajeError.value = `Debes ingresar un monto mayor a la puja actual`;
         } else {
             error_monto.value = false;
         }

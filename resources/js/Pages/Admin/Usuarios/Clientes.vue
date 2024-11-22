@@ -80,14 +80,14 @@ const columns = [
 
             if (
                 props_page.auth?.user.permisos == "*" ||
-                props_page.auth?.user.permisos.includes("usuarios.edit")
+                props_page.auth?.user.permisos.includes("clientes.edit")
             ) {
                 buttons += `<button class="mx-0 rounded-0 btn btn-info password" data-id="${row.id}"><i class="fa fa-key"></i></button>`;
             }
 
             if (
                 props_page.auth?.user.permisos == "*" ||
-                props_page.auth?.user.permisos.includes("usuarios.destroy")
+                props_page.auth?.user.permisos.includes("clientes.destroy")
             ) {
                 buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
                  data-id="${row.id}"

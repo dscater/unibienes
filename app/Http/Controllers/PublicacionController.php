@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MensajeGanadorMail;
 use App\Models\HistorialAccion;
 use App\Models\Parametrizacion;
 use App\Models\Publicacion;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
 
 class PublicacionController extends Controller
 {
@@ -160,7 +163,7 @@ class PublicacionController extends Controller
             ->where("categoria", $categoria)
             ->whereIn("estado_sub", [1, 2])
             ->orderBy("created_at", "desc")
-            ->paginate(10);
+            ->paginate(8);
 
         return response()->JSON([
             "publicacions" => $publicacions,
@@ -289,6 +292,37 @@ class PublicacionController extends Controller
             $subasta_cliente = $subasta_clientes[0];
             $subasta_cliente->estado_puja = 2;
             $subasta_cliente->save();
+
+            // enviar mensaje ganador
+            // enviar correo
+
+            $parametrizacion = Parametrizacion::first();
+            if ($parametrizacion) {
+                $servidor_correo = json_decode($parametrizacion->servidor_correo);
+                Config::set(
+                    [
+                        'mail.mailers.default' => $servidor_correo->driver,
+                        'mail.mailers.smtp.host' => $servidor_correo->host,
+                        'mail.mailers.smtp.port' => $servidor_correo->puerto,
+                        'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
+                        'mail.mailers.smtp.username' => $servidor_correo->correo,
+                        'mail.mailers.smtp.password' => $servidor_correo->password,
+                        'mail.from.address' => $servidor_correo->correo,
+                        'mail.from.name' => $servidor_correo->nombre,
+                    ]
+                );
+
+                $publicacion = $subasta_cliente->subasta->publicacion;
+                $url =  route('publicacions.publicacionPortal', $publicacion->id);
+
+                $mensaje = 'Felicidades acabas de ganar la subasta de la siguiente  <a href="' . $url . '">PUBLICACIÓN</a>';
+                $datos = [
+                    "mensaje" =>  $mensaje,
+                ];
+
+                Mail::to($subasta_cliente->cliente->email)
+                    ->send(new MensajeGanadorMail($datos));
+            }
         } else {
             // sin ganador
             $publicacion->estado_sub = 2;

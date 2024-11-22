@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 20-11-2024 a las 05:20:30
+-- Tiempo de generación: 22-11-2024 a las 04:03:31
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -30,20 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `clientes` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `paterno` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `materno` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ci` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `complemento` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ci_exp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dpto_residencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foto_ci_anverso` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `foto_ci_reverso` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banco` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nro_cuenta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `moneda` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `paterno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `materno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ci` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `complemento` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ci_exp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fono` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dpto_residencia` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto_ci_anverso` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto_ci_reverso` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nro_cuenta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `moneda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_registro` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -63,7 +63,12 @@ INSERT INTO `clientes` (`id`, `user_id`, `nombre`, `paterno`, `materno`, `ci`, `
 (7, 11, 'MARTIN', 'MAMANI', 'MAMANI', '4334343', '', 'LP', '6666666', 'LA PAZ', 'martin@gmail.com', '1111732077783.jpeg', '1111732077783.png', 'BANCO UNION', '1000033266', 'BOLIVIANOS', '2024-11-20', '2024-11-20 08:43:03', '2024-11-20 08:43:03'),
 (8, 12, 'CARLA', 'RAMIRES', 'CONDORI', '32323322', '', 'OR', '6666666', 'ORURO', 'carla@gmail.com', '1121732078001.jpeg', '1121732078001.png', 'BANCO UNIÓN', '1000665555', 'BOLIVIANOS', '2024-11-20', '2024-11-20 08:46:41', '2024-11-20 08:46:41'),
 (9, 13, 'FRANZ', 'CONDORI', 'CONDORI', '3343434', '', 'LP', '6665555', 'LA PAZ', 'franz@gmail.com', '1131732078159.jpeg', '1131732078159.jpeg', 'BANCO UNIÓN', '100000003333331', 'BOLIVIANOS', '2024-11-20', '2024-11-20 08:49:19', '2024-11-20 08:49:19'),
-(10, 14, 'MARTIN', 'COLQUE', 'CONDORI', '44444441', '', 'CB', '6777777', 'LA PAZ', 'martinc@gmail.com', '1141732078711.jpeg', '1141732078711.jpeg', 'BANCO UNIÓN', '100000003332', 'BOLIVIANOS', '2024-11-20', '2024-11-20 08:58:31', '2024-11-20 08:58:31');
+(10, 14, 'MARTIN', 'COLQUE', 'CONDORI', '44444441', '', 'CB', '6777777', 'LA PAZ', 'martinc@gmail.com', '1141732078711.jpeg', '1141732078711.jpeg', 'BANCO UNIÓN', '100000003332', 'BOLIVIANOS', '2024-11-20', '2024-11-20 08:58:31', '2024-11-20 08:58:31'),
+(11, 16, 'PAMELA', 'ORTEGA', 'CASTRO', '1020301', '', 'LP', '76522487', 'LA PAZ', 'pamela12@gmail.com', '1161732124572.pdf', '1161732124572.pdf', 'MERCANTIL', '42558564712457', 'BOLIVIANOS', '2024-11-20', '2024-11-20 21:42:52', '2024-11-20 21:42:52'),
+(12, 17, 'RODRIGO', 'MEDINA', 'PACOSILLO', '1020302', '', 'LP', '76522487', 'LA PAZ', 'rodrigo12@gmail.com', '1171732124802.pdf', '1171732124802.pdf', 'BANCO ECONÓMICO', '200000148596', 'BOLIVIANOS', '2024-11-20', '2024-11-20 21:46:42', '2024-11-20 21:46:42'),
+(13, 18, 'MARCELO', 'APAZA', 'QUINO', '4050601', '', 'LP', '76588745', 'LA PAZ', 'marcelo12@gmail.com', '1181732203024.pdf', '1181732203024.pdf', 'MERCANTIL', '4522525225452', 'BOLIVIANOS', '2024-11-21', '2024-11-21 19:30:24', '2024-11-21 19:30:24'),
+(14, 19, 'CARLOS', 'MEDRANO', 'MONTES', '7080901', '', 'LP', '79855624', 'LA PAZ', 'carlos12@gmail.com', '1191732203295.pdf', '1191732203295.pdf', 'BANCO UNIÓN', '58000524852', 'BOLIVIANOS', '2024-11-21', '2024-11-21 19:34:55', '2024-11-21 19:34:55'),
+(15, 20, 'RAMIRO', 'FERNANDEZ', 'LOPEZ', '7080907', '', 'LP', '78487798', 'LA PAZ', 'ramiro12@gmail.com', '1201732226612.pdf', '1201732226612.pdf', 'BANCO UNIÓN', '2338451298415', 'BOLIVIANOS', '2024-11-21', '2024-11-22 02:03:32', '2024-11-22 02:03:32');
 
 -- --------------------------------------------------------
 
@@ -73,9 +78,9 @@ INSERT INTO `clientes` (`id`, `user_id`, `nombre`, `paterno`, `materno`, `ci`, `
 
 CREATE TABLE `configuracions` (
   `id` bigint UNSIGNED NOT NULL,
-  `razon_social` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alias` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `razon_social` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -85,7 +90,7 @@ CREATE TABLE `configuracions` (
 --
 
 INSERT INTO `configuracions` (`id`, `razon_social`, `alias`, `logo`, `created_at`, `updated_at`) VALUES
-(1, 'UNIBIENES S.A.', 'UB', 'logo.png', '2024-11-09 18:47:19', '2024-11-09 18:47:19');
+(1, 'UNIBIENES S.A.', 'UNIBIENES S.A.', 'logo.png', '2024-11-09 18:47:19', '2024-11-21 18:55:52');
 
 -- --------------------------------------------------------
 
@@ -96,11 +101,11 @@ INSERT INTO `configuracions` (`id`, `razon_social`, `alias`, `logo`, `created_at
 CREATE TABLE `historial_accions` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `accion` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `datos_original` text COLLATE utf8mb4_unicode_ci,
-  `datos_nuevo` text COLLATE utf8mb4_unicode_ci,
-  `modulo` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accion` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `datos_original` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `datos_nuevo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `modulo` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -142,7 +147,27 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (28, 6, 'MODIFICACIÓN', 'EL USUARIO MPAREDES MODIFICÓ UNA PUBLICACIÓN', 'id: 6<br/>user_id: 6<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBS<br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00:00<br/>monto_garantia: 5000.00<br/>estado_sub: 0<br/>created_at: 2024-11-20 04:08:13<br/>updated_at: 2024-11-20 04:08:13<br/>', 'id: 6<br/>user_id: 6<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBS<br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00:00<br/>monto_garantia: 5000.00<br/>estado_sub: 0<br/>created_at: 2024-11-20 04:08:13<br/>updated_at: 2024-11-20 04:08:13<br/>', 'PUBLICACIONES', '2024-11-20', '04:11:09', '2024-11-20 08:11:09', '2024-11-20 08:11:09'),
 (29, 6, 'MODIFICACIÓN', 'EL USUARIO MPAREDES MODIFICÓ UNA PUBLICACIÓN', 'id: 6<br/>user_id: 6<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBS<br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00:00<br/>monto_garantia: 5000.00<br/>estado_sub: 0<br/>created_at: 2024-11-20 04:08:13<br/>updated_at: 2024-11-20 04:08:13<br/>', 'id: 6<br/>user_id: 6<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 1000.00<br/>ubicacion: LA PAZ<br/>observaciones: OBS<br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00:00<br/>monto_garantia: 5000.00<br/>estado_sub: 0<br/>created_at: 2024-11-20 04:08:13<br/>updated_at: 2024-11-20 04:08:13<br/>', 'PUBLICACIONES', '2024-11-20', '04:11:17', '2024-11-20 08:11:17', '2024-11-20 08:11:17'),
 (30, 4, 'CREACIÓN', 'EL USUARIO APAREDES REGISTRO UNA PUBLICACIÓN', 'id: 7<br/>user_id: 4<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 20000<br/>ubicacion: COCHABAMBA<br/>observaciones: OBS<br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00<br/>monto_garantia: 10000<br/>estado_sub: <br/>created_at: 2024-11-20 04:13:24<br/>updated_at: 2024-11-20 04:13:24<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '04:13:24', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
-(31, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ROLE', 'id: 1<br/>nombre: SUPER USUARIO<br/>permisos: 1<br/>usuarios: 0<br/>created_at: 2024-11-09 14:47:19<br/>updated_at: 2024-11-09 14:47:19<br/>', 'id: 1<br/>nombre: SUPER USUARIO<br/>permisos: 1<br/>usuarios: 0<br/>created_at: 2024-11-09 14:47:19<br/>updated_at: 2024-11-09 14:47:19<br/>', 'ROLES', '2024-11-20', '05:17:14', '2024-11-20 09:17:14', '2024-11-20 09:17:14');
+(31, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ROLE', 'id: 1<br/>nombre: SUPER USUARIO<br/>permisos: 1<br/>usuarios: 0<br/>created_at: 2024-11-09 14:47:19<br/>updated_at: 2024-11-09 14:47:19<br/>', 'id: 1<br/>nombre: SUPER USUARIO<br/>permisos: 1<br/>usuarios: 0<br/>created_at: 2024-11-09 14:47:19<br/>updated_at: 2024-11-09 14:47:19<br/>', 'ROLES', '2024-11-20', '05:17:14', '2024-11-20 09:17:14', '2024-11-20 09:17:14'),
+(32, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 15<br/>usuario: VALDEZ<br/>nombres: FRANCISCO<br/>apellidos: MORENO<br/>password: $2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-20<br/>ultima_sesion: <br/>status: <br/>created_at: 2024-11-20 17:19:43<br/>updated_at: 2024-11-20 17:19:43<br/>', NULL, 'USUARIOS', '2024-11-20', '17:19:43', '2024-11-20 21:19:43', '2024-11-20 21:19:43'),
+(33, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 15<br/>usuario: VALDEZ<br/>nombres: FRANCISCO<br/>apellidos: MORENO<br/>password: $2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-20<br/>ultima_sesion: <br/>status: 1<br/>created_at: 2024-11-20 17:19:43<br/>updated_at: 2024-11-20 17:19:43<br/>', 'id: 15<br/>usuario: JMORENO<br/>nombres: FRANCISCO<br/>apellidos: MORENO<br/>password: $2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-20<br/>ultima_sesion: <br/>status: 1<br/>created_at: 2024-11-20 17:19:43<br/>updated_at: 2024-11-20 17:21:24<br/>', 'USUARIOS', '2024-11-20', '17:21:24', '2024-11-20 21:21:24', '2024-11-20 21:21:24'),
+(34, 15, 'CREACIÓN', 'EL USUARIO JMORENO REGISTRO UNA PUBLICACIÓN', 'id: 8<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 150000<br/>ubicacion: LA PAZ<br/>observaciones: VEHÍCULO<br/>fecha_limite: 2024-11-22<br/>hora_limite: 18:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-11-20 17:28:57<br/>updated_at: 2024-11-20 17:28:57<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '17:28:57', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(35, 15, 'CREACIÓN', 'EL USUARIO JMORENO REGISTRO UNA PUBLICACIÓN', 'id: 9<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 100000<br/>ubicacion: LA PAZ<br/>observaciones: VEHÍCULO<br/>fecha_limite: 2024-11-22<br/>hora_limite: 18:00<br/>monto_garantia: 10000<br/>estado_sub: <br/>created_at: 2024-11-20 17:32:37<br/>updated_at: 2024-11-20 17:32:37<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '17:32:37', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(36, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 15<br/>usuario: JMORENO<br/>nombres: FRANCISCO<br/>apellidos: MORENO<br/>password: $2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-20<br/>ultima_sesion: 2024-11-20<br/>status: 1<br/>created_at: 2024-11-20 17:19:43<br/>updated_at: 2024-11-20 17:22:59<br/>', 'id: 15<br/>usuario: FMORENO<br/>nombres: FRANCISCO<br/>apellidos: MORENO<br/>password: $2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6<br/>role_id: 3<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-11-20<br/>ultima_sesion: 2024-11-20<br/>status: 1<br/>created_at: 2024-11-20 17:19:43<br/>updated_at: 2024-11-20 17:48:13<br/>', 'USUARIOS', '2024-11-20', '17:48:13', '2024-11-20 21:48:13', '2024-11-20 21:48:13'),
+(37, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 10<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 120000<br/>ubicacion: LA PAZ<br/>observaciones: VEHÍCULO SEMINUEVO<br/>fecha_limite: 2024-11-22<br/>hora_limite: 18:00<br/>monto_garantia: 5000<br/>estado_sub: <br/>created_at: 2024-11-20 17:53:43<br/>updated_at: 2024-11-20 17:53:43<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '17:53:43', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(38, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 11<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 250000<br/>ubicacion: LA PAZ<br/>observaciones: 30000<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-11-20 17:56:08<br/>updated_at: 2024-11-20 17:56:08<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '17:56:08', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(39, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 12<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 150000<br/>ubicacion: LA PAZ<br/>observaciones: CASA TIPO VIVIENDA<br/>fecha_limite: 2024-11-18<br/>hora_limite: 18:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-11-20 17:59:08<br/>updated_at: 2024-11-20 17:59:08<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '17:59:08', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(40, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 13<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 100000<br/>ubicacion: ORURO<br/>observaciones: VEHÍCULO<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 5000<br/>estado_sub: <br/>created_at: 2024-11-20 19:38:27<br/>updated_at: 2024-11-20 19:38:27<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:38:27', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(41, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 14<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 200000<br/>ubicacion: LA PAZ<br/>observaciones: VEHÍCULO SEMINUEVO<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-11-20 19:40:18<br/>updated_at: 2024-11-20 19:40:18<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:40:18', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(42, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 15<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 150000<br/>ubicacion: SANTA CRUZ<br/>observaciones: VEHÍCULO SEMINUEVO<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 15000<br/>estado_sub: <br/>created_at: 2024-11-20 19:43:30<br/>updated_at: 2024-11-20 19:43:30<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:43:30', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(43, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 16<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 250000<br/>ubicacion: LA PAZ<br/>observaciones: CASA<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 30000<br/>estado_sub: <br/>created_at: 2024-11-20 19:46:52<br/>updated_at: 2024-11-20 19:46:52<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:46:52', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(44, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 17<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 150000<br/>ubicacion: LA PAZ<br/>observaciones: CASA<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 15000<br/>estado_sub: <br/>created_at: 2024-11-20 19:49:33<br/>updated_at: 2024-11-20 19:49:33<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:49:33', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(45, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 18<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 180000<br/>ubicacion: COCHABAMBA<br/>observaciones: CASA<br/>fecha_limite: 2024-11-25<br/>hora_limite: 18:00<br/>monto_garantia: 25000<br/>estado_sub: <br/>created_at: 2024-11-20 19:51:55<br/>updated_at: 2024-11-20 19:51:55<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:51:55', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(46, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 19<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 140000<br/>ubicacion: LA PAZ<br/>observaciones: CASA<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-11-20 19:54:18<br/>updated_at: 2024-11-20 19:54:18<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:54:18', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(47, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 20<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 120000<br/>ubicacion: CHUQUISACA<br/>observaciones: CASA<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00<br/>monto_garantia: 12000<br/>estado_sub: <br/>created_at: 2024-11-20 19:56:30<br/>updated_at: 2024-11-20 19:56:30<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:56:30', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(48, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 21<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 50000<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO FÉRTIL<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00<br/>monto_garantia: 5000<br/>estado_sub: <br/>created_at: 2024-11-20 19:59:24<br/>updated_at: 2024-11-20 19:59:24<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '19:59:24', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(49, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00<br/>monto_garantia: 3000<br/>estado_sub: <br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-11-20 20:01:32<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '20:01:32', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(50, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 23<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 60000<br/>ubicacion: COCHABAMBA<br/>observaciones: LOTE DE TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00<br/>monto_garantia: 6000<br/>estado_sub: <br/>created_at: 2024-11-20 20:03:48<br/>updated_at: 2024-11-20 20:03:48<br/>', NULL, 'PUBLICACIONES', '2024-11-20', '20:03:48', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(51, 15, 'CREACIÓN', 'EL USUARIO FMORENO REGISTRO UNA PUBLICACIÓN', 'id: 24<br/>user_id: 15<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 200000<br/>ubicacion: LA PAZ<br/>observaciones: VEHÍCULO SEMINUEVO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-11-21 15:26:49<br/>updated_at: 2024-11-21 15:26:49<br/>', NULL, 'PUBLICACIONES', '2024-11-21', '15:26:49', '2024-11-21 19:26:49', '2024-11-21 19:26:49');
 
 -- --------------------------------------------------------
 
@@ -152,7 +177,7 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -186,10 +211,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `modulos` (
   `id` bigint UNSIGNED NOT NULL,
-  `modulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `accion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -218,7 +243,10 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 (17, 'Publicaciones', 'publicacions.todos', 'TODAS LAS PUBLICACIONES', 'VER TODAS LAS PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
 (18, 'Reportes', 'reportes.publicacions', 'REPORTE PUBLICACIONES', 'GENERAR REPORTES DE PUBLICACIONES', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
 (19, 'Reportes', 'reportes.subasta_clientes', 'REPORTE CLIENTES POR SUBASTA', 'GENERAR REPORTES DE LOS CLIENTES POR CADA UNA DE LAS SUBASTAS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
-(20, 'Reportes', 'reportes.clientes', 'REPORTE DE CLIENTES', 'GENERAR REPORTES DE LOS CLIENTES REGISTRADOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12');
+(20, 'Reportes', 'reportes.clientes', 'REPORTE DE CLIENTES', 'GENERAR REPORTES DE LOS CLIENTES REGISTRADOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
+(21, 'Clientes', 'clientes.index', 'VER', 'VER LA LISTA DE CLIENTES', NULL, NULL),
+(22, 'Clientes', 'clientes.edit', 'EDITAR PASSWORD', 'MODIFICAR LA CONTRASEÑA DE LOS CLIENTES', NULL, NULL),
+(23, 'Clientes', 'clientes.destroy', 'ELIMINAR', 'ELIMINAR CLIENTES', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -228,10 +256,10 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 
 CREATE TABLE `notificacions` (
   `id` bigint UNSIGNED NOT NULL,
-  `descripcion` varchar(900) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` varchar(900) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
-  `modulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `registro_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -244,7 +272,15 @@ CREATE TABLE `notificacions` (
 INSERT INTO `notificacions` (`id`, `descripcion`, `fecha`, `hora`, `modulo`, `registro_id`, `created_at`, `updated_at`) VALUES
 (1, 'CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-11-15', '22:23:00', 'SUBASTA CLIENTE', 1, '2024-11-16 02:23:49', '2024-11-16 02:23:49'),
 (2, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-16', '15:37:00', 'SUBASTA CLIENTE', 2, '2024-11-16 19:37:08', '2024-11-16 19:37:08'),
-(3, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-16', '15:43:00', 'SUBASTA CLIENTE', 3, '2024-11-16 19:43:37', '2024-11-16 19:43:37');
+(3, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-16', '15:43:00', 'SUBASTA CLIENTE', 3, '2024-11-16 19:43:37', '2024-11-16 19:43:37'),
+(4, 'PAMELA ORTEGA CASTRO REGISTRO SU COMPROBANTE', '2024-11-20', '17:43:00', 'SUBASTA CLIENTE', 4, '2024-11-20 21:43:41', '2024-11-20 21:43:41'),
+(5, 'RODRIGO MEDINA PACOSILLO REGISTRO SU COMPROBANTE', '2024-11-20', '17:47:00', 'SUBASTA CLIENTE', 5, '2024-11-20 21:47:00', '2024-11-20 21:47:00'),
+(6, 'MARCELO APAZA QUINO REGISTRO SU COMPROBANTE', '2024-11-21', '15:31:00', 'SUBASTA CLIENTE', 6, '2024-11-21 19:31:04', '2024-11-21 19:31:04'),
+(7, 'CARLOS MEDRANO MONTES REGISTRO SU COMPROBANTE', '2024-11-21', '15:35:00', 'SUBASTA CLIENTE', 7, '2024-11-21 19:35:27', '2024-11-21 19:35:27'),
+(8, 'CARLOS MEDRANO MONTES REGISTRO SU COMPROBANTE', '2024-11-21', '21:39:00', 'SUBASTA CLIENTE', 8, '2024-11-22 01:39:01', '2024-11-22 01:39:01'),
+(9, 'RAMIRO FERNANDEZ LOPEZ REGISTRO SU COMPROBANTE', '2024-11-21', '22:03:00', 'SUBASTA CLIENTE', 9, '2024-11-22 02:03:44', '2024-11-22 02:03:44'),
+(10, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-21', '23:54:00', 'SUBASTA CLIENTE', 10, '2024-11-22 03:54:18', '2024-11-22 03:54:18'),
+(11, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-11-22', '03:45:00', 'SUBASTA CLIENTE', 11, '2024-11-22 07:45:57', '2024-11-22 07:45:57');
 
 -- --------------------------------------------------------
 
@@ -268,7 +304,15 @@ CREATE TABLE `notificacion_users` (
 INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 1, '2024-11-16 02:23:49', '2024-11-16 02:26:24'),
 (2, 2, 2, 1, '2024-11-16 19:37:08', '2024-11-16 19:37:23'),
-(3, 3, 2, 1, '2024-11-16 19:43:37', '2024-11-16 20:06:27');
+(3, 3, 2, 1, '2024-11-16 19:43:37', '2024-11-16 20:06:27'),
+(4, 4, 15, 1, '2024-11-20 21:43:41', '2024-11-20 21:48:31'),
+(5, 5, 15, 1, '2024-11-20 21:47:00', '2024-11-20 21:48:53'),
+(6, 6, 15, 1, '2024-11-21 19:31:04', '2024-11-21 19:31:51'),
+(7, 7, 15, 1, '2024-11-21 19:35:27', '2024-11-21 19:36:04'),
+(8, 8, 15, 1, '2024-11-22 01:39:01', '2024-11-22 01:52:26'),
+(9, 9, 15, 1, '2024-11-22 02:03:44', '2024-11-22 02:04:03'),
+(10, 10, 15, 0, '2024-11-22 03:54:18', '2024-11-22 03:54:18'),
+(11, 11, 15, 0, '2024-11-22 07:45:57', '2024-11-22 07:45:57');
 
 -- --------------------------------------------------------
 
@@ -283,7 +327,7 @@ CREATE TABLE `parametrizacions` (
   `servidor_correo` json NOT NULL,
   `nro_imagenes_pub` int NOT NULL,
   `tiempo_pub` int NOT NULL,
-  `terminos_condiciones` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `terminos_condiciones` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -293,7 +337,7 @@ CREATE TABLE `parametrizacions` (
 --
 
 INSERT INTO `parametrizacions` (`id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `created_at`, `updated_at`) VALUES
-(1, 1, 6.96, '{\"host\": \"smtp.gmail.com\", \"correo\": \"correosyseventos@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"465\", \"password\": \"plgfbgxjaqsyciai\", \"encriptado\": \"ssl\"}', 3, 2, 'Terminos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-18 20:36:02');
+(1, 1, 6.96, '{\"host\": \"smtp.gmail.com\", \"correo\": \"correosyseventos@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"465\", \"password\": \"plgfbgxjaqsyciai\", \"encriptado\": \"ssl\"}', 3, 2, 'Términos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-21 18:57:18');
 
 -- --------------------------------------------------------
 
@@ -319,7 +363,8 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 (3, 3, 15, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
 (4, 3, 16, '2024-11-09 20:42:07', '2024-11-09 20:42:07'),
 (7, 3, 18, '2024-11-17 01:24:49', '2024-11-17 01:24:49'),
-(8, 3, 19, '2024-11-17 01:24:49', '2024-11-17 01:24:49');
+(8, 3, 19, '2024-11-17 01:24:49', '2024-11-17 01:24:49'),
+(14, 3, 21, '2024-11-22 07:59:22', '2024-11-22 07:59:22');
 
 -- --------------------------------------------------------
 
@@ -330,11 +375,11 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 CREATE TABLE `publicacions` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `categoria` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `moneda` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `categoria` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `moneda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `oferta_inicial` decimal(24,2) NOT NULL,
-  `ubicacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observaciones` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ubicacion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observaciones` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_limite` date NOT NULL,
   `hora_limite` time NOT NULL,
   `monto_garantia` decimal(24,2) NOT NULL,
@@ -348,11 +393,28 @@ CREATE TABLE `publicacions` (
 --
 
 INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
-(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-11-18 20:37:51'),
-(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 1, '2024-11-13 18:32:59', '2024-11-15 19:52:40'),
+(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-11-22 07:59:00'),
+(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 3, '2024-11-13 18:32:59', '2024-11-22 07:59:00'),
 (5, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-11-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-11-13 22:15:26'),
-(6, 6, 'VEHÍCULOS', 'DÓLARES (USD)', 1000.00, 'LA PAZ', 'OBS', '2024-11-30', '12:00:00', 5000.00, 1, '2024-11-20 08:08:13', '2024-11-20 08:11:44'),
-(7, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'COCHABAMBA', 'OBS', '2024-11-30', '12:00:00', 10000.00, 1, '2024-11-20 08:13:24', '2024-11-20 08:13:28');
+(6, 6, 'VEHÍCULOS', 'DÓLARES (USD)', 1000.00, 'LA PAZ', 'OBS', '2024-11-30', '12:00:00', 5000.00, 2, '2024-11-20 08:08:13', '2024-11-22 03:40:15'),
+(7, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'COCHABAMBA', 'OBS', '2024-11-30', '12:00:00', 10000.00, 2, '2024-11-20 08:13:24', '2024-11-22 03:45:59'),
+(8, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'VEHÍCULO', '2024-11-22', '18:00:00', 20000.00, 1, '2024-11-20 21:28:57', '2024-11-20 21:30:40'),
+(9, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 100000.00, 'LA PAZ', 'VEHÍCULO', '2024-11-22', '18:00:00', 10000.00, 1, '2024-11-20 21:32:37', '2024-11-22 03:46:06'),
+(10, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 120000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-22', '18:00:00', 5000.00, 1, '2024-11-20 21:53:43', '2024-11-20 21:56:20'),
+(11, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 250000.00, 'LA PAZ', '30000', '2024-11-25', '18:00:00', 20000.00, 1, '2024-11-20 21:56:08', '2024-11-20 21:56:25'),
+(12, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'CASA TIPO VIVIENDA', '2024-11-18', '18:00:00', 20000.00, 3, '2024-11-20 21:59:08', '2024-11-22 07:59:00'),
+(13, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 100000.00, 'ORURO', 'VEHÍCULO', '2024-11-25', '18:00:00', 5000.00, 1, '2024-11-20 23:38:27', '2024-11-20 23:38:35'),
+(14, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-25', '18:00:00', 20000.00, 1, '2024-11-20 23:40:18', '2024-11-20 23:40:40'),
+(15, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 150000.00, 'SANTA CRUZ', 'VEHÍCULO SEMINUEVO', '2024-11-25', '18:00:00', 15000.00, 1, '2024-11-20 23:43:30', '2024-11-20 23:43:36'),
+(16, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 250000.00, 'LA PAZ', 'CASA', '2024-11-25', '18:00:00', 30000.00, 0, '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(17, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'CASA', '2024-11-25', '18:00:00', 15000.00, 1, '2024-11-20 23:49:33', '2024-11-20 23:49:40'),
+(18, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 180000.00, 'COCHABAMBA', 'CASA', '2024-11-25', '18:00:00', 25000.00, 1, '2024-11-20 23:51:55', '2024-11-20 23:52:08'),
+(19, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 140000.00, 'LA PAZ', 'CASA', '2024-11-26', '18:00:00', 20000.00, 1, '2024-11-20 23:54:18', '2024-11-20 23:54:26'),
+(20, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 120000.00, 'CHUQUISACA', 'CASA', '2024-11-26', '18:00:00', 12000.00, 0, '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(21, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 50000.00, 'LA PAZ', 'TERRENO FÉRTIL', '2024-11-26', '18:00:00', 5000.00, 1, '2024-11-20 23:59:24', '2024-11-20 23:59:33'),
+(22, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 30000.00, 'LA PAZ', 'TERRENO', '2024-11-26', '18:00:00', 3000.00, 1, '2024-11-21 00:01:32', '2024-11-21 00:01:41'),
+(23, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 60000.00, 'COCHABAMBA', 'LOTE DE TERRENO', '2024-11-26', '18:00:00', 6000.00, 1, '2024-11-21 00:03:48', '2024-11-21 00:03:55'),
+(24, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-26', '18:00:00', 20000.00, 1, '2024-11-21 19:26:49', '2024-11-21 19:27:26');
 
 -- --------------------------------------------------------
 
@@ -363,8 +425,8 @@ INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inic
 CREATE TABLE `publicacion_detalles` (
   `id` bigint UNSIGNED NOT NULL,
   `publicacion_id` bigint UNSIGNED NOT NULL,
-  `caracteristica` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detalle` varchar(600) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `caracteristica` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detalle` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -389,7 +451,85 @@ INSERT INTO `publicacion_detalles` (`id`, `publicacion_id`, `caracteristica`, `d
 (19, 6, 'COLOR', 'ROJO', '2024-11-20 08:11:09', '2024-11-20 08:11:09'),
 (20, 7, 'PUERTAS', '5', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
 (21, 7, 'COLOR', 'NEGRO', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
-(22, 7, 'MOTOR', '4000CC', '2024-11-20 08:13:24', '2024-11-20 08:13:24');
+(22, 7, 'MOTOR', '4000CC', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
+(23, 8, 'VEHÍCULO RAV 4', 'SEMINUEVO', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(24, 8, 'TRACCIÓN', '4X2', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(25, 8, 'MOTOR', '2500CC', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(26, 8, 'COLOR', 'BLANCO', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(27, 8, 'PUERTAS', '5 PUERTAS', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(28, 8, 'MODELO', '2021', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(29, 9, 'VEHÍCULO NISAN', 'SEMINUEVO', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(30, 9, 'MOTOR', '1500CC', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(31, 9, 'COLOR', 'BLANCO', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(32, 9, 'MODELO', '2020', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(33, 9, 'PUERTAS', '5 PUERTAS', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(34, 10, 'VEHÍCULO SUZUKI', 'SEMINUEVO', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(35, 10, 'MOTOR', '1500CC', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(36, 10, 'PUERTAS', '5 PUERTAS', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(37, 10, 'COLOR', 'BLANCO', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(38, 10, 'MODELO', '2018', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(39, 11, 'CASA', 'VIVIENDA', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(40, 11, 'PISOS', '2 PISOS', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(41, 11, 'HABITACIONES', '5 HABITACIONES', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(42, 11, 'PARQUEO', '2 VEHÍCULOS', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(43, 11, 'SERVICIOS', 'LUZ, AGUA, GAS E INTERNET', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(44, 12, 'CASA', 'TIPO VIVIENDA', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(45, 12, 'SUPERFICIE', '500MT2', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(46, 12, 'PISOS', '2 PLANTAS', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(47, 12, 'HABITACIONES', '4 HABITACIONES', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(48, 12, 'PARQUEO', '2 VEHÍCULOS', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(49, 12, 'JARDÍN', 'JARDÍN DE 10MT2', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(50, 13, 'VEHÍCULO', 'TOYOTA', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(51, 13, 'MODELO', '1992', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(52, 13, 'MARCA', 'TOYOTA', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(53, 13, 'MOTOR', '1500CC', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(54, 13, 'COLOR', 'BLANCO', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(55, 13, 'PUERTAS', '5 PUERTAS', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(56, 14, 'VEHÍCULO', 'VAGONETA', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(57, 14, 'MARCA', 'TOYOTA', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(58, 14, 'MOTOR', '2500CC', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(59, 14, 'COLOR', 'GRIS', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(60, 14, 'MODELO', '2018', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(61, 15, 'VEHÍCULO', 'MINUBUS VAN', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(62, 15, 'MOTOR', '2500CC', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(63, 15, 'MODELO', '2016', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(64, 15, 'COLOR', 'BLANCO', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(65, 15, 'PUERTAS', '5 PUERTAS', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(66, 16, 'CASA', 'VIVIENDA', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(67, 16, 'SUPERFICIE', '4500 MT2', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(68, 16, 'PISOS', '2 PISOS', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(69, 16, 'HABITACIONES', '4 HABITACIONES', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(70, 16, 'SERVICIOS', 'TODOS LOS SERVICIOS', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(71, 17, 'CASA', 'COMERCIAL', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(72, 17, 'SUPERFICIE', '300 MT2', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(73, 17, 'PISOS', '3 PISOS', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(74, 17, 'DEPARTAMENTOS', '3 DEPARTAMENTOS', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(75, 17, 'SERVICIOS', 'TODOS LOS SERVICIOS', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(76, 18, 'CASA', 'VIVIENDA', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(77, 18, 'SUPERFICE', '500 MT2', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(78, 18, 'PISOS', '2 PISOS', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(79, 18, 'HABITACIONES', '6 HABITACIONES', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(80, 18, 'SERVICIOS', 'AGUA, LUZ E INTERNET', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(81, 19, 'CASA', 'VIVIENDA', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(82, 19, 'SUPERFICE', '350 MT2', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(83, 19, 'HABITACIONES', '6 HABITACIONES', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(84, 19, 'SERVICIOS', 'TODOS LOS SERVICIOS', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(85, 20, 'CASA', 'VIVIENDA', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(86, 20, 'SUPERFICIE', '400 MT2', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(87, 20, 'SERVICIOS', 'TODOS LOS SERVICIOS', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(88, 21, 'TERRENO', 'LOTE', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(89, 21, 'SUPERFICIE', '2 HA', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(90, 21, 'TIPO DE TERRENO', 'AGRICOLA', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(91, 22, 'LOTE', 'AGRÍCOLA', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(92, 22, 'SUPERFICIE', '5 HA', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(93, 22, 'TIPO DE TERRENO', 'AGRÍCOLA', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(94, 23, 'LOTE DE TERRENO', 'PRODUCCIÓN', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(95, 23, 'SUPERFICIE', '20 HA', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(96, 23, 'UBICACIÓN', 'EN PLENO CAMINO', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(97, 24, 'VEHÍCULO', 'RAV 4', '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
+(98, 24, 'MODELO', '2022', '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
+(99, 24, 'COLOR', 'BLANCO', '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
+(100, 24, 'MOTOR', '2500CC', '2024-11-21 19:26:49', '2024-11-21 19:26:49');
 
 -- --------------------------------------------------------
 
@@ -400,7 +540,7 @@ INSERT INTO `publicacion_detalles` (`id`, `publicacion_id`, `caracteristica`, `d
 CREATE TABLE `publicacion_imagens` (
   `id` bigint UNSIGNED NOT NULL,
   `publicacion_id` bigint UNSIGNED NOT NULL,
-  `imagen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -424,7 +564,58 @@ INSERT INTO `publicacion_imagens` (`id`, `publicacion_id`, `imagen`, `created_at
 (15, 6, '21732075693.jpeg', '2024-11-20 08:08:13', '2024-11-20 08:08:13'),
 (16, 7, '01732076004.jpg', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
 (17, 7, '11732076004.jpeg', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
-(18, 7, '21732076004.jpeg', '2024-11-20 08:13:24', '2024-11-20 08:13:24');
+(18, 7, '21732076004.jpeg', '2024-11-20 08:13:24', '2024-11-20 08:13:24'),
+(19, 8, '01732123737.jpg', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(20, 8, '11732123737.jpg', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(21, 8, '21732123737.jpg', '2024-11-20 21:28:57', '2024-11-20 21:28:57'),
+(22, 9, '01732123957.jpg', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(23, 9, '11732123957.jpg', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(24, 9, '21732123957.jpg', '2024-11-20 21:32:37', '2024-11-20 21:32:37'),
+(25, 10, '01732125223.jpg', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(26, 10, '11732125223.jpg', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(27, 10, '21732125223.jpg', '2024-11-20 21:53:43', '2024-11-20 21:53:43'),
+(28, 11, '01732125368.jpg', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(29, 11, '11732125368.jpg', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(30, 11, '21732125368.jpg', '2024-11-20 21:56:08', '2024-11-20 21:56:08'),
+(31, 12, '01732125548.jpg', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(32, 12, '11732125548.jpg', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(33, 12, '21732125548.jpg', '2024-11-20 21:59:08', '2024-11-20 21:59:08'),
+(34, 13, '01732131507.jpg', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(35, 13, '11732131507.jpg', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(36, 13, '21732131507.jpg', '2024-11-20 23:38:27', '2024-11-20 23:38:27'),
+(37, 14, '01732131618.jpg', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(38, 14, '11732131618.jpg', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(39, 14, '21732131618.jpg', '2024-11-20 23:40:18', '2024-11-20 23:40:18'),
+(40, 15, '01732131810.jpg', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(41, 15, '11732131810.jpg', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(42, 15, '21732131810.jpg', '2024-11-20 23:43:30', '2024-11-20 23:43:30'),
+(43, 16, '01732132012.jpg', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(44, 16, '11732132012.jpg', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(45, 16, '21732132012.jpg', '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(46, 17, '01732132173.jpg', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(47, 17, '11732132173.jpg', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(48, 17, '21732132173.jpg', '2024-11-20 23:49:33', '2024-11-20 23:49:33'),
+(49, 18, '01732132315.jpg', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(50, 18, '11732132315.jpg', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(51, 18, '21732132315.jpg', '2024-11-20 23:51:55', '2024-11-20 23:51:55'),
+(52, 19, '01732132458.jpg', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(53, 19, '11732132458.jpg', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(54, 19, '21732132458.jpg', '2024-11-20 23:54:18', '2024-11-20 23:54:18'),
+(55, 20, '01732132590.png', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(56, 20, '11732132590.jpg', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(57, 20, '21732132590.png', '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(58, 21, '01732132764.jpg', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(59, 21, '11732132764.jpg', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(60, 21, '21732132764.jpg', '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
+(61, 22, '01732132892.jpg', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(62, 22, '11732132892.jpg', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(63, 22, '21732132892.jpg', '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
+(64, 23, '01732133028.jpeg', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(65, 23, '11732133028.jpeg', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(66, 23, '21732133028.jpg', '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(67, 24, '01732202809.jpg', '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
+(68, 24, '11732202809.jpg', '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
+(69, 24, '21732202809.jpg', '2024-11-21 19:26:49', '2024-11-21 19:26:49');
 
 -- --------------------------------------------------------
 
@@ -434,7 +625,7 @@ INSERT INTO `publicacion_imagens` (`id`, `publicacion_id`, `imagen`, `created_at
 
 CREATE TABLE `recuperar_passwords` (
   `id` bigint UNSIGNED NOT NULL,
-  `cod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cod` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `status` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -456,7 +647,7 @@ INSERT INTO `recuperar_passwords` (`id`, `cod`, `user_id`, `status`, `created_at
 
 CREATE TABLE `roles` (
   `id` bigint UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `permisos` int NOT NULL DEFAULT '0',
   `usuarios` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -493,9 +684,24 @@ CREATE TABLE `subastas` (
 
 INSERT INTO `subastas` (`id`, `publicacion_id`, `estado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 3, 2, '2024-11-14', '2024-11-15 02:45:15', '2024-11-17 00:59:54'),
-(2, 4, 1, '2024-11-15', '2024-11-15 19:52:40', '2024-11-15 19:52:40'),
-(3, 6, 1, '2024-11-20', '2024-11-20 08:11:44', '2024-11-20 08:11:44'),
-(4, 7, 1, '2024-11-20', '2024-11-20 08:13:28', '2024-11-20 08:13:28');
+(2, 4, 2, '2024-11-15', '2024-11-15 19:52:40', '2024-11-22 03:45:52'),
+(3, 6, 0, '2024-11-20', '2024-11-20 08:11:44', '2024-11-22 03:40:15'),
+(4, 7, 0, '2024-11-20', '2024-11-20 08:13:28', '2024-11-22 03:45:59'),
+(5, 8, 1, '2024-11-20', '2024-11-20 21:30:40', '2024-11-20 21:30:40'),
+(6, 9, 1, '2024-11-20', '2024-11-20 21:33:01', '2024-11-22 03:46:06'),
+(7, 10, 1, '2024-11-20', '2024-11-20 21:56:20', '2024-11-20 21:56:20'),
+(8, 11, 1, '2024-11-20', '2024-11-20 21:56:25', '2024-11-20 21:56:25'),
+(9, 12, 0, '2024-11-20', '2024-11-20 21:59:16', '2024-11-22 07:34:14'),
+(10, 13, 1, '2024-11-20', '2024-11-20 23:38:35', '2024-11-20 23:38:35'),
+(11, 14, 1, '2024-11-20', '2024-11-20 23:40:40', '2024-11-20 23:40:40'),
+(12, 15, 1, '2024-11-20', '2024-11-20 23:43:36', '2024-11-20 23:43:36'),
+(13, 17, 1, '2024-11-20', '2024-11-20 23:49:40', '2024-11-20 23:49:40'),
+(14, 18, 1, '2024-11-20', '2024-11-20 23:52:08', '2024-11-20 23:52:08'),
+(15, 19, 1, '2024-11-20', '2024-11-20 23:54:26', '2024-11-20 23:54:26'),
+(16, 21, 1, '2024-11-20', '2024-11-20 23:59:33', '2024-11-20 23:59:33'),
+(17, 22, 1, '2024-11-20', '2024-11-21 00:01:41', '2024-11-21 00:01:41'),
+(18, 23, 1, '2024-11-20', '2024-11-21 00:03:55', '2024-11-21 00:03:55'),
+(19, 24, 1, '2024-11-21', '2024-11-21 19:27:26', '2024-11-21 19:27:26');
 
 -- --------------------------------------------------------
 
@@ -509,7 +715,7 @@ CREATE TABLE `subasta_clientes` (
   `cliente_id` bigint UNSIGNED NOT NULL,
   `garantia` int NOT NULL,
   `puja` decimal(8,2) NOT NULL,
-  `comprobante` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comprobante` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado_comprobante` int NOT NULL,
   `estado_puja` int NOT NULL DEFAULT '0',
   `fecha_oferta` date DEFAULT NULL,
@@ -523,9 +729,17 @@ CREATE TABLE `subasta_clientes` (
 --
 
 INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `puja`, `comprobante`, `estado_comprobante`, `estado_puja`, `fecha_oferta`, `hora_oferta`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 2, NULL, NULL, '2024-11-15 23:55:18', '2024-11-17 00:59:54'),
-(2, 1, 2, 1, 1012.00, '21731771428.pdf', 1, 0, NULL, NULL, '2024-11-16 19:37:08', '2024-11-16 19:42:45'),
-(3, 2, 2, 1, 20001.00, '21731771817.pdf', 1, 1, NULL, NULL, '2024-11-16 19:43:37', '2024-11-20 05:47:34');
+(1, 1, 1, 1, 1013.00, '11731709429.png', 1, 2, '2024-11-15', '10:09:39', '2024-11-15 23:55:18', '2024-11-17 00:59:54'),
+(2, 1, 2, 1, 1012.00, '21731771428.pdf', 1, 0, '2024-11-16', '08:09:43', '2024-11-16 19:37:08', '2024-11-16 19:42:45'),
+(3, 2, 2, 1, 20001.00, '21731771817.pdf', 1, 2, '2024-11-16', '09:09:47', '2024-11-16 19:43:37', '2024-11-22 03:45:52'),
+(4, 6, 11, 1, 100100.00, '111732124621.pdf', 1, 0, '2024-11-20', '17:49:00', '2024-11-20 21:43:41', '2024-11-20 21:50:14'),
+(5, 6, 12, 1, 100200.00, '121732124820.pdf', 1, 1, '2024-11-20', '17:50:00', '2024-11-20 21:47:00', '2024-11-22 03:46:06'),
+(6, 19, 13, 1, 200500.00, '131732203064.pdf', 1, 0, '2024-11-21', '15:33:00', '2024-11-21 19:31:04', '2024-11-22 02:05:02'),
+(7, 19, 14, 1, 200900.00, '141732203327.pdf', 1, 1, '2024-11-21', '22:05:00', '2024-11-21 19:35:27', '2024-11-22 02:05:02'),
+(8, 7, 14, 1, 0.00, '141732225141.pdf', 1, 0, NULL, NULL, '2024-11-22 01:39:01', '2024-11-22 01:54:20'),
+(9, 19, 15, 1, 200800.00, '151732226624.pdf', 1, 0, '2024-11-21', '22:04:00', '2024-11-22 02:03:44', '2024-11-22 02:05:02'),
+(10, 19, 2, 1, 0.00, '21732233257.pdf', 1, 0, NULL, NULL, '2024-11-22 03:54:17', '2024-11-22 04:06:19'),
+(11, 12, 2, 1, 0.00, '21732247157.pdf', 0, 0, NULL, NULL, '2024-11-22 07:45:57', '2024-11-22 07:45:57');
 
 -- --------------------------------------------------------
 
@@ -535,13 +749,13 @@ INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `p
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `usuario` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombres` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `apellidos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usuario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombres` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apellidos` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `role_id` bigint UNSIGNED DEFAULT NULL,
   `acceso` int NOT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_registro` date NOT NULL,
   `ultima_sesion` date DEFAULT NULL,
   `status` int NOT NULL DEFAULT '1',
@@ -554,11 +768,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-20', 1, '2024-11-09 18:47:19', '2024-11-20 04:12:58'),
-(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', '2024-11-20', 1, '2024-11-11 22:53:46', '2024-11-20 05:37:10'),
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-11-22', 1, '2024-11-09 18:47:19', '2024-11-22 07:33:51'),
+(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$r4ihm1arJYR1tBZWhM6emeLXy1ZOOSGQiss1N9XPiVSn.pk6d9uGi', 3, 1, NULL, '2024-11-11', '2024-11-22', 1, '2024-11-11 22:53:46', '2024-11-22 07:59:00'),
 (3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-11-20', 1, '2024-11-13 20:33:34', '2024-11-20 05:37:01'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', '2024-11-20', 1, '2024-11-13 22:13:05', '2024-11-20 08:12:18'),
-(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1732079915_maria@gmail.com.jpg', '2024-11-16', '2024-11-20', 1, '2024-11-16 19:36:05', '2024-11-20 09:18:35'),
+(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1732079915_maria@gmail.com.jpg', '2024-11-16', '2024-11-22', 1, '2024-11-16 19:36:05', '2024-11-22 04:14:40'),
 (6, 'MPAREDES', 'MARCOS', 'PAREDES', '$2y$12$DHvmogz6tfn9yImxpTn.1.EPmH1B7SHaT5iGOyhiSjKx.Tzrd8ZDe', 3, 1, NULL, '2024-11-20', '2024-11-20', 1, '2024-11-20 05:37:37', '2024-11-20 05:37:46'),
 (7, 'pablo@gmail.com', 'PABLO', 'MARTINEZ RAMIRES', '$2y$12$hOZda1iFWdM3zEBqhKNpk.0n0T6IDHU1B7o2c1q6.bKkpoVorkvR.', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:36:38', '2024-11-20 08:36:38'),
 (8, 'carmen@gmail.com', 'CARMEN', 'GONZALES GONZALES', '$2y$12$0L7M00Gx5b1dOphdTtdCZuaPurzrM16iHNc7BqtTChW.r./5PAAMW', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:38:16', '2024-11-20 08:38:16'),
@@ -567,7 +781,13 @@ INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_
 (11, 'martin@gmail.com', 'MARTIN', 'MAMANI MAMANI', '$2y$12$WOVjkEsxbI7nkV5tLpwjmuLNPxUnyWxuyuzhi5109yBSzetSW.8wK', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:43:03', '2024-11-20 08:43:03'),
 (12, 'carla@gmail.com', 'CARLA', 'RAMIRES CONDORI', '$2y$12$VBzB2cpGPIRyWyJo.FXt7.bp6NUd5WgzHq4c2qNMaOXL/Vlcjuz8W', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:46:41', '2024-11-20 08:46:41'),
 (13, 'franz@gmail.com', 'FRANZ', 'CONDORI CONDORI', '$2y$12$W40YzEEAW31UDbLvKoBOI.Y5bAhL/eMlnv6g8HyF2B579NEX9NN5O', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:49:19', '2024-11-20 08:49:19'),
-(14, 'martinc@gmail.com', 'MARTIN', 'COLQUE CONDORI', '$2y$12$pMHhVbJfoSN/2Dr1VVttgu3Iu9Z.bn/jWTpLf.iyZVZXnn9g90PNS', 2, 1, '1732079991_martinc@gmail.com.jpg', '2024-11-20', NULL, 1, '2024-11-20 08:58:31', '2024-11-20 09:19:51');
+(14, 'martinc@gmail.com', 'MARTIN', 'COLQUE CONDORI', '$2y$12$pMHhVbJfoSN/2Dr1VVttgu3Iu9Z.bn/jWTpLf.iyZVZXnn9g90PNS', 2, 1, '1732079991_martinc@gmail.com.jpg', '2024-11-20', NULL, 1, '2024-11-20 08:58:31', '2024-11-20 09:19:51'),
+(15, 'FMORENO', 'FRANCISCO', 'MORENO', '$2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6', 3, 1, NULL, '2024-11-20', '2024-11-21', 1, '2024-11-20 21:19:43', '2024-11-21 19:24:46'),
+(16, 'pamela12@gmail.com', 'PAMELA', 'ORTEGA CASTRO', '$2y$12$XMcwKm1Vh5b4AHBGU31IWefewh7wWgKzKS14RN909gBLYbRjD4FXq', 2, 1, NULL, '2024-11-20', '2024-11-20', 1, '2024-11-20 21:42:52', '2024-11-20 21:49:23'),
+(17, 'rodrigo12@gmail.com', 'RODRIGO', 'MEDINA PACOSILLO', '$2y$12$HEAJUuktmUJI3cfEMgTiY.zm0vdajrJcHC3ng4Z0g4Miu1EP0k/RW', 2, 1, NULL, '2024-11-20', '2024-11-20', 1, '2024-11-20 21:46:42', '2024-11-20 21:50:00'),
+(18, 'marcelo12@gmail.com', 'MARCELO', 'APAZA QUINO', '$2y$12$rWNOgYivg6Eol6V5L.Z5QOQ2pS3kNhsHgAebagI7YFlF3Iidr3pgi', 2, 1, NULL, '2024-11-21', '2024-11-21', 1, '2024-11-21 19:30:24', '2024-11-21 19:32:40'),
+(19, 'carlos12@gmail.com', 'CARLOS', 'MEDRANO MONTES', '$2y$12$vki4qr47qVfCJlnIZBjfruOJVJcSEPU3vh80fAZbqzC2zB7JI.D2C', 2, 1, NULL, '2024-11-21', '2024-11-21', 1, '2024-11-21 19:34:55', '2024-11-21 19:36:40'),
+(20, 'ramiro12@gmail.com', 'RAMIRO', 'FERNANDEZ LOPEZ', '$2y$12$YVzu96U4TUCckhd7G.mKUufFGPBoDgTWxI93YGYC9RChV9pFsVrwG', 2, 1, NULL, '2024-11-21', '2024-11-21', 1, '2024-11-22 02:03:32', '2024-11-22 02:04:19');
 
 --
 -- Índices para tablas volcadas
@@ -696,7 +916,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracions`
@@ -708,7 +928,7 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -720,19 +940,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `parametrizacions`
@@ -744,25 +964,25 @@ ALTER TABLE `parametrizacions`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacions`
 --
 ALTER TABLE `publicacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacion_detalles`
 --
 ALTER TABLE `publicacion_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacion_imagens`
 --
 ALTER TABLE `publicacion_imagens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT de la tabla `recuperar_passwords`
@@ -780,19 +1000,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `subastas`
 --
 ALTER TABLE `subastas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `subasta_clientes`
 --
 ALTER TABLE `subasta_clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
