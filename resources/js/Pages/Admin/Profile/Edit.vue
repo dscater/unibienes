@@ -168,39 +168,15 @@ const enviaFormulario = () => {
                         <div cols="12">
                             <div class="row">
                                 <div class="text-right font-weight-bold col-4">
+                                    Usuario:
+                                </div>
+                                <div class="col-8">{{ user.usuario }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="text-right font-weight-bold col-4">
                                     Nombre:
                                 </div>
                                 <div class="col-8">{{ user.full_name }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-right font-weight-bold col-4">
-                                    C.I.:
-                                </div>
-                                <div class="col-8">{{ user.full_ci }}</div>
-                            </div>
-                            <template v-if="user.tipo != 'CLIENTE'">
-                                <div class="row">
-                                    <div
-                                        class="text-right font-weight-bold col-4"
-                                    >
-                                        Dirección:
-                                    </div>
-                                    <div class="col-8">{{ user.dir }}</div>
-                                </div>
-                                <div class="row">
-                                    <div
-                                        class="text-right font-weight-bold col-4"
-                                    >
-                                        Correo:
-                                    </div>
-                                    <div class="col-8">{{ user.email }}</div>
-                                </div>
-                            </template>
-                            <div class="row">
-                                <div class="text-right font-weight-bold col-4">
-                                    Teléfono/Celular:
-                                </div>
-                                <div class="col-8">{{ user.fono }}</div>
                             </div>
                             <div class="row">
                                 <div class="text-right font-weight-bold col-4">

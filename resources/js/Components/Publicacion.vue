@@ -160,6 +160,7 @@ const verificarGanadorPublicacion = () => {
 };
 
 const verificaSwOferta = () => {
+    console.log(oPublicacion.value.estado_sub);
     if (oPublicacion.value.estado_sub == 1) {
         intervalConteo.value = setInterval(() => {
             iniciaConteoFinalizacion();
@@ -205,7 +206,7 @@ onMounted(() => {
         <div class="row">
             <!-- BEGIN product-detail -->
             <div
-                class="p-3"
+                class="contenedor_imagen p-3"
                 :class="[
                     props.column ? 'flex-column' : '',
                     props.detalle_lista
@@ -394,10 +395,39 @@ onMounted(() => {
                                 :class="[
                                     index == 0 ? 'h3' : '',
                                     index == 1 ? 'h4' : '',
+                                    oSubastaCliente &&
+                                    oSubastaCliente.id == item.id
+                                        ? 'bg-teal text-white'
+                                        : '',
                                 ]"
                             >
                                 <td>{{ index + 1 }}</td>
-                                <td>{{ item.puja }}</td>
+                                <td>
+                                    {{ item.puja }}
+                                    <small
+                                        v-if="
+                                            oSubastaCliente &&
+                                            oSubastaCliente.id == item.id
+                                        "
+                                        >(Mi oferta)</small
+                                    >
+                                </td>
+                            </tr>
+
+                            <tr
+                                v-if="
+                                    oSubastaCliente &&
+                                    oSubastaCliente.estado_puja == 0 &&
+                                    (oPublicacion.estado_sub == 1 || oPublicacion.estado_sub == 2 ||
+                                        oPublicacion.estado_sub == 3)
+                                "
+                                class="bg-teal text-white"
+                            >
+                                <td>-</td>
+                                <td>
+                                    {{ oSubastaCliente.puja }}
+                                    <small>(Mi oferta)</small>
+                                </td>
                             </tr>
                         </template>
                         <template v-else>
@@ -425,7 +455,7 @@ onMounted(() => {
 .tiempoRestante {
     display: flex;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.767);
+    background-color: rgba(0, 179, 45, 0.767);
     color: white;
     text-align: center;
     padding: 5px;
@@ -436,6 +466,10 @@ onMounted(() => {
     left: 10px;
     top: 0px;
     z-index: 500;
+}
+
+.contenedor_imagen {
+    position: relative;
 }
 
 .product_info_imagen {

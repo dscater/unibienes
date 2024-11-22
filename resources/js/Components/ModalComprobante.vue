@@ -115,6 +115,7 @@ const registrarComprobante = () => {
     axios
         .post(route("subastas.registrarComprobante"), formdata, config)
         .then((response) => {
+            oSubastaCliente.value = response.data.subasta_cliente;
             enviando.value = false;
             dialog.value = false;
             Swal.fire({
@@ -126,7 +127,7 @@ const registrarComprobante = () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-            emits("envio-formulario");
+            emits("envio-formulario", oSubastaCliente.value);
         })
         .catch((error) => {
             enviando.value = false;

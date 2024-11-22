@@ -72,7 +72,6 @@ class ReporteController extends Controller
         ],
     ];
 
-
     public function usuarios()
     {
         return Inertia::render("Admin/Reportes/Usuarios");
@@ -119,11 +118,25 @@ class ReporteController extends Controller
     public function r_publicacions(Request $request)
     {
         $formato =  $request->formato;
+
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
+        $categoria =  $request->categoria;
+
         $publicacions = Publicacion::select("publicacions.*");
 
         $permisos = Auth::user()->permisos;
         if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
             $publicacions->where("user_id", Auth::user()->id);
+        }
+
+
+        if ($categoria != 'todos') {
+            $publicacions->where("categoria", $categoria);
+        }
+
+        if ($fecha_ini && $fecha_fin) {
+            $publicacions->whereBetween("created_at", [$fecha_ini, $fecha_fin]);
         }
 
         $publicacions = $publicacions->get();
@@ -244,16 +257,24 @@ class ReporteController extends Controller
     public function r_subasta_clientes(Request $request)
     {
         $formato =  $request->formato;
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
+        $categoria =  $request->categoria;
         $publicacions = Publicacion::select("publicacions.*");
 
         $permisos = Auth::user()->permisos;
         if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
             $publicacions->where("user_id", Auth::user()->id);
         }
+
+        if ($categoria != 'todos') {
+            $publicacions->where("categoria", $categoria);
+        }
+
         $publicacions = $publicacions->whereNotIn("estado_sub", [0, 5])->get();
 
         if ($formato == "pdf") {
-            $pdf = PDF::loadView('reportes.subasta_clientes', compact('publicacions'))->setPaper('legal', 'landscape');
+            $pdf = PDF::loadView('reportes.subasta_clientes', compact('publicacions', 'fecha_ini', 'fecha_fin'))->setPaper('legal', 'landscape');
 
             // ENUMERAR LAS PÁGINAS USANDO CANVAS
             $pdf->output();
@@ -334,7 +355,27 @@ class ReporteController extends Controller
                 $fila++;
                 $cont = 1;
 
-                foreach ($publicacion->subasta->subasta_clientes as $subasta_cliente) {
+                $subasta_clientes = [];
+                if ($fecha_ini && $fecha_fin) {
+                    $subasta_clientes = SubastaCliente::where(
+                        'subasta_id',
+                        $publicacion->subasta->id,
+                    )
+                        ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                        ->where('puja', '>', 0)
+                        ->where('estado_comprobante', 1)
+                        ->get();
+                } else {
+                    $subasta_clientes = SubastaCliente::where(
+                        'subasta_id',
+                        $publicacion->subasta->id,
+                    )
+                        ->where('puja', '>', 0)
+                        ->where('estado_comprobante', 1)
+                        ->get();
+                }
+
+                foreach ($subasta_clientes as $subasta_cliente) {
                     $sheet->setCellValue('A' . $fila, $cont++);
                     $sheet->setCellValue('B' . $fila, $subasta_cliente->cliente->full_name);
                     $sheet->setCellValue('C' . $fila, $subasta_cliente->cliente->full_ci);
@@ -405,7 +446,8 @@ class ReporteController extends Controller
 
     public function gr_subasta_clientes(Request $request)
     {
-        $fecha = $request->fecha;
+        $fecha_ini = $request->fecha_ini;
+        $fecha_fin = $request->fecha_fin;
         $publicacion_id = $request->publicacion_id;
         $cliente_id = $request->cliente_id;
         $categoria = $request->categoria;
@@ -417,8 +459,8 @@ class ReporteController extends Controller
         if ($publicacion_id != 'todos') {
             $publicacions->where("publicacions.id", $publicacion_id);
         }
-        if ($fecha) {
-            $publicacions->where("subastas.fecha_registro", $fecha);
+        if ($fecha_ini && $fecha_fin) {
+            $publicacions->whereBetween("subasta_clientes.fecha_oferta", [$fecha_ini, $fecha_fin]);
         }
         if ($cliente_id != 'todos') {
             $publicacions->where("subasta_clientes.cliente_id", $cliente_id);
@@ -433,9 +475,6 @@ class ReporteController extends Controller
         }
 
         $publicacions = $publicacions->get();
-
-        Log::debug($publicacions);
-
         $data = [];
         foreach ($publicacions as $publicacion) {
             $total = 0;

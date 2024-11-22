@@ -189,7 +189,7 @@ class ProfileController extends Controller
                     \File::delete(public_path() . '/imgs/users/' . $antiguo);
                 }
                 $file = $request->foto;
-                $nom_foto = time() . '_' . $usuario->usuario . '.' . $file->getClientOriginalExtension();
+                $nom_foto = time() . '_' . $usuario->id . '.' . $file->getClientOriginalExtension();
                 $usuario->foto = $nom_foto;
                 $file->move(public_path() . '/imgs/users/', $nom_foto);
             }

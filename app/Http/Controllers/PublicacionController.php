@@ -281,6 +281,7 @@ class PublicacionController extends Controller
     public function verificaGanador(Publicacion $publicacion)
     {
         $subasta = $publicacion->subasta;
+        $subasta_cliente = null;
         $subasta_clientes = $subasta->subasta_clientes_puja;
         if (count($subasta_clientes) > 0) {
             $publicacion->estado_sub = 2;
@@ -297,7 +298,9 @@ class PublicacionController extends Controller
         $subasta->save();
         $publicacion->save();
 
-        return response()->JSON(true);
+        return response()->JSON([
+            "subasta_cliente" => $subasta_cliente->load(["cliente"])
+        ]);
     }
 
     public function show(Publicacion $publicacion)

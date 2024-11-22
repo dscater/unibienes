@@ -1,30 +1,17 @@
-<script>
-const breadbrums = [
-    {
-        title: "Inicio",
-        disabled: false,
-        url: route("inicio"),
-        name_url: "inicio",
-    },
-    {
-        title: "Subasta > Clientes",
-        disabled: false,
-        url: "",
-        name_url: "",
-    },
-];
-</script>
 <script setup>
 import { useApp } from "@/composables/useApp";
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
 import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
-// import { useMenu } from "@/composables/useMenu";
 import VerificarComprobante from "./VerificarComprobante.vue";
-// const { mobile, identificaDispositivo } = useMenu();
+import PublicacionAdmin from "@/Components/PublicacionAdmin.vue";
 const props = defineProps({
     subasta: {
+        type: Object,
+        default: null,
+    },
+    publicacion: {
         type: Object,
         default: null,
     },
@@ -41,26 +28,32 @@ const columns = [
     {
         title: "Nombre del Cliente",
         data: "cliente.full_name",
+        sortable: false,
     },
     {
         title: "C.I.",
         data: "cliente.full_ci",
+        sortable: false,
     },
     {
         title: "Celular",
         data: "cliente.fono",
+        sortable: false,
     },
     {
         title: "Correo",
         data: "cliente.email",
+        sortable: false,
     },
     {
         title: "Puja actual",
         data: "puja",
+        sortable: false,
     },
     {
         title: "Estado",
         data: "estado_puja",
+        sortable: false,
         render: function (data, type, row) {
             let estado = `-`;
             let clase = `bg-gray`;
@@ -76,6 +69,7 @@ const columns = [
     {
         title: "Estado comprobante",
         data: "estado_comprobante",
+        sortable: false,
         render: function (data, type, row) {
             let estado = `SIN VERIFICAR`;
             let clase = `bg-gray`;
@@ -204,6 +198,19 @@ onBeforeUnmount(() => {
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <PublicacionAdmin
+                                        :publicacion="props.publicacion"
+                                        :column="true"
+                                        :link="true"
+                                    ></PublicacionAdmin>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table
                         id="table-subasta"
                         width="100%"

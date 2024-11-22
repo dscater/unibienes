@@ -17,7 +17,8 @@ class SubastaController extends Controller
 {
     public function clientes(Subasta $subasta)
     {
-        return Inertia::render("Admin/Publicacions/SubastaClientes", compact("subasta"));
+        $publicacion = Publicacion::with(["publicacion_detalles", "publicacion_imagens"])->where("id", $subasta->publicacion_id)->get()->first();
+        return Inertia::render("Admin/Publicacions/SubastaClientes", compact("subasta", "publicacion"));
     }
 
     public function getClientesApi(Request $request, Subasta $subasta)
@@ -34,7 +35,9 @@ class SubastaController extends Controller
 
         $publicacions->where("subasta_id", $subasta->id);
 
-        $publicacions = $publicacions->orderBy("created_at", "desc")->paginate($length, ['*'], 'page', $page);
+        $publicacions = $publicacions->orderBy("subasta_clientes.estado_puja", "desc")
+            ->orderBy("subasta_clientes.puja", "desc")
+            ->paginate($length, ['*'], 'page', $page);
 
         return response()->JSON([
             'data' => $publicacions->items(),

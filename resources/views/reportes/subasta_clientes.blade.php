@@ -159,6 +159,7 @@
         </h2>
         <h4 class="texto">LISTA DE CLIENTES OFERTANTES POR SUBASTA</h4>
         <h4 class="fecha">Expedido: {{ date('d-m-Y') }}</h4>
+        {{ $fecha_ini }} {{ $fecha_fin }}
     </div>
 
     @php
@@ -202,8 +203,27 @@
                 <tbody>
                     @php
                         $cont = 1;
+                        $subasta_clientes = [];
+                        if ($fecha_ini && $fecha_fin) {
+                            $subasta_clientes = App\Models\SubastaCliente::where(
+                                'subasta_id',
+                                $publicacion->subasta->id,
+                            )
+                                ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                                ->where('puja', '>', 0)
+                                ->where('estado_comprobante', 1)
+                                ->get();
+                        } else {
+                            $subasta_clientes = App\Models\SubastaCliente::where(
+                                'subasta_id',
+                                $publicacion->subasta->id,
+                            )
+                                ->where('puja', '>', 0)
+                                ->where('estado_comprobante', 1)
+                                ->get();
+                        }
                     @endphp
-                    @forelse ($publicacion->subasta->subasta_clientes as $subasta_cliente)
+                    @forelse ($subasta_clientes as $subasta_cliente)
                         <tr>
                             <td class="centreado">{{ $cont++ }}</td>
                             <td>{{ $subasta_cliente->cliente->full_name }}</td>

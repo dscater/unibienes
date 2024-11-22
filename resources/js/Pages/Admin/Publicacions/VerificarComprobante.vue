@@ -59,7 +59,10 @@ const tituloDialog = computed(() => {
     return `<i class="fa fa-check-circle"></i> Verificar comprobante`;
 });
 
+const actualizando = ref(false);
+
 const actualizarComprobante = (estado_comprobante) => {
+    actualizando.value = true;
     let url = route("subasta_clientes.update", oSubastaCliente.value.id);
     axios
         .post(url, {
@@ -67,6 +70,7 @@ const actualizarComprobante = (estado_comprobante) => {
             _method: "PUT",
         })
         .then((response) => {
+            actualizando.value = false;
             dialog.value = false;
             Swal.fire({
                 icon: "success",
@@ -79,6 +83,7 @@ const actualizarComprobante = (estado_comprobante) => {
             emits("envio-formulario", response.data);
         })
         .catch((error) => {
+            actualizando.value = false;
             console.log("ERROR");
             Swal.fire({
                 icon: "info",
@@ -172,6 +177,7 @@ onMounted(() => {});
                         type="button"
                         @click="actualizarComprobante(2)"
                         class="btn btn-danger"
+                        :disabled="actualizando"
                     >
                         <i class="fa fa-times"></i>
                         Rechazar comprobante
@@ -180,6 +186,7 @@ onMounted(() => {});
                         type="button"
                         @click="actualizarComprobante(1)"
                         class="btn btn-success"
+                        :disabled="actualizando"
                     >
                         <i class="fa fa-check"></i>
                         Aprobar comproabante
