@@ -34,7 +34,6 @@ const updatePage = (value) => {
     page.value = page.value + value;
     if (page.value < 0) page.value = 1;
     if (page.value > total.value) page.value = last_page;
-    console.log(page.value);
     obtenerVehiculos();
 };
 
