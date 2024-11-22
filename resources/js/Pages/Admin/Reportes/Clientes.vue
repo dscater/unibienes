@@ -30,8 +30,19 @@ onMounted(() => {
     }, 300);
 });
 
+const obtenerFechaActual = () => {
+    const fecha = new Date();
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Mes empieza desde 0
+    const dia = String(fecha.getDate()).padStart(2, "0"); // Día del mes
+
+    return `${anio}-${mes}-${dia}`;
+};
+
 const form = ref({
     formato: "pdf",
+    fecha_ini: obtenerFechaActual(),
+    fecha_fin: obtenerFechaActual(),
 });
 
 const generando = ref(false);
@@ -73,6 +84,25 @@ const generarReporte = () => {
                 <div class="card-body">
                     <form @submit.prevent="generarReporte">
                         <div class="row">
+                            <div class="col-12">
+                                <label>Rango de fechas</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            v-model="form.fecha_ini"
+                                        />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            v-model="form.fecha_fin"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <label>Seleccionar formato*</label>
                                 <select

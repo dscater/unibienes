@@ -498,7 +498,14 @@ class ReporteController extends Controller
     public function r_clientes(Request $request)
     {
         $formato =  $request->formato;
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
         $clientes = Cliente::select("clientes.*");
+
+        if ($fecha_ini && $fecha_fin) {
+            $clientes->whereBetween("fecha_registro", [$fecha_ini, $fecha_fin]);
+        }
+
         $clientes = $clientes->get();
 
         if ($formato == "pdf") {

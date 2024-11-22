@@ -159,7 +159,6 @@
         </h2>
         <h4 class="texto">LISTA DE CLIENTES OFERTANTES POR SUBASTA</h4>
         <h4 class="fecha">Expedido: {{ date('d-m-Y') }}</h4>
-        {{ $fecha_ini }} {{ $fecha_fin }}
     </div>
 
     @php
@@ -167,19 +166,37 @@
     @endphp
 
     @foreach ($publicacions as $publicacion)
-        <table>
-            <tbody>
-                <tr>
-                    <td width="10%">NOMBRE SUBASTADOR:</td>
-                    <td>{{ $publicacion->user->full_name }}</td>
-                </tr>
-                <tr>
-                    <td width="10%">CATEGORÍA:</td>
-                    <td>{{ $publicacion->categoria }}</td>
-                </tr>
-            </tbody>
-        </table>
-        @if ($publicacion->subasta)
+        @php
+            $subasta_clientes = [];
+            if ($fecha_ini && $fecha_fin) {
+                $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
+                    ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                    ->where('puja', '>', 0)
+                    ->where('estado_comprobante', 1)
+                    ->get();
+            } else {
+                $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
+                    ->where('puja', '>', 0)
+                    ->where('estado_comprobante', 1)
+                    ->get();
+            }
+
+            $contador++;
+
+        @endphp
+        @if ($publicacion->subasta && count($subasta_clientes) > 0)
+            <table>
+                <tbody>
+                    <tr>
+                        <td width="10%">NOMBRE SUBASTADOR:</td>
+                        <td>{{ $publicacion->user->full_name }}</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">CATEGORÍA:</td>
+                        <td>{{ $publicacion->categoria }}</td>
+                    </tr>
+                </tbody>
+            </table>
             <table border="1">
                 <thead class="bg-principal">
                     <tr>
@@ -203,25 +220,6 @@
                 <tbody>
                     @php
                         $cont = 1;
-                        $subasta_clientes = [];
-                        if ($fecha_ini && $fecha_fin) {
-                            $subasta_clientes = App\Models\SubastaCliente::where(
-                                'subasta_id',
-                                $publicacion->subasta->id,
-                            )
-                                ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
-                                ->where('puja', '>', 0)
-                                ->where('estado_comprobante', 1)
-                                ->get();
-                        } else {
-                            $subasta_clientes = App\Models\SubastaCliente::where(
-                                'subasta_id',
-                                $publicacion->subasta->id,
-                            )
-                                ->where('puja', '>', 0)
-                                ->where('estado_comprobante', 1)
-                                ->get();
-                        }
                     @endphp
                     @forelse ($subasta_clientes as $subasta_cliente)
                         <tr>
@@ -247,15 +245,9 @@
                     @endforelse
                 </tbody>
             </table>
-        @else
-            <h5 style="width: 100%; text-align:center;">Aún no se publico ninguna subasta</h5>
-        @endif
-
-        @php
-            $contador++;
-        @endphp
-        @if ($contador < count($publicacions))
-            <div class="page_break"></div>
+            @if ($contador < count($publicacions))
+                <div class="page_break"></div>
+            @endif
         @endif
     @endforeach
 </body>
