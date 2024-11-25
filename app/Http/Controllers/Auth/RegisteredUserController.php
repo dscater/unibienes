@@ -10,10 +10,14 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use PgSql\Lob;
 
 class RegisteredUserController extends Controller
 {
@@ -79,63 +83,70 @@ class RegisteredUserController extends Controller
         $this->validacion["terminos"] = "required|accepted";
 
         $request->validate($this->validacion, $this->mensajes);
+        DB::beginTransaction();
+        try {
+            $role = Role::find(2); //CLIENTE
+            $user = User::create([
+                'usuario' => $request->email,
+                "nombres" => mb_strtoupper($request->nombre),
+                'apellidos' => mb_strtoupper($request->paterno . (trim($request->materno) != '' ? ' ' . $request->materno : '')),
+                "role_id" => $role->id,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                "acceso" => 1,
+                "fecha_registro" => date("Y-m-d")
+            ]);
 
-        $role = Role::find(2); //CLIENTE
-
-        $user = User::create([
-            'usuario' => $request->email,
-            "nombres" => mb_strtoupper($request->nombre),
-            'apellidos' => mb_strtoupper($request->paterno . (trim($request->materno) != '' ? ' ' . $request->materno : '')),
-            "role_id" => $role->id,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            "acceso" => 1,
-            "fecha_registro" => date("Y-m-d")
-        ]);
-
-        $foto_ci_anverso = $request->file("foto_ci_anverso");
-        $extension = "." . $foto_ci_anverso->getClientOriginalExtension();
-        $nom_file_ci_anverso = '1' . $user->id . time() . $extension;
-        $foto_ci_reverso = $request->file("foto_ci_reverso");
-        $extension = "." . $foto_ci_reverso->getClientOriginalExtension();
-        $nom_file_ci_reverso = '1' . $user->id . time() . $extension;
-
-
-        $cliente = Cliente::create([
-            "user_id" => $user->id,
-            "nombre" => mb_strtoupper($request->nombre),
-            "paterno" => mb_strtoupper($request->paterno),
-            "materno" => mb_strtoupper($request->materno),
-            "ci" => trim($request->ci),
-            "complemento" => trim($request->complemento),
-            "ci_exp" => trim($request->ci_exp),
-            "fono" => trim($request->fono),
-            "dpto_residencia" => trim($request->dpto_residencia),
-            "email" => $request->email,
-            "foto_ci_anverso" => $nom_file_ci_anverso,
-            "foto_ci_reverso" => $nom_file_ci_reverso,
-            "banco" => mb_strtoupper($request->banco),
-            "nro_cuenta" => mb_strtoupper($request->nro_cuenta),
-            "moneda" => mb_strtoupper($request->moneda),
-            "fecha_registro" => date("Y-m-d"),
-        ]);
+            $foto_ci_anverso = $request->file("foto_ci_anverso");
+            $extension = "." . $foto_ci_anverso->getClientOriginalExtension();
+            $nom_file_ci_anverso = '1' . $user->id . time() . $extension;
+            $foto_ci_reverso = $request->file("foto_ci_reverso");
+            $extension = "." . $foto_ci_reverso->getClientOriginalExtension();
+            $nom_file_ci_reverso = '2' . $user->id . time() . $extension;
 
 
-        $path = public_path("imgs/users/");
+            $cliente = Cliente::create([
+                "user_id" => $user->id,
+                "nombre" => mb_strtoupper($request->nombre),
+                "paterno" => mb_strtoupper($request->paterno),
+                "materno" => mb_strtoupper($request->materno),
+                "ci" => trim($request->ci),
+                "complemento" => trim($request->complemento),
+                "ci_exp" => trim($request->ci_exp),
+                "fono" => trim($request->fono),
+                "dpto_residencia" => trim($request->dpto_residencia),
+                "email" => $request->email,
+                "foto_ci_anverso" => $nom_file_ci_anverso,
+                "foto_ci_reverso" => $nom_file_ci_reverso,
+                "banco" => mb_strtoupper($request->banco),
+                "nro_cuenta" => mb_strtoupper($request->nro_cuenta),
+                "moneda" => mb_strtoupper($request->moneda),
+                "fecha_registro" => date("Y-m-d"),
+            ]);
 
-        $foto_ci_anverso->move($path, $nom_file_ci_anverso);
-        $foto_ci_reverso->move($path, $nom_file_ci_reverso);
-        event(new Registered($user));
-        Auth::login($user);
 
+            $path = public_path("imgs/users/");
 
-        if ($request->ajax()) {
-            return response()->JSON([
-                "sw" => true
+            $foto_ci_anverso->move($path, $nom_file_ci_anverso);
+            $foto_ci_reverso->move($path, $nom_file_ci_reverso);
+            event(new Registered($user));
+            Auth::login($user);
+
+            DB::commit();
+            if ($request->ajax()) {
+                return response()->JSON([
+                    "sw" => true
+                ]);
+            }
+
+            return redirect(route('portal.index', absolute: false));
+        } catch (\Exception $e) {
+            Log::debug("ERROR: " . $e->getMessage());
+            DB::rollBack();
+            throw ValidationException::withMessages([
+                'error' =>  $e->getMessage(),
             ]);
         }
-
-        return redirect(route('portal.index', absolute: false));
     }
 
     public function validaForm1(Request $request)
