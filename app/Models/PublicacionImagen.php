@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\PublicacionImagenController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,32 @@ class PublicacionImagen extends Model
         "imagen",
     ];
 
-    protected $appends = ["url_imagen"];
+    protected $appends = ["url_imagen", "url_archivo", "url_file", "name", "ext"];
+
+    public function getExtAttribute()
+    {
+        return PublicacionImagenController::getExtensionImagenDB($this->imagen);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->imagen;
+    }
+
+    public function getUrlFileAttribute()
+    {
+        $array_imgs = ["jpg", "jpeg", "png", "webp", "gif"];
+        $ext = PublicacionImagenController::getExtensionImagenDB($this->imagen);
+        if (in_array($ext, $array_imgs)) {
+            return asset("/imgs/publicacions/" . $this->imagen);
+        }
+        return asset("/imgs/attach.png");
+    }
+
+    public function getUrlArchivoAttribute()
+    {
+        return asset("imgs/publicacions/" . $this->imagen);
+    }
 
     public function getUrlImagenAttribute()
     {
@@ -38,28 +64,24 @@ class PublicacionImagen extends Model
         $path = public_path("imgs/publicacions/");
 
         foreach ($publicacion_imagens as $key => $pi) {
-            if ($pi["imagen"] && !is_string($pi["imagen"])) {
-                $file = $pi["imagen"];
+            if (isset($pi["file"]) && !is_string($pi["file"])) {
+                $file = $pi["file"];
                 $extension = "." . $file->getClientOriginalExtension();
                 $nom_file = $key . time() . $extension;
                 if ($pi["id"] == 0) {
                     $publicacion->publicacion_imagens()->create([
                         "imagen" => $nom_file,
                     ]);
-                } else {
-                    $publicacion_imagen = PublicacionImagen::find($pi["id"]);
-                    if (file_exists($path . $publicacion_imagen->imagen)) {
-                        // \File::delete($path . $publicacion_imagen->imagen);
-                        $remover_files[] = $path . $publicacion_imagen->imagen;
-                    }
-                    $publicacion_imagen->update([
-                        "imagen" => $nom_file,
-                    ]);
                 }
-
-
                 $file->move($path, $nom_file);
             }
+            //  elseif ($pi["id"] != 0) {
+            //     $publicacion_imagen = PublicacionImagen::find($pi["id"]);
+            //     if (file_exists($path . $publicacion_imagen->imagen)) {
+            //         // \File::delete($path . $publicacion_imagen->imagen);
+            //         $remover_files[] = $path . $publicacion_imagen->imagen;
+            //     }
+            // }
         }
 
         return $remover_files;
@@ -70,10 +92,13 @@ class PublicacionImagen extends Model
         $remover_files = [];
         if ($id_eliminados) {
             foreach ($id_eliminados as $value) {
+                $publicacion_imagen = PublicacionImagen::find($value);
                 if ($fisico) {
-                    $publicacion_imagen = PublicacionImagen::find($value);
                     $remover_files[] = public_path("imgs/publicacions/" . $publicacion_imagen->imagen);
                     $publicacion_imagen->delete();
+                } else {
+                    $publicacion_imagen->status = 0;
+                    $publicacion_imagen->save();
                 }
             }
         }

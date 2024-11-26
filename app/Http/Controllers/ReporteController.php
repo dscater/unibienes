@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\Configuracion;
 use App\Models\Publicacion;
+use App\Models\PublicacionDetalle;
 use App\Models\SubastaCliente;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -142,7 +143,7 @@ class ReporteController extends Controller
         $publicacions = $publicacions->get();
 
         if ($formato == "pdf") {
-            $pdf = PDF::loadView('reportes.publicacions', compact('publicacions'))->setPaper('letter', 'portrait');
+            $pdf = PDF::loadView('reportes.publicacions', compact('publicacions'))->setPaper('letter', 'landscape');
 
             // ENUMERAR LAS PÁGINAS USANDO CANVAS
             $pdf->output();
@@ -183,9 +184,9 @@ class ReporteController extends Controller
 
             $fila = 2;
             $sheet->setCellValue('A' . $fila, "LISTA DE PUBLICACIONES");
-            $sheet->mergeCells("A" . $fila . ":J" . $fila);  //COMBINAR CELDAS
-            $sheet->getStyle('A' . $fila . ':J' . $fila)->getAlignment()->setHorizontal('center');
-            $sheet->getStyle('A' . $fila . ':J' . $fila)->applyFromArray($this->titulo);
+            $sheet->mergeCells("A" . $fila . ":K" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('A' . $fila . ':K' . $fila)->getAlignment()->setHorizontal('center');
+            $sheet->getStyle('A' . $fila . ':K' . $fila)->applyFromArray($this->titulo);
             $fila++;
             $fila++;
             $fila++;
@@ -198,8 +199,9 @@ class ReporteController extends Controller
             $sheet->setCellValue('G' . $fila, 'OBSERVACIONES');
             $sheet->setCellValue('H' . $fila, 'FECHA Y HORA LIMITE');
             $sheet->setCellValue('I' . $fila, 'MONTO DE GARANTÍA');
-            $sheet->setCellValue('J' . $fila, 'ESTADO');
-            $sheet->getStyle('A' . $fila . ':J' . $fila)->applyFromArray($this->headerTabla);
+            $sheet->setCellValue('J' . $fila, 'CARACTERISTICAS-DETALLES');
+            $sheet->setCellValue('K' . $fila, 'ESTADO');
+            $sheet->getStyle('A' . $fila . ':K' . $fila)->applyFromArray($this->headerTabla);
             $fila++;
             $cont = 1;
             foreach ($publicacions as $publicacion) {
@@ -212,8 +214,19 @@ class ReporteController extends Controller
                 $sheet->setCellValue('G' . $fila, $publicacion->observaciones);
                 $sheet->setCellValue('H' . $fila, $publicacion->fecha_hora_limite_am);
                 $sheet->setCellValue('I' . $fila, $publicacion->monto_garantia);
-                $sheet->setCellValue('J' . $fila, $publicacion->estado_txt);
-                $sheet->getStyle('A' . $fila . ':J' . $fila)->applyFromArray($this->bodyTabla);
+
+                $detalles = PublicacionDetalle::where('publicacion_id', $publicacion->id)
+                    ->get()
+                    ->take(3);
+                $text = "";
+
+                foreach ($detalles as $item) {
+                    $text .= "-$item->caracteristica: $item->detalle \n";
+                }
+
+                $sheet->setCellValue('J' . $fila, $text);
+                $sheet->setCellValue('K' . $fila, $publicacion->estado_txt);
+                $sheet->getStyle('A' . $fila . ':K' . $fila)->applyFromArray($this->bodyTabla);
                 $fila++;
             }
 
@@ -226,9 +239,10 @@ class ReporteController extends Controller
             $sheet->getColumnDimension('G')->setWidth(30);
             $sheet->getColumnDimension('H')->setWidth(10);
             $sheet->getColumnDimension('I')->setWidth(10);
-            $sheet->getColumnDimension('J')->setWidth(10);
+            $sheet->getColumnDimension('J')->setWidth(25);
+            $sheet->getColumnDimension('K')->setWidth(10);
 
-            foreach (range('A', 'J') as $columnID) {
+            foreach (range('A', 'K') as $columnID) {
                 $sheet->getStyle($columnID)->getAlignment()->setWrapText(true);
             }
 
@@ -237,7 +251,7 @@ class ReporteController extends Controller
             $sheet->getPageMargins()->setRight(0.1);
             $sheet->getPageMargins()->setLeft(0.1);
             $sheet->getPageMargins()->setBottom(0.1);
-            $sheet->getPageSetup()->setPrintArea('A:J');
+            $sheet->getPageSetup()->setPrintArea('A:K');
             $sheet->getPageSetup()->setFitToWidth(1);
             $sheet->getPageSetup()->setFitToHeight(0);
 
@@ -315,45 +329,14 @@ class ReporteController extends Controller
 
             $fila = 2;
             $sheet->setCellValue('A' . $fila, "LISTA DE CLIENTES OFERTANTES POR SUBASTA");
-            $sheet->mergeCells("A" . $fila . ":O" . $fila);  //COMBINAR CELDAS
-            $sheet->getStyle('A' . $fila . ':O' . $fila)->getAlignment()->setHorizontal('center');
-            $sheet->getStyle('A' . $fila . ':O' . $fila)->applyFromArray($this->titulo);
+            $sheet->mergeCells("A" . $fila . ":P" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('A' . $fila . ':P' . $fila)->getAlignment()->setHorizontal('center');
+            $sheet->getStyle('A' . $fila . ':P' . $fila)->applyFromArray($this->titulo);
             $fila++;
             $fila++;
             $fila++;
 
             foreach ($publicacions as $publicacion) {
-                $sheet->setCellValue('A' . $fila, 'NOMBRE DEL SUBASTADOR:');
-                $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
-                $sheet->setCellValue('C' . $fila, $publicacion->user->full_name);
-                $sheet->mergeCells("C" . $fila . ":O" . $fila);  //COMBINAR CELDAS
-                $sheet->getStyle('A' . $fila . ':O' . $fila)->applyFromArray($this->bodyTabla);
-                $fila++;
-                $sheet->setCellValue('A' . $fila, 'CATEGORÍA:');
-                $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
-                $sheet->setCellValue('C' . $fila, $publicacion->categoria);
-                $sheet->mergeCells("C" . $fila . ":O" . $fila);  //COMBINAR CELDAS
-                $sheet->getStyle('A' . $fila . ':O' . $fila)->applyFromArray($this->bodyTabla);
-                $fila++;
-
-                $sheet->setCellValue('A' . $fila, 'N°');
-                $sheet->setCellValue('B' . $fila, 'NOMBRE DEL PARTICIPANTE');
-                $sheet->setCellValue('C' . $fila, 'CARNET DE IDENTIDAD');
-                $sheet->setCellValue('D' . $fila, 'COMPLEMENTO');
-                $sheet->setCellValue('E' . $fila, 'CORREO ELECTRÓNICO INICIAL');
-                $sheet->setCellValue('F' . $fila, 'NRO. DE CELULAR');
-                $sheet->setCellValue('G' . $fila, 'USUARIO DEL PARTICIPANTE');
-                $sheet->setCellValue('H' . $fila, 'NOMBRE DEL BIEN OFERTADO');
-                $sheet->setCellValue('I' . $fila, 'FECHA DE LA OFERTA');
-                $sheet->setCellValue('J' . $fila, 'HORA DE LA OFERTA');
-                $sheet->setCellValue('K' . $fila, 'OFERTA(MONTO' . $publicacion->moneda . ')');
-                $sheet->setCellValue('L' . $fila, 'MONTO DE GARANTÍA');
-                $sheet->setCellValue('M' . $fila, 'COMPROBANTE DE PAGO DE GARANTÍA(DOCUMENTO PARA DESCARGAR)');
-                $sheet->setCellValue('N' . $fila, 'CARNET DE IDENTIDAD(DOCUMENTO PARA DESCARGAR)');
-                $sheet->setCellValue('O' . $fila, 'SUBASTA VIGENTE/FINALIZADA');
-                $sheet->getStyle('A' . $fila . ':O' . $fila)->applyFromArray($this->headerTabla);
-                $fila++;
-                $cont = 1;
 
                 $subasta_clientes = [];
                 if ($fecha_ini && $fecha_fin) {
@@ -375,24 +358,71 @@ class ReporteController extends Controller
                         ->get();
                 }
 
-                foreach ($subasta_clientes as $subasta_cliente) {
-                    $sheet->setCellValue('A' . $fila, $cont++);
-                    $sheet->setCellValue('B' . $fila, $subasta_cliente->cliente->full_name);
-                    $sheet->setCellValue('C' . $fila, $subasta_cliente->cliente->full_ci);
-                    $sheet->setCellValue('D' . $fila, $subasta_cliente->cliente->complemento);
-                    $sheet->setCellValue('E' . $fila, $subasta_cliente->cliente->email);
-                    $sheet->setCellValue('F' . $fila, $subasta_cliente->cliente->fono);
-                    $sheet->setCellValue('G' . $fila, $subasta_cliente->cliente->user->usuario);
-                    $sheet->setCellValue('H' . $fila, $publicacion->categoria);
-                    $sheet->setCellValue('I' . $fila, $subasta_cliente->fecha_oferta_t);
-                    $sheet->setCellValue('J' . $fila, $subasta_cliente->hora_oferta_t);
-                    $sheet->setCellValue('K' . $fila, $subasta_cliente->puja);
-                    $sheet->setCellValue('L' . $fila, $publicacion->monto_garantia);
-                    $sheet->setCellValue('M' . $fila, $subasta_cliente->url_comprobante);
-                    $sheet->setCellValue('N' . $fila, $subasta_cliente->cliente->url_ci_anverso . "\n" . $subasta_cliente->cliente->url_ci_reverso);
-                    $sheet->setCellValue('O' . $fila, $publicacion->estado_txt);
-                    $sheet->getStyle('A' . $fila . ':O' . $fila)->applyFromArray($this->bodyTabla);
+                if ($publicacion->subasta && count($subasta_clientes) > 0) {
+                    $sheet->setCellValue('A' . $fila, 'NOMBRE DEL SUBASTADOR:');
+                    $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
+                    $sheet->setCellValue('C' . $fila, $publicacion->user->full_name);
+                    $sheet->mergeCells("C" . $fila . ":P" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':P' . $fila)->applyFromArray($this->bodyTabla);
                     $fila++;
+                    $sheet->setCellValue('A' . $fila, 'CATEGORÍA:');
+                    $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
+                    $sheet->setCellValue('C' . $fila, $publicacion->categoria);
+                    $sheet->mergeCells("C" . $fila . ":P" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':P' . $fila)->applyFromArray($this->bodyTabla);
+                    $fila++;
+
+                    $sheet->setCellValue('A' . $fila, 'N°');
+                    $sheet->setCellValue('B' . $fila, 'NOMBRE DEL PARTICIPANTE');
+                    $sheet->setCellValue('C' . $fila, 'CARNET DE IDENTIDAD');
+                    $sheet->setCellValue('D' . $fila, 'COMPLEMENTO');
+                    $sheet->setCellValue('E' . $fila, 'CORREO ELECTRÓNICO INICIAL');
+                    $sheet->setCellValue('F' . $fila, 'NRO. DE CELULAR');
+                    $sheet->setCellValue('G' . $fila, 'USUARIO DEL PARTICIPANTE');
+                    $sheet->setCellValue('H' . $fila, 'NOMBRE DEL BIEN OFERTADO');
+                    $sheet->setCellValue('I' . $fila, 'FECHA DE LA OFERTA');
+                    $sheet->setCellValue('J' . $fila, 'HORA DE LA OFERTA');
+                    $sheet->setCellValue('K' . $fila, 'OFERTA(MONTO' . $publicacion->moneda . ')');
+                    $sheet->setCellValue('L' . $fila, 'MONTO DE GARANTÍA');
+                    $sheet->setCellValue('M' . $fila, 'COMPROBANTE DE PAGO DE GARANTÍA(DOCUMENTO PARA DESCARGAR)');
+                    $sheet->setCellValue('N' . $fila, 'CARNET DE IDENTIDAD(DOCUMENTO PARA DESCARGAR)');
+                    $sheet->setCellValue('O' . $fila, 'CARACTERISTICAS-DETALLES');
+                    $sheet->setCellValue('P' . $fila, 'SUBASTA VIGENTE/FINALIZADA');
+                    $sheet->getStyle('A' . $fila . ':P' . $fila)->applyFromArray($this->headerTabla);
+                    $fila++;
+                    $cont = 1;
+
+
+
+                    $detalles = PublicacionDetalle::where('publicacion_id', $publicacion->id)
+                        ->get()
+                        ->take(3);
+                    $text = "";
+
+                    foreach ($detalles as $item) {
+                        $text .= "-$item->caracteristica: $item->detalle \n";
+                    }
+
+                    foreach ($subasta_clientes as $subasta_cliente) {
+                        $sheet->setCellValue('A' . $fila, $cont++);
+                        $sheet->setCellValue('B' . $fila, $subasta_cliente->cliente->full_name);
+                        $sheet->setCellValue('C' . $fila, $subasta_cliente->cliente->full_ci);
+                        $sheet->setCellValue('D' . $fila, $subasta_cliente->cliente->complemento);
+                        $sheet->setCellValue('E' . $fila, $subasta_cliente->cliente->email);
+                        $sheet->setCellValue('F' . $fila, $subasta_cliente->cliente->fono);
+                        $sheet->setCellValue('G' . $fila, $subasta_cliente->cliente->user->usuario);
+                        $sheet->setCellValue('H' . $fila, $publicacion->categoria);
+                        $sheet->setCellValue('I' . $fila, $subasta_cliente->fecha_oferta_t);
+                        $sheet->setCellValue('J' . $fila, $subasta_cliente->hora_oferta_t);
+                        $sheet->setCellValue('K' . $fila, $subasta_cliente->puja);
+                        $sheet->setCellValue('L' . $fila, $publicacion->monto_garantia);
+                        $sheet->setCellValue('M' . $fila, $subasta_cliente->url_comprobante);
+                        $sheet->setCellValue('N' . $fila, $subasta_cliente->cliente->url_ci_anverso . "\n" . $subasta_cliente->cliente->url_ci_reverso);
+                        $sheet->setCellValue('O' . $fila, $text);
+                        $sheet->setCellValue('P' . $fila, $publicacion->estado_txt);
+                        $sheet->getStyle('A' . $fila . ':P' . $fila)->applyFromArray($this->bodyTabla);
+                        $fila++;
+                    }
                 }
                 $fila++;
                 $fila++;
@@ -414,9 +444,10 @@ class ReporteController extends Controller
             $sheet->getColumnDimension('L')->setWidth(10);
             $sheet->getColumnDimension('M')->setWidth(15);
             $sheet->getColumnDimension('N')->setWidth(15);
-            $sheet->getColumnDimension('O')->setWidth(10);
+            $sheet->getColumnDimension('O')->setWidth(25);
+            $sheet->getColumnDimension('P')->setWidth(10);
 
-            foreach (range('A', 'O') as $columnID) {
+            foreach (range('A', 'P') as $columnID) {
                 $sheet->getStyle($columnID)->getAlignment()->setWrapText(true);
             }
 
@@ -425,7 +456,7 @@ class ReporteController extends Controller
             $sheet->getPageMargins()->setRight(0.1);
             $sheet->getPageMargins()->setLeft(0.1);
             $sheet->getPageMargins()->setBottom(0.1);
-            $sheet->getPageSetup()->setPrintArea('A:J');
+            $sheet->getPageSetup()->setPrintArea('A:P');
             $sheet->getPageSetup()->setFitToWidth(1);
             $sheet->getPageSetup()->setFitToHeight(0);
 
@@ -454,8 +485,8 @@ class ReporteController extends Controller
 
         $publicacions = Publicacion::select("publicacions.*")
             ->whereIn("estado_sub", [1, 2])
-            ->join("subastas", "subastas.publicacion_id", "=", "publicacions.id")
-            ->join("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id");
+            ->rightjoin("subastas", "subastas.publicacion_id", "=", "publicacions.id")
+            ->rightjoin("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id");
         if ($publicacion_id != 'todos') {
             $publicacions->where("publicacions.id", $publicacion_id);
         }

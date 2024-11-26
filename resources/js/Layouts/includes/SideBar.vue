@@ -769,7 +769,7 @@ const logout = () => {
                                 :href="route('reportes.g_subasta_clientes')"
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    Clientes por subasta
+                                    Subastas
                                 </div></Link
                             >
                         </div>

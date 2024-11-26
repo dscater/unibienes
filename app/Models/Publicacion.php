@@ -94,7 +94,7 @@ class Publicacion extends Model
 
     public function publicacion_imagens()
     {
-        return $this->hasMany(PublicacionImagen::class, 'publicacion_id');
+        return $this->hasMany(PublicacionImagen::class, 'publicacion_id')->where("status", 1);
     }
 
     public function subasta()
@@ -190,7 +190,7 @@ class Publicacion extends Model
             $errores["publicacion_detalles"] = "Debes agregar al menos 3 detalles y caracteristicas";
         } else {
             foreach ($publicacion_detalles as $pd) {
-                if (strlen($pd["caracteristica"]) < 3 || strlen($pd['detalle']) < 3) {
+                if (strlen($pd["caracteristica"]) < 1 || strlen($pd['detalle']) < 1) {
                     // $errores->add("publicacion_detalles", 'Debes ingresar al menos 1 caracter en cada detalle y caracteristica');
                     $errores["publicacion_detalles"] = 'Debes ingresar al menos 1 caracter en cada detalle y caracteristica';
                     break;
@@ -203,7 +203,7 @@ class Publicacion extends Model
             $errores["publicacion_imagens"] = "Debes agregar al menos " . $parametrizacion->nro_imagenes_pub . " imagenes";
         } else {
             foreach ($publicacion_imagens as $pi) {
-                if ($pi["id"] == 0 && empty($pi['imagen'])) {
+                if ($pi["id"] == 0 && empty($pi['file'])) {
                     // $errores->add("publicacion_imagens", 'Debes cargar todas las imagenes');
                     $errores["publicacion_imagens"] = 'Debes cargar todas las imagenes';
                     break;

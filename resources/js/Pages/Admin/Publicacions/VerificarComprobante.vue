@@ -53,7 +53,7 @@ watch(
     }
 );
 
-const { flash } = usePage().props;
+const { auth } = usePage().props;
 
 const tituloDialog = computed(() => {
     return `<i class="fa fa-check-circle"></i> Verificar comprobante`;
@@ -174,6 +174,12 @@ onMounted(() => {});
                         ><i class="fa fa-times"></i> Cerrar</a
                     >
                     <button
+                        v-if="
+                            auth?.user.permisos == '*' ||
+                            auth?.user.permisos.includes(
+                                'publicacions.rechazar_comprobante'
+                            )
+                        "
                         type="button"
                         @click="actualizarComprobante(2)"
                         class="btn btn-danger"
@@ -183,6 +189,12 @@ onMounted(() => {});
                         Rechazar comprobante
                     </button>
                     <button
+                        v-if="
+                            auth?.user.permisos == '*' ||
+                            auth?.user.permisos.includes(
+                                'publicacions.aprobar_comprobante'
+                            )
+                        "
                         type="button"
                         @click="actualizarComprobante(1)"
                         class="btn btn-success"

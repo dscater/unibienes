@@ -6,6 +6,8 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
 import VerificarComprobante from "./VerificarComprobante.vue";
 import PublicacionAdmin from "@/Components/PublicacionAdmin.vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const props = defineProps({
     subasta: {
         type: Object,
@@ -49,14 +51,21 @@ const columns = [
         title: "Puja actual",
         data: "puja",
         sortable: false,
+        render: function (data, type, row) {
+            return getFormatoMoneda(data);
+        },
     },
     {
         title: "Estado",
         data: "estado_puja",
         sortable: false,
         render: function (data, type, row) {
-            let estado = `-`;
+            let estado = `PARTICIPANDO`;
             let clase = `bg-gray`;
+
+            if (row.subasta.estado == 0 || row.subasta.estado == 2) {
+                estado = `PERDEDOR`;
+            }
             if (row.estado_puja == 2) {
                 estado = `GANADOR`;
                 clase = `bg-success`;

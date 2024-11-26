@@ -57,6 +57,10 @@ class RegisteredUserController extends Controller
         "moneda.required" => "Este campo es obligatorio",
         "terminos.required" => "Este campo es obligatorio",
         "terminos.accepted" => "Debes aceptar los terminos y condiciones",
+        "password.required" => "Debes ingresar tu contraseña",
+        "password.confirmed" => "La contraseña no coincide",
+        "password.min" => "Debes ingresar una contraseña de al menos :min caracteres",
+        "password.regex" => "La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, un número y un símbolo (@$!%*?&).",
     ];
 
     /**
@@ -79,7 +83,7 @@ class RegisteredUserController extends Controller
         $this->validacion["banco"] = "required|regex:/^[\pL\s\.\'\"\,0-9áéíóúÁÉÍÓÚñÑ]+$/u";
         $this->validacion["nro_cuenta"] = "required|regex:/^[\pL\s\-\.\'\"\,0-9áéíóúÁÉÍÓÚñÑ]+$/u";
         $this->validacion["moneda"] = "required|regex:/^[\pL\s\.\,0-9áéíóúÁÉÍÓÚñÑ]+$/u";
-        $this->validacion["password"] = "required|confirmed|min:8";
+        $this->validacion["password"] = 'required|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/';
         $this->validacion["terminos"] = "required|accepted";
 
         $request->validate($this->validacion, $this->mensajes);

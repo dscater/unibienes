@@ -145,6 +145,10 @@
         .img_celda img {
             width: 45px;
         }
+
+        .lista {
+            padding-left: 8px;
+        }
     </style>
 </head>
 
@@ -185,6 +189,12 @@
 
         @endphp
         @if ($publicacion->subasta && count($subasta_clientes) > 0)
+            @php
+                $detalles = App\Models\PublicacionDetalle::where('publicacion_id', $publicacion->id)
+                    ->get()
+                    ->take(3);
+            @endphp
+
             <table>
                 <tbody>
                     <tr>
@@ -214,6 +224,7 @@
                         <th>MONTO DE GARANTÍA</th>
                         <th>COMPROBANTE DE PAGO DE GARANTÍA(DOCUMENTO PARA DESCARGAR)</th>
                         <th>CARNET DE IDENTIDAD(DOCUMENTO PARA DESCARGAR)</th>
+                        <th>CARACTERISTICAS-DETALLES</th>
                         <th>SUBASTA VIGENTE/FINALIZADA</th>
                     </tr>
                 </thead>
@@ -233,11 +244,18 @@
                             <td class="">{{ $publicacion->categoria }}</td>
                             <td class="">{{ $subasta_cliente->fecha_oferta_t }}</td>
                             <td class="">{{ $subasta_cliente->hora_oferta_t }}</td>
-                            <td class="">{{ $subasta_cliente->puja }}</td>
+                            <td class="">{{ number_format($subasta_cliente->puja, 2, '.', ',') }}</td>
                             <td class="">{{ $publicacion->monto_garantia }}</td>
                             <td class="">{{ $subasta_cliente->url_comprobante }}</td>
                             <td class="">{{ $subasta_cliente->cliente->url_ci_anverso }} <br>
                                 {{ $subasta_cliente->cliente->url_ci_reverso }}</td>
+                            <td class="">
+                                <ul class="lista">
+                                    @foreach ($detalles as $item)
+                                        <li><strong>{{ $item->caracteristica }}:</strong> {{ $item->detalle }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>{{ $publicacion->estado_txt }}</td>
                         </tr>
 

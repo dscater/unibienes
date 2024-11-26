@@ -2,6 +2,7 @@
 import { useForm, usePage } from "@inertiajs/vue3";
 import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { watch, ref, computed, defineEmits, onMounted, nextTick } from "vue";
+import PublicacionAdmin from "@/Components/PublicacionAdmin.vue";
 const props = defineProps({
     open_dialog: {
         type: Boolean,
@@ -122,6 +123,16 @@ onMounted(() => {});
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="enviarFormulario()">
+                        <div class="row">
+                            <div class="col-12">
+                                <PublicacionAdmin
+                                    :publicacion="oPublicacion"
+                                    :column="true"
+                                    :link="true"
+                                ></PublicacionAdmin>
+                            </div>
+                        </div>
+
                         <h5>
                             ¿Está seguro(a) de habilitar la publicación? Una vez
                             habilitado no podrá deshacerlo.

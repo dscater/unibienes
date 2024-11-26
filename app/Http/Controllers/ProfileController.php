@@ -156,8 +156,8 @@ class ProfileController extends Controller
                     return $fail(__('La contraseña no coincide con la actual.'));
                 }
             }],
-            'password' => 'required|confirmed|min:4',
-            'password_confirmation' => 'required|min:4'
+            'password' => 'required|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/',
+            'password_confirmation' => 'required|min:8'
         ], [
             "password_actual.required" => "Debes ingresar la contraña actual"
         ]);

@@ -26,7 +26,7 @@ const form = useForm({
     foto_ci_reverso: "",
     banco: "",
     nro_cuenta: "",
-    moneda: "",
+    moneda: "BOLIVIANOS",
     password: "",
     password_confirmation: "",
     terminos: false,
@@ -34,7 +34,7 @@ const form = useForm({
 
 const errors = ref([]);
 
-const listExpedido = [
+const listExpedido = ref([
     { value: "LP", label: "La Paz" },
     { value: "CB", label: "Cochabamba" },
     { value: "SC", label: "Santa Cruz" },
@@ -44,9 +44,9 @@ const listExpedido = [
     { value: "TJ", label: "Tarija" },
     { value: "PD", label: "Pando" },
     { value: "BN", label: "Beni" },
-];
+]);
 
-const listUbicacions = [
+const listUbicacions = ref([
     { value: "LA PAZ", label: "La Paz" },
     { value: "COCHABAMBA", label: "Cochabamba" },
     { value: "SANTA CRUZ", label: "Santa Cruz" },
@@ -56,7 +56,25 @@ const listUbicacions = [
     { value: "TARIJA", label: "Tarija" },
     { value: "PANDO", label: "Pando" },
     { value: "BENI", label: "Beni" },
-];
+]);
+
+const listBancos = ref([
+    "BANCO NACIONAL DE BOLIVIA S.A.",
+    "BANCO MERCANTIL SANTA CRUZ S.A.",
+    "BANCO BISA S.A.",
+    "BANCO DE CRÉDITO DE BOLIVIA S.A.",
+    "BANCO ECONÓMICO S.A.",
+    "BANCO GANADERO S.A.",
+    "BANCO SOLIDARIO S.A.",
+    "BANCO DE LA NACIÓN ARGENTINA",
+    "BANCO PARA EL FOMENTO A INICIATIVAS ECONÓMICAS S.A.",
+    "BANCO FORTALEZA S.A.",
+    "BANCO PRODEM S.A.",
+    "BANCO PYME DE LA COMUNIDAD S.A.",
+    "BANCO PYME ECOFUTURO S.A.",
+    "BANCO DE DESARROLLO PRODUCTIVO S.A.M.",
+    "BANCO UNIÓN S.A.",
+]);
 
 var url_assets = "";
 var url_principal = "";
@@ -585,13 +603,22 @@ onMounted(() => {
                                     </div>
                                     <h4>Datos para devolución</h4>
                                     <div class="form-floating mt-20px">
-                                        <input
-                                            type="text"
+                                        <select
                                             name="banco"
                                             class="form-control fs-13px h-45px border-0"
                                             placeholder="Banco"
                                             v-model="form.banco"
-                                        />
+                                        >
+                                            <option value="">
+                                                - Seleccione -
+                                            </option>
+                                            <option
+                                                v-for="item in listBancos"
+                                                :value="item"
+                                            >
+                                                {{ item }}
+                                            </option>
+                                        </select>
                                         <label
                                             for="name"
                                             class="d-flex align-items-center text-gray-600 fs-13px"
@@ -647,6 +674,7 @@ onMounted(() => {
                                             class="form-control fs-13px h-45px border-0"
                                             placeholder="Moneda de cuenta Bancaria"
                                             v-model="form.moneda"
+                                            readonly
                                         />
                                         <label
                                             for="name"

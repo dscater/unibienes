@@ -2,6 +2,7 @@
 import { useForm, usePage } from "@inertiajs/vue3";
 import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { watch, ref, computed, defineEmits, onMounted, nextTick } from "vue";
+import MiDropZone from "@/Components/MiDropZone.vue";
 const props = defineProps({
     open_dialog: {
         type: Boolean,
@@ -92,24 +93,6 @@ const removerDetalle = (index) => {
     form.publicacion_detalles.splice(index, 1);
 };
 
-const agregarImagen = () => {
-    form.publicacion_imagens.push({
-        id: 0,
-        publicacion_id: 0,
-        imagen: "",
-        url_imagen: "",
-    });
-};
-
-const removerImagen = (index) => {
-    let item = form.publicacion_imagens[index];
-    if (item.id != 0) {
-        form.eliminados_imagens.push(item.id);
-    }
-
-    form.publicacion_imagens.splice(index, 1);
-};
-
 const enviarFormulario = () => {
     let url =
         form["_method"] == "POST"
@@ -163,7 +146,13 @@ const cerrarDialog = () => {
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
 };
 
-// const cargarListas = () => {};
+const detectaArchivos = (files) => {
+    form.publicacion_imagens = files;
+};
+
+const detectaEliminados = (eliminados) => {
+    form.eliminados_imagens = eliminados;
+};
 
 onMounted(() => {});
 </script>
@@ -440,56 +429,11 @@ onMounted(() => {});
                         <div class="row mt-2">
                             <h4 class="w-100 text-center">IMAGENES</h4>
                             <div class="col-12">
-                                <div
-                                    class="row mb-2 contenedor_detalle"
-                                    v-for="(
-                                        item, index
-                                    ) in form.publicacion_imagens"
-                                >
-                                    <div class="col-md-12">
-                                        <div
-                                            class="input-group contenedor_imagenes"
-                                        >
-                                            <button
-                                                type="button"
-                                                class="remover"
-                                                @click.prevent="
-                                                    removerImagen(index)
-                                                "
-                                            >
-                                                X
-                                            </button>
-                                            <div class="imagen">
-                                                <img
-                                                    :src="item.url_imagen"
-                                                    alt=""
-                                                    class="imagen_detalles"
-                                                />
-                                            </div>
-
-                                            <div class="contenedor_input_file">
-                                                <input
-                                                    type="file"
-                                                    @change="
-                                                        cargaArchivo(
-                                                            $event,
-                                                            index
-                                                        )
-                                                    "
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button
-                                    @click.prevent="agregarImagen"
-                                    type="button"
-                                    class="btn btn-sm btn-default"
-                                >
-                                    <i class="fa fa-plus"></i> Agregar imagen
-                                </button>
+                                <MiDropZone
+                                    :files="form.publicacion_imagens"
+                                    @UpdateFiles="detectaArchivos"
+                                    @addEliminados="detectaEliminados"
+                                ></MiDropZone>
                             </div>
                             <div class="col-12">
                                 <ul

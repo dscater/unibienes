@@ -151,6 +151,7 @@ export const usePublicacions = () => {
             oPublicacion.fecha_limite = item.fecha_limite;
             oPublicacion.hora_limite = item.hora_limite;
             oPublicacion.fecha_hora_limite = item.fecha_hora_limite;
+            oPublicacion.fecha_hora_limite_am = item.fecha_hora_limite_am;
             oPublicacion.monto_garantia = item.monto_garantia;
             oPublicacion.publicacion_detalles = item.publicacion_detalles;
             oPublicacion.publicacion_imagens = item.publicacion_imagens;

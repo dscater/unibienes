@@ -136,7 +136,6 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     Route::get("publicacions/subastas_clientes/getInfo/{subasta_cliente}", [SubastaClienteController::class, 'getInfo'])->name("subasta_clientes.getInfo");
     Route::put("publicacions/subastas_clientes/update/{subasta_cliente}", [SubastaClienteController::class, 'update'])->name("subasta_clientes.update");
 
-
     // NOTIFICACIONES
     Route::get("notificacions/listadoPorUsuario", [NotificacionController::class, 'listadoPorUsuario'])->name("notificacions.listadoPorUsuario");
 

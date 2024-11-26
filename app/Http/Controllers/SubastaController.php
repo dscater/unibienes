@@ -67,6 +67,26 @@ class SubastaController extends Controller
         $fecha_hora_actual = date("Y-m-d H:i");
 
         if ($fecha_hora_actual < $fecha_hora_limite) {
+
+            // verificar monto
+            $monto_puja_actual = SubastaController::getMontoPujaActual($publicacion);
+            $monto_validacion = $monto_puja_actual;
+            if ($monto_puja_actual > -1) {
+                if (count($subasta->subasta_clientes_puja) > 0) {
+                    $monto_validacion++;
+                }
+                $mensaje = "El monto debe ser mayor o igual a " . $monto_validacion;
+                if (!$monto_puja || $monto_puja < $monto_validacion) {
+                    return response()->JSON([
+                        "message" => "Debes ingresar un monto valido. " . $mensaje
+                    ], 422);
+                }
+            } else {
+                return response()->JSON([
+                    "message" => "Ocurrió un error al registrar la puja, intente de nuevo por favor"
+                ], 422);
+            }
+
             $subasta_cliente->update([
                 "puja" => $monto_puja,
                 "fecha_oferta" => date("Y-m-d"),
@@ -183,8 +203,20 @@ class SubastaController extends Controller
         $publicacion = Publicacion::find($publicacion_id);
         if ($publicacion && $publicacion->subasta) {
             $subasta = $publicacion->subasta;
-            $monto_puja_actual = $publicacion->oferta_inicial;
+            $monto_puja_actual = SubastaController::getMontoPujaActual($publicacion);
+        }
+        return response()->JSON([
+            "monto_puja_actual" => $monto_puja_actual,
+            "subasta" => $subasta->load(["subasta_clientes_puja"]),
+        ]);
+    }
 
+    public static function getMontoPujaActual($publicacion)
+    {
+        $monto_puja_actual = -1;
+        if ($publicacion->subasta) {
+            $subasta = $publicacion->subasta;
+            $monto_puja_actual = $publicacion->oferta_inicial;
             // verificar pujas
             $max_subasta_clientes = SubastaCliente::where("subasta_id", $subasta->id)
                 ->where("puja", ">", 0)
@@ -195,9 +227,7 @@ class SubastaController extends Controller
                 $monto_puja_actual = $max_subasta_clientes->puja;
             }
         }
-        return response()->JSON([
-            "monto_puja_actual" => $monto_puja_actual,
-            "subasta" => $subasta->load(["subasta_clientes_puja"]),
-        ]);
+
+        return $monto_puja_actual;
     }
 }

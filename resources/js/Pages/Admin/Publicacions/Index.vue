@@ -1,19 +1,3 @@
-<script>
-const breadbrums = [
-    {
-        title: "Inicio",
-        disabled: false,
-        url: route("inicio"),
-        name_url: "inicio",
-    },
-    {
-        title: "Publicaciones",
-        disabled: false,
-        url: "",
-        name_url: "",
-    },
-];
-</script>
 <script setup>
 import { useApp } from "@/composables/useApp";
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
@@ -21,10 +5,10 @@ import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
-// import { useMenu } from "@/composables/useMenu";
 import Formulario from "./Formulario.vue";
 import Habilitar from "./Habilitar.vue";
-// const { mobile, identificaDispositivo } = useMenu();
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const { props: props_page } = usePage();
 const { setLoading } = useApp();
 onMounted(() => {
@@ -60,6 +44,9 @@ const columns = [
     {
         title: "Oferta inicial",
         data: "oferta_inicial",
+        render: function (data, type, row) {
+            return getFormatoMoneda(data);
+        },
     },
     {
         title: "Ubicación",
@@ -76,6 +63,9 @@ const columns = [
     {
         title: "Monto de garantía",
         data: "monto_garantia",
+        render: function (data, type, row) {
+            return getFormatoMoneda(data);
+        },
     },
     {
         title: "Estado",

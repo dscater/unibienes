@@ -11,9 +11,9 @@
 
         @page {
             margin-top: 1.5cm;
-            margin-bottom: 0.3cm;
-            margin-left: 0.3cm;
-            margin-right: 0.3cm;
+            margin-bottom: 0.5cm;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
         }
 
         table {
@@ -143,6 +143,10 @@
         .img_celda img {
             width: 45px;
         }
+
+        .lista {
+            padding-left: 8px;
+        }
     </style>
 </head>
 
@@ -170,6 +174,7 @@
                 <th>OBSERVACIONES</th>
                 <th>FECHA Y HORA LIMITE</th>
                 <th>MONTO DE GARANTÍA</th>
+                <th>CARACTERISTICAS-DETALLES</th>
                 <th>ESTADO</th>
             </tr>
         </thead>
@@ -178,16 +183,29 @@
                 $cont = 1;
             @endphp
             @foreach ($publicacions as $publicacion)
+                @php
+                    $detalles = App\Models\PublicacionDetalle::where('publicacion_id', $publicacion->id)
+                        ->get()
+                        ->take(3);
+                @endphp
+
                 <tr>
                     <td class="centreado">{{ $cont++ }}</td>
                     <td>{{ $publicacion->user->full_name }}</td>
                     <td class="">{{ $publicacion->categoria }}</td>
                     <td class="">{{ $publicacion->moneda }}</td>
-                    <td class="">{{ $publicacion->oferta_inicial }}</td>
+                    <td class="">{{ number_format($publicacion->oferta_inicial, 2, '.', ',') }}</td>
                     <td class="">{{ $publicacion->ubicacion }}</td>
                     <td class="">{{ $publicacion->observaciones }}</td>
                     <td class="">{{ $publicacion->fecha_hora_limite_am }}</td>
-                    <td class="">{{ $publicacion->monto_garantia }}</td>
+                    <td class="">{{ number_format($publicacion->monto_garantia, 2, '.', ',') }}</td>
+                    <td class="">
+                        <ul class="lista">
+                            @foreach ($detalles as $item)
+                                <li><strong>{{ $item->caracteristica }}:</strong> {{ $item->detalle }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="">{{ $publicacion->estado_txt }}</td>
                 </tr>
             @endforeach

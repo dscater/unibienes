@@ -1,20 +1,3 @@
-<script>
-const breadbrums = [
-    {
-        title: "Inicio",
-        disabled: false,
-        url: route("inicio"),
-        name_url: "inicio",
-    },
-    {
-        title: "Grafico Clientes por Subasta",
-        disabled: false,
-        url: "",
-        name_url: "",
-    },
-];
-</script>
-
 <script setup>
 import { useApp } from "@/composables/useApp";
 import { computed, onMounted, ref } from "vue";
@@ -152,15 +135,15 @@ onMounted(() => {
 });
 </script>
 <template>
-    <Head title="Grafico Clientes por Subasta"></Head>
+    <Head title="Subastas"></Head>
     <!-- BEGIN breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
-        <li class="breadcrumb-item active">Gráficas > Clientes por Subasta</li>
+        <li class="breadcrumb-item active">Gráficas > Subastas</li>
     </ol>
     <!-- END breadcrumb -->
     <!-- BEGIN page-header -->
-    <h1 class="page-header">Gráficas > Clientes por Subasta</h1>
+    <h1 class="page-header">Gráficas > Subastas</h1>
     <!-- END page-header -->
     <div class="row">
         <div class="col-md-6 mx-auto">

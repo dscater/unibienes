@@ -51,7 +51,7 @@ function guardarImagen() {
                     text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
                     confirmButtonColor: "#3085d6",
                     // confirmButtonText: `Aceptar`,
-                    showConfirmButton:false,
+                    showConfirmButton: false,
                 });
                 imagen_cargada.value = false;
                 setTimeout(() => {
@@ -168,6 +168,24 @@ const listUbicacions = [
     { value: "PANDO", label: "Pando" },
     { value: "BENI", label: "Beni" },
 ];
+
+const listBancos = ref([
+    "BANCO NACIONAL DE BOLIVIA S.A.",
+    "BANCO MERCANTIL SANTA CRUZ S.A.",
+    "BANCO BISA S.A.",
+    "BANCO DE CRÉDITO DE BOLIVIA S.A.",
+    "BANCO ECONÓMICO S.A.",
+    "BANCO GANADERO S.A.",
+    "BANCO SOLIDARIO S.A.",
+    "BANCO DE LA NACIÓN ARGENTINA",
+    "BANCO PARA EL FOMENTO A INICIATIVAS ECONÓMICAS S.A.",
+    "BANCO FORTALEZA S.A.",
+    "BANCO PRODEM S.A.",
+    "BANCO PYME DE LA COMUNIDAD S.A.",
+    "BANCO PYME ECOFUTURO S.A.",
+    "BANCO DE DESARROLLO PRODUCTIVO S.A.M.",
+    "BANCO UNIÓN S.A.",
+]);
 
 var url_assets = "";
 var url_principal = "";
@@ -588,13 +606,20 @@ onMounted(() => {
                             </div>
                             <h4>Datos para devolución</h4>
                             <div class="form-floating mt-20px">
-                                <input
-                                    type="text"
+                                <select
                                     name="banco"
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Banco"
                                     v-model="formInfo.banco"
-                                />
+                                >
+                                    <option value="">- Seleccione -</option>
+                                    <option
+                                        v-for="item in listBancos"
+                                        :value="item"
+                                    >
+                                        {{ item }}
+                                    </option>
+                                </select>
                                 <label
                                     for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"

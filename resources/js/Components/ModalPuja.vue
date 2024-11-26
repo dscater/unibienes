@@ -163,7 +163,6 @@ const error_monto = ref(false);
 const mensajeError = ref("");
 
 const verificaMontoPuja = () => {
-    console.log(oSubasta.value);
     if (montoInicial.value && montoInicial.value != "-") {
         let monto_valdacion = parseInt(montoInicial.value);
         mensajeError.value = `Debes ingresar un monto mayor o igual a ${monto_valdacion}`;

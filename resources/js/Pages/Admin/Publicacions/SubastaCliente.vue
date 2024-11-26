@@ -1,19 +1,3 @@
-<script>
-const breadbrums = [
-    {
-        title: "Inicio",
-        disabled: false,
-        url: route("inicio"),
-        name_url: "inicio",
-    },
-    {
-        title: "Subasta > Clientes",
-        disabled: false,
-        url: "",
-        name_url: "",
-    },
-];
-</script>
 <script setup>
 import { useApp } from "@/composables/useApp";
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
@@ -21,6 +5,8 @@ import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, computed, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
 import VerificarComprobante from "./VerificarComprobante.vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const props = defineProps({
     subasta_cliente: {
         type: Object,
@@ -121,16 +107,15 @@ onBeforeUnmount(() => {});
                             <p>
                                 <strong>Monto garantía: </strong>
                                 {{
-                                    subasta_cliente.subasta.publicacion
-                                        .monto_garantia
+                                    getFormatoMoneda(
+                                        subasta_cliente.subasta.publicacion
+                                            .monto_garantia
+                                    )
                                 }}
                             </p>
                             <p>
                                 <strong>Moneda: </strong>
-                                {{
-                                    subasta_cliente.subasta.publicacion
-                                        .moneda
-                                }}
+                                {{ subasta_cliente.subasta.publicacion.moneda }}
                             </p>
                         </div>
                         <div class="col-12">
@@ -145,7 +130,7 @@ onBeforeUnmount(() => {});
                                     </p>
                                     <p>
                                         <strong>Puja actual:</strong>
-                                        {{ itemSubastaCliente?.puja }}
+                                        {{ getFormatoMoneda(itemSubastaCliente?.puja) }}
                                     </p>
                                     <p>
                                         <strong>Estado comprobante: </strong>

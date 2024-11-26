@@ -1,12 +1,12 @@
 <script>
 import SliderImagenes from "@/Components/SliderImagenes.vue";
 import DetalleSubasta from "@/Components/DetalleSubasta.vue";
-import ModalComprobante from "@/Components/ModalComprobante.vue";
-import ModalPuja from "@/Components/ModalPuja.vue";
 </script>
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
-import { onMounted, ref, inject, computed } from "vue";
+import { onMounted, ref, inject, computed, watch } from "vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const { props: props_page } = usePage();
 const props = defineProps({
     publicacion: {
@@ -26,7 +26,20 @@ const props = defineProps({
         default: false,
     },
 });
+
 const oPublicacion = ref(props.publicacion);
+
+watch(
+    () => props.publicacion,
+    (newValue) => {
+        oPublicacion.value = newValue;
+    }
+);
+
+watch(oPublicacion.value, (newValue) => {
+    oPublicacion.value = newValue;
+});
+
 const oSubastaCliente = ref(null);
 
 const modal_dialog = ref(false);
@@ -57,7 +70,7 @@ const iniciaConteoFinalizacion = () => {
     // Fecha actual
     const fechaActual = new Date();
     let fechaStr = "";
-    if (oPublicacion.value) {
+    if (oPublicacion.value && oPublicacion.value.fecha_hora_limite) {
         fechaStr = oPublicacion.value.fecha_hora_limite;
         // Separar la fecha y la hora
         const [fecha, hora] = fechaStr.split(" ");
@@ -170,8 +183,9 @@ onMounted(() => {
                                 </div>
                                 <div class="col-12 text-center mt-2 mb-2">
                                     <button
+                                        type="button"
                                         class="btn btn-primary"
-                                        @click="verDetallesPublicacion"
+                                        @click.prevent="verDetallesPublicacion"
                                     >
                                         Detalles de la subasta
                                         <i class="fa fa-external-link-alt"></i>
@@ -197,10 +211,17 @@ onMounted(() => {
                                         <td
                                             class="text-white font-weight-bold h5"
                                         >
-                                            {{ oPublicacion.oferta_inicial }}
+                                            {{
+                                                getFormatoMoneda(
+                                                    oPublicacion.oferta_inicial
+                                                )
+                                            }}
                                         </td>
                                     </tr>
-                                    <tr v-if="oGanadorSubastaCliente" class="bg-success">
+                                    <tr
+                                        v-if="oGanadorSubastaCliente"
+                                        class="bg-success"
+                                    >
                                         <td class="text-white">GANADOR</td>
                                         <td class="text-white">
                                             {{

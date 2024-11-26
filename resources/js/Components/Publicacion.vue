@@ -7,6 +7,8 @@ import ModalPuja from "@/Components/ModalPuja.vue";
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
 import { onMounted, ref, inject, computed } from "vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const { props: props_page } = usePage();
 const props = defineProps({
     publicacion: {
@@ -160,7 +162,6 @@ const verificarGanadorPublicacion = () => {
 };
 
 const verificaSwOferta = () => {
-    console.log(oPublicacion.value.estado_sub);
     if (oPublicacion.value.estado_sub == 1) {
         intervalConteo.value = setInterval(() => {
             iniciaConteoFinalizacion();
@@ -175,6 +176,16 @@ const btnTxtRealizarOferta = computed(() => {
         return "Pendiente";
     return "Realizar una oferta";
 });
+
+const verificaClienteTop = (id) => {
+    if (id && oPublicacion.value.subasta) {
+        let res = oPublicacion.value.subasta.subasta_clientes_puja.filter(
+            (elem) => elem.id == id
+        );
+        return res.length > 0;
+    }
+    return true;
+};
 
 onMounted(() => {
     obtieneInfoSubastaCliente();
@@ -297,7 +308,11 @@ onMounted(() => {
                                         <td
                                             class="text-white font-weight-bold h5"
                                         >
-                                            {{ oPublicacion.oferta_inicial }}
+                                            {{
+                                                getFormatoMoneda(
+                                                    oPublicacion.oferta_inicial
+                                                )
+                                            }}
                                         </td>
                                     </tr>
                                     <template
@@ -318,9 +333,11 @@ onMounted(() => {
                                                 class="text-white font-weight-bold h5"
                                             >
                                                 {{
-                                                    oPublicacion.subasta
-                                                        .subasta_clientes_puja[0]
-                                                        .puja
+                                                    getFormatoMoneda(
+                                                        oPublicacion.subasta
+                                                            .subasta_clientes_puja[0]
+                                                            .puja
+                                                    )
                                                 }}
                                             </td>
                                         </tr>
@@ -403,7 +420,7 @@ onMounted(() => {
                             >
                                 <td>{{ index + 1 }}</td>
                                 <td>
-                                    {{ item.puja }}
+                                    {{ getFormatoMoneda(item.puja) }}
                                     <small
                                         v-if="
                                             oSubastaCliente &&
@@ -415,17 +432,14 @@ onMounted(() => {
                             </tr>
 
                             <tr
-                                v-if="
-                                    oSubastaCliente &&
-                                    oSubastaCliente.estado_puja == 0 &&
-                                    (oPublicacion.estado_sub == 1 || oPublicacion.estado_sub == 2 ||
-                                        oPublicacion.estado_sub == 3)
-                                "
+                                v-if="!verificaClienteTop(oSubastaCliente?.id)"
                                 class="bg-teal text-white"
                             >
                                 <td>-</td>
                                 <td>
-                                    {{ oSubastaCliente.puja }}
+                                    {{
+                                        getFormatoMoneda(oSubastaCliente?.puja)
+                                    }}
                                     <small>(Mi oferta)</small>
                                 </td>
                             </tr>

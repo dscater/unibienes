@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
-
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const props = defineProps({
     publicacion: {
         type: Object,
@@ -22,8 +23,12 @@ const item = ref(props.publicacion);
         <h4 class="item-title">
             {{ item.ubicacion }}
         </h4>
-        <p class="item-price">Oferta inicial: {{ item.oferta_inicial }}</p>
-        <p class="item-desc">Monto garantía: {{ item.monto_garantia }}</p>
+        <p class="item-price">
+            Oferta inicial: {{ getFormatoMoneda(item.oferta_inicial) }}
+        </p>
+        <p class="item-desc">
+            Monto garantía: {{ getFormatoMoneda(item.monto_garantia) }}
+        </p>
         <p class="item-desc">
             {{ item.moneda }}
         </p>
