@@ -213,11 +213,11 @@ onMounted(() => {
         @cerrar-dialog="modal_dialog_puja = false"
         @envio-formulario="actualizaPublicacion"
     ></ModalPuja>
-    <div class="product mb-3">
+    <div class="border-0 mb-4 mx-2">
         <div class="row">
             <!-- BEGIN product-detail -->
             <div
-                class="contenedor_imagen p-3"
+                class="contenedor_imagen p-0"
                 :class="[
                     props.column ? 'flex-column' : '',
                     props.detalle_lista
@@ -242,10 +242,10 @@ onMounted(() => {
                         ></SliderImagenes>
                     </div>
                     <!-- END product-main-image -->
-                    <div class="row fila_detalle">
+                    <div class="row fila_detalle pt-3" style="">
                         <div class="col-12 text-center" v-if="link">
                             <Link
-                                class="btn btn-primary btn-sm"
+                                class="btn bg1 btn-sm"
                                 :href="
                                     route(
                                         'publicacions.publicacionPortal',
@@ -257,34 +257,37 @@ onMounted(() => {
                             </Link>
                         </div>
                         <!-- FIN tiempo restante -->
-                        <div class="col-12 px-5">
+                        <div
+                            class="col-12 mt-2 mb-0 p-0"
+                            style="margin: 0px 0px; padding: 0px 6px 0px 6px"
+                        >
                             <h4 class="w-100 text-center">Detalles</h4>
-                            <div class="row">
+                            <div class="row mx-0 detalles_principal">
                                 <div
-                                    class="col-md-4 border"
+                                    class="col-md-4"
                                     v-for="item in primerosTres"
                                 >
                                     <div class="row">
                                         <div
-                                            class="col-12 bg-primary text-white"
+                                            class="col-12 bg1 text-white text-center font-weight-bold"
                                         >
                                             {{ item.caracteristica }}
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 text-center">
                                             {{ item.detalle }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center mt-2 mb-2">
-                                    <button
-                                        class="btn btn-primary"
-                                        @click="verDetallesPublicacion"
-                                    >
-                                        Detalles de la subasta
-                                        <i class="fa fa-external-link-alt"></i>
-                                    </button>
-                                </div>
                             </div>
+                        </div>
+                        <div class="col-12 text-center p-0">
+                            <button
+                                class="btn bg3 btn-sm w-100 rounded-0 mx-0"
+                                @click="verDetallesPublicacion"
+                            >
+                                Ver mas detalles
+                                <i class="fa fa-external-link-alt"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -297,60 +300,47 @@ onMounted(() => {
                     </div> -->
                     <div class="row">
                         <div class="col-12" v-if="column">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr class="bg-primary">
-                                        <td
-                                            class="text-white font-weight-bold h5"
-                                        >
-                                            Oferta inicial
-                                        </td>
-                                        <td
-                                            class="text-white font-weight-bold h5"
-                                        >
-                                            {{
-                                                getFormatoMoneda(
-                                                    oPublicacion.oferta_inicial
-                                                )
-                                            }}
-                                        </td>
-                                    </tr>
-                                    <template
-                                        v-if="
-                                            oPublicacion.subasta &&
-                                            oPublicacion.subasta
-                                                .subasta_clientes_puja.length >
-                                                0
-                                        "
-                                    >
-                                        <tr class="bg-success">
-                                            <td
-                                                class="text-white font-weight-bold h5"
-                                            >
-                                                Oferta actual
-                                            </td>
-                                            <td
-                                                class="text-white font-weight-bold h5"
-                                            >
-                                                {{
-                                                    getFormatoMoneda(
-                                                        oPublicacion.subasta
-                                                            .subasta_clientes_puja[0]
-                                                            .puja
-                                                    )
-                                                }}
-                                            </td>
-                                        </tr>
-                                    </template>
-                                    <template v-else>
-                                        <tr>
-                                            <td colspan="2" class="text-center">
-                                                Sin registros aún
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
+                            <div class="row">
+                                <div
+                                    class="text_info col-md-6 font-weight-bold"
+                                >
+                                    Oferta inicial:
+                                </div>
+                                <div class="col-md-6 txt_info2">
+                                    {{
+                                        getFormatoMoneda(
+                                            oPublicacion.oferta_inicial
+                                        )
+                                    }}
+                                </div>
+                                <div
+                                    class="text_info col-md-6 font-weight-bold"
+                                >
+                                    Oferta actual:
+                                </div>
+                                <template
+                                    v-if="
+                                        oPublicacion.subasta &&
+                                        oPublicacion.subasta
+                                            .subasta_clientes_puja.length > 0
+                                    "
+                                >
+                                    <div class="col-md-6 txt_info2">
+                                        {{
+                                            getFormatoMoneda(
+                                                oPublicacion.subasta
+                                                    .subasta_clientes_puja[0]
+                                                    .puja
+                                            )
+                                        }}
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <div class="col-md-6 txt_info2">
+                                        Sin registros aún
+                                    </div>
+                                </template>
+                            </div>
                         </div>
                     </div>
                     <!-- END product-info-header -->
@@ -366,7 +356,7 @@ onMounted(() => {
                             GANADOR
                         </div>
                         <button
-                            class="btn btn-theme btn-lg"
+                            class="btn btn-sm"
                             @click="realizarOferta"
                             :class="[
                                 !oSubastaCliente ||
@@ -387,13 +377,20 @@ onMounted(() => {
                 </div>
                 <!-- END product-info -->
             </div>
-            <div class="col-md-6 p-3" v-if="detalle_lista">
+            <div
+                class="col-md-6 p-0 bg_blue_dark cont_ofertas pt-3"
+                v-if="detalle_lista"
+            >
                 <div class="product-info-header">
-                    <h4 class="product-title w-100 text-center">Ofertas</h4>
+                    <h4
+                        class="product-title w-100 text-center font-weight-bold"
+                    >
+                        OFERTAS
+                    </h4>
                 </div>
-                <table class="table table-bordered">
+                <table class="table tabla_ofertas">
                     <thead>
-                        <tr class="bg-primary">
+                        <tr class="bg1">
                             <th class="text-white" width="2%">#</th>
                             <th class="text-white">Oferta</th>
                         </tr>
@@ -410,7 +407,7 @@ onMounted(() => {
                                 v-for="(item, index) in oPublicacion.subasta
                                     .subasta_clientes_puja"
                                 :class="[
-                                    index == 0 ? 'h3' : '',
+                                    index == 0 ? 'h2' : '',
                                     index == 1 ? 'h4' : '',
                                     oSubastaCliente &&
                                     oSubastaCliente.id == item.id
@@ -418,8 +415,8 @@ onMounted(() => {
                                         : '',
                                 ]"
                             >
-                                <td>{{ index + 1 }}</td>
-                                <td>
+                                <td class="text-white">{{ index + 1 }}</td>
+                                <td class="text-white">
                                     {{ getFormatoMoneda(item.puja) }}
                                     <small
                                         v-if="
@@ -459,7 +456,15 @@ onMounted(() => {
     </div>
 </template>
 <style scoped>
+.product-info,
+.product-image {
+    background-color: var(--bg_blue_dark);
+    color: white;
+}
+
 .fila_detalle {
+    margin: auto;
+    max-width: 100%;
     position: relative;
 }
 .product-detail {
@@ -488,5 +493,36 @@ onMounted(() => {
 
 .product_info_imagen {
     border-right: solid 1px rgb(204, 204, 204);
+}
+
+.text_info {
+    text-align: right;
+}
+
+.detalles_principal {
+    background-color: var(--bg1-t);
+}
+
+.detalles_principal .col-12 {
+    padding: 10px;
+}
+.tabla_ofertas {
+}
+
+.tabla_ofertas tbody tr:hover {
+    background-color: transparent;
+}
+
+@media (max-width: 900px) {
+    .text_info {
+        text-align: center;
+    }
+
+    .txt_info2 {
+        text-align: center;
+    }
+    .cont_ofertas {
+        border-top: solid 1px white;
+    }
 }
 </style>

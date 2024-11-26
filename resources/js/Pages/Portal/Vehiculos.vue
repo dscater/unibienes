@@ -46,11 +46,13 @@ onMounted(() => {
 </script>
 <template>
     <!-- BEGIN #trending-items -->
-    <div id="trending-items" class="section-container">
+    <div id="trending-items" class="section-container section_page">
+        <div class="s_vehiculos page_portal"></div>
+        <div class="bg-vehiculos page_portal"></div>
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
-            <h4 class="section-title clearfix">
+            <h4 class="section-title stitle clearfix">
                 <span class="flex-1">
                     Vehículos
                     <small></small>
@@ -74,7 +76,7 @@ onMounted(() => {
             </div>
             <!-- END row -->
             <div class="row mb-3" v-if="page >= 1 && listVehiculos.length > 0">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center text-white text-white font-weight-bold">
                     <button
                         class="btn bg-dark text-white mx-1"
                         v-if="page > 1"

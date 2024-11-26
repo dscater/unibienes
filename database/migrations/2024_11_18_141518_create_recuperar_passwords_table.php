@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->integer("status");
             $table->timestamps();
+
+            $table->foreign("user_id")->on("users")->references("id");
         });
     }
 

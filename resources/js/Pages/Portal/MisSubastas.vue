@@ -39,11 +39,13 @@ onMounted(() => {
 </script>
 <template>
     <!-- BEGIN #trending-items -->
-    <div id="trending-items" class="section-container">
+    <div id="trending-items" class="section-container section_page">
+        <div class="s_bgmissubastas page_portal"></div>
+        <div class="bg-vehiculos page_portal"></div>
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
-            <h4 class="section-title clearfix">
+            <h4 class="section-title clearfix stitle">
                 <span class="flex-1">
                     Mis subastas
                     <small></small>

@@ -121,7 +121,7 @@ class PublicacionController extends Controller
             ->where("estado_sub", 1)
             ->orderBy("created_at", "desc")
             ->get()
-            ->take(6);
+            ->take(12);
 
         return response()->JSON($publicacions);
     }

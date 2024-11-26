@@ -98,7 +98,7 @@ img.oculto {
 
 .contenendor_principal_slider {
     overflow: hidden;
-    width: 95%;
+    width: 100%;
     margin: auto;
     position: relative;
 }
@@ -108,7 +108,7 @@ img.oculto {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    background-color: rgb(226, 226, 226);
+    background-color: rgba(219, 219, 219, 0.616);
     padding: 8px 13px;
     border-radius: 50%;
     transition: all 0.3s;
@@ -116,13 +116,14 @@ img.oculto {
 
 .contenendor_principal_slider .icon-left:hover,
 .contenendor_principal_slider .icon-right:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.767);
+    color: gray;
 }
 .contenedor_sliders .slider {
     width: 100%;
 }
 
-.contenedor_sliders .slider img{
+.contenedor_sliders .slider img {
     height: 250px;
     object-fit: contain;
 }
@@ -155,10 +156,10 @@ img.oculto {
 }
 
 .fa-circle {
-    color: rgb(0, 0, 0);
+    color: rgb(168, 168, 168);
 }
 .fa-circle.active {
-    color: rgb(19, 15, 15);
+    color: rgb(233, 229, 219);
 }
 
 /* Animaciones de la transición */
@@ -170,6 +171,14 @@ img.oculto {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
+}
+
+.contenendor_principal_slider {
+    border-radius: 6px 6px 0px 0px;
+}
+
+.contenendor_principal_slider .contenedor_sliders .slider img {
+    object-fit: cover; /* Para asegurarse de que la imagen se ajuste bien dentro de la pantalla */
 }
 
 /* Estilo para el contenedor en pantalla completa */
@@ -197,8 +206,7 @@ img.oculto {
 }
 
 .contenendor_principal_slider:fullscreen .contenedor_sliders img {
-    width: 95%;
-    object-fit: contain; /* Para asegurarse de que la imagen se ajuste bien dentro de la pantalla */
+    width: 94% !important;
 }
 
 /* Estilo para los botones cuando estamos en pantalla completa */

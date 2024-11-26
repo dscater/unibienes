@@ -250,51 +250,12 @@ onMounted(() => {
 <template>
     <Head title="Perfil"></Head>
 
-    <div class="container">
+    <div class="container pt-10px pb-20px section_page">
+        <div class="s_perfil page_portal"></div>
+        <div class="bg-vehiculos page_portal"></div>
         <div class="row mt-20px">
-            <div class="col-md-4">
-                <div class="panel panel-inverse">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div clas="col-12">
-                                <div class="info_foto">
-                                    <img class="image" :src="user.url_foto" />
-                                    <br />
-                                    <label
-                                        v-if="!imagen_cargada"
-                                        class="btn_principal"
-                                        for="file_foto"
-                                        ><b>Cambiar foto</b
-                                        ><input
-                                            type="file"
-                                            id="file_foto"
-                                            accept="image/png, image/gif, image/jpeg"
-                                            hidden
-                                            @change="cargaImagen"
-                                    /></label>
-                                    <button
-                                        v-if="imagen_cargada"
-                                        class="w-50 mb-1 btn btn-success btn-sm"
-                                        @click="guardarImagen"
-                                    >
-                                        Guardar cambios
-                                    </button>
-                                    <br />
-                                    <button
-                                        v-if="imagen_cargada"
-                                        class="w-50 mb-1 btn"
-                                        @click="cancelarImagen"
-                                    >
-                                        Cancelar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <h4>Actualizar información</h4>
+            <div class="col-md-7">
+                <h4 class="stitle">Actualizar información</h4>
                 <form
                     @submit.prevent="submit()"
                     class="bg-principal p-3 login-content"
@@ -691,7 +652,7 @@ onMounted(() => {
                         </div>
                         <div class="col-12 mt-20px">
                             <button
-                                class="btn btn-primary"
+                                class="btn bg1"
                                 @click="actualizaInformacion"
                             >
                                 Actualizar información
@@ -699,7 +660,45 @@ onMounted(() => {
                         </div>
                     </div>
                 </form>
-                <h4 class="mt-20px">Información de usuario</h4>
+            </div>
+            <div class="col-md-5">
+                <h4 class="stitle">Información de usuario</h4>
+                <div class="row">
+                    <div clas="col-12">
+                        <div class="info_foto">
+                            <img class="image" :src="user.url_foto" />
+                            <br />
+                            <label
+                                v-if="!imagen_cargada"
+                                class="btn_principal bg1"
+                                for="file_foto"
+                                ><b>Cambiar foto</b
+                                ><input
+                                    type="file"
+                                    id="file_foto"
+                                    accept="image/png, image/gif, image/jpeg"
+                                    hidden
+                                    @change="cargaImagen"
+                            /></label>
+                            <button
+                                v-if="imagen_cargada"
+                                class="w-50 mb-1 btn btn-success btn-sm"
+                                @click="guardarImagen"
+                            >
+                                Guardar cambios
+                            </button>
+                            <br />
+                            <button
+                                v-if="imagen_cargada"
+                                class="w-50 mb-1 btn"
+                                @click="cancelarImagen"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <form class="bg-principal p-3 login-content">
                     <div class="row">
                         <div class="col-12">
@@ -801,7 +800,7 @@ onMounted(() => {
                         <div class="col-12 mt-20px">
                             <button
                                 type="button"
-                                class="btn btn-primary"
+                                class="btn bg1"
                                 @click="enviaFormulario"
                             >
                                 Actualizar contraseña

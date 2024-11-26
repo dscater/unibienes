@@ -34,7 +34,7 @@ const item = ref(props.publicacion);
         </p>
         <p class="w-100">
             <Link
-                class="btn btn-primary btn-sm"
+                class="btn bg1 btn-sm"
                 :href="route('publicacions.publicacionPortal', item.id)"
             >
                 <i class="fa fa-arrow-right"></i>
@@ -42,3 +42,19 @@ const item = ref(props.publicacion);
         </p>
     </div>
 </template>
+<style scoped>
+.item-image {
+    min-height: 180px;
+    padding: 0px !important;
+    width: 100%;
+    background-color: blue;
+    overflow: hidden;
+}
+
+.item-image img {
+    border-radius: 3px 3px 0px 0px;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+</style>

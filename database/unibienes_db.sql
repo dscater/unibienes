@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 26-11-2024 a las 05:18:05
+-- Tiempo de generación: 26-11-2024 a las 18:35:02
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -177,40 +177,6 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (58, 2, 'MODIFICACIÓN', 'EL USUARIO JPERES MODIFICÓ UNA PUBLICACIÓN', 'id: 25<br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 123.00<br/>ubicacion: LA PAZ<br/>observaciones: <br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00:00<br/>monto_garantia: 2.00<br/>estado_sub: 0<br/>created_at: 2024-11-26 04:07:27<br/>updated_at: 2024-11-26 04:07:27<br/>', NULL, 'PUBLICACIONES', '2024-11-26', '04:18:28', '2024-11-26 08:18:28', '2024-11-26 08:18:28'),
 (59, 2, 'MODIFICACIÓN', 'EL USUARIO JPERES MODIFICÓ UNA PUBLICACIÓN', 'id: 25<br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: DÓLARES (USD)<br/>oferta_inicial: 10000<br/>ubicacion: LA PAZ<br/>observaciones: <br/>fecha_limite: 2024-11-30<br/>hora_limite: 12:00:00<br/>monto_garantia: 5000<br/>estado_sub: 0<br/>created_at: 2024-11-26 04:07:27<br/>updated_at: 2024-11-26 04:22:20<br/>', NULL, 'PUBLICACIONES', '2024-11-26', '04:22:20', '2024-11-26 08:22:20', '2024-11-26 08:22:20'),
 (60, 2, 'CREACIÓN', 'EL USUARIO JPERES REGISTRO UNA PUBLICACIÓN', 'id: 26<br/>user_id: 2<br/>categoria: OTROS BIENES<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 2000<br/>ubicacion: LA PAZ<br/>observaciones: <br/>fecha_limite: 2024-12-10<br/>hora_limite: 12:00<br/>monto_garantia: 400<br/>estado_sub: <br/>created_at: 2024-11-26 04:28:21<br/>updated_at: 2024-11-26 04:28:21<br/>', NULL, 'PUBLICACIONES', '2024-11-26', '04:28:21', '2024-11-26 08:28:21', '2024-11-26 08:28:21');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(14, '2024_01_31_165641_create_configuracions_table', 1),
-(15, '2024_11_02_153309_create_roles_table', 1),
-(16, '2024_11_02_153315_create_modulos_table', 1),
-(17, '2024_11_02_153316_create_permisos_table', 1),
-(18, '2024_11_02_153317_create_users_table', 1),
-(19, '2024_11_02_153318_create_historial_accions_table', 1),
-(20, '2024_11_02_153653_create_parametrizacions_table', 1),
-(21, '2024_11_02_153834_create_clientes_table', 1),
-(22, '2024_11_02_154016_create_publicacions_table', 1),
-(23, '2024_11_02_154050_create_publicacion_imagens_table', 1),
-(24, '2024_11_02_154054_create_publicacion_detalles_table', 1),
-(25, '2024_11_04_143215_create_subastas_table', 1),
-(26, '2024_11_04_143347_create_subasta_clientes_table', 1),
-(27, '2024_11_15_215421_create_notificacions_table', 2),
-(28, '2024_11_15_215426_create_notificacion_users_table', 2),
-(29, '2024_11_18_141518_create_recuperar_passwords_table', 3);
 
 -- --------------------------------------------------------
 
@@ -852,12 +818,6 @@ ALTER TABLE `historial_accions`
   ADD KEY `historial_accions_user_id_foreign` (`user_id`);
 
 --
--- Indices de la tabla `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `modulos`
 --
 ALTER TABLE `modulos`
@@ -916,7 +876,8 @@ ALTER TABLE `publicacion_imagens`
 -- Indices de la tabla `recuperar_passwords`
 --
 ALTER TABLE `recuperar_passwords`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `recuperar_passwords_user_id_foreign` (`user_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -967,12 +928,6 @@ ALTER TABLE `configuracions`
 --
 ALTER TABLE `historial_accions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT de la tabla `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
@@ -1099,6 +1054,12 @@ ALTER TABLE `publicacion_detalles`
 --
 ALTER TABLE `publicacion_imagens`
   ADD CONSTRAINT `publicacion_imagens_publicacion_id_foreign` FOREIGN KEY (`publicacion_id`) REFERENCES `publicacions` (`id`);
+
+--
+-- Filtros para la tabla `recuperar_passwords`
+--
+ALTER TABLE `recuperar_passwords`
+  ADD CONSTRAINT `recuperar_passwords_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `subastas`

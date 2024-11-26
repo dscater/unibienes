@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap");
 :root {
     --principal: #00497e;
     --principal_hover: #134869;
@@ -9,6 +10,162 @@
     --transparente: #000000bd;
     --secundarion_transparente: #a14609d0;
     --progress: #4b5563;
+    --bg_blue_dark: #00263fc9;
+    --bg1: #0c0636;
+    --bg1-t: #0c0636ad;
+    --bg1-hv: #0e044e;
+    --bg2: #095169;
+    --bg3: #059b9a;
+    --bg3-hv: #009191;
+    --bg4: #53ba83;
+    --bg5: #9fd86b;
+}
+
+.bg_blue_dark {
+    background-color: var(--bg_blue_dark);
+    color: white;
+}
+
+.bg1 {
+    background-color: var(--bg1);
+    color: white;
+}
+
+.bg1-t {
+    background-color: var(--bg1-t);
+    color: white;
+}
+
+.bg1:hover {
+    background-color: var(--bg1-hv);
+    color: white;
+}
+
+.bg2 {
+    background-color: var(--bg2);
+    color: white;
+}
+
+.bg3 {
+    background-color: var(--bg3);
+    color: white;
+}
+
+.bg3:hover {
+    background-color: var(--bg3-hv);
+}
+.bg4 {
+    background-color: var(--bg4);
+}
+
+.bg5 {
+    background-color: var(--bg5);
+}
+
+.bg_blue_dark h1,
+.bg_blue_dark h2,
+.bg_blue_dark h3,
+.bg_blue_dark h4,
+.bg_blue_dark p,
+.bg_blue_dark a {
+    color: white !important;
+}
+
+.seccion_categoria {
+    display: flex;
+    flex-direction: column;
+    min-height: 94vh;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background-size: cover;
+}
+
+.s_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 94vh;
+    width: 100%;
+    padding: 30px 0px;
+    position: relative;
+}
+
+.stitle {
+    font-weight: 800;
+    font-style: normal;
+    color: white;
+    font-size: 2.5em;
+    width: 100%;
+    text-align: center;
+}
+
+.section_page {
+    position: relative;
+}
+
+.page_portal {
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -10;
+}
+
+/* vehiculos */
+.s_vehiculos {
+    background-image: url("/public/imgs/fondovehiculos.jpg");
+}
+
+.bg-vehiculos {
+    background: rgba(0, 73, 126, 0.664);
+    background: linear-gradient(
+        90deg,
+        rgba(0, 73, 126, 1) 0%,
+        rgba(2, 0, 36, 0.658) 35%
+    );
+}
+/* fin vehiculos */
+
+/* otros bienes */
+.s_otros_bienes {
+    background-image: url("/public/imgs/fondootrosbienes.webp");
+}
+
+.bg-otros-bienes {
+    background: rgba(238, 174, 202, 0.616);
+    background: linear-gradient(
+        90deg,
+        rgba(179, 122, 147, 0.795) 0%,
+        rgba(96, 128, 165, 0.603) 100%
+    );
+}
+/* fin otros bienes */
+
+/* ecologicos */
+.s_ecologicos {
+    background-image: url("/public/imgs/fondoecologico.jpg");
+}
+.bg-ecologicos {
+    background: rgba(34, 192, 195, 0.753);
+    background: linear-gradient(
+        0deg,
+        rgba(32, 181, 184, 0.753) 0%,
+        rgba(58, 209, 113, 0.61) 100%
+    );
+}
+/* fin ecologicos */
+
+
+.s_bgmissubastas {
+    background-image: url("/public/imgs/bgmissubastas.webp");
+}
+
+.s_perfil{
+    background-image: url("/public/imgs/bgperfil.avif");
 }
 
 .pace.pace-active {
@@ -20,7 +177,7 @@
 }
 
 tr.text-white td {
-    color: white!important;
+    color: white !important;
 }
 
 .bg-principal {
@@ -61,10 +218,6 @@ html {
 
 .nav.text-white li.dropdown .dropdown-menu {
     background-color: var(--principal);
-}
-
-.product .product-detail .product-image .product-main-image {
-    min-height: 200px;
 }
 
 .loading_table {
@@ -201,7 +354,7 @@ iframe {
 
 .btn_principal {
     cursor: pointer;
-    background-color: var(--principal);
+    background-color: var(--bg1);
     color: white;
     padding: 10px;
 }
