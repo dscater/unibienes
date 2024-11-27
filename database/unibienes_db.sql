@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 26-11-2024 a las 18:35:02
+-- Tiempo de generación: 27-11-2024 a las 03:28:38
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -78,6 +78,7 @@ INSERT INTO `clientes` (`id`, `user_id`, `nombre`, `paterno`, `materno`, `ci`, `
 
 CREATE TABLE `configuracions` (
   `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
   `razon_social` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -89,8 +90,8 @@ CREATE TABLE `configuracions` (
 -- Volcado de datos para la tabla `configuracions`
 --
 
-INSERT INTO `configuracions` (`id`, `razon_social`, `alias`, `logo`, `created_at`, `updated_at`) VALUES
-(1, 'UNIBIENES S.A.', 'UNIBIENES S.A.', 'logo.png', '2024-11-09 18:47:19', '2024-11-21 18:55:52');
+INSERT INTO `configuracions` (`id`, `user_id`, `razon_social`, `alias`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 1, 'UNIBIENES S.A.', 'UNIBIENES S.A.', 'logo.png', '2024-11-09 18:47:19', '2024-11-21 18:55:52');
 
 -- --------------------------------------------------------
 
@@ -305,6 +306,7 @@ INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `
 
 CREATE TABLE `parametrizacions` (
   `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
   `inactividad_cliente` int NOT NULL,
   `tipo_cambio` decimal(24,2) NOT NULL,
   `servidor_correo` json NOT NULL,
@@ -319,8 +321,8 @@ CREATE TABLE `parametrizacions` (
 -- Volcado de datos para la tabla `parametrizacions`
 --
 
-INSERT INTO `parametrizacions` (`id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `created_at`, `updated_at`) VALUES
-(1, 1, 6.96, '{\"host\": \"smtp.gmail.com\", \"correo\": \"correosyseventos@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"465\", \"password\": \"plgfbgxjaqsyciai\", \"encriptado\": \"ssl\"}', 3, 2, 'Términos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-21 18:57:18');
+INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 6.96, '{\"host\": \"smtp.gmail.com\", \"correo\": \"correosyseventos@gmail.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"465\", \"password\": \"plgfbgxjaqsyciai\", \"encriptado\": \"ssl\"}', 3, 2, 'Términos y condiciones unibienes', '2024-11-16 20:43:43', '2024-11-21 18:57:18');
 
 -- --------------------------------------------------------
 
@@ -808,7 +810,8 @@ ALTER TABLE `clientes`
 -- Indices de la tabla `configuracions`
 --
 ALTER TABLE `configuracions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `configuracions_user_id_foreign` (`user_id`);
 
 --
 -- Indices de la tabla `historial_accions`
@@ -841,7 +844,8 @@ ALTER TABLE `notificacion_users`
 -- Indices de la tabla `parametrizacions`
 --
 ALTER TABLE `parametrizacions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parametrizacions_user_id_foreign` (`user_id`);
 
 --
 -- Indices de la tabla `permisos`
@@ -1018,6 +1022,12 @@ ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
+-- Filtros para la tabla `configuracions`
+--
+ALTER TABLE `configuracions`
+  ADD CONSTRAINT `configuracions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Filtros para la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
@@ -1029,6 +1039,12 @@ ALTER TABLE `historial_accions`
 ALTER TABLE `notificacion_users`
   ADD CONSTRAINT `notificacion_users_notificacion_id_foreign` FOREIGN KEY (`notificacion_id`) REFERENCES `notificacions` (`id`),
   ADD CONSTRAINT `notificacion_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `parametrizacions`
+--
+ALTER TABLE `parametrizacions`
+  ADD CONSTRAINT `parametrizacions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `permisos`
