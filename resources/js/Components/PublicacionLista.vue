@@ -34,7 +34,7 @@ const item = ref(props.publicacion);
         </p>
         <p class="w-100">
             <Link
-                class="btn bg1 btn-sm"
+                class="btn btn-primary btn-sm"
                 :href="route('publicacions.publicacionPortal', item.id)"
             >
                 <i class="fa fa-arrow-right"></i>

@@ -59,7 +59,7 @@ class SubastaClienteController extends Controller
             $subasta_cliente->estado_puja = 0;
         }
 
-        $subasta_cliente->update();
+        $subasta_cliente->save();
         // enviar mensaje segun el caso
         $parametrizacion = Parametrizacion::first();
         if ($parametrizacion) {

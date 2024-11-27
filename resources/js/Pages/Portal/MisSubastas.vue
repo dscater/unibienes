@@ -9,6 +9,8 @@ export default {
 import { usePage, Head, router, Link } from "@inertiajs/vue3";
 import { onMounted, ref } from "vue";
 const { props: props_page } = usePage();
+const user = ref(props_page.auth?.user);
+const url_asset = ref(props_page.url_assets);
 const listVehiculos = ref([]);
 const page = ref(1);
 const last_page = ref(1);
@@ -40,16 +42,12 @@ onMounted(() => {
 <template>
     <!-- BEGIN #trending-items -->
     <div id="trending-items" class="section-container section_page">
-        <div class="s_bgmissubastas page_portal"></div>
-        <div class="bg-vehiculos page_portal"></div>
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
-            <h4 class="section-title clearfix stitle">
-                <span class="flex-1">
-                    Mis subastas
-                    <small></small>
-                </span>
+            <h4 class="titlesec">
+                <img :src="url_asset + 'imgs/7.png'" alt="" />
+                <span> Mis subastas </span>
             </h4>
             <!-- END section-title -->
             <!-- BEGIN row -->

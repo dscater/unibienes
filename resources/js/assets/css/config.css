@@ -2,7 +2,11 @@
 :root {
     --principal: #00497e;
     --principal_hover: #134869;
+    --principal-portal: #00aeeb;
+    --principal-portal2: #26638d;
+    --principal-portal3: #0e70b7;
     --principal_transparent: #004a80bd;
+    --principal_portal_transparent: #049bd1;
     --secundario: #004a80;
     --secundario_hover: #9fc4e4;
     --fondo_app: #e8e9eb;
@@ -115,6 +119,40 @@
     z-index: -10;
 }
 
+.bg-principal-portal {
+    background-color: var(--principal-portal)!important;
+}
+
+.bg-principal-portal2 {
+    background-color: var(--principal-portal2)!important;
+}
+.bg-principal-portal3 {
+    background-color: var(--principal-portal3)!important;
+}
+
+.mr-5 {
+    margin-right: 20px;
+}
+.mr-10 {
+    margin-right: 40px;
+}
+
+.section_page .titlesec {
+    position: relative;
+    margin-bottom: 0px;
+    color: var(--principal-portal2);
+    font-weight: bold;
+}
+.section_page .titlesec span {
+    padding: 3px 14px 3px 14px;
+    border-radius: 20px;
+    border: solid 1px var(--principal-portal);
+}
+
+.section_page .titlesec img {
+    height: 70px;
+}
+
 /* vehiculos */
 .s_vehiculos {
     background-image: url("/public/imgs/fondovehiculos.jpg");
@@ -159,12 +197,11 @@
 }
 /* fin ecologicos */
 
-
 .s_bgmissubastas {
     background-image: url("/public/imgs/bgmissubastas.webp");
 }
 
-.s_perfil{
+.s_perfil {
     background-image: url("/public/imgs/bgperfil.avif");
 }
 
@@ -186,6 +223,13 @@ tr.text-white td {
 }
 .text-white {
     color: white !important;
+}
+.text-black {
+    color: black !important;
+}
+
+.text-primary {
+    color: var(--principal-portal3) !important;
 }
 
 .header .navbar-toggle .icon-bar {

@@ -69,8 +69,8 @@ function cargaArchivo(e, key) {
 
 const tituloDialog = computed(() => {
     return accion.value == 0
-        ? `<i class="fa fa-plus"></i> Nuevo Role`
-        : `<i class="fa fa-edit"></i> Editar Role`;
+        ? `<i class="fa fa-plus"></i> Nuevo Roles`
+        : `<i class="fa fa-edit"></i> Editar Roles`;
 });
 
 const initializeSwitcher = () => {
@@ -175,7 +175,7 @@ onMounted(() => {
                     <form @submit.prevent="enviarFormulario()">
                         <div class="row">
                             <div class="col-md-12">
-                                <label>Nombre del role*</label>
+                                <label>Nombre de roles*</label>
                                 <input
                                     type="text"
                                     class="form-control"

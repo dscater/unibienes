@@ -7,6 +7,10 @@ export default {
 </script>
 <script setup>
 import { onMounted, ref } from "vue";
+import { usePage } from "@inertiajs/vue3";
+const { props: props_page } = usePage();
+const user = ref(props_page.auth?.user);
+const url_asset = ref(props_page.url_assets);
 const listVehiculos = ref([]);
 const page = ref(1);
 const last_page = ref(1);
@@ -47,16 +51,12 @@ onMounted(() => {
 <template>
     <!-- BEGIN #trending-items -->
     <div id="trending-items" class="section-container section_page">
-        <div class="s_vehiculos page_portal"></div>
-        <div class="bg-vehiculos page_portal"></div>
         <!-- BEGIN container -->
         <div class="container">
             <!-- BEGIN section-title -->
-            <h4 class="section-title stitle clearfix">
-                <span class="flex-1">
-                    Vehículos
-                    <small></small>
-                </span>
+            <h4 class="titlesec">
+                <img :src="url_asset + 'imgs/14.png'" alt="" />
+                <span> Vehículos </span>
             </h4>
             <!-- END section-title -->
             <!-- BEGIN row -->
@@ -76,7 +76,9 @@ onMounted(() => {
             </div>
             <!-- END row -->
             <div class="row mb-3" v-if="page >= 1 && listVehiculos.length > 0">
-                <div class="col-12 text-center text-white text-white font-weight-bold">
+                <div
+                    class="col-12 text-center font-weight-bold"
+                >
                     <button
                         class="btn bg-dark text-white mx-1"
                         v-if="page > 1"

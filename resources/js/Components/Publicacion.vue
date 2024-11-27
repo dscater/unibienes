@@ -60,12 +60,15 @@ const realizarOferta = async () => {
 
             // mostrar info para registrar puja
             oSubastaCliente.value = data_puja.value.subasta_cliente;
-            // if (oSubastaCliente.value.estado_comprobante == 1) {
-            modal_dialog_puja.value = true;
-            // } else if (oSubastaCliente.value.estado_comprobante == 2) {
-            //     // mostrar registro de comprobante nuevo
-            //     modal_dialog_comprobante.value = true;
-            // }
+            if (
+                oSubastaCliente.value.estado_comprobante == 1 ||
+                oSubastaCliente.value.estado_comprobante == 0
+            ) {
+                modal_dialog_puja.value = true;
+            } else if (oSubastaCliente.value.estado_comprobante == 2) {
+                // mostrar registro de comprobante nuevo
+                modal_dialog_comprobante.value = true;
+            }
         } else {
             // mostrar registro de comprobante
             modal_dialog_comprobante.value = true;
@@ -90,6 +93,7 @@ const obtieneInfoSubastaCliente = async () => {
         } else {
             oSubastaCliente.value = null;
         }
+        console.log(oSubastaCliente.value);
     }
 };
 
@@ -172,7 +176,11 @@ const verificaSwOferta = () => {
 };
 
 const btnTxtRealizarOferta = computed(() => {
-    if (oSubastaCliente.value && oSubastaCliente.value.estado_comprobante == 0)
+    if (
+        oSubastaCliente.value &&
+        (oSubastaCliente.value.estado_comprobante == 0 ||
+            oSubastaCliente.value.estado_comprobante == 2)
+    )
         return "Pendiente";
     return "Realizar una oferta";
 });
@@ -245,7 +253,7 @@ onMounted(() => {
                     <div class="row fila_detalle pt-3" style="">
                         <div class="col-12 text-center" v-if="link">
                             <Link
-                                class="btn bg1 btn-sm"
+                                class="btn btn-primary btn-sm"
                                 :href="
                                     route(
                                         'publicacions.publicacionPortal',
@@ -269,7 +277,7 @@ onMounted(() => {
                                 >
                                     <div class="row">
                                         <div
-                                            class="col-12 bg1 text-white text-center font-weight-bold"
+                                            class="col-12 bg-primary text-white text-center font-weight-bold"
                                         >
                                             {{ item.caracteristica }}
                                         </div>
@@ -300,7 +308,7 @@ onMounted(() => {
                     </div> -->
                     <div class="row">
                         <div class="col-12" v-if="column">
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div
                                     class="text_info col-md-6 font-weight-bold"
                                 >
@@ -345,7 +353,7 @@ onMounted(() => {
                     </div>
                     <!-- END product-info-header -->
                     <!-- BEGIN product-purchase-container -->
-                    <div class="text-center">
+                    <div class="text-center mb-21">
                         <div
                             v-if="
                                 oSubastaCliente &&
@@ -368,7 +376,8 @@ onMounted(() => {
                             v-text="btnTxtRealizarOferta"
                         ></button>
                         <div v-else>
-                            <span class="text-danger font-weight-bold"
+                            <span
+                                class="text-danger font-weight-bold d-block mb-2"
                                 >SUBASTA CONCLUIDA</span
                             >
                         </div>
@@ -378,7 +387,7 @@ onMounted(() => {
                 <!-- END product-info -->
             </div>
             <div
-                class="col-md-6 p-0 bg_blue_dark cont_ofertas pt-3"
+                class="col-md-6 p-0 bg-white cont_ofertas pt-3"
                 v-if="detalle_lista"
             >
                 <div class="product-info-header">
@@ -390,7 +399,7 @@ onMounted(() => {
                 </div>
                 <table class="table tabla_ofertas">
                     <thead>
-                        <tr class="bg1">
+                        <tr class="bg-primary">
                             <th class="text-white" width="2%">#</th>
                             <th class="text-white">Oferta</th>
                         </tr>
@@ -415,8 +424,8 @@ onMounted(() => {
                                         : '',
                                 ]"
                             >
-                                <td class="text-white">{{ index + 1 }}</td>
-                                <td class="text-white">
+                                <td class="">{{ index + 1 }}</td>
+                                <td class="">
                                     {{ getFormatoMoneda(item.puja) }}
                                     <small
                                         v-if="
@@ -458,8 +467,9 @@ onMounted(() => {
 <style scoped>
 .product-info,
 .product-image {
-    background-color: var(--bg_blue_dark);
-    color: white;
+    background-color: rgb(255, 255, 255);
+    border-bottom: solid 3px;
+    border-color: var(--principal-portal);
 }
 
 .fila_detalle {
@@ -480,9 +490,9 @@ onMounted(() => {
     padding: 5px;
     min-width: 130px;
     width: 20%;
-    border-radius: 5px;
+    border-radius: 5px 0px 6px 0px;
     position: absolute;
-    left: 10px;
+    left: 0px;
     top: 0px;
     z-index: 500;
 }
@@ -500,7 +510,7 @@ onMounted(() => {
 }
 
 .detalles_principal {
-    background-color: var(--bg1-t);
+    font-weight: bold;
 }
 
 .detalles_principal .col-12 {

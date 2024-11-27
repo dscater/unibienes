@@ -88,7 +88,9 @@ const form = useForm({
     _method: "patch",
 });
 
-const { flash } = usePage().props;
+const { props: props_page, flash } = usePage();
+const user = ref(props_page.auth?.user);
+const url_asset = ref(props_page.url_assets);
 
 const enviaFormulario = () => {
     form.errors = {};
@@ -251,14 +253,15 @@ onMounted(() => {
     <Head title="Perfil"></Head>
 
     <div class="container pt-10px pb-20px section_page">
-        <div class="s_perfil page_portal"></div>
-        <div class="bg-vehiculos page_portal"></div>
         <div class="row mt-20px">
             <div class="col-md-7">
-                <h4 class="stitle">Actualizar información</h4>
+                <h4 class="titlesec">
+                    <img :src="url_asset + 'imgs/16.png'" alt="" />
+                    <span>Mi perfil </span>
+                </h4>
                 <form
                     @submit.prevent="submit()"
-                    class="bg-principal p-3 login-content"
+                    class="bg-principal-portal2 p-3 login-content"
                 >
                     <div class="row">
                         <div class="col-12">
@@ -506,7 +509,7 @@ onMounted(() => {
                     </div>
                     <div class="row mt-20px">
                         <div class="col-12">
-                            <h4>Datos complementario</h4>
+                            <h4 class="text-white">Datos complementario</h4>
                             <div class="form-group mb-15px">
                                 <label
                                     class="text-white d-flex align-items-center text-gray-600 fs-13px"
@@ -565,7 +568,7 @@ onMounted(() => {
                                     }}</strong>
                                 </span>
                             </div>
-                            <h4>Datos para devolución</h4>
+                            <h4 class="text-white">Datos para devolución</h4>
                             <div class="form-floating mt-20px">
                                 <select
                                     name="banco"
@@ -652,7 +655,7 @@ onMounted(() => {
                         </div>
                         <div class="col-12 mt-20px">
                             <button
-                                class="btn bg1"
+                                class="btn btn-primary"
                                 @click="actualizaInformacion"
                             >
                                 Actualizar información
@@ -662,7 +665,7 @@ onMounted(() => {
                 </form>
             </div>
             <div class="col-md-5">
-                <h4 class="stitle">Información de usuario</h4>
+                <h4 class="stitle"></h4>
                 <div class="row">
                     <div clas="col-12">
                         <div class="info_foto">
@@ -670,7 +673,7 @@ onMounted(() => {
                             <br />
                             <label
                                 v-if="!imagen_cargada"
-                                class="btn_principal bg1"
+                                class="bg-primary btn_principal"
                                 for="file_foto"
                                 ><b>Cambiar foto</b
                                 ><input
@@ -699,7 +702,7 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <form class="bg-principal p-3 login-content">
+                <form class="bg-principal-portal2 p-3 login-content">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-floating mt-20px">
@@ -800,7 +803,7 @@ onMounted(() => {
                         <div class="col-12 mt-20px">
                             <button
                                 type="button"
-                                class="btn bg1"
+                                class="btn btn-primary"
                                 @click="enviaFormulario"
                             >
                                 Actualizar contraseña

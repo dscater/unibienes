@@ -255,7 +255,7 @@ onMounted(() => {
                     <div class="login-header">
                         <div class="brand">
                             <div class="d-flex align-items-center">
-                                <b>Registrate</b>
+                                <b>Regístrate</b>
                             </div>
                         </div>
                     </div>

@@ -192,12 +192,10 @@ onMounted(() => {});
                                 <i class="fa fa-info-circle"></i> Su comprobante
                                 fue rechazado
                                 <ul>
-                                    <li>El comprobante debe ser claro</li>
-                                    <li>
-                                        Llame a su banco y reporte el problema
-                                    </li>
+                                    <li>El comprobante debe poder verse de forma clara</li>
+                                    <li>Verifique que no exista alguna problema con su banco</li>
                                 </ul>
-                                <i class="far fa-circle"></i> Vuelva a cargar su
+                                <i class="far fa-circle"></i> Por favor, vuelva a cargar su
                                 comprobante
                             </div>
                             <div class="alert alert-info" v-else>

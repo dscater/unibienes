@@ -40,7 +40,7 @@ const columns = [
         data: "id",
     },
     {
-        title: "Nombre del role",
+        title: "Nombre de roles",
         data: "nombre",
     },
     {

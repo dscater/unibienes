@@ -1,6 +1,5 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
-import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { watch, ref, computed, defineEmits, onMounted, nextTick } from "vue";
 const props = defineProps({
     open_dialog: {
@@ -17,20 +16,18 @@ const props = defineProps({
     },
 });
 
-const { oPublicacion, limpiarPublicacion } = usePublicacions();
 const accion = ref(props.accion_dialog);
 const dialog = ref(props.open_dialog);
 const oSubastaCliente = ref(props.subasta_cliente);
-let form = useForm(oPublicacion);
 watch(
     () => props.open_dialog,
     async (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
+            console.log(oSubastaCliente.value)
             document
                 .getElementsByTagName("body")[0]
                 .classList.add("modal-open");
-            form = useForm(oPublicacion);
         }
     }
 );
@@ -49,6 +46,7 @@ watch(
 watch(
     () => props.subasta_cliente,
     (newValue) => {
+        console.log("ASDasd")
         oSubastaCliente.value = newValue;
     }
 );
@@ -104,7 +102,7 @@ watch(dialog, (newVal) => {
 });
 
 const cerrarDialog = () => {
-    oSubastaCliente.value = null;
+    // oSubastaCliente.value = null;
     dialog.value = false;
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
 };

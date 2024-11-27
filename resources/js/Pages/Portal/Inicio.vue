@@ -6,8 +6,13 @@ export default {
 </script>
 <script setup>
 import { onMounted, ref } from "vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import PublicacionLista from "@/Components/PublicacionLista.vue";
+
+const { props: props_page } = usePage();
+const user = ref(props_page.auth?.user);
+const url_asset = ref(props_page.url_assets);
+
 const listVehiculos = ref([]);
 const listOtrosBienes = ref([]);
 const listEcologicos = ref([]);
@@ -60,136 +65,121 @@ onMounted(() => {
 </script>
 <template>
     <!-- BEGIN #vehiculos -->
-    <div id="vehiculos" class="section-container seccion_categoria s_vehiculos">
-        <div class="s_container bg-vehiculos">
-            <!-- BEGIN container -->
-            <div class="container">
-                <!-- BEGIN section-title -->
-                <h4 class="section-title stitle clearfix">
-                    <span class="flex-1">
-                        Vehículos
-                        <small></small>
-                    </span>
-                </h4>
-                <!-- END section-title -->
-                <!-- BEGIN row -->
-                <div class="row gx-2">
-                    <!-- BEGIN col-2 -->
-                    <div
-                        class="col-lg-2 col-md-4 col-sm-6 mt-3"
-                        v-for="item in listVehiculos"
-                    >
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail bg_blue_dark">
-                            <PublicacionLista
-                                :publicacion="item"
-                            ></PublicacionLista>
-                        </div>
-                        <!-- END item -->
+    <div id="vehiculos" class="seccion_categoria vehiculos">
+        <!-- BEGIN container -->
+        <div class="container mb-0">
+            <!-- BEGIN section-title -->
+            <h4 class="titlesec">
+                <img :src="url_asset + 'imgs/14.png'" alt="" />
+                <span class="flex-1"> Vehículos </span>
+            </h4>
+            <!-- END section-title -->
+            <!-- BEGIN row -->
+            <div class="row gx-2">
+                <!-- BEGIN col-2 -->
+                <div
+                    class="col-lg-2 col-md-4 col-sm-6 mt-3"
+                    v-for="item in listVehiculos"
+                >
+                    <!-- BEGIN item -->
+                    <div class="item item-thumbnail">
+                        <PublicacionLista
+                            :publicacion="item"
+                        ></PublicacionLista>
                     </div>
-                    <!-- END col-2 -->
-                    <div class="col-12 text-center mt-20px">
-                        <Link
-                            :href="route('portal.vehiculos')"
-                            class="btn bg1"
-                            >Ver más <i class="fa fa-arrow-right"></i
-                        ></Link>
-                    </div>
+                    <!-- END item -->
                 </div>
-                <!-- END row -->
+                <!-- END col-2 -->
+                <div class="col-12 text-center mt-20px">
+                    <Link
+                        :href="route('portal.vehiculos')"
+                        class="btn btn-primary"
+                        >Ver más <i class="fa fa-arrow-right"></i
+                    ></Link>
+                </div>
             </div>
-            <!-- END container -->
+            <!-- END row -->
         </div>
+        <!-- END container -->
     </div>
     <!-- END #vehiculos -->
     <!-- BEGIN #otros_bienes -->
     <div
         id="otros_bienes"
-        class="section-container bg-component seccion_categoria s_otros_bienes"
+        class="section-container seccion_categoria otros_bienes"
     >
-        <div class="s_container bg-otros-bienes">
-            <!-- BEGIN container -->
-            <div class="container">
-                <!-- BEGIN section-title -->
-                <h4 class="section-title clearfix stitle">
-                    <span class="flex-1">
-                        Otros bienes
-                        <small></small>
-                    </span>
-                </h4>
-                <!-- END section-title -->
-                <!-- BEGIN row -->
-                <div class="row gx-2">
-                    <!-- BEGIN col-2 -->
-                    <div
-                        class="col-lg-2 col-md-4 col-sm-6"
-                        v-for="item in listOtrosBienes"
-                    >
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail bg_blue_dark">
-                            <PublicacionLista
-                                :publicacion="item"
-                            ></PublicacionLista>
-                        </div>
-                        <!-- END item -->
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN section-title -->
+            <h4 class="titlesec">
+                <img :src="url_asset + 'imgs/16.png'" alt="" />
+                <span> Otros bienes </span>
+            </h4>
+            <!-- END section-title -->
+            <!-- BEGIN row -->
+            <div class="row gx-2">
+                <!-- BEGIN col-2 -->
+                <div
+                    class="col-lg-2 col-md-4 col-sm-6"
+                    v-for="item in listOtrosBienes"
+                >
+                    <!-- BEGIN item -->
+                    <div class="item item-thumbnail">
+                        <PublicacionLista
+                            :publicacion="item"
+                        ></PublicacionLista>
                     </div>
-                    <!-- END col-2 -->
+                    <!-- END item -->
                 </div>
-                <div class="col-12 text-center mt-20px">
-                    <Link
-                        :href="route('portal.otros_bienes')"
-                        class="btn bg1"
-                        >Ver más <i class="fa fa-arrow-right"></i
-                    ></Link>
-                </div>
-                <!-- END row -->
+                <!-- END col-2 -->
             </div>
-            <!-- END container -->
+            <div class="col-12 text-center mt-20px">
+                <Link
+                    :href="route('portal.otros_bienes')"
+                    class="btn btn-primary"
+                    >Ver más <i class="fa fa-arrow-right"></i
+                ></Link>
+            </div>
+            <!-- END row -->
         </div>
+        <!-- END container -->
     </div>
     <!-- END #otros_bienes -->
     <!-- BEGIN #ecologicos -->
-    <div
-        id="ecologicos"
-        class="section-container seccion_categoria s_ecologicos"
-    >
-        <div class="s_container bg-ecologicos">
-            <!-- BEGIN container -->
-            <div class="container">
-                <!-- BEGIN section-title -->
-                <h4 class="section-title clearfix stitle">
-                    <span class="flex-1">
-                        Ecológicos
-                        <small></small>
-                    </span>
-                </h4>
-                <!-- END section-title -->
-                <!-- BEGIN row -->
-                <div class="row gx-2">
-                    <!-- BEGIN col-2 -->
-                    <div
-                        class="col-lg-2 col-md-4 col-sm-6"
-                        v-for="item in listEcologicos"
-                    >
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail bg_blue_dark">
-                            <PublicacionLista
-                                :publicacion="item"
-                            ></PublicacionLista>
-                        </div>
-                        <!-- END item -->
+    <div id="ecologicos" class="section-container seccion_categoria ecologicos">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN section-title -->
+            <h4 class="titlesec">
+                <img :src="url_asset + 'imgs/15.png'" alt="" />
+                <span class="flex-1"> Ecológicos </span>
+            </h4>
+            <!-- END section-title -->
+            <!-- BEGIN row -->
+            <div class="row gx-2">
+                <!-- BEGIN col-2 -->
+                <div
+                    class="col-lg-2 col-md-4 col-sm-6"
+                    v-for="item in listEcologicos"
+                >
+                    <!-- BEGIN item -->
+                    <div class="item item-thumbnail">
+                        <PublicacionLista
+                            :publicacion="item"
+                        ></PublicacionLista>
                     </div>
-                    <!-- END col-2 -->
+                    <!-- END item -->
                 </div>
-                <div class="col-12 text-center mt-20px">
-                    <Link :href="route('portal.ecologicos')" class="btn bg1"
-                        >Ver más <i class="fa fa-arrow-right"></i
-                    ></Link>
-                </div>
-                <!-- END row -->
+                <!-- END col-2 -->
             </div>
-            <!-- END container -->
+            <div class="col-12 text-center mt-20px">
+                <Link :href="route('portal.ecologicos')" class="btn btn-primary"
+                    >Ver más <i class="fa fa-arrow-right"></i
+                ></Link>
+            </div>
+            <!-- END row -->
         </div>
+        <!-- END container -->
     </div>
     <!-- END #ecologicos -->
 </template>
@@ -203,5 +193,48 @@ onMounted(() => {
 
 .item.item-thumbnail .item-image img {
     width: 100% !important;
+}
+
+.seccion_categoria .container {
+    padding-bottom: 30px;
+}
+.seccion_categoria .titlesec {
+    position: relative;
+    margin-bottom: 0px;
+    color: var(--principal-portal2);
+    font-weight: bold;
+}
+.seccion_categoria .titlesec span {
+    padding: 3px 14px 3px 14px;
+    border-radius: 20px;
+    border: solid 1px var(--principal-portal);
+}
+
+.seccion_categoria .titlesec img {
+    height: 70px;
+}
+
+/* vehiculos-ecologicos */
+.seccion_categoria.vehiculos,
+.seccion_categoria.ecologicos {
+    background-color: white;
+    margin-bottom: 0px;
+}
+.seccion_categoria.ecologicos .container,
+.seccion_categoria.vehiculos .container {
+    background-color: #e8ecee;
+    padding-bottom: 40px;
+}
+/* otros bienes */
+
+.seccion_categoria.otros_bienes {
+    background-color: #e8ecee;
+}
+.seccion_categoria.otros_bienes .container {
+    background-color: white;
+}
+
+.seccion_categoria.otros_bienes .item {
+    border: solid 1px #d0d1d1;
 }
 </style>

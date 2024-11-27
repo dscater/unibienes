@@ -37,6 +37,7 @@ const estadoComprobante = computed(() => {
 });
 
 const verificaComprobante = () => {
+    itemSubastaCliente.value = props.subasta_cliente;
     open_dialog_verif.value = true;
 };
 
@@ -130,7 +131,11 @@ onBeforeUnmount(() => {});
                                     </p>
                                     <p>
                                         <strong>Puja actual:</strong>
-                                        {{ getFormatoMoneda(itemSubastaCliente?.puja) }}
+                                        {{
+                                            getFormatoMoneda(
+                                                itemSubastaCliente?.puja
+                                            )
+                                        }}
                                     </p>
                                     <p>
                                         <strong>Estado comprobante: </strong>
