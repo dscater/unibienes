@@ -479,22 +479,14 @@ class ReporteController extends Controller
     {
         $fecha_ini = $request->fecha_ini;
         $fecha_fin = $request->fecha_fin;
-        $publicacion_id = $request->publicacion_id;
-        $cliente_id = $request->cliente_id;
         $categoria = $request->categoria;
 
         $publicacions = Publicacion::select("publicacions.*")
             ->whereIn("estado_sub", [1, 2])
             ->rightjoin("subastas", "subastas.publicacion_id", "=", "publicacions.id")
             ->rightjoin("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id");
-        if ($publicacion_id != 'todos') {
-            $publicacions->where("publicacions.id", $publicacion_id);
-        }
         if ($fecha_ini && $fecha_fin) {
             $publicacions->whereBetween("subasta_clientes.fecha_oferta", [$fecha_ini, $fecha_fin]);
-        }
-        if ($cliente_id != 'todos') {
-            $publicacions->where("subasta_clientes.cliente_id", $cliente_id);
         }
         if ($categoria != 'todos') {
             $publicacions->where("publicacions.categoria", $categoria);

@@ -43,7 +43,13 @@ class UserController extends Controller
             }
 
             if ($permisos == '*' || (is_array($permisos) && in_array('publicacions.index', $permisos))) {
-                $publicacions = Publicacion::count();
+                $publicacions = Publicacion::select("publicacions.id");
+
+                $permisos = Auth::user()->permisos;
+                if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
+                    $publicacions->where("user_id", Auth::user()->id);
+                }
+                $publicacions = $publicacions->count();
 
                 $array_infos[] = [
                     'label' => 'PUBLICACIONES',

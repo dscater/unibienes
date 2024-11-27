@@ -38,8 +38,6 @@ const obtenerFechaActual = () => {
 const form = ref({
     fecha_ini: obtenerFechaActual(),
     fecha_fin: obtenerFechaActual(),
-    publicacion_id: "todos",
-    cliente_id: "todos",
     categoria: "todos",
 });
 
@@ -171,23 +169,6 @@ onMounted(() => {
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <label>Publicación</label>
-                                <select
-                                    name=""
-                                    id=""
-                                    class="form-select"
-                                    v-model="form.publicacion_id"
-                                >
-                                    <option value="todos">Todos</option>
-                                    <option
-                                        v-for="item in listPublicacions"
-                                        :value="item.id"
-                                    >
-                                        {{ item.id }} - {{ item.categoria }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-12">
                                 <label>Categoría</label>
                                 <select
                                     name=""
@@ -201,23 +182,6 @@ onMounted(() => {
                                         :value="item"
                                     >
                                         {{ item }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Cliente</label>
-                                <select
-                                    name=""
-                                    id=""
-                                    class="form-select"
-                                    v-model="form.cliente_id"
-                                >
-                                    <option value="todos">Todos</option>
-                                    <option
-                                        v-for="item in listClientes"
-                                        :value="item.id"
-                                    >
-                                        {{ item.full_name }}
                                     </option>
                                 </select>
                             </div>
