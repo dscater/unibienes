@@ -47,7 +47,7 @@ Route::get("configuracions/getConfiguracion", [ConfiguracionController::class, '
 Route::get("vehiculos", [PortalController::class, 'vehiculos'])->name("portal.vehiculos");
 Route::get("otros_bienes", [PortalController::class, 'otros_bienes'])->name("portal.otros_bienes");
 Route::get("ecologicos", [PortalController::class, 'ecologicos'])->name("portal.ecologicos");
-Route::get("mis_subastas", [PortalController::class, 'mis_subastas'])->name("portal.ecologicos");
+Route::get("mis_subastas", [PortalController::class, 'mis_subastas'])->name("portal.mis_subastas");
 
 // publicaciones
 Route::get("publicacions/porCategoriaLimitado", [PublicacionController::class, 'porCategoriaLimitado'])->name("publicacions.porCategoriaLimitado");
