@@ -71,7 +71,7 @@ onMounted(() => {
             <!-- BEGIN section-title -->
             <h4 class="titlesec">
                 <img :src="url_asset + 'imgs/14.png'" alt="" />
-                <span class="flex-1"> Vehículos </span>
+                <span class="flex-1"> Vehículos Siniestrados</span>
             </h4>
             <!-- END section-title -->
             <!-- BEGIN row -->
@@ -113,7 +113,7 @@ onMounted(() => {
             <!-- BEGIN section-title -->
             <h4 class="titlesec">
                 <img :src="url_asset + 'imgs/16.png'" alt="" />
-                <span> Otros bienes </span>
+                <span> Otros bienes Siniestrados</span>
             </h4>
             <!-- END section-title -->
             <!-- BEGIN row -->
@@ -152,7 +152,7 @@ onMounted(() => {
             <!-- BEGIN section-title -->
             <h4 class="titlesec">
                 <img :src="url_asset + 'imgs/15.png'" alt="" />
-                <span class="flex-1"> Ecológicos </span>
+                <span class="flex-1"> Ecológicos Siniestrados</span>
             </h4>
             <!-- END section-title -->
             <!-- BEGIN row -->
