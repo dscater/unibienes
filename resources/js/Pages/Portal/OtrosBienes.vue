@@ -56,7 +56,7 @@ onMounted(() => {
             <!-- BEGIN section-title -->
             <h4 class="titlesec">
                 <img :src="url_asset + 'imgs/16.png'" alt="" />
-                <span> Otros bienes </span>
+                <span> Otros Bienes Siniestrados</span>
             </h4>
             <!-- END section-title -->
             <!-- BEGIN row -->

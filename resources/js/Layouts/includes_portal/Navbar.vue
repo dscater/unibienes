@@ -138,7 +138,7 @@ onMounted(() => {
                                     ><img
                                         :src="url_asset + 'imgs/20.png'"
                                         alt="Img"
-                                    />Otros bienes</Link
+                                    />Otros Bienes</Link
                                 >
                             </li>
                             <li
