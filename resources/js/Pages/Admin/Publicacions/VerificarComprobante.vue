@@ -24,7 +24,7 @@ watch(
     async (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
-            console.log(oSubastaCliente.value)
+            console.log(oSubastaCliente.value);
             document
                 .getElementsByTagName("body")[0]
                 .classList.add("modal-open");
@@ -46,7 +46,7 @@ watch(
 watch(
     () => props.subasta_cliente,
     (newValue) => {
-        console.log("ASDasd")
+        console.log("ASDasd");
         oSubastaCliente.value = newValue;
     }
 );
@@ -77,12 +77,12 @@ const actualizarComprobante = (estado_comprobante) => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-            limpiarPublicacion();
             emits("envio-formulario", response.data);
         })
         .catch((error) => {
             actualizando.value = false;
             console.log("ERROR");
+            console.log(error);
             Swal.fire({
                 icon: "info",
                 title: "Error",

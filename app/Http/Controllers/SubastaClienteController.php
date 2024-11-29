@@ -10,6 +10,7 @@ use App\Models\Publicacion;
 use App\Models\SubastaCliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
@@ -82,7 +83,7 @@ class SubastaClienteController extends Controller
             $url =  route('publicacions.publicacionPortal', $publicacion->id);
 
             $mensaje = 'Tu comprobante ha sido verificado. Ahora puedes realizar tus ofertas/pujas en esta  <a href="' . $url . '">PUBLICACIÓN</a>';
-            if ($request->estado_comprobante == 0) {
+            if ($subasta_cliente->estado_comprobante == 2) {
                 $mensaje = 'Tu comprobante ha sido rechazado. Por favor verifica que no vea un problema con tu banco o que el monto de garantía sea correcto en la siguiente  <a href="' . $url . '">PUBLICACIÓN</a>';
             }
 
@@ -94,6 +95,6 @@ class SubastaClienteController extends Controller
                 ->send(new MensajeComprobanteMail($datos));
         }
 
-        return response()->JSON($subasta_cliente);
+        return response()->JSON($subasta_cliente->load(["cliente", "subasta.publicacion"]));
     }
 }
