@@ -15,7 +15,7 @@ class Subasta extends Model
         "fecha_registro",
     ];
 
-    protected $appends  = ["fecha_registro_t", "estado_t"];
+    protected $appends  = ["fecha_registro_t", "fecha_hora_pub_t", "fecha_hora_pub_am", "estado_t"];
 
     public function getEstadoTAttribute()
     {
@@ -28,6 +28,16 @@ class Subasta extends Model
         }
 
         return $estado;
+    }
+
+    public function getFechaHoraPubAmAttribute()
+    {
+        return date("d/m/Y H:i a", strtotime($this->created_at));
+    }
+
+    public function getFechaHoraPubTAttribute()
+    {
+        return date("d/m/Y H:i", strtotime($this->created_at));
     }
 
     public function getFechaRegistroTAttribute()
@@ -50,6 +60,7 @@ class Subasta extends Model
         return $this->hasMany(SubastaCliente::class, 'subasta_id')
             ->where("estado_comprobante", 1)
             ->where("puja", ">", 0)
-            ->orderBy("puja", "desc");
+            ->orderBy("puja", "desc")
+            ->take(10);
     }
 }

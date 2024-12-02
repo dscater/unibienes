@@ -167,6 +167,41 @@ onBeforeUnmount(() => {});
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4 offset-md-4 mt-3">
+                            <div class="card">
+                                <div class="card-header bg-primary">
+                                    <h5 class="text-white"><i class="fa fa-list"></i> Historial de ofertas</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha y Hora</th>
+                                                <th>Monto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                v-for="item in subasta_cliente.historial_ofertas"
+                                            >
+                                                <td>
+                                                    {{
+                                                        item.fecha_hora_oferta_t
+                                                    }}
+                                                </td>
+                                                <td>
+                                                    {{
+                                                        getFormatoMoneda(
+                                                            item.puja
+                                                        )
+                                                    }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- END panel-body -->

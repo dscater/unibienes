@@ -12,7 +12,6 @@ const route_current = ref("");
 
 router.on("navigate", (event) => {
     route_current.value = route().current();
-    console.log(route_current.value);
 });
 
 const logout = () => {
@@ -51,7 +50,6 @@ var handleHeaderFixedTop = function () {
 
 const colapse = ref(false);
 const toggleNavbar = () => {
-    console.log("ASDSDDS");
     colapse.value = !colapse.value;
 };
 
@@ -247,7 +245,7 @@ onMounted(() => {
 <style scoped>
 .header {
     border-bottom: solid 20px var(--principal-portal);
-    height: 95px;
+    height: 115px;
     transition: 0.3s all;
 }
 
@@ -257,7 +255,11 @@ onMounted(() => {
 }
 
 .header-container {
-    height: 95px;
+    height: 115px;
+}
+
+.header.header-fixed .header-container {
+    height: 90px;
 }
 
 .header .navbar-toggle.collapsed {
@@ -270,17 +272,32 @@ onMounted(() => {
 
 /* LOGO */
 .header-logo {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 200px;
+    margin-right: 100px;
+}
+
+.header.header-fixed .header-logo {
+    margin-top: 0px;
 }
 
 .header-logo img {
-    max-height: 60px !important;
+    max-height: 60px;
+}
+
+.header-logo img:nth-child(1) {
+    max-height: 160px;
 }
 
 /* menu */
 .header-menu {
+    margin-top: 15px;
+}
+
+.header.header-fixed .header-menu {
     margin-top: 0px;
 }
 
@@ -300,10 +317,11 @@ onMounted(() => {
 }
 
 .header-menu .nav li a img {
+    height: 30px;
     width: 30px;
 }
 .header-menu .nav li a img.img_mis_subastas {
-    width: 31px;
+    width: 33px;
 }
 
 .header-menu .nav li:hover a {
@@ -388,6 +406,13 @@ onMounted(() => {
 
     .header {
         height: 85px;
+    }
+    .header-logo {
+        margin-top: 0px;
+    }
+
+    .header-logo img:nth-child(1) {
+        max-width: 180px;
     }
 
     .header-registro .dropdown.dropdown-hover .dropdown-menu.show {

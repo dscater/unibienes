@@ -12,4 +12,12 @@ class InicioController extends Controller
         $array_infos = UserController::getInfoBoxUser();
         return Inertia::render('Admin/Home', compact('array_infos'));
     }
+
+    public function getParcialDatosPago()
+    {
+
+        $html = vieW("parcials.datos_pago")->render();
+
+        return response()->JSON($html);
+    }
 }

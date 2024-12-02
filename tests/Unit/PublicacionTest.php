@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -55,19 +56,19 @@ class PublicacionTest extends TestCase
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image1.jpg'),
+                "file" => UploadedFile::fake()->image('image1.jpg'),
                 "url_imagen" => "",
             ],
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image2.jpg'),
+                "file" => UploadedFile::fake()->image('image2.jpg'),
                 "url_imagen" => "",
             ],
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image3.jpg'),
+                "file" => UploadedFile::fake()->image('image3.jpg'),
                 "url_imagen" => "",
             ],
         ];
@@ -88,6 +89,8 @@ class PublicacionTest extends TestCase
             "eliminados_detalles" => [],
             "eliminados_imagens" => [],
         ];
+
+        Log::debug($data_request);
 
         // Crear el request con archivos
         $request = Request::create(route('publicacions.store'), 'POST', $data_request);
@@ -137,19 +140,19 @@ class PublicacionTest extends TestCase
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image1.jpg'),
+                "file" => UploadedFile::fake()->image('image1.jpg'),
                 "url_imagen" => "",
             ],
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image2.jpg'),
+                "file" => UploadedFile::fake()->image('image2.jpg'),
                 "url_imagen" => "",
             ],
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image3.jpg'),
+                "file" => UploadedFile::fake()->image('image3.jpg'),
                 "url_imagen" => "",
             ],
         ];
@@ -194,7 +197,7 @@ class PublicacionTest extends TestCase
         $images[] = [
             "id" => 0,
             "publicacion_id" => 0,
-            "imagen" => UploadedFile::fake()->image('nuevaimagen.jpg'),
+            "file" => UploadedFile::fake()->image('nuevaimagen.jpg'),
             "url_imagen" => "",
         ];
 
@@ -264,19 +267,19 @@ class PublicacionTest extends TestCase
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image1.jpg'),
+                "file" => UploadedFile::fake()->image('image1.jpg'),
                 "url_imagen" => "",
             ],
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image2.jpg'),
+                "file" => UploadedFile::fake()->image('image2.jpg'),
                 "url_imagen" => "",
             ],
             [
                 "id" => 0,
                 "publicacion_id" => 0,
-                "imagen" => UploadedFile::fake()->image('image3.jpg'),
+                "file" => UploadedFile::fake()->image('image3.jpg'),
                 "url_imagen" => "",
             ],
         ];

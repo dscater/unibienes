@@ -14,6 +14,7 @@ class PublicacionImagen extends Model
     protected $fillable  = [
         "publicacion_id",
         "imagen",
+        "status",
     ];
 
     protected $appends = ["url_imagen", "url_archivo", "url_file", "name", "ext"];

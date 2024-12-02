@@ -140,10 +140,12 @@ class ReporteController extends Controller
             $publicacions->whereBetween("created_at", [$fecha_ini, $fecha_fin]);
         }
 
+        $publicacions->whereNotIn("estado_sub", [5]);
+
         $publicacions = $publicacions->get();
 
         if ($formato == "pdf") {
-            $pdf = PDF::loadView('reportes.publicacions', compact('publicacions'))->setPaper('letter', 'landscape');
+            $pdf = PDF::loadView('reportes.publicacions', compact('publicacions'))->setPaper('legal', 'landscape');
 
             // ENUMERAR LAS PÁGINAS USANDO CANVAS
             $pdf->output();
@@ -184,9 +186,9 @@ class ReporteController extends Controller
 
             $fila = 2;
             $sheet->setCellValue('A' . $fila, "LISTA DE PUBLICACIONES");
-            $sheet->mergeCells("A" . $fila . ":K" . $fila);  //COMBINAR CELDAS
-            $sheet->getStyle('A' . $fila . ':K' . $fila)->getAlignment()->setHorizontal('center');
-            $sheet->getStyle('A' . $fila . ':K' . $fila)->applyFromArray($this->titulo);
+            $sheet->mergeCells("A" . $fila . ":L" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('A' . $fila . ':L' . $fila)->getAlignment()->setHorizontal('center');
+            $sheet->getStyle('A' . $fila . ':L' . $fila)->applyFromArray($this->titulo);
             $fila++;
             $fila++;
             $fila++;
@@ -197,11 +199,12 @@ class ReporteController extends Controller
             $sheet->setCellValue('E' . $fila, 'OFERTA INICIAL');
             $sheet->setCellValue('F' . $fila, 'UBICACIÓN');
             $sheet->setCellValue('G' . $fila, 'OBSERVACIONES');
-            $sheet->setCellValue('H' . $fila, 'FECHA Y HORA LIMITE');
-            $sheet->setCellValue('I' . $fila, 'MONTO DE GARANTÍA');
-            $sheet->setCellValue('J' . $fila, 'CARACTERISTICAS-DETALLES');
-            $sheet->setCellValue('K' . $fila, 'ESTADO');
-            $sheet->getStyle('A' . $fila . ':K' . $fila)->applyFromArray($this->headerTabla);
+            $sheet->setCellValue('H' . $fila, 'FECHA Y HORA DE PUBLICACIÓN');
+            $sheet->setCellValue('I' . $fila, 'FECHA Y HORA LIMITE');
+            $sheet->setCellValue('J' . $fila, 'MONTO DE GARANTÍA');
+            $sheet->setCellValue('K' . $fila, 'CARACTERISTICAS-DETALLES');
+            $sheet->setCellValue('L' . $fila, 'ESTADO');
+            $sheet->getStyle('A' . $fila . ':L' . $fila)->applyFromArray($this->headerTabla);
             $fila++;
             $cont = 1;
             foreach ($publicacions as $publicacion) {
@@ -212,8 +215,9 @@ class ReporteController extends Controller
                 $sheet->setCellValue('E' . $fila, $publicacion->oferta_inicial);
                 $sheet->setCellValue('F' . $fila, $publicacion->ubicacion);
                 $sheet->setCellValue('G' . $fila, $publicacion->observaciones);
-                $sheet->setCellValue('H' . $fila, $publicacion->fecha_hora_limite_am);
-                $sheet->setCellValue('I' . $fila, $publicacion->monto_garantia);
+                $sheet->setCellValue('H' . $fila, $publicacion->subasta ? $publicacion->subasta->fecha_hora_pub_am : 'S/P');
+                $sheet->setCellValue('I' . $fila, $publicacion->fecha_hora_limite_am);
+                $sheet->setCellValue('J' . $fila, $publicacion->monto_garantia);
 
                 $detalles = PublicacionDetalle::where('publicacion_id', $publicacion->id)
                     ->get()
@@ -224,9 +228,9 @@ class ReporteController extends Controller
                     $text .= "-$item->caracteristica: $item->detalle \n";
                 }
 
-                $sheet->setCellValue('J' . $fila, $text);
-                $sheet->setCellValue('K' . $fila, $publicacion->estado_txt);
-                $sheet->getStyle('A' . $fila . ':K' . $fila)->applyFromArray($this->bodyTabla);
+                $sheet->setCellValue('K' . $fila, $text);
+                $sheet->setCellValue('L' . $fila, $publicacion->estado_txt);
+                $sheet->getStyle('A' . $fila . ':L' . $fila)->applyFromArray($this->bodyTabla);
                 $fila++;
             }
 
@@ -239,10 +243,11 @@ class ReporteController extends Controller
             $sheet->getColumnDimension('G')->setWidth(30);
             $sheet->getColumnDimension('H')->setWidth(10);
             $sheet->getColumnDimension('I')->setWidth(10);
-            $sheet->getColumnDimension('J')->setWidth(25);
-            $sheet->getColumnDimension('K')->setWidth(10);
+            $sheet->getColumnDimension('J')->setWidth(10);
+            $sheet->getColumnDimension('K')->setWidth(25);
+            $sheet->getColumnDimension('L')->setWidth(10);
 
-            foreach (range('A', 'K') as $columnID) {
+            foreach (range('A', 'L') as $columnID) {
                 $sheet->getStyle($columnID)->getAlignment()->setWrapText(true);
             }
 
@@ -251,13 +256,13 @@ class ReporteController extends Controller
             $sheet->getPageMargins()->setRight(0.1);
             $sheet->getPageMargins()->setLeft(0.1);
             $sheet->getPageMargins()->setBottom(0.1);
-            $sheet->getPageSetup()->setPrintArea('A:K');
+            $sheet->getPageSetup()->setPrintArea('A:L');
             $sheet->getPageSetup()->setFitToWidth(1);
             $sheet->getPageSetup()->setFitToHeight(0);
 
             // DESCARGA DEL ARCHIVO
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="publicacions.xlsx"');
+            header('Content-Disposition: attachment;filename="publicacions_' . time() . '.xlsx"');
             header('Cache-Control: max-age=0');
             $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save('php://output');
@@ -285,7 +290,7 @@ class ReporteController extends Controller
             $publicacions->where("categoria", $categoria);
         }
 
-        $publicacions = $publicacions->whereNotIn("estado_sub", [0, 5])->get();
+        $publicacions = $publicacions->whereNotIn("estado_sub", [5])->get();
 
         if ($formato == "pdf") {
             $pdf = PDF::loadView('reportes.subasta_clientes', compact('publicacions', 'fecha_ini', 'fecha_fin'))->setPaper('legal', 'landscape');
@@ -412,9 +417,30 @@ class ReporteController extends Controller
                         $sheet->setCellValue('F' . $fila, $subasta_cliente->cliente->fono);
                         $sheet->setCellValue('G' . $fila, $subasta_cliente->cliente->user->usuario);
                         $sheet->setCellValue('H' . $fila, $publicacion->categoria);
-                        $sheet->setCellValue('I' . $fila, $subasta_cliente->fecha_oferta_t);
-                        $sheet->setCellValue('J' . $fila, $subasta_cliente->hora_oferta_t);
-                        $sheet->setCellValue('K' . $fila, $subasta_cliente->puja);
+                        $texto = $subasta_cliente->fecha_oferta_t;
+                        if (count($subasta_cliente->historial_ofertas) > 0) {
+                            $texto = "";
+                            foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta) {
+                                $texto .= "- " . $historial_oferta->fecha_oferta_t . "\n";
+                            }
+                        }
+                        $sheet->setCellValue('I' . $fila, $texto);
+                        $texto = $subasta_cliente->hora_oferta_t;
+                        if (count($subasta_cliente->historial_ofertas) > 0) {
+                            $texto = "";
+                            foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta) {
+                                $texto .= "- " . $historial_oferta->hora_oferta_t . "\n";
+                            }
+                        }
+                        $sheet->setCellValue('J' . $fila, $texto);
+                        $texto = number_format($subasta_cliente->puja, 2, '.', ',');
+                        if (count($subasta_cliente->historial_ofertas) > 0) {
+                            $texto = "";
+                            foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta) {
+                                $texto .= "- " . number_format($historial_oferta->puja, 2, '.', ',')  . "\n";
+                            }
+                        }
+                        $sheet->setCellValue('K' . $fila, $texto);
                         $sheet->setCellValue('L' . $fila, $publicacion->monto_garantia);
                         $sheet->setCellValue('M' . $fila, $subasta_cliente->url_comprobante);
                         $sheet->setCellValue('N' . $fila, $subasta_cliente->cliente->url_ci_anverso . "\n" . $subasta_cliente->cliente->url_ci_reverso);
@@ -462,7 +488,7 @@ class ReporteController extends Controller
 
             // DESCARGA DEL ARCHIVO
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="subasta_clientes.xlsx"');
+            header('Content-Disposition: attachment;filename="subasta_clientes_' . time() . '.xlsx"');
             header('Cache-Control: max-age=0');
             $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save('php://output');
@@ -482,12 +508,8 @@ class ReporteController extends Controller
         $categoria = $request->categoria;
 
         $publicacions = Publicacion::select("publicacions.*")
-            ->whereIn("estado_sub", [1, 2])
-            ->rightjoin("subastas", "subastas.publicacion_id", "=", "publicacions.id")
-            ->rightjoin("subasta_clientes", "subasta_clientes.subasta_id", "=", "subastas.id");
-        if ($fecha_ini && $fecha_fin) {
-            $publicacions->whereBetween("subasta_clientes.fecha_oferta", [$fecha_ini, $fecha_fin]);
-        }
+            ->whereIn("estado_sub", [1, 2, 3, 4]);
+
         if ($categoria != 'todos') {
             $publicacions->where("publicacions.categoria", $categoria);
         }
@@ -497,12 +519,19 @@ class ReporteController extends Controller
             $publicacions->where("user_id", Auth::user()->id);
         }
 
+        $publicacions->whereNotIn("estado_sub", [5]);
         $publicacions = $publicacions->get();
         $data = [];
         foreach ($publicacions as $publicacion) {
             $total = 0;
             if ($publicacion->subasta) {
-                $total = SubastaCliente::where("subasta_id", $publicacion->subasta->id)->count();
+                $total = SubastaCliente::select("subasta_clientes.*")
+                    ->join("historial_ofertas", "historial_ofertas.subasta_cliente_id", "=", "subasta_clientes.id")
+                    ->where("subasta_clientes.subasta_id", $publicacion->subasta->id);
+                if ($fecha_ini && $fecha_fin) {
+                    $total->whereBetween("historial_ofertas.fecha_oferta", [$fecha_ini, $fecha_fin]);
+                }
+                $total = $total->distinct("subasta_clientes.cliente_id")->count();
             }
 
             $data[] = [$publicacion->categoria . "-" . $publicacion->id, (int)$total];
@@ -642,7 +671,7 @@ class ReporteController extends Controller
 
             // DESCARGA DEL ARCHIVO
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="clientes.xlsx"');
+            header('Content-Disposition: attachment;filename="clientes_' . time() . '.xlsx"');
             header('Cache-Control: max-age=0');
             $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save('php://output');

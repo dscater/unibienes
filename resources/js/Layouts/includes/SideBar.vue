@@ -423,7 +423,7 @@ onMounted(async () => {
 
     if (props_page.auth) {
         user_logeado.value = props_page.auth?.user;
-        console.log(user_logeado.value.permisos);
+        // console.log(user_logeado.value.permisos);
     }
 
     setTimeout(() => {

@@ -12,9 +12,6 @@ const { oConfiguracion } = useConfiguracion();
             <div class="row">
                 <!-- BEGIN col-3 -->
                 <div class="col-lg-3">
-                    <h4 class="footer-header">
-                        {{ oConfiguracion.razon_social }}
-                    </h4>
                     <img
                         :src="oConfiguracion.url_logo"
                         alt=""

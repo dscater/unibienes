@@ -25,6 +25,22 @@
     --bg5: #9fd86b;
 }
 
+.img_qr_pago {
+    width: 100%;
+    max-width: 200px;
+}
+
+.text-sm{
+    font-size: 0.9em;
+}
+
+.txt_subasta_concluida {
+    font-weight: bold;
+    font-size: 2em;
+    width: 100%;	
+    text-align: center;
+}
+
 .bg_blue_dark {
     background-color: var(--bg_blue_dark);
     color: white;
@@ -120,14 +136,14 @@
 }
 
 .bg-principal-portal {
-    background-color: var(--principal-portal)!important;
+    background-color: var(--principal-portal) !important;
 }
 
 .bg-principal-portal2 {
-    background-color: var(--principal-portal2)!important;
+    background-color: var(--principal-portal2) !important;
 }
 .bg-principal-portal3 {
-    background-color: var(--principal-portal3)!important;
+    background-color: var(--principal-portal3) !important;
 }
 
 .mr-5 {

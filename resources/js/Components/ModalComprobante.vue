@@ -1,6 +1,8 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
 import { watch, ref, computed, defineEmits, onMounted } from "vue";
+import DatosPago from "@/Components/DatosPago.vue";
+
 const props = defineProps({
     open_dialog: {
         type: Boolean,
@@ -20,6 +22,7 @@ const props = defineProps({
     },
 });
 
+const modal_dialog_datos_pago = ref(false);
 const dialog = ref(props.open_dialog);
 const oPublicacion = ref(props.publicacion);
 const oSubastaCliente = ref(props.subasta_cliente);
@@ -94,6 +97,7 @@ const cerrarDialog = () => {
     dialog.value = false;
     oSubastaCliente.value = null;
     enviando.value = false;
+    input_file.value = null;
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
 };
 
@@ -138,11 +142,7 @@ const registrarComprobante = () => {
                 Swal.fire({
                     icon: "info",
                     title: "Error",
-                    text: `${
-                        error.response.data.message
-                            ? error.response.data.message
-                            : "Hay errores en el formulario"
-                    }`,
+                    text: `Tienes errores en el formulario`,
                     confirmButtonColor: "#3085d6",
                     confirmButtonText: `Aceptar`,
                 });
@@ -158,10 +158,20 @@ const registrarComprobante = () => {
         });
 };
 
+const verDatosPago = () => {
+    console.log(modal_dialog_datos_pago.value);
+    modal_dialog_datos_pago.value = true;
+};
+
 onMounted(() => {});
 </script>
 
 <template>
+    <DatosPago
+        :open_dialog="modal_dialog_datos_pago"
+        :hideBg="false"
+        @cerrar-dialog="modal_dialog_datos_pago = false"
+    ></DatosPago>
     <div
         class="modal fade"
         :class="{
@@ -183,6 +193,14 @@ onMounted(() => {});
                     ></button>
                 </div>
                 <div class="modal-body">
+                    <div class="row mb-0">
+                        <div class="col-12">
+                            <div class="alert alert-info mb-2 text-sm">
+                                Tos los campos con <strong>*</strong> son
+                                obligatorios
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div
@@ -192,15 +210,31 @@ onMounted(() => {});
                                 <i class="fa fa-info-circle"></i> Su comprobante
                                 fue rechazado
                                 <ul>
-                                    <li>El comprobante debe poder verse de forma clara</li>
-                                    <li>Verifique que no exista alguna problema con su banco</li>
+                                    <li>
+                                        El comprobante debe poder verse de forma
+                                        clara
+                                    </li>
+                                    <li>
+                                        Verifique que no exista alguna problema
+                                        con su banco
+                                    </li>
                                 </ul>
-                                <i class="far fa-circle"></i> Por favor, vuelva a cargar su
-                                comprobante
+                                <i class="far fa-circle"></i> Por favor, vuelva
+                                a cargar su comprobante
                             </div>
                             <div class="alert alert-info" v-else>
-                                <i class="fa fa-info-circle"></i> Debes realizar
-                                el pago del monto de garantía
+                                <p>
+                                    <i class="fa fa-info-circle"></i> Debes
+                                    realizar el pago del monto de garantía
+                                </p>
+                                <a
+                                    href="#"
+                                    class="font-weight-bold w-100 text-center d-flex align-items-center justify-content-center gap-2"
+                                    @click.prevent="verDatosPago"
+                                >
+                                    Ver los datos para el pago de garantía
+                                    <i class="fa fa-external-link-alt"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -224,11 +258,19 @@ onMounted(() => {});
                                         ref="input_file"
                                         @change="cargarFile($event)"
                                     />
-                                    <span
-                                        class="text-danger d-block"
+                                    <template
                                         v-if="errors && errors.comprobante"
-                                        >{{ errors.comprobante[0] }}</span
                                     >
+                                        <ul
+                                            class="alert alert-danger px-4 py-1 mt-1"
+                                        >
+                                            <li
+                                                v-for="item in errors.comprobante"
+                                            >
+                                                {{ item }}
+                                            </li>
+                                        </ul>
+                                    </template>
                                 </div>
                             </form>
                         </div>

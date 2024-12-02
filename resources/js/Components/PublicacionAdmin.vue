@@ -4,7 +4,7 @@ import DetalleSubasta from "@/Components/DetalleSubasta.vue";
 </script>
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
-import { onMounted, ref, inject, computed, watch } from "vue";
+import { onMounted, ref, inject, computed, watch, onBeforeUnmount } from "vue";
 import { useFormater } from "@/composables/useFormater";
 const { getFormatoMoneda } = useFormater();
 const { props: props_page } = usePage();
@@ -28,7 +28,17 @@ const props = defineProps({
 });
 
 const oPublicacion = ref(props.publicacion);
+const oSubastaCliente = ref(null);
 
+const modal_dialog = ref(false);
+const modal_dialog_comprobante = ref(false);
+const modal_dialog_puja = ref(false);
+const data_puja = ref(null);
+// 3 detalles
+const primerosTres = ref(oPublicacion.value.publicacion_detalles.slice(0, 3));
+
+// restantes
+const restantes = ref(oPublicacion.value.publicacion_detalles.slice(3));
 watch(
     () => props.publicacion,
     (newValue) => {
@@ -38,19 +48,11 @@ watch(
 
 watch(oPublicacion.value, (newValue) => {
     oPublicacion.value = newValue;
+    // 3 detalles
+    primerosTres.value = oPublicacion.value.publicacion_detalles.slice(0, 3);
+    // restantes
+    restantes.value = oPublicacion.value.publicacion_detalles.slice(3);
 });
-
-const oSubastaCliente = ref(null);
-
-const modal_dialog = ref(false);
-const modal_dialog_comprobante = ref(false);
-const modal_dialog_puja = ref(false);
-const data_puja = ref(null);
-// 3 detalles
-const primerosTres = ref(props.publicacion.publicacion_detalles.slice(0, 3));
-
-// restantes
-const restantes = ref(props.publicacion.publicacion_detalles.slice(3));
 
 const verDetallesPublicacion = () => {
     modal_dialog.value = true;
@@ -66,7 +68,6 @@ const swRealizarOferta = ref(true);
 
 const iniciaConteoFinalizacion = () => {
     // Fecha en formato DD/MM/YYYY HH:MM:SS
-
     // Fecha actual
     const fechaActual = new Date();
     let fechaStr = "";
@@ -118,11 +119,16 @@ const verificarGanadorPublicacion = () => {
         .post(route("publicacions.verificaGanador", oPublicacion.value.id))
         .then((response) => {
             oGanadorSubastaCliente.value = response.data.subasta_cliente;
+            oPublicacion.value = response.data.publicacion;
         });
 };
 
 onMounted(() => {
     intervalConteo.value = setInterval(iniciaConteoFinalizacion, 1000);
+});
+
+onBeforeUnmount(() => {
+    clearInterval(intervalConteo.value);
 });
 </script>
 <template>
@@ -130,6 +136,7 @@ onMounted(() => {
         :open_dialog="modal_dialog"
         :publicacion="oPublicacion"
         :detalles="restantes"
+        :hideBg="false"
         @cerrar-dialog="modal_dialog = false"
     ></DetalleSubasta>
     <div class="product mb-3">
@@ -232,6 +239,18 @@ onMounted(() => {
                                     </tr>
                                 </tbody>
                             </table>
+                            <div
+                                v-if="
+                                    oPublicacion.estado_sub == 2 ||
+                                    oPublicacion.estado_sub == 3 ||
+                                    oPublicacion.estado_sub == 4
+                                "
+                            >
+                                <span
+                                    class="text-danger font-weight-bold d-block mb-2 txt_subasta_concluida"
+                                    >SUBASTA CONCLUIDA</span
+                                >
+                            </div>
                         </div>
                     </div>
                     <!-- END product-info-header -->

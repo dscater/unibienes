@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Mail\MensajeComprobanteMail;
 use App\Models\Cliente;
+use App\Models\HistorialOferta;
 use App\Models\NotificacionUser;
 use App\Models\Parametrizacion;
 use App\Models\Publicacion;
 use App\Models\SubastaCliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +29,9 @@ class SubastaClienteController extends Controller
                 ->where("subasta_id", $publicacion->subasta->id)
                 ->get()
                 ->first();
+            if ($subasta_cliente) {
+                $subasta_cliente = $subasta_cliente->load(["historial_ofertas"]);
+            }
         }
 
         return response()->JSON([
@@ -44,7 +49,7 @@ class SubastaClienteController extends Controller
             $notificacion_user->save();
         }
 
-        $subasta_cliente = $subasta_cliente->load(["cliente", "subasta.publicacion"]);
+        $subasta_cliente = $subasta_cliente->load(["cliente", "subasta.publicacion", "historial_ofertas"]);
         return Inertia::render("Admin/Publicacions/SubastaCliente", compact("subasta_cliente"));
     }
 
@@ -95,6 +100,24 @@ class SubastaClienteController extends Controller
                 ->send(new MensajeComprobanteMail($datos));
         }
 
-        return response()->JSON($subasta_cliente->load(["cliente", "subasta.publicacion"]));
+        return response()->JSON($subasta_cliente->load(["cliente", "subasta.publicacion", "historial_ofertas"]));
+    }
+
+    public function historialOfertas(Request $request)
+    {
+        $publicacion_id = $request->publicacion_id;
+        $user = Auth::user();
+        $cliente = $user->cliente;
+        $historial_ofertas = [];
+        if ($cliente) {
+            $publicacion = Publicacion::find($publicacion_id);
+            if ($publicacion && $publicacion->subasta) {
+                $subasta = $publicacion->subasta;
+                $historial_ofertas = HistorialOferta::where("subasta_id", $subasta->id)
+                    ->where("cliente_id", $cliente->id)->orderBy("created_at", "desc")->get();
+            }
+        }
+
+        return response()->JSON($historial_ofertas);
     }
 }

@@ -81,4 +81,9 @@ class SubastaCliente extends Model
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');
     }
+
+    public function historial_ofertas()
+    {
+        return $this->hasMany(HistorialOferta::class, 'subasta_cliente_id')->orderBy("created_at", "desc");
+    }
 }

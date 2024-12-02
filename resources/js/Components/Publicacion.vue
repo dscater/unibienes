@@ -3,11 +3,13 @@ import SliderImagenes from "@/Components/SliderImagenes.vue";
 import DetalleSubasta from "@/Components/DetalleSubasta.vue";
 import ModalComprobante from "@/Components/ModalComprobante.vue";
 import ModalPuja from "@/Components/ModalPuja.vue";
+import HistorialOfertas from "@/Components/HistorialOfertas.vue";
 </script>
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
-import { onMounted, ref, inject, computed } from "vue";
+import { onMounted, ref, inject, computed, onBeforeUnmount, watch } from "vue";
 import { useFormater } from "@/composables/useFormater";
+import axios from "axios";
 const { getFormatoMoneda } = useFormater();
 const { props: props_page } = usePage();
 const props = defineProps({
@@ -32,16 +34,31 @@ const verificaUser = inject("verificaUser");
 const verificarPujaUser = inject("verificarPujaUser");
 const oPublicacion = ref(props.publicacion);
 const oSubastaCliente = ref(null);
-
 const modal_dialog = ref(false);
 const modal_dialog_comprobante = ref(false);
 const modal_dialog_puja = ref(false);
+const modal_dialog_historial_ofertas = ref(false);
 const data_puja = ref(null);
 // 3 detalles
 const primerosTres = ref(props.publicacion.publicacion_detalles.slice(0, 3));
 
 // restantes
 const restantes = ref(props.publicacion.publicacion_detalles.slice(3));
+
+watch(
+    () => props.publicacion,
+    (newValue) => {
+        oPublicacion.value = newValue;
+    }
+);
+
+watch(oPublicacion.value, (newValue) => {
+    oPublicacion.value = newValue;
+    // 3 detalles
+    primerosTres.value = oPublicacion.value.publicacion_detalles.slice(0, 3);
+    // restantes
+    restantes.value = oPublicacion.value.publicacion_detalles.slice(3);
+});
 
 const verDetallesPublicacion = () => {
     modal_dialog.value = true;
@@ -60,6 +77,7 @@ const realizarOferta = async () => {
 
             // mostrar info para registrar puja
             oSubastaCliente.value = data_puja.value.subasta_cliente;
+            // console.log(oSubastaCliente.value);
             if (
                 oSubastaCliente.value.estado_comprobante == 1 ||
                 oSubastaCliente.value.estado_comprobante == 0
@@ -90,10 +108,15 @@ const obtieneInfoSubastaCliente = async () => {
         );
         if (data_puja.value && data_puja.value.subasta_cliente) {
             oSubastaCliente.value = data_puja.value.subasta_cliente;
+
+            clearInterval(intervalSubastaClientes.value);
+            intervalSubastaClientes.value = setInterval(() => {
+                obtenerOfertasSubasta();
+            }, 1000);
         } else {
             oSubastaCliente.value = null;
         }
-        console.log(oSubastaCliente.value);
+        // console.log(oSubastaCliente.value);
     }
 };
 
@@ -161,7 +184,8 @@ const verificarGanadorPublicacion = () => {
     axios
         .post(route("publicacions.verificaGanador", oPublicacion.value.id))
         .then((response) => {
-            console.log(response);
+            // console.log(response);
+            oPublicacion.value = response.data.publicacion;
         });
 };
 
@@ -195,12 +219,52 @@ const verificaClienteTop = (id) => {
     return true;
 };
 
+const obtenerOfertasSubasta = () => {
+    if (oPublicacion.value && oPublicacion.value.subasta) {
+        axios
+            .get(route("subastas.ofertas", oPublicacion.value.subasta.id))
+            .then((response) => {
+                if (response.data.estado_puja != null) {
+                    oSubastaCliente.value.estado_puja =
+                        response.data.estado_puja;
+                }
+
+                oPublicacion.value.subasta.subasta_clientes_puja =
+                    response.data.subasta_clientes_puja;
+            });
+    }
+};
+
+const verOfertas = () => {
+    if (oPublicacion.value) {
+        modal_dialog_historial_ofertas.value = true;
+    }
+};
+
+var intervalSubastaClientes = ref(null);
+
 onMounted(() => {
     obtieneInfoSubastaCliente();
     verificaSwOferta();
+    if (props.detalle_lista && oPublicacion.value.estado_sub == 1) {
+        intervalSubastaClientes.value = setInterval(() => {
+            obtenerOfertasSubasta();
+        }, 1000);
+    }
+});
+
+onBeforeUnmount(() => {
+    clearInterval(intervalConteo.value);
+    clearInterval(intervalSubastaClientes.value);
 });
 </script>
 <template>
+    <HistorialOfertas
+        v-if="props_page.auth"
+        :open_dialog="modal_dialog_historial_ofertas"
+        :publicacion_id="oPublicacion.id"
+        @cerrar-dialog="modal_dialog_historial_ofertas = false"
+    ></HistorialOfertas>
     <DetalleSubasta
         :open_dialog="modal_dialog"
         :publicacion="oPublicacion"
@@ -253,6 +317,7 @@ onMounted(() => {
                     <div class="row fila_detalle pt-3" style="">
                         <div class="col-12 text-center" v-if="link">
                             <Link
+                                v-if="oPublicacion"
                                 class="btn btn-primary btn-sm"
                                 :href="
                                     route(
@@ -364,7 +429,7 @@ onMounted(() => {
                             GANADOR
                         </div>
                         <button
-                            class="btn btn-sm"
+                            class="btn btn-lg mb-2"
                             @click="realizarOferta"
                             :class="[
                                 !oSubastaCliente ||
@@ -377,7 +442,7 @@ onMounted(() => {
                         ></button>
                         <div v-else>
                             <span
-                                class="text-danger font-weight-bold d-block mb-2"
+                                class="text-danger font-weight-bold d-block mb-2 txt_subasta_concluida"
                                 >SUBASTA CONCLUIDA</span
                             >
                         </div>
@@ -424,7 +489,7 @@ onMounted(() => {
                                         : '',
                                 ]"
                             >
-                                <td class="">{{ index + 1 }}</td>
+                                <td class="">{{ index + 1 }})</td>
                                 <td class="">
                                     {{ getFormatoMoneda(item.puja) }}
                                     <small
@@ -459,6 +524,19 @@ onMounted(() => {
                         </template>
                     </tbody>
                 </table>
+                <div
+                    class="row"
+                    v-if="props_page.auth && props_page.auth.user.role_id == 2"
+                >
+                    <div class="col-12 text-center">
+                        <button
+                            class="btn btn-outline-primary"
+                            @click="verOfertas"
+                        >
+                            Mis ofertas <i class="fa fa-external-link"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
             <!-- END product-detail -->
         </div>

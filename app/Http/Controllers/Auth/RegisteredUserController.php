@@ -137,6 +137,7 @@ class RegisteredUserController extends Controller
             Auth::login($user);
 
             DB::commit();
+            Log::debug("DSDSDSD");
             if ($request->ajax()) {
                 return response()->JSON([
                     "sw" => true

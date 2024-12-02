@@ -124,6 +124,7 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     );
 
     // subastas
+    Route::get("publicacions/subastas/ofertas/{subasta}", [SubastaController::class, 'ofertas'])->name("subastas.ofertas");
     Route::get("publicacions/getsubasta/infoSubastaPorPublicacion", [SubastaController::class, 'infoSubastaPorPublicacion'])->name("subastas.infoSubastaPorPublicacion");
     Route::get("publicacions/subastas/clientes/{subasta}", [SubastaController::class, 'clientes'])->name("subastas.clientes");
     Route::get("publicacions/subastas/getClientesApi/{subasta}", [SubastaController::class, 'getClientesApi'])->name("subastas.getClientesApi");
@@ -131,6 +132,7 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     Route::post("publicacions/subastas/registrarComprobante", [SubastaController::class, 'registrarComprobante'])->name("subastas.registrarComprobante");
 
     // subastas clientes
+    Route::get("publicacions/subastas_clientes/historialOfertas", [SubastaClienteController::class, 'historialOfertas'])->name("subasta_clientes.historialOfertas");
     Route::get("publicacions/subastas_clientes/verificaSubastaCliente", [SubastaClienteController::class, 'verificaSubastaCliente'])->name("subasta_clientes.verificaSubastaCliente");
     Route::get("publicacions/subastas_clientes/show/{subasta_cliente}", [SubastaClienteController::class, 'show'])->name("subasta_clientes.show");
     Route::get("publicacions/subastas_clientes/getInfo/{subasta_cliente}", [SubastaClienteController::class, 'getInfo'])->name("subasta_clientes.getInfo");
@@ -138,6 +140,9 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
 
     // NOTIFICACIONES
     Route::get("notificacions/listadoPorUsuario", [NotificacionController::class, 'listadoPorUsuario'])->name("notificacions.listadoPorUsuario");
+
+    // OTROS
+    Route::get("parcial_datos_pago", [InicioController::class, 'getParcialDatosPago'])->name("inicio.getParcialDatosPago");
 
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");

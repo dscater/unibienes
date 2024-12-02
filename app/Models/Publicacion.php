@@ -210,12 +210,7 @@ class Publicacion extends Model
                 }
             }
         }
-
-        // Si hay errores personalizados, los agregamos al validador
-        if (!empty($errores)) {
-            throw ValidationException::withMessages($errores);
-        }
-        return true;
+        return $errores;
     }
 
     public function generaData($data_request)
@@ -242,7 +237,12 @@ class Publicacion extends Model
         try {
             // crear la Publicacion
             $datos_publicacion = $static->generaData($data_request);
-            $static->validaDatos($datos_publicacion, $data_request->publicacion_detalles, $data_request->publicacion_imagens);
+            $errores = $static->validaDatos($datos_publicacion, $data_request->publicacion_detalles, $data_request->publicacion_imagens);
+            // Si hay errores ejecutamos la exepción
+            if (!empty($errores)) {
+                return throw ValidationException::withMessages($errores);
+            }
+
             // crear
             $nueva_publicacion = Publicacion::create($datos_publicacion);
             // imagenes
@@ -267,9 +267,7 @@ class Publicacion extends Model
         } catch (\Exception $e) {
             DB::rollBack();
             Log::debug("ERROR: " . $e->getMessage());
-            throw Exception::withMessages([
-                'error' =>  $e->getMessage(),
-            ]);
+            throw new \RuntimeException($e->getMessage(), 500);
         }
     }
 
@@ -279,8 +277,11 @@ class Publicacion extends Model
         DB::beginTransaction();
         try {
             $datos_publicacion = $static->generaData($data_request);
-            $static->validaDatos($datos_publicacion, $data_request->publicacion_detalles, $data_request->publicacion_imagens);
-
+            $errores = $static->validaDatos($datos_publicacion, $data_request->publicacion_detalles, $data_request->publicacion_imagens);
+            // Si hay errores ejecutamos la exepción
+            if (!empty($errores)) {
+                return throw ValidationException::withMessages($errores);
+            }
             // actualizar
             $publicacion->update($datos_publicacion);
             // imagenes
@@ -310,11 +311,9 @@ class Publicacion extends Model
             }
             throw ValidationException::withMessages($errors);
         } catch (\Exception $e) {
-            Log::debug("ERROR: " . $e->getMessage());
             DB::rollBack();
-            throw ValidationException::withMessages([
-                'error' =>  $e->getMessage(),
-            ]);
+            Log::debug("ERROR: " . $e->getMessage());
+            throw new \RuntimeException($e->getMessage(), 500);
         }
     }
 

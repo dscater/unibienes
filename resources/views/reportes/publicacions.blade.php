@@ -172,6 +172,7 @@
                 <th>OFERTA INCIAL</th>
                 <th>UBICACIÓN</th>
                 <th>OBSERVACIONES</th>
+                <th>FECHA Y HORA DE PUBLICACIÓN</th>
                 <th>FECHA Y HORA LIMITE</th>
                 <th>MONTO DE GARANTÍA</th>
                 <th>CARACTERISTICAS-DETALLES</th>
@@ -197,6 +198,7 @@
                     <td class="">{{ number_format($publicacion->oferta_inicial, 2, '.', ',') }}</td>
                     <td class="">{{ $publicacion->ubicacion }}</td>
                     <td class="">{{ $publicacion->observaciones }}</td>
+                    <td class="">{{ $publicacion->subasta ? $publicacion->subasta->fecha_hora_pub_am : 'S/P' }}</td>
                     <td class="">{{ $publicacion->fecha_hora_limite_am }}</td>
                     <td class="">{{ number_format($publicacion->monto_garantia, 2, '.', ',') }}</td>
                     <td class="">

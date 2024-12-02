@@ -262,6 +262,13 @@ onMounted(() => {
                     <!-- END login-header -->
                     <!-- BEGIN login-content -->
                     <div class="login-content">
+                        <div class="row mb-0">
+                            <div class="col-12">
+                                <div class="alert alert-info mb-0">
+                                    Tos los campos con <strong>*</strong> son obligatorios
+                                </div>
+                            </div>
+                        </div>
                         <form @submit.prevent="submit()">
                             <div class="row" v-show="!validado">
                                 <div class="col-12">
@@ -601,7 +608,7 @@ onMounted(() => {
                                             }}</strong>
                                         </span>
                                     </div>
-                                    <h4>Datos para devolución</h4>
+                                    <h4>Datos para devolución de Garantías</h4>
                                     <div class="form-floating mt-20px">
                                         <select
                                             name="banco"
@@ -755,6 +762,12 @@ onMounted(() => {
                                             }}</strong>
                                         </span>
                                     </div>
+                                    <p>
+                                        La contraseña debe tener al menos 8
+                                        caracteres, incluyendo una letra
+                                        mayúscula, un número y un símbolo
+                                        (@$!%*?&).
+                                    </p>
                                     <div class="form-floating mt-20px mb-15px">
                                         <input
                                             type="password"
@@ -792,7 +805,7 @@ onMounted(() => {
                                                 verTerminosCondiciones
                                             "
                                             >términos y condiciones</a
-                                        >
+                                        >*
                                     </label>
                                     <div
                                         class="w-100"

@@ -149,6 +149,14 @@
         .lista {
             padding-left: 8px;
         }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .text-md {
+            font-size: 1.2em;
+        }
     </style>
 </head>
 
@@ -242,9 +250,38 @@
                             <td class="">{{ $subasta_cliente->cliente->fono }}</td>
                             <td class="">{{ $subasta_cliente->cliente->user->usuario }}</td>
                             <td class="">{{ $publicacion->categoria }}</td>
-                            <td class="">{{ $subasta_cliente->fecha_oferta_t }}</td>
-                            <td class="">{{ $subasta_cliente->hora_oferta_t }}</td>
-                            <td class="">{{ number_format($subasta_cliente->puja, 2, '.', ',') }}</td>
+                            <td class="">
+                                @if (count($subasta_cliente->historial_ofertas) > 0)
+                                    @foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta)
+                                        <span class="{{ $key_ho == 0 ? 'bold text-md' : '' }}">-
+                                            {{ $historial_oferta->fecha_oferta_t }}
+                                        </span><br>
+                                    @endforeach
+                                @else
+                                    {{ $subasta_cliente->fecha_oferta_t }}
+                                @endif
+                            </td>
+                            <td class="">
+                                @if (count($subasta_cliente->historial_ofertas) > 0)
+                                    @foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta)
+                                        <span class="{{ $key_ho == 0 ? 'bold text-md' : '' }}">-
+                                            {{ $historial_oferta->hora_oferta_t }}
+                                        </span><br>
+                                    @endforeach
+                                @else
+                                    {{ $subasta_cliente->hora_oferta_t }}
+                                @endif
+                            </td>
+                            <td class="">
+                                @if (count($subasta_cliente->historial_ofertas) > 0)
+                                    @foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta)
+                                        <span class="{{ $key_ho == 0 ? 'bold text-md' : '' }}">-
+                                            {{ number_format($historial_oferta->puja, 2, '.', ',') }}</span><br>
+                                    @endforeach
+                                @else
+                                    {{ number_format($subasta_cliente->puja, 2, '.', ',') }}
+                                @endif
+                            </td>
                             <td class="">{{ $publicacion->monto_garantia }}</td>
                             <td class="">{{ $subasta_cliente->url_comprobante }}</td>
                             <td class="">{{ $subasta_cliente->cliente->url_ci_anverso }} <br>

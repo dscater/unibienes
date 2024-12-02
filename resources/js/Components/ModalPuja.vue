@@ -1,6 +1,8 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
 import { watch, ref, computed, defineEmits, onMounted } from "vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 const props = defineProps({
     open_dialog: {
         type: Boolean,
@@ -95,6 +97,8 @@ const registrarPuja = () => {
             subasta_cliente_id: oSubastaCliente.value.id,
         })
         .then((response) => {
+            oSubastaCliente.value.historial_ofertas =
+                response.data.subasta_cliente.historial_ofertas;
             error_monto.value = false;
             enviando.value = false;
             dialog.value = false;
@@ -107,7 +111,7 @@ const registrarPuja = () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-            emits("envio-formulario", response.data);
+            emits("envio-formulario", response.data.publicacion);
         })
         .catch((error) => {
             enviando.value = false;
@@ -150,7 +154,7 @@ const obtenerSubastaMontoInicial = () => {
             oSubasta.value = response.data.subasta;
             montoInicial.value = response.data.monto_puja_actual;
             if (montoInicial.value && montoInicial.value != "-") {
-                console.log(oSubasta.value);
+                // console.log(oSubasta.value);
                 monto_puja.value = parseInt(montoInicial.value);
                 if (oSubasta.value.subasta_clientes_puja.length > 0) {
                     monto_puja.value++;
@@ -165,9 +169,13 @@ const mensajeError = ref("");
 const verificaMontoPuja = () => {
     if (montoInicial.value && montoInicial.value != "-") {
         let monto_valdacion = parseInt(montoInicial.value);
-        mensajeError.value = `Debes ingresar un monto mayor o igual a ${monto_valdacion}`;
+        mensajeError.value = `Debes ingresar un monto mayor o igual a ${getFormatoMoneda(
+            monto_valdacion
+        )} ${oPublicacion.value.moneda}`;
         if (oSubasta.value.subasta_clientes_puja.length > 0) {
-            mensajeError.value = `Debes ingresar un monto mayor a la puja actual de ${monto_valdacion}`;
+            mensajeError.value = `Debes ingresar un monto mayor a la puja actual de ${getFormatoMoneda(
+                monto_valdacion
+            )} ${oPublicacion.value.moneda}`;
             monto_valdacion++;
         }
         if (monto_puja.value && monto_puja.value < monto_valdacion) {
@@ -203,6 +211,14 @@ onMounted(() => {});
                     ></button>
                 </div>
                 <div class="modal-body">
+                    <div class="row mb-0">
+                        <div class="col-12">
+                            <div class="alert alert-info mb-2 text-sm">
+                                Tos los campos con <strong>*</strong> son
+                                obligatorios
+                            </div>
+                        </div>
+                    </div>
                     <div
                         class="row"
                         v-show="
@@ -210,8 +226,9 @@ onMounted(() => {});
                             oSubastaCliente.estado_comprobante == 0
                         "
                     >
-                        <div class="alert alert-info">
-                            <ul class="pb-0 mb-0">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <!-- <ul class="pb-0 mb-0">
                                 <li>
                                     Aún se esta verificando el pago de tu
                                     garantía
@@ -220,13 +237,19 @@ onMounted(() => {});
                                     Una vez verificado el pago podrás realizar
                                     tus ofertas/pujas
                                 </li>
-                            </ul>
+                            </ul> -->
+                                Estamos verificando tu comprobante y te
+                                enviaremos un correo de confirmación para que
+                                pueda realizar tus ofertas/pujas. Cualquier otra
+                                información comunicarse al 77256805
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <p>
-                                <strong>Puja actual: </strong>{{ montoInicial }}
+                                <strong>Puja actual: </strong
+                                >{{ getFormatoMoneda(montoInicial) }}
                             </p>
                             <p>
                                 <strong>Moneda: </strong>

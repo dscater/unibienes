@@ -52,7 +52,7 @@ class SubastaController extends Controller
         $request->validate([
             "monto_puja" => "required|int"
         ], [
-            "monto_puja.required" => "Debes cargar un archivo",
+            "monto_puja.required" => "Debes ingresar un monto de puja",
             "monto_puja.int" => "Debes ingresar un valor entero",
         ]);
 
@@ -67,6 +67,9 @@ class SubastaController extends Controller
         $fecha_hora_actual = date("Y-m-d H:i");
 
         if ($fecha_hora_actual < $fecha_hora_limite) {
+            // actualizar ganador
+            DB::update("UPDATE subasta_clientes SET estado_puja = 0 WHERE subasta_id = $subasta->id");
+            // $subasta->subasta_clientes()->update(["estado_puja" => 0]);
 
             // verificar monto
             $monto_puja_actual = SubastaController::getMontoPujaActual($publicacion);
@@ -75,7 +78,7 @@ class SubastaController extends Controller
                 if (count($subasta->subasta_clientes_puja) > 0) {
                     $monto_validacion++;
                 }
-                $mensaje = "El monto debe ser mayor o igual a " . $monto_validacion;
+                $mensaje = "El monto debe ser mayor o igual a " . number_format($monto_validacion, 2, ".", ",") . " " . $publicacion->moneda;
                 if (!$monto_puja || $monto_puja < $monto_validacion) {
                     return response()->JSON([
                         "message" => "Debes ingresar un monto valido. " . $mensaje
@@ -93,14 +96,23 @@ class SubastaController extends Controller
                 "hora_oferta" => date("H:i"),
             ]);
 
-            // actualizar ganador
-            $subasta->subasta_clientes()->update(["estado_puja" => 0]);
-
             $maxima_puja = SubastaCliente::where("subasta_id", $subasta->id)->orderBy("puja", "desc")->get()->first();
             $maxima_puja->estado_puja = 1;
             $maxima_puja->save();
 
-            return response()->JSON($publicacion->load(["subasta.subasta_clientes_puja"]));
+            // AGREAR AL HISTORIAL
+            $subasta_cliente->historial_ofertas()->create([
+                "subasta_id" => $subasta_cliente->subasta_id,
+                "cliente_id" => $subasta_cliente->cliente_id,
+                "puja" => $subasta_cliente->puja,
+                "fecha_oferta" => $subasta_cliente->fecha_oferta,
+                "hora_oferta" => $subasta_cliente->hora_oferta,
+            ]);
+
+            return response()->JSON([
+                "publicacion" => $publicacion->load(["subasta.subasta_clientes_puja"]),
+                "subasta_cliente" => $subasta_cliente->load("historial_ofertas")
+            ]);
         }
         return response()->JSON([
             "message" => "No se pudo registrar su oferta/puja debido a que la hora y fecha limite de subasta ya vencio"
@@ -112,9 +124,9 @@ class SubastaController extends Controller
         $request->validate([
             "comprobante" => "required|file|mimes:pdf,jpg,jpeg,webp,png|max:5120"
         ], [
-            "comprobante.required" => "Debes cargar un archivo",
+            "comprobante.required" => "Debes cargar tú comprobante de pago",
             "comprobante.file" => "Debes cargar un archivo",
-            "comprobante.mimes" => "Solo puedes cargar archivos pdf,jpg,jpeg,webp,png",
+            "comprobante.mimes" => "Archivos soportados: pdf, jpg, jpeg, webp, png",
             "comprobante.max" => "El archivo no puede pesar mas de 5MB",
         ]);
 
@@ -229,5 +241,31 @@ class SubastaController extends Controller
         }
 
         return $monto_puja_actual;
+    }
+
+    public function ofertas(Subasta $subasta)
+    {
+        $subasta_clientes = SubastaCliente::where("subasta_id", $subasta->id)
+            ->where("estado_comprobante", 1)
+            ->where("puja", ">", 0)
+            ->orderBy("puja", "desc")
+            ->get()->take(10);
+
+        $estado_puja = null;
+        if (Auth::check() && Auth::user()->role_id == 2) {
+            $subasta_cliente = SubastaCliente::where("subasta_id", $subasta->id)
+                ->where("estado_comprobante", 1)
+                ->where("cliente_id", Auth::user()->cliente->id)
+                ->get()->first();
+            if ($subasta_cliente) {
+                $estado_puja = $subasta_cliente->estado_puja;
+            }
+        }
+
+
+        return response()->JSON([
+            "subasta_clientes_puja" => $subasta_clientes,
+            "estado_puja" => $estado_puja
+        ]);
     }
 }

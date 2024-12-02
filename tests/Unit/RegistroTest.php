@@ -41,8 +41,8 @@ class RegistroTest extends TestCase
             'banco' => 'Banco de Crédito',
             'nro_cuenta' => $faker->unique()->numberBetween(10000000000, 99999999999),
             'moneda' => 'Bolivianos',
-            'password' => 'secretpassword',
-            'password_confirmation' => 'secretpassword',
+            'password' => 'Abc123456.',
+            'password_confirmation' => 'Abc123456.',
             'terminos' => '1', // Aceptado
             'foto_ci_anverso' => UploadedFile::fake()->image('anverso.jpg'),
             'foto_ci_reverso' => UploadedFile::fake()->image('reverso.jpg')
@@ -59,10 +59,11 @@ class RegistroTest extends TestCase
         $response->assertStatus(302);
 
         // Verifica que el usuario fue creado
+        Log::debug($email);
         $user = User::where('usuario', $email)->get()->last();
         $this->assertNotNull($user);
         $this->assertEquals($email, $user->usuario);
-        $this->assertTrue(Hash::check('secretpassword', $user->password));
+        $this->assertTrue(Hash::check('Abc123456.', $user->password));
 
         // Verifica que el cliente fue creado
         $cliente = Cliente::where('user_id', $user->id)->get()->last();

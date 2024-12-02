@@ -132,7 +132,7 @@ class PublicacionController extends Controller
         $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
             ->select("publicacions.*")
             ->where("categoria", $categoria)
-            ->whereIn("estado_sub", [1, 2])
+            ->whereIn("estado_sub", [1, 2, 4])
             ->orderBy("created_at", "desc")
             ->paginate(8);
 
@@ -171,54 +171,52 @@ class PublicacionController extends Controller
         $subasta = $publicacion->subasta;
         $subasta_cliente = null;
         $subasta_clientes = $subasta->subasta_clientes_puja;
-        if (count($subasta_clientes) > 0) {
-            $publicacion->estado_sub = 2;
-            $subasta->estado = 2;
-            $subasta_cliente = $subasta_clientes[0];
-            $subasta_cliente->estado_puja = 2;
-            $subasta_cliente->save();
-
-            // enviar mensaje ganador
-            // enviar correo
-
-            $parametrizacion = Parametrizacion::first();
-            if ($parametrizacion) {
-                $servidor_correo = json_decode($parametrizacion->servidor_correo);
-                Config::set(
-                    [
-                        'mail.mailers.default' => $servidor_correo->driver,
-                        'mail.mailers.smtp.host' => $servidor_correo->host,
-                        'mail.mailers.smtp.port' => $servidor_correo->puerto,
-                        'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
-                        'mail.mailers.smtp.username' => $servidor_correo->correo,
-                        'mail.mailers.smtp.password' => $servidor_correo->password,
-                        'mail.from.address' => $servidor_correo->correo,
-                        'mail.from.name' => $servidor_correo->nombre,
-                    ]
-                );
-
-                $publicacion = $subasta_cliente->subasta->publicacion;
-                $url =  route('publicacions.publicacionPortal', $publicacion->id);
-
-                $mensaje = 'Felicidades acabas de ganar la subasta de la siguiente  <a href="' . $url . '">PUBLICACIÓN</a>';
-                $datos = [
-                    "mensaje" =>  $mensaje,
-                ];
-
-                Mail::to($subasta_cliente->cliente->email)
-                    ->send(new MensajeGanadorMail($datos));
-            }
-        } else {
+        $publicacion->estado_sub = 2;
+        $subasta->estado = 2;
+        $subasta_cliente = $subasta_clientes[0];
+        $subasta_cliente->estado_puja = 2;
+        $subasta_cliente->save();
+        if (count($subasta_clientes) <= 0) {
             // sin ganador
-            $publicacion->estado_sub = 2;
+            $publicacion->estado_sub = 4;
             $subasta->estado = 0;
         }
 
-        $subasta->save();
+        // enviar mensaje ganador
+        // enviar correo
+        $parametrizacion = Parametrizacion::first();
+        if ($parametrizacion) {
+            $servidor_correo = json_decode($parametrizacion->servidor_correo);
+            Config::set(
+                [
+                    'mail.mailers.default' => $servidor_correo->driver,
+                    'mail.mailers.smtp.host' => $servidor_correo->host,
+                    'mail.mailers.smtp.port' => $servidor_correo->puerto,
+                    'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
+                    'mail.mailers.smtp.username' => $servidor_correo->correo,
+                    'mail.mailers.smtp.password' => $servidor_correo->password,
+                    'mail.from.address' => $servidor_correo->correo,
+                    'mail.from.name' => $servidor_correo->nombre,
+                ]
+            );
+
+            $url =  route('publicacions.publicacionPortal', $publicacion->id);
+
+            $mensaje = 'Felicidades acabas de ganar la subasta de la siguiente  <a href="' . $url . '">PUBLICACIÓN</a>';
+            $datos = [
+                "mensaje" =>  $mensaje,
+            ];
+
+            Mail::to($subasta_cliente->cliente->email)
+                ->send(new MensajeGanadorMail($datos));
+        }
+
         $publicacion->save();
+        $subasta->save();
 
         return response()->JSON([
-            "subasta_cliente" => $subasta_cliente->load(["cliente"])
+            "subasta_cliente" => $subasta_cliente->load(["cliente", "historial_ofertas"]),
+            "publicacion" => $publicacion->load(["publicacion_detalles", "publicacion_imagens"])
         ]);
     }
 

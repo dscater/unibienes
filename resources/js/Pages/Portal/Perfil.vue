@@ -568,7 +568,9 @@ onMounted(() => {
                                     }}</strong>
                                 </span>
                             </div>
-                            <h4 class="text-white">Datos para devolución</h4>
+                            <h4 class="text-white">
+                                Datos para devolución de Garantías
+                            </h4>
                             <div class="form-floating mt-20px">
                                 <select
                                     name="banco"
@@ -762,6 +764,11 @@ onMounted(() => {
                                     >Nueva contraseña*</label
                                 >
                             </div>
+                            <p class="text-white" style="font-size: 0.8em;">
+                                La contraseña debe tener al menos 8 caracteres,
+                                incluyendo una letra mayúscula, un número y un
+                                símbolo (@$!%*?&).
+                            </p>
                             <div class="w-100" v-if="form.errors?.password">
                                 <span
                                     class="invalid-feedback alert alert-danger"
@@ -771,7 +778,7 @@ onMounted(() => {
                                     <strong>{{ form.errors.password }}</strong>
                                 </span>
                             </div>
-                            <div class="form-floating mt-20px">
+                            <div class="form-floating">
                                 <input
                                     type="password"
                                     name="usuario"

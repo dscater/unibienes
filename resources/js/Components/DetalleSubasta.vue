@@ -14,6 +14,10 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    hideBg: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 const dialog = ref(props.open_dialog);
@@ -59,7 +63,9 @@ watch(dialog, (newVal) => {
 
 const cerrarDialog = () => {
     dialog.value = false;
-    document.getElementsByTagName("body")[0].classList.remove("modal-open");
+    if (props.hideBg) {
+        document.getElementsByTagName("body")[0].classList.remove("modal-open");
+    }
 };
 
 onMounted(() => {});
@@ -92,19 +98,28 @@ onMounted(() => {});
                             <table class="table table-bordered table-striped">
                                 <tbody>
                                     <tr>
-                                        <td class="font-weight-bold" width="30%">
-                                            Moneda
+                                        <td
+                                            class="font-weight-bold"
+                                            width="30%"
+                                        >
+                                            MONEDA
                                         </td>
                                         <td>
                                             {{ oPublicacion.moneda }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-bold" width="30%">
-                                            Fecha límite de subasta
+                                        <td
+                                            class="font-weight-bold"
+                                            width="30%"
+                                        >
+                                            FECHA LÍMITE PARA REALIZAR
+                                            OFERTAS/PUJAS
                                         </td>
                                         <td>
-                                            {{ oPublicacion.fecha_hora_limite_am }}
+                                            {{
+                                                oPublicacion.fecha_hora_limite_am
+                                            }}
                                         </td>
                                     </tr>
                                     <tr v-for="item in aDetalles">
