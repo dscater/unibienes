@@ -284,7 +284,7 @@
                                     {{ number_format($subasta_cliente->puja, 2, '.', ',') }}
                                 @endif
                             </td>
-                            <td class="">{{ $publicacion->monto_garantia }}</td>
+                            <td class="">{{ number_format($publicacion->monto_garantia, '.', ',') }}</td>
                             <td class="">{{ $subasta_cliente->url_comprobante }}</td>
                             <td class="">{{ $subasta_cliente->cliente->url_ci_anverso }} <br>
                                 {{ $subasta_cliente->cliente->url_ci_reverso }}</td>

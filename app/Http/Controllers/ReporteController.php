@@ -15,6 +15,7 @@ use Inertia\Inertia;
 use PDF;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Carbon\Carbon;
 
 class ReporteController extends Controller
 {
@@ -137,7 +138,10 @@ class ReporteController extends Controller
         }
 
         if ($fecha_ini && $fecha_fin) {
-            $publicacions->whereBetween("created_at", [$fecha_ini, $fecha_fin]);
+            $publicacions->whereBetween("created_at", [
+                Carbon::parse($fecha_ini)->startOfDay(),
+                Carbon::parse($fecha_fin)->endOfDay()
+            ]);
         }
 
         $publicacions->whereNotIn("estado_sub", [5]);
