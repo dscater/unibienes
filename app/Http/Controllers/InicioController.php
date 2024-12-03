@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Parametrizacion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,7 +17,10 @@ class InicioController extends Controller
     public function getParcialDatosPago()
     {
 
-        $html = vieW("parcials.datos_pago")->render();
+        $parametrizacion = Parametrizacion::first();
+        $o_datos_banco = $parametrizacion->o_datos_banco;
+
+        $html = vieW("parcials.datos_pago", compact("o_datos_banco"))->render();
 
         return response()->JSON($html);
     }
