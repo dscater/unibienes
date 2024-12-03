@@ -241,14 +241,16 @@ onBeforeUnmount(() => {
             <!-- BEGIN panel -->
             <div class="panel panel-inverse">
                 <!-- BEGIN panel-heading -->
-                <div class="panel-heading">
+                <div
+                    class="panel-heading"
+                    v-if="
+                        props_page.auth?.user.permisos.includes(
+                            'publicacions.create'
+                        )
+                    "
+                >
                     <h4 class="panel-title btn-nuevo">
                         <button
-                            v-if="
-                                props_page.auth?.user.permisos.includes(
-                                    'publicacions.create'
-                                )
-                            "
                             type="button"
                             class="btn btn-primary"
                             @click="agregarRegistro"
@@ -256,10 +258,10 @@ onBeforeUnmount(() => {
                             <i class="fa fa-plus"></i> Nuevo
                         </button>
                     </h4>
-                    <panel-toolbar
+                    <!-- <panel-toolbar
                         :mostrar_loading="loading"
                         @loading="updateDatatable"
-                    />
+                    /> -->
                 </div>
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->

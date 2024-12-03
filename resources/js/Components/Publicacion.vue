@@ -210,9 +210,13 @@ const btnTxtRealizarOferta = computed(() => {
 });
 
 const verificaClienteTop = (id) => {
-    if (id && oPublicacion.value.subasta) {
-        let res = oPublicacion.value.subasta.subasta_clientes_puja.filter(
-            (elem) => elem.id == id
+    if (
+        id &&
+        oPublicacion.value.subasta &&
+        oPublicacion.value.subasta.historial_ofertas
+    ) {
+        let res = oPublicacion.value.subasta.historial_ofertas.filter(
+            (elem) => elem.subasta_cliente_id == id
         );
         return res.length > 0;
     }
@@ -229,8 +233,8 @@ const obtenerOfertasSubasta = () => {
                         response.data.estado_puja;
                 }
 
-                oPublicacion.value.subasta.subasta_clientes_puja =
-                    response.data.subasta_clientes_puja;
+                oPublicacion.value.subasta.historial_ofertas =
+                    response.data.historial_ofertas;
             });
     }
 };
@@ -394,8 +398,8 @@ onBeforeUnmount(() => {
                                 <template
                                     v-if="
                                         oPublicacion.subasta &&
-                                        oPublicacion.subasta
-                                            .subasta_clientes_puja.length > 0
+                                        oPublicacion.subasta?.historial_ofertas
+                                            ?.length > 0
                                     "
                                 >
                                     <div class="col-md-6 txt_info2">
@@ -473,18 +477,17 @@ onBeforeUnmount(() => {
                         <template
                             v-if="
                                 oPublicacion.subasta &&
-                                oPublicacion.subasta.subasta_clientes_puja
-                                    .length > 0
+                                oPublicacion.subasta.historial_ofertas
                             "
                         >
                             <tr
                                 v-for="(item, index) in oPublicacion.subasta
-                                    .subasta_clientes_puja"
+                                    .historial_ofertas"
                                 :class="[
                                     index == 0 ? 'h2' : '',
                                     index == 1 ? 'h4' : '',
                                     oSubastaCliente &&
-                                    oSubastaCliente.id == item.id
+                                    oSubastaCliente.id == item.subasta_cliente_id
                                         ? 'bg-teal text-white'
                                         : '',
                                 ]"
@@ -495,7 +498,7 @@ onBeforeUnmount(() => {
                                     <small
                                         v-if="
                                             oSubastaCliente &&
-                                            oSubastaCliente.id == item.id
+                                            oSubastaCliente.id == item.subasta_cliente_id
                                         "
                                         >(Mi oferta)</small
                                     >
@@ -526,7 +529,11 @@ onBeforeUnmount(() => {
                 </table>
                 <div
                     class="row"
-                    v-if="props_page.auth && props_page.auth.user.role_id == 2"
+                    v-if="
+                        props_page.auth &&
+                        props_page.auth.user &&
+                        props_page.auth.user.role_id == 2
+                    "
                 >
                     <div class="col-12 text-center">
                         <button

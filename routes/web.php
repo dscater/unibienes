@@ -54,6 +54,7 @@ Route::get("publicacions/porCategoriaLimitado", [PublicacionController::class, '
 Route::get("publicacions/porCategoriaPagina", [PublicacionController::class, 'porCategoriaPagina'])->name("publicacions.porCategoriaPagina");
 Route::get("publicacions/porClientePaginado", [PublicacionController::class, 'porClientePaginado'])->name("publicacions.porClientePaginado");
 Route::get("publicacions/{publicacion}", [PublicacionController::class, 'publicacionPortal'])->name("publicacions.publicacionPortal");
+Route::get("publicacions/subastas/ofertas/{subasta}", [SubastaController::class, 'ofertas'])->name("subastas.ofertas");
 
 Route::get('profile_cliente', [ProfileController::class, 'profile_cliente'])->name('profile.profile_cliente');
 Route::get('getInfoCliente', [ProfileController::class, 'getInfoCliente'])->name('profile.getInfoCliente');
@@ -124,7 +125,6 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     );
 
     // subastas
-    Route::get("publicacions/subastas/ofertas/{subasta}", [SubastaController::class, 'ofertas'])->name("subastas.ofertas");
     Route::get("publicacions/getsubasta/infoSubastaPorPublicacion", [SubastaController::class, 'infoSubastaPorPublicacion'])->name("subastas.infoSubastaPorPublicacion");
     Route::get("publicacions/subastas/clientes/{subasta}", [SubastaController::class, 'clientes'])->name("subastas.clientes");
     Route::get("publicacions/subastas/getClientesApi/{subasta}", [SubastaController::class, 'getClientesApi'])->name("subastas.getClientesApi");

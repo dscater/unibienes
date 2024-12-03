@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
 
 class Publicacion extends Model
 {
@@ -140,6 +141,26 @@ class Publicacion extends Model
         return true;
     }
 
+    function validarFechaHora($fecha, $hora)
+    {
+        $fechaHoraString = $fecha . ' ' . $hora;
+
+        try {
+            $fechaHora = Carbon::parse($fechaHoraString);
+        } catch (\Exception $e) {
+            // formatos invalidos
+            return 1;
+        }
+
+        if ($fechaHora->isBefore(Carbon::now())) {
+            // fecha menor a la actual
+            return 2;
+        }
+
+        // sin errores
+        return null;
+    }
+
     public function validaDatos($data_request, $publicacion_detalles, $publicacion_imagens)
     {
         $validacion = [
@@ -181,6 +202,20 @@ class Publicacion extends Model
 
         foreach ($errores as $key => $err) {
             $errores[$key] = $err[0];
+        }
+
+        // Validar fecha y hora
+        $validacion_fecha = $this->validarFechaHora($data_request["fecha_limite"], $data_request["hora_limite"]);
+        if ($validacion_fecha != null) {
+            if ($validacion_fecha == 2) {
+                $errores["fecha_limite"] = "La fecha no puede ser menor a la actual";
+                $errores["hora_limite"] = "La fecha y hora no pueden ser menores a la actual";
+            }
+        }
+
+        // validar montos
+        if ((float)$data_request["monto_garantia"] > (float)$data_request["oferta_inicial"]) {
+            $errores["monto_garantia"] = "El monto de garantía no puede ser mayor a la Oferta inicial";
         }
 
         // Validar detalles 

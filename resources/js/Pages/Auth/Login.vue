@@ -1,6 +1,6 @@
 <script>
 import Login from "@/Layouts/Login.vue";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 export default {
     layout: Login,
 };
@@ -18,6 +18,7 @@ const form = useForm({
 
 var url_assets = "";
 var url_principal = "";
+const muestra_password = ref(false);
 
 const submit = () => {
     axios
@@ -114,20 +115,45 @@ onMounted(() => {
                                     >Usuario</label
                                 >
                             </div>
-                            <div class="form-floating mb-20px">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    class="form-control fs-13px h-45px border-0"
-                                    placeholder="Contraseña"
-                                    v-model="form.password"
-                                    autocomplete="false"
-                                />
-                                <label
-                                    for="name"
-                                    class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Contraseña</label
+                            <div class="">
+                                <div
+                                    class="input-group mb-3 form-floating mb-20px"
                                 >
+                                    <input
+                                        :type="
+                                            muestra_password
+                                                ? 'text'
+                                                : 'password'
+                                        "
+                                        name="password"
+                                        class="form-control fs-13px h-45px border-0"
+                                        v-model="form.password"
+                                        autocomplete="false"
+                                        placeholder="Contraseña"
+                                    />
+
+                                    <label
+                                        for="name"
+                                        class="d-flex align-items-center text-gray-600 fs-13px" style="z-index: 100;"
+                                        >Contraseña</label
+                                    >
+                                    <button
+                                        class="btn btn-default"
+                                        type="button"
+                                        @click="
+                                            muestra_password = !muestra_password
+                                        "
+                                    >
+                                        <i
+                                            class="fa"
+                                            :class="[
+                                                muestra_password
+                                                    ? 'fa-eye'
+                                                    : 'fa-eye-slash',
+                                            ]"
+                                        ></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="w-100" v-if="form.errors?.usuario">
                                 <span
@@ -158,7 +184,8 @@ onMounted(() => {
                                 <Link
                                     :href="route('olvido_contrasena')"
                                     class="text-white d-block w-100 text-center"
-                                    >¿Olvidaste tu contraseña?</Link>
+                                    >¿Olvidaste tu contraseña?</Link
+                                >
                             </div>
                             <div class="mb-20px">
                                 <a

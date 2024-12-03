@@ -74,6 +74,7 @@ class PublicacionTest extends TestCase
         ];
 
         // Preparar los datos de la solicitud
+        $fecha_actual = date("Y-m-d");
         $data_request = [
             "user_id" => Auth::user()->id,
             "categoria" => "VEHÍCULOS",
@@ -81,7 +82,7 @@ class PublicacionTest extends TestCase
             "oferta_inicial" => 1000,
             "ubicacion" => "LA PAZ",
             "observaciones" => "OBSERVACIONES",
-            "fecha_limite" => "2024-11-30",
+            "fecha_limite" => date("Y-m-d", strtotime($fecha_actual . ' +5 days')),
             "hora_limite" => "12:00",
             "monto_garantia" => "500",
             "publicacion_detalles" => $detalles,
@@ -158,6 +159,7 @@ class PublicacionTest extends TestCase
         ];
 
         // Preparar los datos de la solicitud
+        $fecha_actual = date("Y-m-d");
         $data_request = [
             "user_id" => Auth::user()->id,
             "categoria" => "VEHÍCULOS",
@@ -165,7 +167,7 @@ class PublicacionTest extends TestCase
             "oferta_inicial" => 1000,
             "ubicacion" => "LA PAZ",
             "observaciones" => "OBSERVACIONES",
-            "fecha_limite" => "2024-11-30",
+            "fecha_limite" => date("Y-m-d", strtotime($fecha_actual . ' +5 days')),
             "hora_limite" => "12:00",
             "monto_garantia" => "500",
             "publicacion_detalles" => $detalles,
@@ -201,6 +203,7 @@ class PublicacionTest extends TestCase
             "url_imagen" => "",
         ];
 
+        $fecha_actual = date("Y-m-d");
         $data_request = [
             "user_id" => Auth::user()->id,
             "categoria" => "OTROS BIENES",
@@ -208,7 +211,7 @@ class PublicacionTest extends TestCase
             "oferta_inicial" => 1000,
             "ubicacion" => "COCHABAMBA",
             "observaciones" => "OBSERVACIONES MOD.",
-            "fecha_limite" => "2024-11-29",
+            "fecha_limite" => date("Y-m-d", strtotime($fecha_actual . ' +8 days')),
             "hora_limite" => "11:00",
             "monto_garantia" => "300",
             "publicacion_detalles" => $detalles,
@@ -285,6 +288,7 @@ class PublicacionTest extends TestCase
         ];
 
         // Preparar los datos de la solicitud
+        $fecha_actual = date("Y-m-d");
         $data_request = [
             "user_id" => Auth::user()->id,
             "categoria" => "VEHÍCULOS",
@@ -292,7 +296,7 @@ class PublicacionTest extends TestCase
             "oferta_inicial" => 1000,
             "ubicacion" => "LA PAZ",
             "observaciones" => "OBSERVACIONES",
-            "fecha_limite" => "2024-11-30",
+            "fecha_limite" => date("Y-m-d", strtotime($fecha_actual . ' +5 days')),
             "hora_limite" => "12:00",
             "monto_garantia" => "500",
             "publicacion_detalles" => $detalles,

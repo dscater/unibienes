@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer("inactividad_cliente");
             $table->decimal("tipo_cambio", 24, 2);
             $table->json("servidor_correo");
+            $table->json("datos_banco");
             $table->integer("nro_imagenes_pub");
             $table->integer("tiempo_pub");
             $table->text("terminos_condiciones");

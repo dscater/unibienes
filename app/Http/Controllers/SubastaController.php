@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistorialOferta;
 use App\Models\Notificacion;
 use App\Models\NotificacionUser;
 use App\Models\Publicacion;
@@ -251,20 +252,25 @@ class SubastaController extends Controller
             ->orderBy("puja", "desc")
             ->get()->take(10);
 
+        $historial_ofertas = HistorialOferta::where("subasta_id", $subasta->id)
+            ->orderBy("puja", "desc")
+            ->get()->take(10);
+
         $estado_puja = null;
         if (Auth::check() && Auth::user()->role_id == 2) {
             $subasta_cliente = SubastaCliente::where("subasta_id", $subasta->id)
-                ->where("estado_comprobante", 1)
+                // ->where("estado_comprobante", 1)
                 ->where("cliente_id", Auth::user()->cliente->id)
                 ->get()->first();
+            // Log::debug($subasta_cliente);
             if ($subasta_cliente) {
                 $estado_puja = $subasta_cliente->estado_puja;
             }
         }
 
-
         return response()->JSON([
-            "subasta_clientes_puja" => $subasta_clientes,
+            "historial_ofertas" => $historial_ofertas,
+            "subasta_clientes" => $subasta_clientes,
             "estado_puja" => $estado_puja
         ]);
     }

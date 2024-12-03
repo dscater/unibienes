@@ -244,10 +244,10 @@ onBeforeUnmount(() => {
                             <i class="fa fa-list-alt"></i> Roles
                         </a>
                     </h4>
-                    <panel-toolbar
+                    <!-- <panel-toolbar
                         :mostrar_loading="loading"
                         @loading="updateDatatable"
-                    />
+                    /> -->
                 </div>
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->

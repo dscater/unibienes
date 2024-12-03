@@ -63,4 +63,11 @@ class Subasta extends Model
             ->orderBy("puja", "desc")
             ->take(10);
     }
+
+    public function historial_ofertas()
+    {
+        return $this->hasMany(HistorialOferta::class, 'subasta_id')
+            ->orderBy("puja", "desc")
+            ->take(10);
+    }
 }

@@ -197,10 +197,10 @@ onBeforeUnmount(() => {
                             <i class="fa fa-plus"></i> Nuevo
                         </button>
                     </h4>
-                    <panel-toolbar
+                    <!-- <panel-toolbar
                         :mostrar_loading="loading"
                         @loading="updateDatatable"
-                    />
+                    /> -->
                 </div>
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->

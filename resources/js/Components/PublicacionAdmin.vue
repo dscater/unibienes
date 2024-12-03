@@ -135,7 +135,7 @@ onBeforeUnmount(() => {
     <DetalleSubasta
         :open_dialog="modal_dialog"
         :publicacion="oPublicacion"
-        :detalles="restantes"
+        :detalles="oPublicacion.publicacion_detalles"
         :hideBg="false"
         @cerrar-dialog="modal_dialog = false"
     ></DetalleSubasta>

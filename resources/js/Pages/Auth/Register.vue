@@ -608,7 +608,7 @@ onMounted(() => {
                                             }}</strong>
                                         </span>
                                     </div>
-                                    <h4>Datos para devolución de Garantías</h4>
+                                    <h4>Datos para Devolución de Garantías</h4>
                                     <div class="form-floating mt-20px">
                                         <select
                                             name="banco"

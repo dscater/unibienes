@@ -25,9 +25,21 @@ const oServidor = ref({
     password: "",
     driver: "smtp",
 });
+const oDatosbanco = ref({
+    titular: "TITULAR",
+    banco: "banco",
+    nro_cuenta: "111111111",
+    qr: "qr.png",
+    url_qr: "qr.png",
+});
+
 if (props_page.parametrizacion != null) {
     props_page.parametrizacion["_method"] = "put";
-    oServidor.value = JSON.parse(props.parametrizacion.servidor_correo);
+
+    // servidor
+    if (props.parametrizacion.servidor_correo) {
+        oServidor.value = JSON.parse(props.parametrizacion.servidor_correo);
+    }
     props_page.parametrizacion["host"] = oServidor.value.host;
     props_page.parametrizacion["puerto"] = oServidor.value.puerto;
     props_page.parametrizacion["encriptado"] = oServidor.value.encriptado;
@@ -35,9 +47,16 @@ if (props_page.parametrizacion != null) {
     props_page.parametrizacion["nombre"] = oServidor.value.nombre;
     props_page.parametrizacion["password"] = oServidor.value.password;
     props_page.parametrizacion["driver"] = oServidor.value.driver;
-    form = useForm(props_page.parametrizacion);
 
-    console.log(form.host);
+    // banco
+    if (props.parametrizacion.datos_banco) {
+        oDatosbanco.value = JSON.parse(props.parametrizacion.datos_banco);
+    }
+    props_page.parametrizacion["titular"] = oDatosbanco.value?.titular;
+    props_page.parametrizacion["banco"] = oDatosbanco.value?.banco;
+    props_page.parametrizacion["nro_cuenta"] = oDatosbanco.value?.nro_cuenta;
+    props_page.parametrizacion["qr"] = oDatosbanco.value?.qr;
+    form = useForm(props_page.parametrizacion);
 } else {
     form = useForm({
         _method: "put",
@@ -54,16 +73,21 @@ if (props_page.parametrizacion != null) {
         nro_imagenes_pub: "",
         tiempo_pub: "",
         terminos_condiciones: "",
+        titular: "TITULAR",
+        banco: "BANCO",
+        nro_cuenta: "11111",
+        qr: "",
+        url_: "",
     });
 }
 
 const enviarFormulario = () => {
-    console.log("A");
     form.post(route("parametrizacions.update"), {
         onSuccess: () => {
             // Mostrar mensaje de éxito
             console.log("correcto");
             limpiaRefs();
+            file_qr.value.value = null;
             Swal.fire({
                 icon: "success",
                 title: "Correcto",
@@ -81,6 +105,7 @@ const enviarFormulario = () => {
     });
 };
 const logo = ref(null);
+const file_qr = ref(null);
 function cargaArchivo(e, key) {
     form[key] = null;
     form[key] = e.target.files[0];
@@ -220,7 +245,45 @@ onMounted(() => {});
                         }}</span>
                     </div>
                 </div>
-                <div class="row"></div>
+                <div class="row">
+                    <h5>Datos para el depósito de garantías</h5>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Titular*</label>
+                        <input class="form-control" v-model="form.titular" />
+                        <span class="text-danger" v-if="form.errors?.titular">{{
+                            form.errors.titular
+                        }}</span>
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Banco*</label>
+                        <input class="form-control" v-model="form.banco" />
+                        <span class="text-danger" v-if="form.errors?.banco">{{
+                            form.errors.banco
+                        }}</span>
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">Nro. de cuenta*</label>
+                        <input class="form-control" v-model="form.nro_cuenta" />
+                        <span
+                            class="text-danger"
+                            v-if="form.errors?.nro_cuenta"
+                            >{{ form.errors.nro_cuenta }}</span
+                        >
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label for="">QR*</label>
+                        <input
+                            type="file"
+                            class="form-control"
+                            ref="file_qr"
+                            @change="cargaArchivo($event, 'qr')"
+                        />
+                        <span class="text-danger" v-if="form.errors?.qr">{{
+                            form.errors.qr
+                        }}</span>
+                        <img :src="form.url_qr" alt="" class="img_qr" />
+                    </div>
+                </div>
                 <div class="col-md-12 form-group mb-3">
                     <label for="">Terminos y condiciones*</label>
                     <textarea
@@ -256,5 +319,9 @@ onMounted(() => {});
 }
 .logo_muestra img {
     max-width: 100%;
+}
+
+.img_qr {
+    max-width: 180px;
 }
 </style>

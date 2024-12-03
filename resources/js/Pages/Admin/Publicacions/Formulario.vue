@@ -3,6 +3,9 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { watch, ref, computed, defineEmits, onMounted, nextTick } from "vue";
 import MiDropZone from "@/Components/MiDropZone.vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
+
 const props = defineProps({
     open_dialog: {
         type: Boolean,
@@ -154,6 +157,87 @@ const detectaEliminados = (eliminados) => {
     form.eliminados_imagens = eliminados;
 };
 
+// OFERTA INICIAL
+const intervalMontoOfertaInicial = ref(null);
+const handleInputOfertaInicial = (event) => {
+    clearInterval(intervalMontoOfertaInicial.value);
+    intervalMontoOfertaInicial.value = setTimeout(() => {
+        generaFormatoMontoOfertaInicial(event);
+    }, 500);
+};
+
+const generaFormatoMontoOfertaInicial = (event) => {
+    const inputValue = event.target.value;
+    // Guardar la posición inicial del cursor
+    const cursorPosition = event.target.selectionStart;
+    // Quitar caracteres no numéricos (incluido el punto decimal)
+    const rawValue = inputValue.replace(/,/g, "");
+    // Si no hay un valor numérico válido, mantener el valor original
+    if (rawValue === "") {
+        form.oferta_inicial = "";
+        event.target.value = "";
+        return;
+    }
+
+    // Actualizar monto oferta_inicial con el valor numérico sin formato
+    form.oferta_inicial = parseInt(rawValue, 10);
+    form.oferta_inicial_us = getFormatoMoneda(form.oferta_inicial);
+
+    // Formatear el valor con comas (solo parte entera)
+    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Actualizar el valor del input
+    event.target.value = formattedValue;
+
+    // Calcular y restaurar la posición del cursor
+    const newCursorPosition = Math.max(
+        0,
+        cursorPosition + (formattedValue.length - inputValue.length)
+    );
+    event.target.setSelectionRange(newCursorPosition, newCursorPosition);
+};
+
+// MONTO DE GARANTÍA
+const intervalMontoMontoGarantia = ref(null);
+
+const handleInputMontoGarantia = (event) => {
+    clearInterval(intervalMontoMontoGarantia.value);
+    intervalMontoMontoGarantia.value = setTimeout(() => {
+        generaFormatoMontoMontoGarantia(event);
+    }, 500);
+};
+
+const generaFormatoMontoMontoGarantia = (event) => {
+    const inputValue = event.target.value;
+    // Guardar la posición inicial del cursor
+    const cursorPosition = event.target.selectionStart;
+    // Quitar caracteres no numéricos (incluido el punto decimal)
+    const rawValue = inputValue.replace(/,/g, "");
+    // Si no hay un valor numérico válido, mantener el valor original
+    if (rawValue === "") {
+        form.monto_garantia = "";
+        event.target.value = "";
+        return;
+    }
+
+    // Actualizar monto_garantia con el valor numérico sin formato
+    form.monto_garantia = parseInt(rawValue, 10);
+    form.monto_garantia_us = getFormatoMoneda(form.monto_garantia);
+
+    // Formatear el valor con comas (solo parte entera)
+    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Actualizar el valor del input
+    event.target.value = formattedValue;
+
+    // Calcular y restaurar la posición del cursor
+    const newCursorPosition = Math.max(
+        0,
+        cursorPosition + (formattedValue.length - inputValue.length)
+    );
+    event.target.setSelectionRange(newCursorPosition, newCursorPosition);
+};
+
 onMounted(() => {});
 </script>
 
@@ -236,14 +320,14 @@ onMounted(() => {});
                             <div class="col-md-4">
                                 <label>Oferta inicial*</label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     class="form-control"
                                     :class="{
                                         'parsley-error':
                                             form.errors?.oferta_inicial,
                                     }"
-                                    v-model="form.oferta_inicial"
-                                    step="0.01"
+                                    v-model="form.oferta_inicial_us"
+                                    @keyup="handleInputOfertaInicial"
                                 />
                                 <ul
                                     v-if="form.errors?.oferta_inicial"
@@ -346,14 +430,14 @@ onMounted(() => {});
                             <div class="col-md-4">
                                 <label>Monto de garantía*</label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     class="form-control"
                                     :class="{
                                         'parsley-error':
                                             form.errors?.monto_garantia,
                                     }"
-                                    v-model="form.monto_garantia"
-                                    step="0.01"
+                                    v-model="form.monto_garantia_us"
+                                    @keyup="handleInputMontoGarantia"
                                 />
                                 <ul
                                     v-if="form.errors?.monto_garantia"

@@ -216,7 +216,7 @@ class PublicacionController extends Controller
 
         return response()->JSON([
             "subasta_cliente" => $subasta_cliente->load(["cliente", "historial_ofertas"]),
-            "publicacion" => $publicacion->load(["publicacion_detalles", "publicacion_imagens"])
+            "publicacion" => $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.historial_ofertas"])
         ]);
     }
 
@@ -227,7 +227,7 @@ class PublicacionController extends Controller
 
     public function publicacionPortal(Publicacion $publicacion)
     {
-        $publicacion = $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.subasta_clientes_puja"]);
+        $publicacion = $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.historial_ofertas"]);
         return Inertia::render("Portal/Publicacion", compact("publicacion"));
     }
 

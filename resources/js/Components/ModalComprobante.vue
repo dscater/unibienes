@@ -2,6 +2,8 @@
 import { useForm, usePage } from "@inertiajs/vue3";
 import { watch, ref, computed, defineEmits, onMounted } from "vue";
 import DatosPago from "@/Components/DatosPago.vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 
 const props = defineProps({
     open_dialog: {
@@ -242,7 +244,11 @@ onMounted(() => {});
                         <div class="col-12">
                             <p>
                                 <strong>Monto de garantía: </strong
-                                >{{ oPublicacion.monto_garantia }}
+                                >{{
+                                    getFormatoMoneda(
+                                        oPublicacion.monto_garantia
+                                    )
+                                }}
                             </p>
                             <p>
                                 <strong>Moneda: </strong>

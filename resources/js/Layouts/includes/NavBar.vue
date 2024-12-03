@@ -66,7 +66,10 @@ const mostrarNotificaciones = () => {
 const intervalNotificaciones = ref(null);
 
 onMounted(() => {
-    if (props.auth.user.permisos.includes('publicacions.index') && !props.auth.user.permisos.includes('publicacions.todos')) {
+    if (
+        props.auth.user.permisos.includes("publicacions.index") &&
+        !props.auth.user.permisos.includes("publicacions.todos")
+    ) {
         intervalNotificaciones.value = setInterval(() => {
             getNotificacions();
         }, 1500);
@@ -103,7 +106,13 @@ onBeforeUnmount(() => {
         <!-- END navbar-header -->
         <!-- BEGIN header-nav -->
         <div class="navbar-nav text-white">
-            <div class="navbar-item dropdown" v-if="props.auth.user.permisos.includes('publicacions.index') && !props.auth.user.permisos.includes('publicacions.todos')">
+            <div
+                class="navbar-item dropdown"
+                v-if="
+                    props.auth.user.permisos.includes('publicacions.index') &&
+                    !props.auth.user.permisos.includes('publicacions.todos')
+                "
+            >
                 <a
                     href="#"
                     data-bs-toggle="dropdown"
@@ -119,7 +128,7 @@ onBeforeUnmount(() => {
                     }}</span>
                 </a>
                 <div
-                    class="dropdown-menu media-list dropdown-menu-end"
+                    class="dropdown-menu media-list dropdown-menu-end notificacions"
                     :class="{
                         show: muestra_notificacions,
                     }"
@@ -206,5 +215,9 @@ onBeforeUnmount(() => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.dropdown-menu.notificacions {
+    max-height: 67vh;
+    overflow-y: scroll;
 }
 </style>

@@ -217,14 +217,14 @@ onBeforeUnmount(() => {
             <!-- BEGIN panel -->
             <div class="panel panel-inverse">
                 <!-- BEGIN panel-heading -->
-                <div class="panel-heading">
+                <!-- <div class="panel-heading">
                     <h4 class="panel-title btn-nuevo">
                     </h4>
                     <panel-toolbar
                         :mostrar_loading="loading"
                         @loading="updateDatatable"
                     />
-                </div>
+                </div> -->
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">

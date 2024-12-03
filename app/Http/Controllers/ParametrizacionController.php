@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Parametrizacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class ParametrizacionController extends Controller
@@ -22,6 +23,9 @@ class ParametrizacionController extends Controller
         "nombre" => "required",
         "password" => "required",
         "driver" => "required",
+        "titular" => "required",
+        "banco" => "required",
+        "nro_cuenta" => "required",
     ];
 
     public $messages = [
@@ -49,6 +53,9 @@ class ParametrizacionController extends Controller
         "nombre.required" => "Este campo es obligatorio",
         "password.required" => "Este campo es obligatorio",
         "driver.required" => "Este campo es obligatorio",
+        "titular.required" => "Este campo es obligatorio",
+        "banco.required" => "Este campo es obligatorio",
+        "nro_cuenta.required" => "Este campo es obligatorio",
     ];
 
     public function index()
@@ -68,6 +75,10 @@ class ParametrizacionController extends Controller
 
     public function update(Request $request)
     {
+        if ($request->hasFile("qr")) {
+            $this->validacion["qr"] = "image|mimes:jpeg,jpg,png|max:4096";
+        }
+
         $request->validate($this->validacion, $this->messages);
         DB::beginTransaction();
         try {
@@ -83,10 +94,30 @@ class ParametrizacionController extends Controller
                 "driver" => $request->driver,
             ];
             $servidor_correo = json_encode($servidor_correo);
+
+            $datos_banco = [
+                "titular" => $request->titular,
+                "banco" => $request->banco,
+                "nro_cuenta" => $request->nro_cuenta,
+                "qr" => $parametrizacion->o_datos_banco->qr,
+            ];
+            if ($request->hasFile("qr")) {
+                $file = $request->qr;
+                $nom_qr = time() . '.' . $file->getClientOriginalExtension();
+                $datos_banco["qr"] = $nom_qr;
+                if ($parametrizacion->qr != 'qr.png') {
+                    \File::delete(public_path("imgs/" . $parametrizacion->qr));
+                }
+                $file->move(public_path("imgs/"), $nom_qr);
+            }
+            Log::debug($datos_banco);
+            $datos_banco = json_encode($datos_banco);
+
             $datos = [
                 "inactividad_cliente" => $request->inactividad_cliente,
                 "tipo_cambio" => $request->tipo_cambio,
                 "servidor_correo" => $servidor_correo,
+                "datos_banco" => $datos_banco,
                 "nro_imagenes_pub" => $request->nro_imagenes_pub,
                 "tiempo_pub" => $request->tiempo_pub,
                 "terminos_condiciones" => $request->terminos_condiciones,
@@ -102,6 +133,7 @@ class ParametrizacionController extends Controller
             DB::commit();
             return redirect()->route("parametrizacions.index")->with("success", "Registro correcto");
         } catch (\Exception $e) {
+            Log::debug($e->getMessage());
             DB::rollBack();
             return redirect()->back()->with("error", $e->getMessage());
         }

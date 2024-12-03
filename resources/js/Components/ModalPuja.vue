@@ -76,6 +76,54 @@ watch(dialog, (newVal) => {
     }
 });
 
+const montoFormateado = computed(() => {
+    if (monto_puja.value === "" || isNaN(monto_puja.value)) return "";
+
+    return getFormatoMoneda(monto_puja.value);
+});
+
+const intervalMonto = ref(null);
+
+const handleInput = (event) => {
+    clearInterval(intervalMonto.value);
+    intervalMonto.value = setTimeout(() => {
+        generaFormatoMonto(event);
+    }, 500);
+};
+
+const generaFormatoMonto = (event) => {
+    const inputValue = event.target.value;
+
+    // Guardar la posición inicial del cursor
+    const cursorPosition = event.target.selectionStart;
+
+    // Quitar caracteres no numéricos (incluido el punto decimal)
+    const rawValue = inputValue.replace(/,/g, "");
+
+    // Si no hay un valor numérico válido, mantener el valor original
+    if (rawValue === "") {
+        monto_puja.value = "";
+        event.target.value = "";
+        return;
+    }
+
+    // Actualizar monto_puja con el valor numérico sin formato
+    monto_puja.value = parseInt(rawValue, 10);
+
+    // Formatear el valor con comas (solo parte entera)
+    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Actualizar el valor del input
+    event.target.value = formattedValue;
+
+    // Calcular y restaurar la posición del cursor
+    const newCursorPosition = Math.max(
+        0,
+        cursorPosition + (formattedValue.length - inputValue.length)
+    );
+    event.target.setSelectionRange(newCursorPosition, newCursorPosition);
+};
+
 const txtBotonEnviar = computed(() => {
     if (enviando.value) {
         return `<i class="fa fa-spinner fa-spin"></i> Enviando...`;
@@ -261,12 +309,10 @@ onMounted(() => {});
                                         >Ingresar oferta*</label
                                     >
                                     <input
-                                        type="number"
+                                        type="text"
                                         class="form-control"
-                                        v-model="monto_puja"
-                                        @keyup.prevent="verificaMontoPuja"
-                                        @change="verificaMontoPuja"
-                                        step="1"
+                                        :value="montoFormateado"
+                                        @keyup="handleInput"
                                     />
                                     <span
                                         class="text-danger d-block"

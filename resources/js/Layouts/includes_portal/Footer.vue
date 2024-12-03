@@ -102,7 +102,8 @@ const { oConfiguracion } = useConfiguracion();
 </template>
 <style scoped>
 .img_logo {
-    width: 100%;
+    margin-left: -130px;
+    width: 370px;
 }
 
 .footer {
@@ -113,7 +114,8 @@ const { oConfiguracion } = useConfiguracion();
 
 @media (max-width: 900px) {
     .img_logo {
-        width: 100px;
+    margin-left: 0px;
+    width: 270px;
     }
 }
 </style>

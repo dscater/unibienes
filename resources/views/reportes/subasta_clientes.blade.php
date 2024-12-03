@@ -181,12 +181,14 @@
         @php
             $subasta_clientes = [];
             if ($fecha_ini && $fecha_fin) {
-                $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
-                    ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
-                    ->where('puja', '>', 0)
-                    ->where('estado_comprobante', 1)
-                    ->get();
-            } else {
+                if ($publicacion->subasta) {
+                    $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
+                        ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                        ->where('puja', '>', 0)
+                        ->where('estado_comprobante', 1)
+                        ->get();
+                }
+            } elseif ($publicacion->subasta) {
                 $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
                     ->where('puja', '>', 0)
                     ->where('estado_comprobante', 1)
