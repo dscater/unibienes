@@ -32,6 +32,9 @@ const form = useForm({
     terminos: false,
 });
 
+const muestra_password = ref(false);
+const muestra_password2 = ref(false);
+
 const errors = ref([]);
 
 const listExpedido = ref([
@@ -265,7 +268,8 @@ onMounted(() => {
                         <div class="row mb-0">
                             <div class="col-12">
                                 <div class="alert alert-info mb-0">
-                                    Todos los campos con <strong>*</strong> son obligatorios
+                                    Todos los campos con <strong>*</strong> son
+                                    obligatorios
                                 </div>
                             </div>
                         </div>
@@ -492,7 +496,7 @@ onMounted(() => {
                                         <label
                                             for="name"
                                             class="d-flex align-items-center text-gray-600 fs-13px"
-                                            >Departamento donde recides*</label
+                                            >Departamento donde resides*</label
                                         >
                                     </div>
                                     <div
@@ -733,20 +737,47 @@ onMounted(() => {
                                             }}</strong>
                                         </span>
                                     </div>
-                                    <div class="form-floating mt-20px">
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            class="form-control fs-13px h-45px border-0"
-                                            placeholder="Contraseña"
-                                            v-model="form.password"
-                                            autocomplete="false"
-                                        />
-                                        <label
-                                            for="name"
-                                            class="d-flex align-items-center text-gray-600 fs-13px"
-                                            >Contraseña</label
+                                    <div class="mt-20px">
+                                        <div
+                                            class="input-group mb-3 form-floating mb-20px"
                                         >
+                                            <input
+                                                :type="
+                                                    muestra_password
+                                                        ? 'text'
+                                                        : 'password'
+                                                "
+                                                name="password"
+                                                class="form-control fs-13px h-45px border-0"
+                                                v-model="form.password"
+                                                autocomplete="false"
+                                                placeholder="Contraseña"
+                                            />
+
+                                            <label
+                                                for="name"
+                                                class="d-flex align-items-center text-gray-600 fs-13px"
+                                                style="z-index: 100"
+                                                >Contraseña</label
+                                            >
+                                            <button
+                                                class="btn btn-default"
+                                                type="button"
+                                                @click="
+                                                    muestra_password =
+                                                        !muestra_password
+                                                "
+                                            >
+                                                <i
+                                                    class="fa"
+                                                    :class="[
+                                                        muestra_password
+                                                            ? 'fa-eye'
+                                                            : 'fa-eye-slash',
+                                                    ]"
+                                                ></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div
                                         class="w-100"
@@ -768,20 +799,48 @@ onMounted(() => {
                                         mayúscula, un número y un símbolo
                                         (@$!%*?&).
                                     </p>
-                                    <div class="form-floating mt-20px mb-15px">
-                                        <input
-                                            type="password"
-                                            name="password_confirmation"
-                                            class="form-control fs-13px h-45px border-0"
-                                            placeholder="Confirmar Contraseña"
-                                            v-model="form.password_confirmation"
-                                            autocomplete="false"
-                                        />
-                                        <label
-                                            for="name"
-                                            class="d-flex align-items-center text-gray-600 fs-13px"
-                                            >Confirmar Contraseña</label
+                                    <div>
+                                        <div
+                                            class="input-group mb-3 form-floating mb-20px"
                                         >
+                                            <input
+                                                :type="
+                                                    muestra_password2
+                                                        ? 'text'
+                                                        : 'password'
+                                                "
+                                                name="password_confirmation"
+                                                class="form-control fs-13px h-45px border-0"
+                                                placeholder="Confirmar Contraseña"
+                                                v-model="
+                                                    form.password_confirmation
+                                                "
+                                                autocomplete="false"
+                                            />
+                                            <label
+                                                for="name"
+                                                class="d-flex align-items-center text-gray-600 fs-13px"
+                                                style="z-index: 100"
+                                                >Confirmar Contraseña</label
+                                            >
+                                            <button
+                                                class="btn btn-default"
+                                                type="button"
+                                                @click="
+                                                    muestra_password2 =
+                                                        !muestra_password2
+                                                "
+                                            >
+                                                <i
+                                                    class="fa"
+                                                    :class="[
+                                                        muestra_password2
+                                                            ? 'fa-eye'
+                                                            : 'fa-eye-slash',
+                                                    ]"
+                                                ></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     <b
                                         ><span class="text-danger">*</span> El

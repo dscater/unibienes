@@ -107,7 +107,7 @@ class RecuperarContrasenaController extends Controller
         ],[
             "password.required" => "Debes ingresar una contraseña",
             "password.confirmed" => "Debes confirmar la contraseña",
-            "password.confirmed" => "Debes ingresar al menos :min caracteres",
+            "password.min" => "Debes ingresar al menos :min caracteres",
         ]);
         try {
             if ($request->cod != $recuperar_password->cod) {
