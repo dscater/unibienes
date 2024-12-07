@@ -48,7 +48,7 @@ function guardarImagen() {
                 Swal.fire({
                     icon: "success",
                     title: "Correcto",
-                    text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
+                    text: `Imagen actualizada`,
                     confirmButtonColor: "#3085d6",
                     // confirmButtonText: `Aceptar`,
                     showConfirmButton: false,
@@ -272,7 +272,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Nombre(s)"
                                     v-model="formInfo.nombre"
-                                    autofocus
+                                    readonly
                                 />
                                 <label
                                     for="name"
@@ -298,6 +298,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Apellido Paterno"
                                     v-model="formInfo.paterno"
+                                    readonly
                                 />
                                 <label
                                     for="name"
@@ -323,6 +324,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Apellido Materno"
                                     v-model="formInfo.materno"
+                                    readonly
                                 />
                                 <label
                                     for="name"
@@ -348,6 +350,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Documento de identidad"
                                     v-model="formInfo.ci"
+                                    readonly
                                 />
                                 <label
                                     for="name"
@@ -371,6 +374,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Complemento"
                                     v-model="formInfo.complemento"
+                                    readonly
                                 />
                                 <label
                                     for="name"
@@ -393,11 +397,20 @@ onMounted(() => {
                                 </span>
                             </div>
                             <div class="form-floating mt-20px">
-                                <select
+                                <input
+                                    type="text"
+                                    name="complemento"
+                                    class="form-control fs-13px h-45px border-0"
+                                    placeholder="Complemento"
+                                    v-model="formInfo.ci_exp"
+                                    readonly
+                                />
+                                <!-- <select
                                     name="ci_exp"
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Lugar de expedición"
                                     v-model="formInfo.ci_exp"
+                                    readonly
                                 >
                                     <option value="">- Seleccione -</option>
                                     <option
@@ -406,7 +419,7 @@ onMounted(() => {
                                     >
                                         {{ item.label }}
                                     </option>
-                                </select>
+                                </select> -->
                                 <label
                                     for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"
@@ -451,7 +464,7 @@ onMounted(() => {
                                 <select
                                     name="dpto_residencia"
                                     class="form-control fs-13px h-45px border-0"
-                                    placeholder="Departamento donde recides"
+                                    placeholder="Departamento donde resides"
                                     v-model="formInfo.dpto_residencia"
                                 >
                                     <option value="">- Seleccione -</option>
@@ -506,10 +519,19 @@ onMounted(() => {
                                 </span>
                             </div>
                         </div>
+
+                        <div class="col-12 mt-20px">
+                            <button
+                                class="btn btn-primary"
+                                @click="actualizaInformacion"
+                            >
+                                Actualizar información
+                            </button>
+                        </div>
                     </div>
-                    <div class="row mt-20px">
+                    <!-- <div class="row mt-20px">
                         <div class="col-12">
-                            <h4 class="text-white">Datos complementario</h4>
+                            <h4 class="text-white">Datos complementarios</h4>
                             <div class="form-group mb-15px">
                                 <label
                                     class="text-white d-flex align-items-center text-gray-600 fs-13px"
@@ -663,7 +685,7 @@ onMounted(() => {
                                 Actualizar información
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </div>
             <div class="col-md-5">
@@ -764,7 +786,7 @@ onMounted(() => {
                                     >Nueva contraseña*</label
                                 >
                             </div>
-                            <p class="text-white" style="font-size: 0.8em;">
+                            <p class="text-white" style="font-size: 0.8em">
                                 La contraseña debe tener al menos 8 caracteres,
                                 incluyendo una letra mayúscula, un número y un
                                 símbolo (@$!%*?&).

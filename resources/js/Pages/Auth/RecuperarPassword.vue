@@ -34,6 +34,7 @@ const submit = () => {
             form
         )
         .then((response) => {
+            form.errors = {};
             form.reset("password");
             form.reset("password_confirmation");
 
@@ -152,13 +153,13 @@ onMounted(() => {
                                     >Nueva Contraseña</label
                                 >
                             </div>
-                            <div class="w-100" v-if="form.errors?.cod">
+                            <div class="w-100" v-if="form.errors?.password">
                                 <span
                                     class="invalid-feedback alert alert-danger"
                                     style="display: block"
                                     role="alert"
                                 >
-                                    <strong>{{ form.errors.cod }}</strong>
+                                    <strong>{{ form.errors.password }}</strong>
                                 </span>
                             </div>
                             <div class="form-floating mb-20px">

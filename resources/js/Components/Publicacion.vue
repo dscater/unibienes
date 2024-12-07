@@ -356,6 +356,16 @@ onBeforeUnmount(() => {
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-2 mb-2">
+                                <div class="col-12 text-center font-weight-bold text-md">
+                                    Oferta inicial <i class="fa fa-arrow-right"></i>
+                                    {{
+                                        getFormatoMoneda(
+                                            oPublicacion.oferta_inicial
+                                        )
+                                    }}
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 text-center p-0">
                             <button
@@ -477,7 +487,9 @@ onBeforeUnmount(() => {
                         <template
                             v-if="
                                 oPublicacion.subasta &&
-                                oPublicacion.subasta.historial_ofertas
+                                oPublicacion.subasta.historial_ofertas &&
+                                oPublicacion.subasta.historial_ofertas.length >
+                                    0
                             "
                         >
                             <tr
@@ -487,7 +499,8 @@ onBeforeUnmount(() => {
                                     index == 0 ? 'h2' : '',
                                     index == 1 ? 'h4' : '',
                                     oSubastaCliente &&
-                                    oSubastaCliente.id == item.subasta_cliente_id
+                                    oSubastaCliente.id ==
+                                        item.subasta_cliente_id
                                         ? 'bg-teal text-white'
                                         : '',
                                 ]"
@@ -498,7 +511,8 @@ onBeforeUnmount(() => {
                                     <small
                                         v-if="
                                             oSubastaCliente &&
-                                            oSubastaCliente.id == item.subasta_cliente_id
+                                            oSubastaCliente.id ==
+                                                item.subasta_cliente_id
                                         "
                                         >(Mi oferta)</small
                                     >

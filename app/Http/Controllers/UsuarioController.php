@@ -101,6 +101,12 @@ class UsuarioController extends Controller
 
         $usuarios = $usuarios->where("status", 1)->paginate($length, ['*'], 'page', $page);
 
+        // Numeración
+        $usuarios->getCollection()->transform(function ($usuario, $index) use ($usuarios) {
+            $usuario->enumeracion = ($usuarios->currentPage() - 1) * $usuarios->perPage() + $index + 1;
+            return $usuario;
+        });
+
         return response()->JSON([
             'data' => $usuarios->items(),
             'recordsTotal' => $usuarios->total(),
@@ -140,7 +146,10 @@ class UsuarioController extends Controller
         }
 
         $usuarios = $usuarios->where("status", 1)->paginate($length, ['*'], 'page', $page);
-
+        $usuarios->getCollection()->transform(function ($usuario, $index) use ($usuarios) {
+            $usuario->enumeracion = ($usuarios->currentPage() - 1) * $usuarios->perPage() + $index + 1;
+            return $usuario;
+        });
         return response()->JSON([
             'data' => $usuarios->items(),
             'recordsTotal' => $usuarios->total(),

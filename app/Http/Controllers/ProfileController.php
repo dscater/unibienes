@@ -101,18 +101,18 @@ class ProfileController extends Controller
 
         $request->validate($validacion, $mensajes);
         $user->update([
-            "nombres" => mb_strtoupper($request->nombre),
-            'apellidos' => mb_strtoupper($request->paterno . (trim($request->materno) != '' ? ' ' . $request->materno : '')),
+            // "nombres" => mb_strtoupper($request->nombre),
+            // 'apellidos' => mb_strtoupper($request->paterno . (trim($request->materno) != '' ? ' ' . $request->materno : '')),
             'email' => $request->email,
         ]);
 
         $datos_update = [
-            "nombre" => mb_strtoupper($request->nombre),
-            "paterno" => mb_strtoupper($request->paterno),
-            "materno" => mb_strtoupper($request->materno),
-            "ci" => trim($request->ci),
-            "complemento" => trim($request->complemento),
-            "ci_exp" => trim($request->ci_exp),
+            // "nombre" => mb_strtoupper($request->nombre),
+            // "paterno" => mb_strtoupper($request->paterno),
+            // "materno" => mb_strtoupper($request->materno),
+            // "ci" => trim($request->ci),
+            // "complemento" => trim($request->complemento),
+            // "ci_exp" => trim($request->ci_exp),
             "fono" => trim($request->fono),
             "dpto_residencia" => trim($request->dpto_residencia),
             "email" => $request->email,

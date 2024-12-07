@@ -7,7 +7,7 @@ const props = defineProps({
     },
     muestra_pc: {
         type: Boolean,
-        default: false,
+        default: true,
     },
 });
 
@@ -27,10 +27,11 @@ const irImagen = (index) => {
     index_img.value = index;
 };
 
+const contenedorSlider = ref(null);
+
 const pantallaCompleta = () => {
     // pantalla completa
-    const contenedor = document.querySelector(".contenendor_principal_slider");
-
+    const contenedor = contenedorSlider.value;
     // Verificamos si la API de pantalla completa está disponible
     if (contenedor) {
         if (document.fullscreenElement) {
@@ -46,7 +47,7 @@ const pantallaCompleta = () => {
 };
 </script>
 <template>
-    <div class="contenendor_principal_slider">
+    <div class="contenendor_principal_slider" ref="contenedorSlider">
         <span class="icon-left" @click="actualizaImagen(-1)"
             ><i class="fa fa-angle-left"></i
         ></span>
@@ -153,6 +154,9 @@ img.oculto {
     position: absolute;
     top: 0px;
     right: 0px;
+    background-color: rgba(219, 219, 219, 0.616);
+    padding: 5px;
+    font-size: 1rem;
 }
 
 .fa-circle {

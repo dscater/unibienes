@@ -198,7 +198,7 @@ onMounted(() => {});
                     <div class="row mb-0">
                         <div class="col-12">
                             <div class="alert alert-info mb-2 text-sm">
-                                Tos los campos con <strong>*</strong> son
+                                Todos los campos con <strong>*</strong> son
                                 obligatorios
                             </div>
                         </div>

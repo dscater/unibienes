@@ -284,7 +284,7 @@ onMounted(() => {});
                         <img :src="form.url_qr" alt="" class="img_qr" />
                     </div>
                 </div>
-                <div class="col-md-12 form-group mb-3">
+                <!-- <div class="col-md-12 form-group mb-3">
                     <label for="">Terminos y condiciones*</label>
                     <textarea
                         class="form-control"
@@ -295,7 +295,7 @@ onMounted(() => {});
                         v-if="form.errors?.terminos_condiciones"
                         >{{ form.errors.terminos_condiciones }}</span
                     >
-                </div>
+                </div> -->
             </div>
             <div
                 class="col-12"

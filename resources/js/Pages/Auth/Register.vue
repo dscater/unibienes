@@ -265,7 +265,7 @@ onMounted(() => {
                         <div class="row mb-0">
                             <div class="col-12">
                                 <div class="alert alert-info mb-0">
-                                    Tos los campos con <strong>*</strong> son obligatorios
+                                    Todos los campos con <strong>*</strong> son obligatorios
                                 </div>
                             </div>
                         </div>
@@ -476,7 +476,7 @@ onMounted(() => {
                                         <select
                                             name="dpto_residencia"
                                             class="form-control fs-13px h-45px border-0"
-                                            placeholder="Departamento donde recides"
+                                            placeholder="Departamento donde resides"
                                             v-model="form.dpto_residencia"
                                         >
                                             <option value="">
@@ -541,7 +541,7 @@ onMounted(() => {
                             </div>
                             <div class="row" v-show="validado">
                                 <div class="col-12">
-                                    <h4>Datos complementario</h4>
+                                    <h4>Datos complementarios</h4>
                                     <div class="form-group mb-15px">
                                         <label
                                             class="text-white d-flex align-items-center text-gray-600 fs-13px"

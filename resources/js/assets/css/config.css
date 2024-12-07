@@ -30,14 +30,18 @@
     max-width: 200px;
 }
 
-.text-sm{
+.text-sm {
     font-size: 0.9em;
+}
+
+.text-md {
+    font-size: 1.1rem;
 }
 
 .txt_subasta_concluida {
     font-weight: bold;
     font-size: 2em;
-    width: 100%;	
+    width: 100%;
     text-align: center;
 }
 

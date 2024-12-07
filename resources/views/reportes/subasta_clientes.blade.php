@@ -182,15 +182,21 @@
             $subasta_clientes = [];
             if ($fecha_ini && $fecha_fin) {
                 if ($publicacion->subasta) {
+                    Illuminate\Support\Facades\Log::debug($fecha_ini);
+                    Illuminate\Support\Facades\Log::debug($fecha_fin);
                     $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
                         ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
-                        ->where('puja', '>', 0)
+                        ->orWhereBetween('created_at', [
+                            Carbon\Carbon::parse($fecha_ini)->startOfDay(),
+                            Carbon\Carbon::parse($fecha_fin)->endOfDay(),
+                        ])
+                        // ->where('puja', '>', 0)
                         ->where('estado_comprobante', 1)
                         ->get();
                 }
             } elseif ($publicacion->subasta) {
                 $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
-                    ->where('puja', '>', 0)
+                    // ->where('puja', '>', 0)
                     ->where('estado_comprobante', 1)
                     ->get();
             }
@@ -230,10 +236,10 @@
                         <th>NOMBRE DEL BIEN OFERTADO</th>
                         <th>FECHA DE LA OFERTA</th>
                         <th>HORA DE LA OFERTA</th>
-                        <th>OFERTA(MONTO {{ $publicacion->moneda }})</th>
+                        <th>OFERTA <br />MONTO {{ $publicacion->moneda }}</th>
                         <th>MONTO DE GARANTÍA</th>
-                        <th>COMPROBANTE DE PAGO DE GARANTÍA(DOCUMENTO PARA DESCARGAR)</th>
-                        <th>CARNET DE IDENTIDAD(DOCUMENTO PARA DESCARGAR)</th>
+                        <th>COMPROBANTE DE PAGO DE GARANTÍA <br />(DOCUMENTO PARA DESCARGAR)</th>
+                        <th>CARNET DE IDENTIDAD <br />(DOCUMENTO PARA DESCARGAR)</th>
                         <th>CARACTERISTICAS-DETALLES</th>
                         <th>SUBASTA VIGENTE/FINALIZADA</th>
                     </tr>

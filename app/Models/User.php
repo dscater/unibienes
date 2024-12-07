@@ -29,7 +29,7 @@ class User extends Authenticatable
         "ultima_sesion",
         "status",
     ];
-    protected $appends = ["permisos", "url_foto", "foto_b64", "full_name", "fecha_registro_t"];
+    protected $appends = ["permisos", "url_foto", "foto_b64", "full_name", "fecha_registro_t", "usuario_abrev"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,6 +52,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getUsuarioAbrevAttribute()
+    {
+        $tam_usuario = strlen($this->usuario);
+        if ($tam_usuario > 8) {
+            return substr($this->usuario, 0, 8) . "...";
+        }
+
+        return $this->usuario;
     }
 
     public function getPermisosAttribute()

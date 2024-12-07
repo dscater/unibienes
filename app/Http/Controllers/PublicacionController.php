@@ -118,7 +118,7 @@ class PublicacionController extends Controller
         $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles"])
             ->select("publicacions.*")
             ->where("categoria", $categoria)
-            ->where("estado_sub", 1)
+            ->whereIn("estado_sub", [1, 2])
             ->orderBy("created_at", "desc")
             ->get()
             ->take(6);
@@ -202,7 +202,7 @@ class PublicacionController extends Controller
 
             $url =  route('publicacions.publicacionPortal', $publicacion->id);
 
-            $mensaje = 'Felicidades acabas de ganar la subasta de la siguiente  <a href="' . $url . '">PUBLICACIÓN</a>';
+            $mensaje = 'La Subasta fue concluida. UNIBIENES S.A. se contactará con usted para comunicarle detalles del resultado de la subasta. Puedes ver la publicación  <a href="' . $url . '">aquí</a>';
             $datos = [
                 "mensaje" =>  $mensaje,
             ];

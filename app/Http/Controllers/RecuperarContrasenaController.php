@@ -100,6 +100,15 @@ class RecuperarContrasenaController extends Controller
 
     public function registrar_recuperacion(Request $request, RecuperarPassword $recuperar_password)
     {
+
+        $request->validate([
+            "cod" => "required",
+            "password" => "required|confirmed|min:8"
+        ],[
+            "password.required" => "Debes ingresar una contraseña",
+            "password.confirmed" => "Debes confirmar la contraseña",
+            "password.confirmed" => "Debes ingresar al menos :min caracteres",
+        ]);
         try {
             if ($request->cod != $recuperar_password->cod) {
                 throw new Exception("El código ingresado no es valido");
@@ -107,11 +116,6 @@ class RecuperarContrasenaController extends Controller
             if ($recuperar_password->status == 0) {
                 throw new Exception("Este código de verificación ya fue usado o ya caducó");
             }
-
-            $request->validate([
-                "cod" => "required",
-                "password" => "required|confirmed|min:8"
-            ]);
 
             $user = $recuperar_password->user;
             $user->password = Hash::make($request->password);

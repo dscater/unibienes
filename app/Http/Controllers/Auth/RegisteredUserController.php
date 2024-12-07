@@ -17,7 +17,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
-use PgSql\Lob;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
         "nro_cuenta.required" => "Este campo es obligatorio",
         "moneda.required" => "Este campo es obligatorio",
         "terminos.required" => "Este campo es obligatorio",
-        "terminos.accepted" => "Debes aceptar los terminos y condiciones",
+        "terminos.accepted" => "Debes aceptar los términos y condiciones",
         "password.required" => "Debes ingresar tu contraseña",
         "password.confirmed" => "La contraseña no coincide",
         "password.min" => "Debes ingresar una contraseña de al menos :min caracteres",
@@ -85,6 +85,17 @@ class RegisteredUserController extends Controller
         $this->validacion["moneda"] = "required|regex:/^[\pL\s\.\,0-9áéíóúÁÉÍÓÚñÑ]+$/u";
         $this->validacion["password"] = 'required|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/';
         $this->validacion["terminos"] = "required|accepted";
+        $this->validacion["ci"] = [
+            "required",
+            "numeric",
+            "digits_between:7,10",
+            Rule::unique('clientes', 'ci')->where(function ($query) {
+                $complemento = request()->input('complemento');
+                if (!is_null($complemento)) {
+                    $query->where('complemento', $complemento);
+                }
+            }),
+        ];
 
         $request->validate($this->validacion, $this->mensajes);
         DB::beginTransaction();
@@ -163,6 +174,17 @@ class RegisteredUserController extends Controller
         if ($request->materno && trim($request->materno) != '') {
             $this->validacion["materno"] = "required|regex:/^[\pL\s\.\,áéíóúÁÉÍÓÚñÑ]+$/u";
         }
+        $this->validacion["ci"] = [
+            "required",
+            "numeric",
+            "digits_between:7,10",
+            Rule::unique('clientes', 'ci')->where(function ($query) {
+                $complemento = request()->input('complemento');
+                if (!is_null($complemento)) {
+                    $query->where('complemento', $complemento);
+                }
+            }),
+        ];
 
 
         $request->validate($this->validacion, $this->mensajes);

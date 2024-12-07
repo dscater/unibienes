@@ -24,10 +24,11 @@ class SubastaController extends Controller
 
     public function getClientesApi(Request $request, Subasta $subasta)
     {
-        $length = $request->input('length', 10); // Valor de `length` enviado por DataTable
-        $start = $request->input('start', 0); // Índice de inicio enviado por DataTable
-        $page = ($start / $length) + 1; // Cálculo de la página actual
+        // $length = $request->input('length', 10); // Valor de `length` enviado por DataTable
+        // $start = $request->input('start', 0); // Índice de inicio enviado por DataTable
+        // $page = ($start / $length) + 1; // Cálculo de la página actual
         $search = $request->input('search');
+        $lastId = $request->input('lastId');
 
         $publicacions = SubastaCliente::with(["cliente", "subasta"])->select("subasta_clientes.*");
         if ($search && trim($search) != '') {
@@ -35,17 +36,27 @@ class SubastaController extends Controller
         }
 
         $publicacions->where("subasta_id", $subasta->id);
+        $publicacions->where("id", ">", $lastId);
 
         $publicacions = $publicacions->orderBy("subasta_clientes.estado_puja", "desc")
             ->orderBy("subasta_clientes.puja", "desc")
-            ->paginate($length, ['*'], 'page', $page);
+            ->get();
 
-        return response()->JSON([
-            'data' => $publicacions->items(),
-            'recordsTotal' => $publicacions->total(),
-            'recordsFiltered' => $publicacions->total(),
-            'draw' => intval($request->input('draw')),
-        ]);
+        $total = count($publicacions);
+        $lastId = $total > 0 ? $publicacions[$total - 1]->id : $lastId;
+        return response()->JSON(
+            [
+                "lastId" => $lastId,
+                "publicacions" => $publicacions
+            ]
+        );
+
+        // return response()->JSON([
+        //     'data' => $publicacions->items(),
+        //     'recordsTotal' => $publicacions->total(),
+        //     'recordsFiltered' => $publicacions->total(),
+        //     'draw' => intval($request->input('draw')),
+        // ]);
     }
 
     public function registrarPuja(Request $request)

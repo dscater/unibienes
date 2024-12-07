@@ -26,147 +26,80 @@ onMounted(() => {
     }, 300);
 });
 
-const columns = [
-    {
-        title: "Nombre del Cliente",
-        data: "cliente.full_name",
-        sortable: false,
-    },
-    {
-        title: "C.I.",
-        data: "cliente.full_ci",
-        sortable: false,
-    },
-    {
-        title: "Celular",
-        data: "cliente.fono",
-        sortable: false,
-    },
-    {
-        title: "Correo",
-        data: "cliente.email",
-        sortable: false,
-    },
-    {
-        title: "Puja actual",
-        data: "puja",
-        sortable: false,
-        render: function (data, type, row) {
-            return getFormatoMoneda(data);
-        },
-    },
-    {
-        title: "Estado",
-        data: "estado_puja",
-        sortable: false,
-        render: function (data, type, row) {
-            let estado = `PARTICIPANDO`;
-            let clase = `bg-gray`;
-
-            if (row.subasta.estado == 0 || row.subasta.estado == 2) {
-                estado = `PERDEDOR`;
-            }
-            if (row.estado_puja == 2) {
-                estado = `GANADOR`;
-                clase = `bg-success`;
-            }
-
-            let span = `<span class="badge ${clase}">${estado}</span>`;
-            return span;
-        },
-    },
-    {
-        title: "Estado comprobante",
-        data: "estado_comprobante",
-        sortable: false,
-        render: function (data, type, row) {
-            let estado = `SIN VERIFICAR`;
-            let clase = `bg-gray`;
-            if (row.estado_comprobante == 1) {
-                estado = `VERIFICADO`;
-                clase = `bg-success`;
-            } else if (row.estado_comprobante == 2) {
-                estado = `RECHAZADO`;
-                clase = `bg-danger`;
-            }
-
-            let span = `<span class="badge ${clase}">${estado}</span>`;
-            return span;
-        },
-    },
-    {
-        title: "ACCIONES",
-        data: null,
-        sortable: false,
-        render: function (data, type, row) {
-            let buttons = ``;
-            if (
-                props_page.auth?.user.permisos == "*" ||
-                props_page.auth?.user.permisos.includes("publicacions.edit")
-            ) {
-                if (row.subasta.estado == 1) {
-                    buttons += `<button class="mx-0 rounded-0 btn btn-success comprobante" data-id="${row.id}"><i class="fa fa-check-circle"></i></button> `;
-                }
-            }
-
-            let url_show = route("subasta_clientes.show", row.id);
-            buttons += `<a href="${url_show}" class="mx-0 rounded-0 btn btn-primary comprobante" data-id="${row.id}"><i class="fa fa-eye"></i></a> `;
-
-            return buttons;
-        },
-    },
-];
 const loading = ref(false);
 const open_dialog_verif = ref(false);
 const itemSubastaCliente = ref(null);
-const accionesRow = () => {
-    // comprobante
-    $("#table-subasta").on("click", "button.comprobante", function (e) {
-        e.preventDefault();
-        let id = $(this).attr("data-id");
-        axios.get(route("subasta_clientes.getInfo", id)).then((response) => {
-            itemSubastaCliente.value = response.data;
-            open_dialog_verif.value = true;
+const intervalRegistros = ref(null);
+const listRegistros = ref([]);
+const lastId = ref(0);
+
+const cargarRegistros = () => {
+    axios
+        .get(route("subastas.getClientesApi", props.subasta.id), {
+            params: {
+                lastId: lastId.value,
+            },
+        })
+        .then((response) => {
+            listRegistros.value = [
+                ...new Set([
+                    ...listRegistros.value,
+                    ...response.data.publicacions,
+                ]),
+            ];
+            lastId.value = response.data.lastId;
         });
+};
+
+const fila_index = ref(-1);
+const actualizaFila = (data) => {
+    if (fila_index.value > -1) {
+        listRegistros.value[fila_index.value] = data;
+        fila_index.value = -1;
+    }
+};
+
+const verificarComprobante = (index, id) => {
+    // comprobante
+    axios.get(route("subasta_clientes.getInfo", id)).then((response) => {
+        itemSubastaCliente.value = response.data;
+        open_dialog_verif.value = true;
+        fila_index.value = index;
     });
 };
 
-var datatable = null;
-var input_search = null;
-var debounceTimeout = null;
-const loading_table = ref(false);
-const datatableInitialized = ref(false);
-const updateDatatable = () => {
-    datatable.ajax.reload();
+const getEstadoParticipando = (value, value2) => {
+    let estado = `PARTICIPANDO`;
+
+    if (value == 0 || value == 2) {
+        estado = `PERDEDOR`;
+    }
+    if (value2 == 2) {
+        estado = `GANADOR`;
+    }
+
+    return estado;
+};
+
+const getEstadoComprobante = (value) => {
+    let estado = `SIN VERIFICAR`;
+    if (value == 1) {
+        estado = `VERIFICADO`;
+    } else if (value == 2) {
+        estado = `RECHAZADO`;
+    }
+    return estado;
 };
 
 onMounted(async () => {
-    datatable = initDataTable(
-        "#table-subasta",
-        columns,
-        route("subastas.getClientesApi", props.subasta.id)
-    );
-    input_search = document.querySelector('input[type="search"]');
-
-    // Agregar un evento 'keyup' al input de búsqueda con debounce
-    input_search.addEventListener("keyup", () => {
-        loading_table.value = true;
-        clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(() => {
-            datatable.search(input_search.value).draw(); // Realiza la búsqueda manualmente
-            loading_table.value = false;
-        }, 500);
-    });
-
-    datatableInitialized.value = true;
-    accionesRow();
+    cargarRegistros();
+    intervalRegistros.value = setInterval(() => {
+        cargarRegistros();
+    }, 1300);
 });
 onBeforeUnmount(() => {
-    if (datatable) {
-        datatable.clear();
-        datatable.destroy(false); // Destruye la instancia del DataTable
-        datatable = null;
-        datatableInitialized.value = false;
+    if (intervalRegistros.value) {
+        clearInterval(intervalRegistros.value);
     }
 });
 </script>
@@ -199,10 +132,6 @@ onBeforeUnmount(() => {
                             ><i class="fa fa-arrow-left"></i> Volver</Link
                         >
                     </h4>
-                    <panel-toolbar
-                        :mostrar_loading="loading"
-                        @loading="updateDatatable"
-                    />
                 </div>
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->
@@ -219,29 +148,122 @@ onBeforeUnmount(() => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <table
-                        id="table-subasta"
-                        width="100%"
-                        class="table table-striped table-bordered align-middle text-nowrap tabla_datos"
-                    >
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th width="2%"></th>
-                                <th width="5%"></th>
-                            </tr>
-                        </thead>
-                        <div class="loading_table" v-show="loading_table">
-                            Cargando...
+                        <div class="col-12" style="overflow: auto;">
+                            <table
+                                id="table-subasta"
+                                width="100%"
+                                class="table table-striped table-bordered align-middle text-nowrap tabla_datos"
+                            >
+                                <thead>
+                                    <tr>
+                                        <th>Nombre del Cliente</th>
+                                        <th>C.I.</th>
+                                        <th>Celular</th>
+                                        <th>Correo</th>
+                                        <th>Puja actual</th>
+                                        <th>Estado</th>
+                                        <th>Estado comprobante</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template v-if="listRegistros.length > 0">
+                                        <tr
+                                            v-for="(
+                                                item, index
+                                            ) in listRegistros"
+                                        >
+                                            <td>
+                                                {{ item.cliente.full_name }}
+                                            </td>
+                                            <td>{{ item.cliente.full_ci }}</td>
+                                            <td>{{ item.cliente.fono }}</td>
+                                            <td>{{ item.cliente.email }}</td>
+                                            <td>{{ item.puja }}</td>
+                                            <td>
+                                                <span
+                                                    class="badge"
+                                                    :class="[
+                                                        item.estado_puja == 2
+                                                            ? 'bg-success'
+                                                            : 'bg-gray',
+                                                    ]"
+                                                >
+                                                    {{
+                                                        getEstadoParticipando(
+                                                            item.subasta.estado,
+                                                            item.estado_puja
+                                                        )
+                                                    }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge"
+                                                    :class="[
+                                                        item.estado_comprobante ==
+                                                        1
+                                                            ? 'bg-success'
+                                                            : item.estado_comprobante ==
+                                                              2
+                                                            ? 'bg-danger'
+                                                            : 'bg-gray',
+                                                    ]"
+                                                >
+                                                    {{
+                                                        getEstadoComprobante(
+                                                            item.estado_comprobante
+                                                        )
+                                                    }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    v-if="
+                                                        props_page.auth?.user
+                                                            .permisos == '*' ||
+                                                        props_page.auth?.user.permisos.includes(
+                                                            'publicacions.edit'
+                                                        )
+                                                    "
+                                                    class="mx-0 rounded-0 btn btn-success comprobante"
+                                                    @click="
+                                                        verificarComprobante(
+                                                            index,
+                                                            item.id
+                                                        )
+                                                    "
+                                                >
+                                                    <i
+                                                        class="fa fa-check-circle"
+                                                    ></i>
+                                                </button>
+                                                &nbsp;
+                                                <a
+                                                    :href="
+                                                        route(
+                                                            'subasta_clientes.show',
+                                                            item.id
+                                                        )
+                                                    "
+                                                    class="mx-0 rounded-0 btn btn-primary comprobante"
+                                                    :data-id="item.id"
+                                                    ><i class="fa fa-eye"></i
+                                                ></a>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    <template v-else>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                SIN REGISTROS
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
                         </div>
-                        <tbody></tbody>
-                    </table>
+                    </div>
                 </div>
                 <!-- END panel-body -->
             </div>
@@ -251,7 +273,7 @@ onBeforeUnmount(() => {
     <VerificarComprobante
         :open_dialog="open_dialog_verif"
         :subasta_cliente="itemSubastaCliente"
-        @envio-formulario="updateDatatable"
+        @envio-formulario="actualizaFila"
         @cerrar-dialog="open_dialog_verif = false"
     ></VerificarComprobante>
 </template>

@@ -259,40 +259,6 @@ onMounted(() => {});
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-0">
-                        <div class="col-12">
-                            <div class="alert alert-info mb-2 text-sm">
-                                Tos los campos con <strong>*</strong> son
-                                obligatorios
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="row"
-                        v-show="
-                            !oSubastaCliente ||
-                            oSubastaCliente.estado_comprobante == 0
-                        "
-                    >
-                        <div class="col-12">
-                            <div class="alert alert-info">
-                                <!-- <ul class="pb-0 mb-0">
-                                <li>
-                                    Aún se esta verificando el pago de tu
-                                    garantía
-                                </li>
-                                <li>
-                                    Una vez verificado el pago podrás realizar
-                                    tus ofertas/pujas
-                                </li>
-                            </ul> -->
-                                Estamos verificando tu comprobante y te
-                                enviaremos un correo de confirmación para que
-                                pueda realizar tus ofertas/pujas. Cualquier otra
-                                información comunicarse al 77256805
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-12">
                             <p>
@@ -303,7 +269,55 @@ onMounted(() => {});
                                 <strong>Moneda: </strong>
                                 {{ oPublicacion.moneda }}
                             </p>
-                            <form @submit.prevent="registrarPuja">
+
+                            <div
+                                class="row"
+                                v-show="
+                                    !oSubastaCliente ||
+                                    oSubastaCliente.estado_comprobante == 0
+                                "
+                            >
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <!-- <ul class="pb-0 mb-0">
+                                <li>
+                                    Aún se esta verificando el pago de tu
+                                    garantía
+                                </li>
+                                <li>
+                                    Una vez verificado el pago podrás realizar
+                                    tus ofertas/pujas
+                                </li>
+                            </ul> -->
+                                        Estamos verificando tu comprobante y te
+                                        enviaremos un correo de confirmación
+                                        para que pueda realizar tus
+                                        ofertas/pujas. Cualquier otra
+                                        información comunicarse al 77256805
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row mb-0"
+                                v-show="
+                                    oSubastaCliente &&
+                                    oSubastaCliente.estado_comprobante == 1
+                                "
+                            >
+                                <div class="col-12">
+                                    <div class="alert alert-info mb-2 text-sm">
+                                        Tos los campos con
+                                        <strong>*</strong> son obligatorios
+                                    </div>
+                                </div>
+                            </div>
+                            <form
+                                @submit.prevent="registrarPuja"
+                                v-if="
+                                    oSubastaCliente &&
+                                    oSubastaCliente.estado_comprobante == 1
+                                "
+                            >
                                 <div class="form-group">
                                     <label class="font-weight-bold mb-1"
                                         >Ingresar oferta*</label

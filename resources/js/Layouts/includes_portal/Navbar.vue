@@ -201,13 +201,13 @@ onMounted(() => {
                                 <img
                                     :src="user.url_foto"
                                     alt="Img"
-                                    class="user-img"
+                                    class="img_usuario"
                                 />
                                 <span class="d-none d-xl-inline">{{
-                                    user.usuario
+                                    user.usuario_abrev
                                 }}</span>
                                 <b class="caret"></b>
-                                <span class="arrow top"></span>
+                                <!-- <span class="arrow top"></span> -->
                             </a>
                             <div class="dropdown-menu">
                                 <Link
@@ -270,6 +270,14 @@ onMounted(() => {
     height: 66px;
 }
 
+.img_usuario {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: gray;
+}
+
 /* LOGO */
 .header-logo {
     margin-top: 10px;
@@ -314,6 +322,7 @@ onMounted(() => {
     flex-direction: column;
     color: var(--principal-portal);
     font-weight: bold;
+    font-size: 0.8rem;
 }
 
 .header-menu .nav li a img {
@@ -395,7 +404,7 @@ onMounted(() => {
     border-color: var(--principal-portal);
     margin-top: 40px;
 }
-@media (max-width: 900px) {
+@media (max-width: 800px) {
     .header.header-fixed {
         height: 66px;
     }
@@ -424,6 +433,7 @@ onMounted(() => {
         flex-direction: row;
         font-weight: bold;
         padding: 10px 20px;
+        font-size: 1rem;
     }
     .header-menu .nav li a img {
         margin-right: 2px;

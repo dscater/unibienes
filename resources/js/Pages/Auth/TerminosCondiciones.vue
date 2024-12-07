@@ -45,9 +45,15 @@ const cerrarDialog = () => {
 };
 
 const getTerminosCondiciones = () => {
-    axios.get(route("getTerminosCondiciones")).then((response) => {
-        terminos_condiciones.value = response.data;
-    });
+    axios
+        .get(route("getTerminosCondiciones"), {
+            params: {
+                q: Math.floor(Date.now() / 1000),
+            },
+        })
+        .then((response) => {
+            terminos_condiciones.value = response.data;
+        });
 };
 
 onMounted(() => {});
@@ -67,7 +73,7 @@ onMounted(() => {});
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h4 class="modal-title" v-html="tituloDialog"></h4>
+                    <!-- <h4 class="modal-title" v-html="tituloDialog"></h4> -->
                     <button
                         type="button"
                         class="btn-close"
