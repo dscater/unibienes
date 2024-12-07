@@ -356,7 +356,7 @@ class ReporteController extends Controller
                         )
                             ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
                             ->where('puja', '>', 0)
-                            ->where('estado_comprobante', 1)
+                            // ->where('estado_comprobante', 1)
                             ->get();
                     }
                 } else {
@@ -365,7 +365,7 @@ class ReporteController extends Controller
                         $publicacion->subasta->id,
                     )
                         ->where('puja', '>', 0)
-                        ->where('estado_comprobante', 1)
+                        // ->where('estado_comprobante', 1)
                         ->get();
                 }
 
