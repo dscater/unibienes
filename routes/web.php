@@ -60,6 +60,7 @@ Route::get('profile_cliente', [ProfileController::class, 'profile_cliente'])->na
 Route::get('getInfoCliente', [ProfileController::class, 'getInfoCliente'])->name('profile.getInfoCliente');
 Route::post('updateInfoCliente', [ProfileController::class, 'updateInfoCliente'])->name('profile.updateInfoCliente');
 
+Route::post("publicacions/verifica_ganador/{publicacion}", [PublicacionController::class, 'verificaGanador'])->name("publicacions.verificaGanador");
 // ADMINISTRACION
 Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function () {
     // INICIO
@@ -119,7 +120,6 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     Route::get("publicacions/paginado", [PublicacionController::class, 'paginado'])->name("publicacions.paginado");
     Route::get("publicacions/listado", [PublicacionController::class, 'listado'])->name("publicacions.listado");
     Route::put("publicacions/habilitaPublicacion/{publicacion}", [PublicacionController::class, 'habilitaPublicacion'])->name("publicacions.habilitaPublicacion");
-    Route::post("publicacions/verificaGanador/{publicacion}", [PublicacionController::class, 'verificaGanador'])->name("publicacions.verificaGanador");
     Route::resource("publicacions", PublicacionController::class)->only(
         ["index", "store", "show", "update", "destroy"]
     );
