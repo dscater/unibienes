@@ -461,10 +461,10 @@ class ReporteController extends Controller
                         $sheet->getStyle('A' . $fila . ':S' . $fila)->applyFromArray($this->bodyTabla);
                         $fila++;
                     }
+                    $fila++;
+                    $fila++;
+                    $fila++;
                 }
-                $fila++;
-                $fila++;
-                $fila++;
             }
 
 

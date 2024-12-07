@@ -182,8 +182,8 @@
             $subasta_clientes = [];
             if ($fecha_ini && $fecha_fin) {
                 if ($publicacion->subasta) {
-                    Illuminate\Support\Facades\Log::debug($fecha_ini);
-                    Illuminate\Support\Facades\Log::debug($fecha_fin);
+                    // Illuminate\Support\Facades\Log::debug($fecha_ini);
+                    // Illuminate\Support\Facades\Log::debug($fecha_fin);
                     $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
                         ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
                         // ->orWhereBetween('created_at', [
