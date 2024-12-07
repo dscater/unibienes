@@ -115,6 +115,9 @@ class PublicacionController extends Controller
     public function porCategoriaLimitado(Request $request)
     {
         $categoria = $request->categoria;
+        $oPub = new Publicacion();
+        $oPub->actualizaPublicacionesEstado();
+
         $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles"])
             ->select("publicacions.*")
             ->where("categoria", $categoria)
@@ -128,6 +131,8 @@ class PublicacionController extends Controller
 
     public function porCategoriaPagina(Request $request)
     {
+        $oPub = new Publicacion();
+        $oPub->actualizaPublicacionesEstado();
         $categoria = $request->categoria;
         $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
             ->select("publicacions.*")
@@ -143,6 +148,8 @@ class PublicacionController extends Controller
 
     public function porClientePaginado(Request $request)
     {
+        $oPub = new Publicacion();
+        $oPub->actualizaPublicacionesEstado();
         $publicacions = [];
         $cliente = Auth::user()->cliente;
         $publicacions = Publicacion::with(["publicacion_imagens", "publicacion_detalles", "subasta.subasta_clientes_puja"])
