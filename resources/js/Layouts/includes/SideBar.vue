@@ -736,7 +736,7 @@ const logout = () => {
                 <div
                     v-if="
                         user_logeado.permisos == '*' ||
-                        user_logeado.permisos.includes('parametrizacions.index')
+                        user_logeado.permisos.includes('parametrizacion.index')
                     "
                     class="menu-item"
                     :class="[
