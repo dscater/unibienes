@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 03-12-2024 a las 05:57:34
+-- Tiempo de generación: 09-12-2024 a las 22:03:28
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `unibienes_db`
+-- Base de datos: `unibienes_db_vacio`
 --
 
 -- --------------------------------------------------------
@@ -152,7 +152,7 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 (19, 'Reportes', 'reportes.subasta_clientes', 'REPORTE CLIENTES POR SUBASTA', 'GENERAR REPORTES DE LOS CLIENTES POR CADA UNA DE LAS SUBASTAS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
 (20, 'Reportes', 'reportes.clientes', 'REPORTE DE CLIENTES', 'GENERAR REPORTES DE LOS CLIENTES REGISTRADOS', '2024-11-18 16:10:12', '2024-11-18 16:10:12'),
 (21, 'Clientes', 'clientes.index', 'VER', 'VER LA LISTA DE CLIENTES', NULL, NULL),
-(22, 'Clientes', 'clientes.edit', 'EDITAR PASSWORD', 'MODIFICAR LA CONTRASEÑA DE LOS CLIENTES', NULL, NULL),
+(22, 'Clientes', 'clientes.edit', 'EDITAR CLIENTE', 'MODIFICAR LA CONTRASEÑA DE LOS CLIENTES', NULL, NULL),
 (23, 'Clientes', 'clientes.destroy', 'ELIMINAR', 'ELIMINAR CLIENTES', NULL, NULL),
 (24, 'Publicaciones', 'publicacions.aprobar_comprobante', 'APROBAR COMPROBANTES DE PAGOS', 'APROBAR COMPROBANTE DE PAGO', NULL, NULL),
 (25, 'Publicaciones', 'publicacions.rechazar_comprobante', 'RECHAZAR COMPROBANTES DE PAGOS', 'RECHAZAR COMPROBANTE DE PAGO', NULL, NULL);
@@ -205,6 +205,7 @@ CREATE TABLE `parametrizacions` (
   `nro_imagenes_pub` int NOT NULL,
   `tiempo_pub` int NOT NULL,
   `terminos_condiciones` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `verificar_comprobante` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -213,8 +214,8 @@ CREATE TABLE `parametrizacions` (
 -- Volcado de datos para la tabla `parametrizacions`
 --
 
-INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `datos_banco`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"mensaje@emsytsrl.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"8Z@d>&kj^y\", \"encriptado\": \"tls\"}', '{\"qr\": \"1733204666.png\", \"banco\": \"BANCO UNIÓN\", \"titular\": \"NOMBRE TITULAR\", \"nro_cuenta\": \"111110002222\"}', 3, 2, 'Términos y condiciones unibienes', '2024-11-16 20:43:43', '2024-12-03 05:44:26');
+INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `datos_banco`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `verificar_comprobante`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"mensaje@emsytsrl.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"8Z@d>&kj^y\", \"encriptado\": \"tls\"}', '{\"qr\": \"1733204666.png\", \"banco\": \"BANCO UNIÓN\", \"titular\": \"NOMBRE TITULAR\", \"nro_cuenta\": \"111110002222\"}', 3, 2, 'Términos y condiciones unibienes', '', '2024-11-16 20:43:43', '2024-12-03 05:44:26');
 
 -- --------------------------------------------------------
 

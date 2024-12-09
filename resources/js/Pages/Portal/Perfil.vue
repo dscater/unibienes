@@ -504,7 +504,6 @@ onMounted(() => {
                                     v-model="formInfo.email"
                                 />
                                 <label
-                                    for="name"
                                     class="d-flex align-items-center text-gray-600 fs-13px"
                                     >Correo electrónico*</label
                                 >
@@ -519,8 +518,88 @@ onMounted(() => {
                                 </span>
                             </div>
                         </div>
+                        <h4 class="text-white mt-20px">
+                            Datos para Devolución de Garantías
+                        </h4>
+                        <div class="form-floating mb-20px">
+                            <select
+                                name="banco"
+                                class="form-control fs-13px h-45px border-0"
+                                placeholder="Banco"
+                                v-model="formInfo.banco"
+                            >
+                                <option value="">- Seleccione -</option>
+                                <option
+                                    v-for="item in listBancos"
+                                    :value="item"
+                                >
+                                    {{ item }}
+                                </option>
+                            </select>
+                            <label
+                                class="d-flex align-items-center text-gray-600 fs-13px mx-1"
+                                >Banco*</label
+                            >
+                        </div>
+                        <div class="w-100" v-if="formInfo.errors?.banco">
+                            <span
+                                class="invalid-feedback alert alert-danger"
+                                style="display: block"
+                                role="alert"
+                            >
+                                <strong>{{ formInfo.errors.banco }}</strong>
+                            </span>
+                        </div>
+                        <div class="form-floating mb-20px">
+                            <input
+                                type="text"
+                                name="nro_cuenta"
+                                class="form-control fs-13px h-45px border-0"
+                                placeholder="Número de cuenta"
+                                v-model="formInfo.nro_cuenta"
+                            />
+                            <label
+                                for="name"
+                                class="d-flex align-items-center text-gray-600 fs-13px mx-1"
+                                >Número de cuenta*</label
+                            >
+                        </div>
+                        <div class="w-100" v-if="formInfo.errors?.nro_cuenta">
+                            <span
+                                class="invalid-feedback alert alert-danger"
+                                style="display: block"
+                                role="alert"
+                            >
+                                <strong>{{
+                                    formInfo.errors.nro_cuenta
+                                }}</strong>
+                            </span>
+                        </div>
+                        <div class="form-floating mb-20px">
+                            <input
+                                type="text"
+                                name="moneda"
+                                class="form-control fs-13px h-45px border-0"
+                                placeholder="Moneda de cuenta Bancaria"
+                                v-model="formInfo.moneda"
+                            />
+                            <label
+                                for="name"
+                                class="d-flex align-items-center text-gray-600 fs-13px mx-1"
+                                >Moneda de cuenta Bancaria*</label
+                            >
+                        </div>
+                        <div class="w-100" v-if="formInfo.errors?.moneda">
+                            <span
+                                class="invalid-feedback alert alert-danger"
+                                style="display: block"
+                                role="alert"
+                            >
+                                <strong>{{ formInfo.errors.moneda }}</strong>
+                            </span>
+                        </div>
 
-                        <div class="col-12 mt-20px">
+                        <div class="col-12 mb-20px">
                             <button
                                 class="btn btn-primary"
                                 @click="actualizaInformacion"
@@ -587,92 +666,6 @@ onMounted(() => {
                                 >
                                     <strong>{{
                                         formInfo.errors.foto_ci_reverso
-                                    }}</strong>
-                                </span>
-                            </div>
-                            <h4 class="text-white">
-                                Datos para Devolución de Garantías
-                            </h4>
-                            <div class="form-floating mt-20px">
-                                <select
-                                    name="banco"
-                                    class="form-control fs-13px h-45px border-0"
-                                    placeholder="Banco"
-                                    v-model="formInfo.banco"
-                                >
-                                    <option value="">- Seleccione -</option>
-                                    <option
-                                        v-for="item in listBancos"
-                                        :value="item"
-                                    >
-                                        {{ item }}
-                                    </option>
-                                </select>
-                                <label
-                                    for="name"
-                                    class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Banco*</label
-                                >
-                            </div>
-                            <div class="w-100" v-if="formInfo.errors?.banco">
-                                <span
-                                    class="invalid-feedback alert alert-danger"
-                                    style="display: block"
-                                    role="alert"
-                                >
-                                    <strong>{{ formInfo.errors.banco }}</strong>
-                                </span>
-                            </div>
-                            <div class="form-floating mt-20px">
-                                <input
-                                    type="text"
-                                    name="nro_cuenta"
-                                    class="form-control fs-13px h-45px border-0"
-                                    placeholder="Número de cuenta"
-                                    v-model="formInfo.nro_cuenta"
-                                />
-                                <label
-                                    for="name"
-                                    class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Número de cuenta*</label
-                                >
-                            </div>
-                            <div
-                                class="w-100"
-                                v-if="formInfo.errors?.nro_cuenta"
-                            >
-                                <span
-                                    class="invalid-feedback alert alert-danger"
-                                    style="display: block"
-                                    role="alert"
-                                >
-                                    <strong>{{
-                                        formInfo.errors.nro_cuenta
-                                    }}</strong>
-                                </span>
-                            </div>
-                            <div class="form-floating mt-20px">
-                                <input
-                                    type="text"
-                                    name="moneda"
-                                    class="form-control fs-13px h-45px border-0"
-                                    placeholder="Moneda de cuenta Bancaria"
-                                    v-model="formInfo.moneda"
-                                />
-                                <label
-                                    for="name"
-                                    class="d-flex align-items-center text-gray-600 fs-13px"
-                                    >Moneda de cuenta Bancaria*</label
-                                >
-                            </div>
-                            <div class="w-100" v-if="formInfo.errors?.moneda">
-                                <span
-                                    class="invalid-feedback alert alert-danger"
-                                    style="display: block"
-                                    role="alert"
-                                >
-                                    <strong>{{
-                                        formInfo.errors.moneda
                                     }}</strong>
                                 </span>
                             </div>
@@ -751,6 +744,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Contraseña actual"
                                     v-model="form.password_actual"
+                                    autocomplete="false"
                                 />
                                 <label
                                     for="name"
@@ -779,6 +773,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Nueva contraseña"
                                     v-model="form.password"
+                                    autocomplete="false"
                                 />
                                 <label
                                     for="name"
@@ -807,6 +802,7 @@ onMounted(() => {
                                     class="form-control fs-13px h-45px border-0"
                                     placeholder="Repite la contraseña"
                                     v-model="form.password_confirmation"
+                                    autocomplete="false"
                                 />
                                 <label
                                     for="name"

@@ -10,6 +10,7 @@ const oParametrizacion = ref({
     nro_imagenes_pub: "",
     tiempo_pub: "",
     terminos_condiciones: "",
+    verificar_comprobante: "",
     o_servidor_correo: {
         host: "",
         puerto: "",

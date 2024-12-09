@@ -120,7 +120,8 @@ class ParametrizacionController extends Controller
                 "datos_banco" => $datos_banco,
                 "nro_imagenes_pub" => $request->nro_imagenes_pub,
                 "tiempo_pub" => $request->tiempo_pub,
-                // "terminos_condiciones" => $request->terminos_condiciones,
+                "terminos_condiciones" => $request->terminos_condiciones,
+                "verificar_comprobante" => $request->verificar_comprobante,
             ];
             if (!$parametrizacion) {
                 Parametrizacion::create($datos);

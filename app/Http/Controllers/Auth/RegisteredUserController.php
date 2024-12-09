@@ -89,12 +89,15 @@ class RegisteredUserController extends Controller
             "required",
             "numeric",
             "digits_between:7,10",
-            Rule::unique('clientes', 'ci')->where(function ($query) {
-                $complemento = request()->input('complemento');
-                if (!is_null($complemento)) {
-                    $query->where('complemento', $complemento);
-                }
-            }),
+            Rule::unique('clientes', 'ci')
+                ->where(function ($query) {
+                    $complemento = request()->input('complemento');
+                    if (is_null($complemento)) {
+                        $query->whereIn('complemento', [NULL, ""]);
+                    } else {
+                        $query->where('complemento', $complemento);
+                    }
+                }),
         ];
 
         $request->validate($this->validacion, $this->mensajes);
@@ -178,12 +181,15 @@ class RegisteredUserController extends Controller
             "required",
             "numeric",
             "digits_between:7,10",
-            Rule::unique('clientes', 'ci')->where(function ($query) {
-                $complemento = request()->input('complemento');
-                if (!is_null($complemento)) {
-                    $query->where('complemento', $complemento);
-                }
-            }),
+            Rule::unique('clientes', 'ci')
+                ->where(function ($query) {
+                    $complemento = request()->input('complemento');
+                    if (is_null($complemento)) {
+                        $query->whereIn('complemento', [NULL, ""]);
+                    } else {
+                        $query->where('complemento', $complemento);
+                    }
+                }),
         ];
 
 

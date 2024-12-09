@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <h1>Ganador de subasta</h1>
+    <h1>Subasta Concluida</h1>
     <p>{!! $datos['mensaje'] !!}</p>
 </body>
 

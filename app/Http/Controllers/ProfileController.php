@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -47,13 +49,26 @@ class ProfileController extends Controller
 
     public function updateInfoCliente(Request $request): RedirectResponse
     {
-
         $user = Auth::user();
         $cliente = $user->cliente;
         $validacion = [
             "nombre" => "required|regex:/^[\pL\s\.\,áéíóúÁÉÍÓÚñÑ]+$/u",
             "paterno" => "required|regex:/^[\pL\s\.\,áéíóúÁÉÍÓÚñÑ]+$/u",
-            "ci" => "required|numeric|digits_between:7,10|unique:clientes,ci," . $cliente->id,
+            "ci" => [
+                "required",
+                "numeric",
+                "digits_between:7,10",
+                Rule::unique('clientes', 'ci')
+                    ->where(function ($query) {
+                        $complemento = request()->input('complemento');
+                        if (is_null($complemento)) {
+                            $query->whereIn('complemento', [NULL, ""]);
+                        } else {
+                            $query->where('complemento', $complemento);
+                        }
+                    })
+                    ->ignore($cliente->id),
+            ],
             "ci_exp" => "required",
             "fono" => "required|numeric|digits_between:7,10",
             "dpto_residencia" => "required",

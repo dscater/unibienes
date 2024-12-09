@@ -30,7 +30,16 @@ class Publicacion extends Model
     ];
 
     // APPENDS
-    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt"];
+    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt", "moneda_txt"];
+
+    public function getMonedaTxtAttribute()
+    {
+        $moneda = "USD"; // DÓLARES (USD)
+        if ($this->moneda == 'BOLIVIANOS (BS)')
+            $moneda = "BS";
+
+        return $moneda;
+    }
 
     public function getEstadoTxtAttribute()
     {

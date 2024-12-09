@@ -172,29 +172,34 @@ onBeforeUnmount(() => {
                         <!-- FIN tiempo restante -->
                         <div class="col-12 px-5">
                             <h4 class="w-100 text-center">Detalles</h4>
-                            <div class="row">
+                            <div class="row mx-0 detalles_principal">
                                 <div
-                                    class="col-md-4 border"
+                                    class="col-md-4"
                                     v-for="item in primerosTres"
                                 >
-                                    <div class="row">
+                                    <div class="row contenedor_detalles">
                                         <div
-                                            class="col-12 bg-primary text-white"
+                                            class="col-12 bg-primary text-white text-center font-weight-bold"
                                         >
-                                            {{ item.caracteristica }}
+                                            <p class="mb-0">
+                                                {{ item.caracteristica }}
+                                            </p>
                                         </div>
-                                        <div class="col-12">
-                                            {{ item.detalle }}
+                                        <div class="col-12 text-center">
+                                            <p class="mb-0">
+                                                {{ item.detalle }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center mt-2 mb-2">
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
                                     <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                        @click.prevent="verDetallesPublicacion"
+                                        class="btn bg3 btn-sm w-100 rounded-0 mx-0"
+                                        @click="verDetallesPublicacion"
                                     >
-                                        Detalles de la subasta
+                                        Ver mas detalles
                                         <i class="fa fa-external-link-alt"></i>
                                     </button>
                                 </div>
@@ -218,7 +223,7 @@ onBeforeUnmount(() => {
                                         <td
                                             class="text-white font-weight-bold h5"
                                         >
-                                            {{
+                                            {{ oPublicacion.moneda_txt }} {{
                                                 getFormatoMoneda(
                                                     oPublicacion.oferta_inicial
                                                 )
@@ -287,5 +292,13 @@ onBeforeUnmount(() => {
 
 .product_info_imagen {
     border-right: solid 1px rgb(204, 204, 204);
+}
+
+
+
+.contenedor_detalles p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>

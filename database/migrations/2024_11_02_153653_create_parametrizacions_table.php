@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer("nro_imagenes_pub");
             $table->integer("tiempo_pub");
             $table->text("terminos_condiciones");
+            $table->text("verificar_comprobante");
             $table->timestamps();
         });
     }

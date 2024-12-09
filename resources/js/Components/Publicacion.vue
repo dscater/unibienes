@@ -272,7 +272,7 @@ onBeforeUnmount(() => {
     <DetalleSubasta
         :open_dialog="modal_dialog"
         :publicacion="oPublicacion"
-        :detalles="restantes"
+        :detalles="oPublicacion.publicacion_detalles"
         @cerrar-dialog="modal_dialog = false"
     ></DetalleSubasta>
     <ModalComprobante
@@ -344,21 +344,40 @@ onBeforeUnmount(() => {
                                     class="col-md-4"
                                     v-for="item in primerosTres"
                                 >
-                                    <div class="row">
+                                    <div class="row contenedor_detalles">
                                         <div
                                             class="col-12 bg-primary text-white text-center font-weight-bold"
                                         >
-                                            {{ item.caracteristica }}
+                                            <p class="mb-0">
+                                                {{ item.caracteristica }}
+                                            </p>
                                         </div>
                                         <div class="col-12 text-center">
-                                            {{ item.detalle }}
+                                            <p class="mb-0">
+                                                {{ item.detalle }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-2 mb-2">
-                                <div class="col-12 text-center font-weight-bold text-md">
-                                    Oferta inicial <i class="fa fa-arrow-right"></i>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button
+                                        class="btn bg3 btn-sm w-100 rounded-0 mx-0"
+                                        @click="verDetallesPublicacion"
+                                    >
+                                        Ver mas detalles
+                                        <i class="fa fa-external-link-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row mt-2 mb-2" v-if="!column">
+                                <div
+                                    class="col-12 text-center font-weight-bold text-md"
+                                >
+                                    Oferta inicial
+                                    <i class="fa fa-arrow-right"></i>
+                                    {{ oPublicacion.moneda_txt }}
                                     {{
                                         getFormatoMoneda(
                                             oPublicacion.oferta_inicial
@@ -366,15 +385,6 @@ onBeforeUnmount(() => {
                                     }}
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 text-center p-0">
-                            <button
-                                class="btn bg3 btn-sm w-100 rounded-0 mx-0"
-                                @click="verDetallesPublicacion"
-                            >
-                                Ver mas detalles
-                                <i class="fa fa-external-link-alt"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -394,6 +404,7 @@ onBeforeUnmount(() => {
                                     Oferta inicial:
                                 </div>
                                 <div class="col-md-6 txt_info2">
+                                    {{ oPublicacion.moneda_txt }}
                                     {{
                                         getFormatoMoneda(
                                             oPublicacion.oferta_inicial
@@ -413,6 +424,7 @@ onBeforeUnmount(() => {
                                     "
                                 >
                                     <div class="col-md-6 txt_info2">
+                                        {{ oPublicacion.moneda_txt }}
                                         {{
                                             getFormatoMoneda(
                                                 oPublicacion.subasta
@@ -507,6 +519,7 @@ onBeforeUnmount(() => {
                             >
                                 <td class="">{{ index + 1 }})</td>
                                 <td class="">
+                                    {{ oPublicacion.moneda_txt }}
                                     {{ getFormatoMoneda(item.puja) }}
                                     <small
                                         v-if="
@@ -525,6 +538,7 @@ onBeforeUnmount(() => {
                             >
                                 <td>-</td>
                                 <td>
+                                    {{ oPublicacion.moneda_txt }}
                                     {{
                                         getFormatoMoneda(oSubastaCliente?.puja)
                                     }}
@@ -567,6 +581,11 @@ onBeforeUnmount(() => {
 .product-info,
 .product-image {
     background-color: rgb(255, 255, 255);
+    border-bottom: solid 1px;
+    border-color: var(--bg_blue_dark);
+}
+
+.product-info {
     border-bottom: solid 3px;
     border-color: var(--principal-portal);
 }
@@ -615,11 +634,14 @@ onBeforeUnmount(() => {
 .detalles_principal .col-12 {
     padding: 10px;
 }
-.tabla_ofertas {
-}
-
 .tabla_ofertas tbody tr:hover {
     background-color: transparent;
+}
+
+.contenedor_detalles p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media (max-width: 900px) {

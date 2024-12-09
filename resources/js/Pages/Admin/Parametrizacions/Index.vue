@@ -73,6 +73,7 @@ if (props_page.parametrizacion != null) {
         nro_imagenes_pub: "",
         tiempo_pub: "",
         terminos_condiciones: "",
+        verificar_comprobante: "",
         titular: "TITULAR",
         banco: "BANCO",
         nro_cuenta: "11111",
@@ -284,18 +285,32 @@ onMounted(() => {});
                         <img :src="form.url_qr" alt="" class="img_qr" />
                     </div>
                 </div>
-                <!-- <div class="col-md-12 form-group mb-3">
+                <div class="col-md-12 form-group mb-3">
                     <label for="">Terminos y condiciones*</label>
                     <textarea
                         class="form-control"
                         v-model="form.terminos_condiciones"
+                        rows="20"
                     ></textarea>
                     <span
                         class="text-danger"
                         v-if="form.errors?.terminos_condiciones"
                         >{{ form.errors.terminos_condiciones }}</span
                     >
-                </div> -->
+                </div>
+                <div class="col-md-12 form-group mb-3">
+                    <label for="">Mensaje verificando comprobante*</label>
+                    <textarea
+                        class="form-control"
+                        v-model="form.verificar_comprobante"
+                        rows="1"
+                    ></textarea>
+                    <span
+                        class="text-danger"
+                        v-if="form.errors?.verificar_comprobante"
+                        >{{ form.errors.verificar_comprobante }}</span
+                    >
+                </div>
             </div>
             <div
                 class="col-12"

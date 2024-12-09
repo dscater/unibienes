@@ -94,42 +94,25 @@ onMounted(() => {});
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-12">
-                            <table class="table table-bordered table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td
-                                            class="font-weight-bold"
-                                            width="30%"
-                                        >
-                                            MONEDA
-                                        </td>
-                                        <td>
-                                            {{ oPublicacion.moneda }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="font-weight-bold"
-                                            width="30%"
-                                        >
-                                            FECHA LÍMITE PARA REALIZAR
-                                            OFERTAS/PUJAS
-                                        </td>
-                                        <td>
-                                            {{
-                                                oPublicacion.fecha_hora_limite_am
-                                            }}
-                                        </td>
-                                    </tr>
-                                    <tr v-for="item in aDetalles">
-                                        <td class="font-weight-bold">
-                                            {{ item.caracteristica }}
-                                        </td>
-                                        <td>{{ item.detalle }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-3 font-weight-bold border">MONEDA</div>
+                        <div class="col-9 border">
+                            {{ oPublicacion.moneda }}
+                        </div>
+                        <div class="col-3 font-weight-bold border">
+                            FECHA LÍMITE PARA REALIZAR OFERTAS/PUJAS
+                        </div>
+                        <div class="col-9 border">
+                            {{ oPublicacion.fecha_hora_limite_am }}
+                        </div>
+                        <div v-for="item in aDetalles" class="col-12">
+                            <div class="row">
+                                <div class="col-3 font-weight-bold border">
+                                    <p>{{ item.caracteristica }}</p>
+                                </div>
+                                <div class="col-9 border">
+                                    <p>{{ item.detalle }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,3 +128,20 @@ onMounted(() => {});
         </div>
     </div>
 </template>
+<style scoped>
+div.col-3 {
+    background-color: rgb(250, 250, 250);
+    text-align: right;
+}
+div.col-3,
+div.col-9{
+    vertical-align: middle;
+}
+
+p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    word-break: keep-all;
+}
+</style>

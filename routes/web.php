@@ -21,6 +21,13 @@ use Inertia\Inertia;
 
 Route::get('/', [PortalController::class, 'index'])->name("portal.index");
 
+Route::get('/clear-cache', function () {
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('optimize');
+    return 'Cache eliminado <a href="/">Ir al inicio</a>';
+})->name('clear.cache');
+
 Route::get('/login', function () {
     if (Auth::check()) {
         return redirect()->route('inicio');
@@ -36,6 +43,7 @@ Route::get('/registro', function () {
     return Inertia::render('Auth/Register');
 })->name("registro");
 Route::get('/getTerminosCondiciones', [PortalController::class, 'getTerminosCondiciones'])->name("getTerminosCondiciones");
+Route::get('/getMensajeVerificaComprobante', [PortalController::class, 'getMensajeVerificaComprobante'])->name("getMensajeVerificaComprobante");
 Route::get('/olvido_contrasena', [RecuperarContrasenaController::class, 'olvido_contrasena'])->name("olvido_contrasena");
 Route::post('/solicitar_recuperacion', [RecuperarContrasenaController::class, 'solicitar_recuperacion'])->name("solicitar_recuperacion");
 Route::get('/recuperar_password/{recuperar_password}', [RecuperarContrasenaController::class, 'recuperar_password'])->name("recuperar_password");
@@ -96,6 +104,7 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
 
     // CLIENTES
     Route::get("clientes/listado", [ClienteController::class, 'listado'])->name("clientes.listado");
+    Route::put("clientes/update/{cliente}", [ClienteController::class, 'update'])->name("clientes.update");
 
     // PARAMETRIZACIÓN
     Route::get("parametrizacions/api", [ParametrizacionController::class, 'api'])->name("parametrizacions.api");

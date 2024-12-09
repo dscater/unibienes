@@ -148,7 +148,6 @@ export const useUsuarios = () => {
             oUsuario.value.password = "";
             oUsuario.value._method = "PUT";
             if (cliente) {
-                console.log(item)
                 oUsuario.value.cliente = item.cliente;
             }
             return oUsuario;

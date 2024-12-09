@@ -24,6 +24,7 @@ import PanelToolbar from "@/Components/PanelToolbar.vue";
 // import { useMenu } from "@/composables/useMenu";
 import InfoCliente from "./InfoCliente.vue";
 import FormPassword from "./FormPassword.vue";
+import FormularioCliente from "./FormularioCliente.vue";
 // const { mobile, identificaDispositivo } = useMenu();
 const { props: props_page } = usePage();
 const { setLoading } = useApp();
@@ -86,6 +87,12 @@ const columns = [
                 props_page.auth?.user.permisos == "*" ||
                 props_page.auth?.user.permisos.includes("clientes.edit")
             ) {
+                buttons += `<button class="mx-0 rounded-0 btn btn-warning edit" data-id="${row.id}"><i class="fa fa-edit"></i></button> `;
+            }
+            if (
+                props_page.auth?.user.permisos == "*" ||
+                props_page.auth?.user.permisos.includes("clientes.edit")
+            ) {
                 buttons += `<button class="mx-0 rounded-0 btn btn-info password" data-id="${row.id}"><i class="fa fa-key"></i></button>`;
             }
 
@@ -111,6 +118,8 @@ const accion_dialog = ref(0);
 const open_dialog = ref(false);
 const accion_dialog_pass = ref(0);
 const open_dialog_pass = ref(false);
+const accion_dialog_edit = ref(0);
+const open_dialog_edit = ref(false);
 
 const agregarRegistro = () => {
     limpiarUsuario();
@@ -119,6 +128,16 @@ const agregarRegistro = () => {
 };
 
 const accionesRow = () => {
+    // edit
+    $("#table-usuario").on("click", "button.edit", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        axios.get(route("usuarios.show", id)).then((response) => {
+            setUsuario(response.data, true);
+            accion_dialog_edit.value = 1;
+            open_dialog_edit.value = true;
+        });
+    });
     // infoCliente
     $("#table-usuario").on("click", "button.infoCliente", function (e) {
         e.preventDefault();
@@ -258,6 +277,13 @@ onBeforeUnmount(() => {
             <!-- END panel -->
         </div>
     </div>
+
+    <FormularioCliente
+        :open_dialog="open_dialog_edit"
+        :accion_dialog="accion_dialog_edit"
+        @envio-formulario="updateDatatable"
+        @cerrar-dialog="open_dialog_edit = false"
+    ></FormularioCliente>
 
     <InfoCliente
         :open_dialog="open_dialog"

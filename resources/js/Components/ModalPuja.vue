@@ -19,6 +19,7 @@ const props = defineProps({
 });
 
 const dialog = ref(props.open_dialog);
+const m_verificar_comprobante = ref("");
 const oPublicacion = ref(props.publicacion);
 const oSubastaCliente = ref(props.subasta_cliente);
 const oSubasta = ref(null);
@@ -43,6 +44,7 @@ watch(
     async (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
+            getMVerificaComprobante();
             obtenerSubastaMontoInicial();
             document
                 .getElementsByTagName("body")[0]
@@ -122,6 +124,18 @@ const generaFormatoMonto = (event) => {
         cursorPosition + (formattedValue.length - inputValue.length)
     );
     event.target.setSelectionRange(newCursorPosition, newCursorPosition);
+};
+
+const getMVerificaComprobante = () => {
+    axios
+        .get(route("getMensajeVerificaComprobante"), {
+            params: {
+                q: Math.floor(Date.now() / 1000),
+            },
+        })
+        .then((response) => {
+            m_verificar_comprobante.value = response.data;
+        });
 };
 
 const txtBotonEnviar = computed(() => {
@@ -278,23 +292,10 @@ onMounted(() => {});
                                 "
                             >
                                 <div class="col-12">
-                                    <div class="alert alert-info">
-                                        <!-- <ul class="pb-0 mb-0">
-                                <li>
-                                    Aún se esta verificando el pago de tu
-                                    garantía
-                                </li>
-                                <li>
-                                    Una vez verificado el pago podrás realizar
-                                    tus ofertas/pujas
-                                </li>
-                            </ul> -->
-                                        Estamos verificando tu comprobante y te
-                                        enviaremos un correo de confirmación
-                                        para que pueda realizar tus
-                                        ofertas/pujas. Cualquier otra
-                                        información comunicarse al 77256805
-                                    </div>
+                                    <div
+                                        class="alert alert-info"
+                                        v-html="m_verificar_comprobante"
+                                    ></div>
                                 </div>
                             </div>
                             <div

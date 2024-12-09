@@ -47,6 +47,8 @@ const submit = () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
+
+            router.get(route("login"));
         })
         .catch((error) => {
             console.log(error.response);
