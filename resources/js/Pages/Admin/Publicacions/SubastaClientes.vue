@@ -32,12 +32,14 @@ const itemSubastaCliente = ref(null);
 const intervalRegistros = ref(null);
 const listRegistros = ref([]);
 const lastId = ref(0);
+const maxima_puja = ref(0);
 
 const cargarRegistros = () => {
     axios
         .get(route("subastas.getClientesApi", props.subasta.id), {
             params: {
                 lastId: lastId.value,
+                maxima_puja: maxima_puja.value,
             },
         })
         .then((response) => {
@@ -47,7 +49,15 @@ const cargarRegistros = () => {
                     ...response.data.publicacions,
                 ]),
             ];
+
+            listRegistros.value = [
+                ...new Map(
+                    listRegistros.value.map((item) => [item.id, item])
+                ).values(),
+            ].sort((a, b) => b.puja - a.puja);
+
             lastId.value = response.data.lastId;
+            maxima_puja.value = response.data.maxima_puja;
         });
 };
 
@@ -148,7 +158,7 @@ onBeforeUnmount(() => {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12" style="overflow: auto;">
+                        <div class="col-12" style="overflow: auto">
                             <table
                                 id="table-subasta"
                                 width="100%"

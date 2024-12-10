@@ -29,24 +29,37 @@ class SubastaController extends Controller
         // $page = ($start / $length) + 1; // Cálculo de la página actual
         $search = $request->input('search');
         $lastId = $request->input('lastId');
-
-        $publicacions = SubastaCliente::with(["cliente", "subasta"])->select("subasta_clientes.*");
+        $maxima_puja = $request->input("maxima_puja");
+        $consulta_publicacions = SubastaCliente::with(["cliente", "subasta"])->select("subasta_clientes.*");
         if ($search && trim($search) != '') {
-            $publicacions->where("nombre", "LIKE", "%$search%");
+            $consulta_publicacions->where("nombre", "LIKE", "%$search%");
         }
 
-        $publicacions->where("subasta_id", $subasta->id);
-        $publicacions->where("id", ">", $lastId);
+        $consulta_publicacions->where("subasta_id", $subasta->id);
 
-        $publicacions = $publicacions->orderBy("subasta_clientes.estado_puja", "desc")
+
+        // datos para validar si se obtendra los registros
+        $publicacions_id  = $consulta_publicacions->orderBy("subasta_clientes.id", "desc")
+            ->get();
+        $publicacions_puja  = $consulta_publicacions->max("puja");
+        $total = count($publicacions_id);
+        $maxima_puja = $total > 0 ? (float)$publicacions_puja : $maxima_puja;
+        $lastId = $total > 0 ? $publicacions_id[0]->id : $lastId;
+
+        // obtener los registros a mostrar
+        if ($lastId != 0 && $maxima_puja == 0) {
+            $consulta_publicacions->where("id", ">", $lastId);
+        }
+
+        $publicacions = $consulta_publicacions->orderBy("subasta_clientes.estado_puja", "desc")
             ->orderBy("subasta_clientes.puja", "desc")
             ->get();
 
-        $total = count($publicacions);
-        $lastId = $total > 0 ? $publicacions[$total - 1]->id : $lastId;
+
         return response()->JSON(
             [
                 "lastId" => $lastId,
+                "maxima_puja" => $maxima_puja,
                 "publicacions" => $publicacions
             ]
         );
