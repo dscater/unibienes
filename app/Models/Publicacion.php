@@ -26,7 +26,7 @@ class Publicacion extends Model
         "fecha_limite",
         "hora_limite",
         "monto_garantia",
-        "estado_sub", // [0:sin_publicar, 1:vigente, 2:tiempo_concluido_mostrar, 3:tiempo_concluido_NO_mostrar, 4:tiempo_concluido_NO_mostrar_SinGanador,5:eliminado]
+        "estado_sub", // [0:sin_publicar, 1:vigente, 2:tiempo_concluido_mostrar, 3:tiempo_concluido_NO_mostrar, 4:tiempo_concluido_NO_mostrar_SinGanador,5:eliminado,6:eliminado_habilitado]
     ];
 
     // APPENDS
@@ -50,6 +50,13 @@ class Publicacion extends Model
 
         if ($this->estado_sub == 2 || $this->estado_sub == 3 || $this->estado_sub == 4) {
             $estado = "FINALIZADO";
+        }
+
+        if ($this->estado_sub == 5) {
+            $estado = "ELIMINADO";
+        }
+        if ($this->estado_sub == 6) {
+            $estado = "ELIMINADO";
         }
 
         return $estado;
@@ -104,7 +111,8 @@ class Publicacion extends Model
 
     public function publicacion_imagens()
     {
-        return $this->hasMany(PublicacionImagen::class, 'publicacion_id')->where("status", 1);
+        return $this->hasMany(PublicacionImagen::class, 'publicacion_id');
+        // return $this->hasMany(PublicacionImagen::class, 'publicacion_id')->where("status", 1);
     }
 
     public function subasta()
@@ -361,11 +369,20 @@ class Publicacion extends Model
         }
     }
 
-    public static function eliminarPublicacion(Publicacion $publicacion)
+    public static function eliminarPublicacion(Publicacion $publicacion, $estado = 5)
     {
         $static = new static;
         DB::beginTransaction();
         try {
+            $subasta = $publicacion->subasta;
+            if ($subasta) {
+                if (count($subasta->subasta_clientes) > 0) {
+                    throw ValidationException::withMessages([
+                        'error' =>  "No es posible eliminar la publicación debido a que existen Clientes registrados",
+                    ]);
+                }
+            }
+
             // imagenes
             $eliminados_imagens = $publicacion->publicacion_imagens()->pluck("id")->toArray();
             $remover_files = PublicacionImagen::eliminarImagensPublicacion($eliminados_imagens);
@@ -374,7 +391,7 @@ class Publicacion extends Model
             PublicacionDetalle::eliminaDetallesPublicacion($eliminados_detalles);
 
             // eliminar
-            $publicacion->estado_sub = 5;
+            $publicacion->estado_sub = $estado;
             $publicacion->save();
 
             // historial_accion

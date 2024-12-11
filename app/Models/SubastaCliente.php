@@ -26,11 +26,17 @@ class SubastaCliente extends Model
 
     public function getHoraOfertaTAttribute()
     {
-        return date("H:i", strtotime($this->hora_oferta));
+        if ($this->hora_oferta) {
+            return date("H:i", strtotime($this->hora_oferta));
+        }
+        return "-";
     }
     public function getFechaOfertaTAttribute()
     {
-        return date("d/m/Y", strtotime($this->fecha_oferta));
+        if ($this->fecha_oferta) {
+            return date("d/m/Y", strtotime($this->fecha_oferta));
+        }
+        return "-";
     }
 
     public function getUrlComprobanteAttribute()
@@ -52,10 +58,14 @@ class SubastaCliente extends Model
 
     public function getEstadoComprobanteTAttribute()
     {
-        $estado = "PENDIENTE";
+        $estado = "SIN VERIFICAR";
 
         if ($this->estado_comprobante === 1) {
             $estado = 'VERIFICADO';
+        }
+
+        if ($this->estado_comprobante === 2) {
+            $estado = 'RECHAZADO';
         }
 
         return $estado;

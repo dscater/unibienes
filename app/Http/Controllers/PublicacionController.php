@@ -75,6 +75,8 @@ class PublicacionController extends Controller
             $columns = $request->columns;
             if ($columns[$nro_col]["data"]) {
                 $col_data = $columns[$nro_col]["data"];
+                // Log::debug($col_data);
+                // Log::debug($asc_desc);
                 $publicacions->orderBy($col_data, $asc_desc);
             }
         }
@@ -176,53 +178,60 @@ class PublicacionController extends Controller
     public function verificaGanador(Publicacion $publicacion)
     {
         $subasta = $publicacion->subasta;
-        $subasta_cliente = null;
-        $subasta_clientes = $subasta->subasta_clientes_puja;
-        $publicacion->estado_sub = 2;
-        $subasta->estado = 2;
-        $subasta_cliente = $subasta_clientes[0];
-        $subasta_cliente->estado_puja = 2;
-        $subasta_cliente->save();
-        if (count($subasta_clientes) <= 0) {
-            // sin ganador
-            $publicacion->estado_sub = 4;
-            $subasta->estado = 0;
+        if ($subasta && count($subasta->subasta_clientes) > 0) {
+            $subasta_cliente = null;
+            $subasta_clientes = $subasta->subasta_clientes_puja;
+            $publicacion->estado_sub = 2;
+            $subasta->estado = 2;
+            $subasta_cliente = $subasta_clientes[0];
+            $subasta_cliente->estado_puja = 2;
+            $subasta_cliente->save();
+            if (count($subasta_clientes) <= 0) {
+                // sin ganador
+                $publicacion->estado_sub = 4;
+                $subasta->estado = 0;
+            }
+
+            // enviar mensaje ganador
+            // enviar correo
+            $parametrizacion = Parametrizacion::first();
+            if ($parametrizacion) {
+                $servidor_correo = json_decode($parametrizacion->servidor_correo);
+                Config::set(
+                    [
+                        'mail.mailers.default' => $servidor_correo->driver,
+                        'mail.mailers.smtp.host' => $servidor_correo->host,
+                        'mail.mailers.smtp.port' => $servidor_correo->puerto,
+                        'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
+                        'mail.mailers.smtp.username' => $servidor_correo->correo,
+                        'mail.mailers.smtp.password' => $servidor_correo->password,
+                        'mail.from.address' => $servidor_correo->correo,
+                        'mail.from.name' => $servidor_correo->nombre,
+                    ]
+                );
+
+                $url =  route('publicacions.publicacionPortal', $publicacion->id);
+
+                $mensaje = 'La Subasta fue concluida. UNIBIENES S.A. se contactará con usted para comunicarle detalles del resultado de la subasta. Puedes ver la publicación  <a href="' . $url . '">aquí</a>';
+                $datos = [
+                    "mensaje" =>  $mensaje,
+                ];
+
+                Mail::to($subasta_cliente->cliente->email)
+                    ->send(new MensajeGanadorMail($datos));
+            }
+
+            $publicacion->save();
+            $subasta->save();
+
+            return response()->JSON([
+                "subasta_cliente" => $subasta_cliente->load(["cliente", "historial_ofertas"]),
+                "publicacion" => $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.historial_ofertas"])
+            ]);
         }
-
-        // enviar mensaje ganador
-        // enviar correo
-        $parametrizacion = Parametrizacion::first();
-        if ($parametrizacion) {
-            $servidor_correo = json_decode($parametrizacion->servidor_correo);
-            Config::set(
-                [
-                    'mail.mailers.default' => $servidor_correo->driver,
-                    'mail.mailers.smtp.host' => $servidor_correo->host,
-                    'mail.mailers.smtp.port' => $servidor_correo->puerto,
-                    'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
-                    'mail.mailers.smtp.username' => $servidor_correo->correo,
-                    'mail.mailers.smtp.password' => $servidor_correo->password,
-                    'mail.from.address' => $servidor_correo->correo,
-                    'mail.from.name' => $servidor_correo->nombre,
-                ]
-            );
-
-            $url =  route('publicacions.publicacionPortal', $publicacion->id);
-
-            $mensaje = 'La Subasta fue concluida. UNIBIENES S.A. se contactará con usted para comunicarle detalles del resultado de la subasta. Puedes ver la publicación  <a href="' . $url . '">aquí</a>';
-            $datos = [
-                "mensaje" =>  $mensaje,
-            ];
-
-            Mail::to($subasta_cliente->cliente->email)
-                ->send(new MensajeGanadorMail($datos));
-        }
-
-        $publicacion->save();
-        $subasta->save();
 
         return response()->JSON([
-            "subasta_cliente" => $subasta_cliente->load(["cliente", "historial_ofertas"]),
+            "subasta_cliente" => null,
             "publicacion" => $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.historial_ofertas"])
         ]);
     }
@@ -260,9 +269,9 @@ class PublicacionController extends Controller
         return redirect()->route("publicacions.index")->with("bien", "Registro actualizado");
     }
 
-    public function destroy(Publicacion $publicacion)
+    public function destroy(Publicacion $publicacion, Request $request)
     {
-        Publicacion::eliminarPublicacion($publicacion);
+        Publicacion::eliminarPublicacion($publicacion, $request->estado);
         return response()->JSON([
             'sw' => true,
             'message' => 'El registro se eliminó correctamente'

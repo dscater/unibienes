@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
                                             <td>{{ item.cliente.full_ci }}</td>
                                             <td>{{ item.cliente.fono }}</td>
                                             <td>{{ item.cliente.email }}</td>
-                                            <td>{{ item.puja }}</td>
+                                            <td>{{ getFormatoMoneda(item.puja) }}</td>
                                             <td>
                                                 <span
                                                     class="badge"

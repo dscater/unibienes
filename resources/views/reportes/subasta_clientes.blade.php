@@ -157,6 +157,10 @@
         .text-md {
             font-size: 1.2em;
         }
+
+        .bg-ganador {
+            background-color: #e7ffe7;
+        }
     </style>
 </head>
 
@@ -186,17 +190,18 @@
                     // Illuminate\Support\Facades\Log::debug($fecha_fin);
                     $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
                         ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                        ->orWhere('fecha_oferta', null)
                         // ->orWhereBetween('created_at', [
                         //     Carbon\Carbon::parse($fecha_ini)->startOfDay(),
                         //     Carbon\Carbon::parse($fecha_fin)->endOfDay(),
                         // ])
-                        ->where('puja', '>', 0)
+                        // ->where('puja', '>', 0)
                         // ->where('estado_comprobante', 1)
                         ->get();
                 }
             } elseif ($publicacion->subasta) {
                 $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
-                    ->where('puja', '>', 0)
+                    // ->where('puja', '>', 0)
                     // ->where('estado_comprobante', 1)
                     ->get();
             }
@@ -210,7 +215,6 @@
                     ->get()
                     ->take(3);
             @endphp
-
             <table>
                 <tbody>
                     <tr>
@@ -219,7 +223,7 @@
                     </tr>
                     <tr>
                         <td width="10%">CATEGORÍA:</td>
-                        <td>{{ $publicacion->categoria }}</td>
+                        <td>{{ $publicacion->categoria }} </td>
                     </tr>
                 </tbody>
             </table>
@@ -237,7 +241,8 @@
                         <th>FECHA DE LA OFERTA</th>
                         <th>HORA DE LA OFERTA</th>
                         <th>OFERTA <br />MONTO {{ $publicacion->moneda }}</th>
-                        <th>MONTO DE GARANTÍA</th>
+                        <th>MONTO DE GARANTÍA {{ $publicacion->moneda }}</th>
+                        <th>COMPROBANTE</th>
                         <th>COMPROBANTE DE PAGO DE GARANTÍA <br />(DOCUMENTO PARA DESCARGAR)</th>
                         <th>CARNET DE IDENTIDAD <br />(DOCUMENTO PARA DESCARGAR)</th>
                         <th>CARACTERISTICAS-DETALLES</th>
@@ -249,7 +254,8 @@
                         $cont = 1;
                     @endphp
                     @forelse ($subasta_clientes as $subasta_cliente)
-                        <tr>
+                        <tr
+                            class="{{ $publicacion->estado_txt == 'FINALIZADO' && $subasta_cliente->estado_puja == 2 ? 'bg-ganador' : '' }}">
                             <td class="centreado">{{ $cont++ }}</td>
                             <td>{{ $subasta_cliente->cliente->full_name }}</td>
                             <td class="">{{ $subasta_cliente->cliente->full_ci }}</td>
@@ -291,6 +297,9 @@
                                 @endif
                             </td>
                             <td class="">{{ number_format($publicacion->monto_garantia, 2, '.', ',') }}</td>
+                            <td>
+                                {{ $subasta_cliente->estado_comprobante_t }}
+                            </td>
                             <td class="">{{ $subasta_cliente->url_comprobante }}</td>
                             <td class="">{{ $subasta_cliente->cliente->url_ci_anverso }} <br>
                                 {{ $subasta_cliente->cliente->url_ci_reverso }}</td>
@@ -301,7 +310,13 @@
                                     @endforeach
                                 </ul>
                             </td>
-                            <td>{{ $publicacion->estado_txt }}</td>
+                            <td>
+                                {{ $publicacion->estado_txt }}
+                                <br />
+                                @if ($publicacion->estado_txt == 'FINALIZADO' && $subasta_cliente->estado_puja == 2)
+                                    (GANADOR)
+                                @endif
+                            </td>
                         </tr>
 
                     @empty

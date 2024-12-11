@@ -14,7 +14,7 @@ const oPublicacion = reactive({
     observaciones: "",
     fecha_limite: "",
     hora_limite: "",
-    fecha_hora_limite:"",
+    fecha_hora_limite: "",
     monto_garantia: "",
     monto_garantia_us: "",
     publicacion_detalles: [],
@@ -110,12 +110,13 @@ export const usePublicacions = () => {
         }
     };
 
-    const deletePublicacion = async (id) => {
+    const deletePublicacion = async (id, data = null) => {
         try {
             const response = await axios.delete(
                 route("publicacions.destroy", id),
                 {
                     headers: { Accept: "application/json" },
+                    data,
                 }
             );
             Swal.fire({
@@ -150,7 +151,9 @@ export const usePublicacions = () => {
             oPublicacion.categoria = item.categoria;
             oPublicacion.moneda = item.moneda;
             oPublicacion.oferta_inicial = item.oferta_inicial;
-            oPublicacion.oferta_inicial_us = getFormatoMoneda(item.oferta_inicial);
+            oPublicacion.oferta_inicial_us = getFormatoMoneda(
+                item.oferta_inicial
+            );
             oPublicacion.ubicacion = item.ubicacion;
             oPublicacion.observaciones = item.observaciones;
             oPublicacion.fecha_limite = item.fecha_limite;
@@ -158,7 +161,9 @@ export const usePublicacions = () => {
             oPublicacion.fecha_hora_limite = item.fecha_hora_limite;
             oPublicacion.fecha_hora_limite_am = item.fecha_hora_limite_am;
             oPublicacion.monto_garantia = item.monto_garantia;
-            oPublicacion.monto_garantia_us = getFormatoMoneda(item.monto_garantia);
+            oPublicacion.monto_garantia_us = getFormatoMoneda(
+                item.monto_garantia
+            );
             oPublicacion.publicacion_detalles = item.publicacion_detalles;
             oPublicacion.publicacion_imagens = item.publicacion_imagens;
             oPublicacion._method = "PUT";

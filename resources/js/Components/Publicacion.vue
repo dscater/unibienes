@@ -363,8 +363,9 @@ onBeforeUnmount(() => {
                             <div class="row">
                                 <div class="col-12">
                                     <button
+                                        type="button"
                                         class="btn bg3 btn-sm w-100 rounded-0 mx-0"
-                                        @click="verDetallesPublicacion"
+                                        @click.prevent="verDetallesPublicacion"
                                     >
                                         Ver mas detalles
                                         <i class="fa fa-external-link-alt"></i>

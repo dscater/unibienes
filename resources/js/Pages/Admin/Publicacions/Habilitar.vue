@@ -42,7 +42,7 @@ const { flash } = usePage().props;
 const tituloDialog = computed(() => {
     return accion.value == 0
         ? `<i class="fa fa-check-circle"></i> Habilitar publicación`
-        : `<i class="fa fa-edit"></i> Editar Publicación`;
+        : `<i class="fa fa-edit"></i> Ver Publicación`;
 });
 
 const enviarFormulario = () => {
@@ -133,7 +133,7 @@ onMounted(() => {});
                             </div>
                         </div>
 
-                        <h5>
+                        <h5 v-if="accion == 0">
                             ¿Está seguro(a) de habilitar la publicación? Una vez
                             habilitado no podrá deshacerlo.
                         </h5>
@@ -177,6 +177,7 @@ onMounted(() => {});
                         ><i class="fa fa-times"></i> Cerrar</a
                     >
                     <button
+                        v-if="accion == 0"
                         type="button"
                         @click="enviarFormulario()"
                         class="btn btn-success"

@@ -119,6 +119,7 @@ const verificarGanadorPublicacion = () => {
         .post(route("publicacions.verificaGanador", oPublicacion.value.id))
         .then((response) => {
             oGanadorSubastaCliente.value = response.data.subasta_cliente;
+            // console.log(response);
             oPublicacion.value = response.data.publicacion;
         });
 };
@@ -196,8 +197,9 @@ onBeforeUnmount(() => {
                             <div class="row">
                                 <div class="col-12">
                                     <button
+                                        type="button"
                                         class="btn bg3 btn-sm w-100 rounded-0 mx-0"
-                                        @click="verDetallesPublicacion"
+                                        @click.prevent="verDetallesPublicacion"
                                     >
                                         Ver mas detalles
                                         <i class="fa fa-external-link-alt"></i>
@@ -223,7 +225,8 @@ onBeforeUnmount(() => {
                                         <td
                                             class="text-white font-weight-bold h5"
                                         >
-                                            {{ oPublicacion.moneda_txt }} {{
+                                            {{ oPublicacion.moneda_txt }}
+                                            {{
                                                 getFormatoMoneda(
                                                     oPublicacion.oferta_inicial
                                                 )
@@ -293,8 +296,6 @@ onBeforeUnmount(() => {
 .product_info_imagen {
     border-right: solid 1px rgb(204, 204, 204);
 }
-
-
 
 .contenedor_detalles p {
     white-space: nowrap;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 09-12-2024 a las 22:02:32
+-- Tiempo de generación: 11-12-2024 a las 18:18:11
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -222,7 +222,13 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (95, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CLIENTE', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: <br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:34:41<br/>', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: <br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:34:41<br/>', 'CLIENTES', '2024-12-09', '17:36:36', '2024-12-09 21:36:36', '2024-12-09 21:36:36'),
 (96, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CLIENTE', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: <br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:34:41<br/>', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 4344334<br/>complemento: F<br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:18<br/>', 'CLIENTES', '2024-12-09', '17:37:18', '2024-12-09 21:37:18', '2024-12-09 21:37:18'),
 (97, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CLIENTE', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 4344334<br/>complemento: F<br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:18<br/>', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: F<br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:27<br/>', 'CLIENTES', '2024-12-09', '17:37:27', '2024-12-09 21:37:27', '2024-12-09 21:37:27'),
-(98, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CLIENTE', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: F<br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:27<br/>', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: <br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:36<br/>', 'CLIENTES', '2024-12-09', '17:37:36', '2024-12-09 21:37:36', '2024-12-09 21:37:36');
+(98, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CLIENTE', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: F<br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:27<br/>', 'id: 1<br/>user_id: 3<br/>nombre: CARLOS<br/>paterno: MARTINES<br/>materno: CHOQUE<br/>ci: 1234567<br/>complemento: <br/>ci_exp: LP<br/>fono: 7777777<br/>dpto_residencia: LA PAZ<br/>email: carlos@gmail.com<br/>foto_ci_anverso: 131733780057.png<br/>foto_ci_reverso: 131733780057.jpeg<br/>banco: BANCO DE CRÉDITO DE BOLIVIA S.A.<br/>nro_cuenta: 100000121212<br/>moneda: BOLIVIANOS<br/>fecha_registro: 2024-11-13<br/>created_at: 2024-11-13 16:33:34<br/>updated_at: 2024-12-09 17:37:36<br/>', 'CLIENTES', '2024-12-09', '17:37:36', '2024-12-09 21:37:36', '2024-12-09 21:37:36'),
+(99, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ROLE', 'id: 4<br/>nombre: ADMINISTRADOR<br/>permisos: 0<br/>usuarios: <br/>created_at: 2024-12-09 19:57:55<br/>updated_at: 2024-12-09 19:57:55<br/>', NULL, 'ROLES', '2024-12-09', '19:57:55', '2024-12-09 23:57:55', '2024-12-09 23:57:55'),
+(100, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 27<br/>usuario: FPAREDES<br/>nombres: FERNANDO<br/>apellidos: PAREDES<br/>password: $2y$12$e8pNAaUdRynS3MUpWevhiO6XTaZXVfNBG6hDwXqbhFcHMA8yi0il2<br/>role_id: 4<br/>acceso: 1<br/>foto: <br/>fecha_registro: 2024-12-09<br/>ultima_sesion: <br/>status: <br/>created_at: 2024-12-09 19:58:09<br/>updated_at: 2024-12-09 19:58:09<br/>', NULL, 'USUARIOS', '2024-12-09', '19:58:09', '2024-12-09 23:58:09', '2024-12-09 23:58:09'),
+(101, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 23<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 60000.00<br/>ubicacion: COCHABAMBA<br/>observaciones: LOTE DE TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 6000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:03:48<br/>updated_at: 2024-12-11 13:55:03<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '13:55:03', '2024-12-11 17:55:03', '2024-12-11 17:55:03'),
+(102, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:07:55<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:07:55', '2024-12-11 18:07:55', '2024-12-11 18:07:55'),
+(103, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:09:46<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:09:46', '2024-12-11 18:09:46', '2024-12-11 18:09:46'),
+(104, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:10:48<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:10:48', '2024-12-11 18:10:48', '2024-12-11 18:10:48');
 
 -- --------------------------------------------------------
 
@@ -271,7 +277,12 @@ INSERT INTO `historial_ofertas` (`id`, `subasta_cliente_id`, `subasta_id`, `clie
 (22, 18, 22, 3, 20503.00, '2024-12-02', '14:04:00', '2024-12-02 18:04:43', '2024-12-02 18:04:43'),
 (23, 19, 23, 1, 4000.00, '2024-12-03', '01:01:00', '2024-12-03 05:01:02', '2024-12-03 05:01:02'),
 (24, 20, 23, 2, 4001.00, '2024-12-03', '01:05:00', '2024-12-03 05:05:07', '2024-12-03 05:05:07'),
-(25, 19, 23, 1, 4500.00, '2024-12-03', '01:05:00', '2024-12-03 05:05:30', '2024-12-03 05:05:30');
+(25, 19, 23, 1, 4500.00, '2024-12-03', '01:05:00', '2024-12-03 05:05:30', '2024-12-03 05:05:30'),
+(26, 26, 24, 19, 10000.00, '2024-12-09', '20:09:00', '2024-12-10 00:09:42', '2024-12-10 00:09:42'),
+(27, 26, 24, 19, 10001.00, '2024-12-09', '20:15:00', '2024-12-10 00:15:17', '2024-12-10 00:15:17'),
+(28, 25, 24, 20, 10002.00, '2024-12-09', '20:16:00', '2024-12-10 00:16:24', '2024-12-10 00:16:24'),
+(29, 26, 24, 19, 10003.00, '2024-12-09', '20:17:00', '2024-12-10 00:17:10', '2024-12-10 00:17:10'),
+(30, 25, 24, 20, 10004.00, '2024-12-09', '20:17:00', '2024-12-10 00:17:39', '2024-12-10 00:17:39');
 
 -- --------------------------------------------------------
 
@@ -318,7 +329,8 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 (22, 'Clientes', 'clientes.edit', 'EDITAR CLIENTE', 'MODIFICAR LA CONTRASEÑA DE LOS CLIENTES', NULL, NULL),
 (23, 'Clientes', 'clientes.destroy', 'ELIMINAR', 'ELIMINAR CLIENTES', NULL, NULL),
 (24, 'Publicaciones', 'publicacions.aprobar_comprobante', 'APROBAR COMPROBANTES DE PAGOS', 'APROBAR COMPROBANTE DE PAGO', NULL, NULL),
-(25, 'Publicaciones', 'publicacions.rechazar_comprobante', 'RECHAZAR COMPROBANTES DE PAGOS', 'RECHAZAR COMPROBANTE DE PAGO', NULL, NULL);
+(25, 'Publicaciones', 'publicacions.rechazar_comprobante', 'RECHAZAR COMPROBANTES DE PAGOS', 'RECHAZAR COMPROBANTE DE PAGO', NULL, NULL),
+(26, 'Publicaciones', 'publicacions.destroy_habilitado', 'ELIMINAR HABILITADOS', 'ELIMINAR PUBLICACIONES HABILITADAS', '2024-11-18 16:10:12', '2024-11-18 16:10:12');
 
 -- --------------------------------------------------------
 
@@ -366,7 +378,9 @@ INSERT INTO `notificacions` (`id`, `descripcion`, `fecha`, `hora`, `modulo`, `re
 (22, 'PEDRO MARQUEZ SOLANO REGISTRO SU COMPROBANTE', '2024-12-07', '00:53:00', 'SUBASTA CLIENTE', 21, '2024-12-07 04:53:32', '2024-12-07 04:53:32'),
 (23, 'FRANZ MARTINES CORDOVA REGISTRO SU COMPROBANTE', '2024-12-07', '00:54:00', 'SUBASTA CLIENTE', 22, '2024-12-07 04:54:25', '2024-12-07 04:54:25'),
 (24, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-12-07', '01:32:00', 'SUBASTA CLIENTE', 23, '2024-12-07 05:32:28', '2024-12-07 05:32:28'),
-(25, 'CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-12-09', '16:17:00', 'SUBASTA CLIENTE', 24, '2024-12-09 20:17:48', '2024-12-09 20:17:48');
+(25, 'CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-12-09', '16:17:00', 'SUBASTA CLIENTE', 24, '2024-12-09 20:17:48', '2024-12-09 20:17:48'),
+(26, 'FERNANDA MARQUEZ REGISTRO SU COMPROBANTE', '2024-12-09', '20:07:00', 'SUBASTA CLIENTE', 25, '2024-12-10 00:07:04', '2024-12-10 00:07:04'),
+(27, 'SANDRO BALTAZAR REGISTRO SU COMPROBANTE', '2024-12-09', '20:07:00', 'SUBASTA CLIENTE', 26, '2024-12-10 00:07:28', '2024-12-10 00:07:28');
 
 -- --------------------------------------------------------
 
@@ -412,7 +426,9 @@ INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `
 (22, 22, 2, 0, '2024-12-07 04:53:32', '2024-12-07 04:53:32'),
 (23, 23, 2, 0, '2024-12-07 04:54:25', '2024-12-07 04:54:25'),
 (24, 24, 2, 0, '2024-12-07 05:32:28', '2024-12-07 05:32:28'),
-(25, 25, 2, 0, '2024-12-09 20:17:48', '2024-12-09 20:17:48');
+(25, 25, 2, 0, '2024-12-09 20:17:48', '2024-12-09 20:17:48'),
+(26, 26, 2, 0, '2024-12-10 00:07:04', '2024-12-10 00:07:04'),
+(27, 27, 2, 0, '2024-12-10 00:07:28', '2024-12-10 00:07:28');
 
 -- --------------------------------------------------------
 
@@ -469,7 +485,9 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 (8, 3, 19, '2024-11-17 01:24:49', '2024-11-17 01:24:49'),
 (14, 3, 21, '2024-11-22 07:59:22', '2024-11-22 07:59:22'),
 (18, 3, 24, '2024-11-26 07:47:46', '2024-11-26 07:47:46'),
-(19, 3, 25, '2024-11-26 07:47:50', '2024-11-26 07:47:50');
+(19, 3, 25, '2024-11-26 07:47:50', '2024-11-26 07:47:50'),
+(20, 4, 1, '2024-12-09 23:58:15', '2024-12-09 23:58:15'),
+(21, 4, 2, '2024-12-09 23:58:16', '2024-12-09 23:58:16');
 
 -- --------------------------------------------------------
 
@@ -498,8 +516,8 @@ CREATE TABLE `publicacions` (
 --
 
 INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
-(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-12-09 21:43:04'),
-(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 3, '2024-11-13 18:32:59', '2024-12-07 06:56:15'),
+(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-12-11 18:14:39'),
+(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 3, '2024-11-13 18:32:59', '2024-12-11 18:14:39'),
 (5, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-12-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-12-02 18:49:07'),
 (6, 6, 'VEHÍCULOS', 'DÓLARES (USD)', 1000.00, 'LA PAZ', 'OBS', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-20 08:08:13', '2024-12-02 16:04:01'),
 (7, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'COCHABAMBA', 'OBS', '2024-11-30', '12:00:00', 10000.00, 3, '2024-11-20 08:13:24', '2024-12-02 16:04:01'),
@@ -517,8 +535,8 @@ INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inic
 (19, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 140000.00, 'LA PAZ', 'CASA', '2024-11-26', '18:00:00', 20000.00, 3, '2024-11-20 23:54:18', '2024-12-02 17:32:24'),
 (20, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 120000.00, 'CHUQUISACA', 'CASA', '2024-11-26', '18:00:00', 12000.00, 0, '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
 (21, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 50000.00, 'LA PAZ', 'TERRENO FÉRTIL', '2024-11-26', '18:00:00', 5000.00, 3, '2024-11-20 23:59:24', '2024-11-30 01:19:02'),
-(22, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 30000.00, 'LA PAZ', 'TERRENO', '2024-11-26', '18:00:00', 3000.00, 3, '2024-11-21 00:01:32', '2024-11-30 01:19:02'),
-(23, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 60000.00, 'COCHABAMBA', 'LOTE DE TERRENO', '2024-11-26', '18:00:00', 6000.00, 3, '2024-11-21 00:03:48', '2024-11-30 01:19:02'),
+(22, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 30000.00, 'LA PAZ', 'TERRENO', '2024-11-26', '18:00:00', 3000.00, 3, '2024-11-21 00:01:32', '2024-12-11 18:10:48'),
+(23, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 60000.00, 'COCHABAMBA', 'LOTE DE TERRENO', '2024-11-26', '18:00:00', 6000.00, 3, '2024-11-21 00:03:48', '2024-12-11 17:55:03'),
 (24, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-26', '18:00:00', 20000.00, 3, '2024-11-21 19:26:49', '2024-12-02 17:32:24'),
 (25, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', '', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-26 08:07:27', '2024-12-07 06:37:37'),
 (26, 2, 'OTROS BIENES', 'BOLIVIANOS (BS)', 2000.00, 'LA PAZ', '', '2024-12-02', '14:00:00', 400.00, 3, '2024-11-26 08:28:21', '2024-12-07 04:43:28'),
@@ -746,12 +764,12 @@ INSERT INTO `publicacion_imagens` (`id`, `publicacion_id`, `imagen`, `status`, `
 (58, 21, '01732132764.jpg', 1, '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
 (59, 21, '11732132764.jpg', 1, '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
 (60, 21, '21732132764.jpg', 1, '2024-11-20 23:59:24', '2024-11-20 23:59:24'),
-(61, 22, '01732132892.jpg', 1, '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
-(62, 22, '11732132892.jpg', 1, '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
-(63, 22, '21732132892.jpg', 1, '2024-11-21 00:01:32', '2024-11-21 00:01:32'),
-(64, 23, '01732133028.jpeg', 1, '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
-(65, 23, '11732133028.jpeg', 1, '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
-(66, 23, '21732133028.jpg', 1, '2024-11-21 00:03:48', '2024-11-21 00:03:48'),
+(61, 22, '01732132892.jpg', 0, '2024-11-21 00:01:32', '2024-12-11 18:07:55'),
+(62, 22, '11732132892.jpg', 0, '2024-11-21 00:01:32', '2024-12-11 18:07:55'),
+(63, 22, '21732132892.jpg', 0, '2024-11-21 00:01:32', '2024-12-11 18:07:55'),
+(64, 23, '01732133028.jpeg', 0, '2024-11-21 00:03:48', '2024-12-11 17:55:03'),
+(65, 23, '11732133028.jpeg', 0, '2024-11-21 00:03:48', '2024-12-11 17:55:03'),
+(66, 23, '21732133028.jpg', 0, '2024-11-21 00:03:48', '2024-12-11 17:55:03'),
 (67, 24, '01732202809.jpg', 1, '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
 (68, 24, '11732202809.jpg', 1, '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
 (69, 24, '21732202809.jpg', 1, '2024-11-21 19:26:49', '2024-11-21 19:26:49'),
@@ -824,7 +842,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `nombre`, `permisos`, `usuarios`, `created_at`, `updated_at`) VALUES
 (1, 'SUPER USUARIO', 1, 0, '2024-11-09 18:47:19', '2024-11-09 18:47:19'),
 (2, 'CLIENTE', 0, 0, '2024-11-09 18:49:17', '2024-11-09 18:49:17'),
-(3, 'SUBASTADOR', 0, 1, '2024-11-09 18:49:25', '2024-11-09 18:49:25');
+(3, 'SUBASTADOR', 0, 1, '2024-11-09 18:49:25', '2024-11-09 18:49:25'),
+(4, 'ADMINISTRADOR', 0, 1, '2024-12-09 23:57:55', '2024-12-09 23:57:55');
 
 -- --------------------------------------------------------
 
@@ -920,7 +939,9 @@ INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `p
 (21, 24, 16, 1, 0.00, '161733547212.pdf', 0, 0, NULL, NULL, '2024-12-07 04:53:32', '2024-12-07 04:53:32'),
 (22, 24, 17, 1, 0.00, '171733547265.png', 2, 0, NULL, NULL, '2024-12-07 04:54:25', '2024-12-07 06:44:24'),
 (23, 24, 2, 1, 0.00, '21733549548.pdf', 1, 0, NULL, NULL, '2024-12-07 05:32:28', '2024-12-07 06:17:52'),
-(24, 24, 1, 1, 0.00, '11733775468.png', 0, 0, NULL, NULL, '2024-12-09 20:17:48', '2024-12-09 20:17:48');
+(24, 24, 1, 1, 0.00, '11733775468.png', 0, 0, NULL, NULL, '2024-12-09 20:17:48', '2024-12-09 20:17:48'),
+(25, 24, 20, 1, 10004.00, '201733789224.pdf', 1, 1, '2024-12-09', '20:17:00', '2024-12-10 00:07:04', '2024-12-10 00:17:39'),
+(26, 24, 19, 1, 10003.00, '191733789248.pdf', 1, 0, '2024-12-09', '20:17:00', '2024-12-10 00:07:28', '2024-12-10 00:17:10');
 
 -- --------------------------------------------------------
 
@@ -949,8 +970,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-12-09', 1, '2024-11-09 18:47:19', '2024-12-09 20:09:05'),
-(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$36K0jnlnyAJiaJ.aSSDQoeVzBpZzhDXCtPqHMQ8LrSe5dKy/TS.TO', 3, 1, '1732740859_2.jpg', '2024-11-11', '2024-12-07', 1, '2024-11-11 22:53:46', '2024-12-07 04:43:28'),
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-12-11', 1, '2024-11-09 18:47:19', '2024-12-11 16:54:39'),
+(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$36K0jnlnyAJiaJ.aSSDQoeVzBpZzhDXCtPqHMQ8LrSe5dKy/TS.TO', 3, 1, '1732740859_2.jpg', '2024-11-11', '2024-12-11', 1, '2024-11-11 22:53:46', '2024-12-11 16:54:34'),
 (3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-12-09', 1, '2024-11-13 20:33:34', '2024-12-09 21:34:41'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', '2024-12-02', 1, '2024-11-13 22:13:05', '2024-12-02 17:53:18'),
 (5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$PPiB1npLDn/PeZxqkGMXBeD0qFSia1PfxRPVum6NHcpaoTAIgRmqi', 2, 1, '1732079915_maria@gmail.com.jpg', '2024-11-16', '2024-12-09', 1, '2024-11-16 19:36:05', '2024-12-09 21:39:06'),
@@ -963,7 +984,7 @@ INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_
 (12, 'carla@gmail.com', 'CARLA', 'RAMIRES CONDORI', '$2y$12$VBzB2cpGPIRyWyJo.FXt7.bp6NUd5WgzHq4c2qNMaOXL/Vlcjuz8W', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:46:41', '2024-11-20 08:46:41'),
 (13, 'franz@gmail.com', 'FRANZ', 'CONDORI CONDORI', '$2y$12$W40YzEEAW31UDbLvKoBOI.Y5bAhL/eMlnv6g8HyF2B579NEX9NN5O', 2, 1, NULL, '2024-11-20', '2024-12-09', 1, '2024-11-20 08:49:19', '2024-12-09 21:00:16'),
 (14, 'martinc@gmail.com', 'MARTIN', 'COLQUE CONDORI', '$2y$12$pMHhVbJfoSN/2Dr1VVttgu3Iu9Z.bn/jWTpLf.iyZVZXnn9g90PNS', 2, 1, '1732079991_martinc@gmail.com.jpg', '2024-11-20', NULL, 1, '2024-11-20 08:58:31', '2024-11-20 09:19:51'),
-(15, 'FMORENO', 'FRANCISCO', 'MORENO', '$2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6', 3, 1, NULL, '2024-11-20', '2024-11-26', 1, '2024-11-20 21:19:43', '2024-11-26 07:47:08'),
+(15, 'FMORENO', 'FRANCISCO', 'MORENO', '$2y$12$4xzLxvpipRljq64SjmMHf.j44MWDk7DUrediKbAVtr/ZgEh8kVFA6', 3, 1, NULL, '2024-11-20', '2024-12-11', 1, '2024-11-20 21:19:43', '2024-12-11 18:14:39'),
 (16, 'pamela12@gmail.com', 'PAMELA', 'ORTEGA CASTRO', '$2y$12$XMcwKm1Vh5b4AHBGU31IWefewh7wWgKzKS14RN909gBLYbRjD4FXq', 2, 1, NULL, '2024-11-20', '2024-11-20', 1, '2024-11-20 21:42:52', '2024-11-20 21:49:23'),
 (17, 'rodrigo12@gmail.com', 'RODRIGO', 'MEDINA PACOSILLO', '$2y$12$HEAJUuktmUJI3cfEMgTiY.zm0vdajrJcHC3ng4Z0g4Miu1EP0k/RW', 2, 1, NULL, '2024-11-20', '2024-11-20', 1, '2024-11-20 21:46:42', '2024-11-20 21:50:00'),
 (18, 'marcelo12@gmail.com', 'MARCELO', 'APAZA QUINO', '$2y$12$rWNOgYivg6Eol6V5L.Z5QOQ2pS3kNhsHgAebagI7YFlF3Iidr3pgi', 2, 1, NULL, '2024-11-21', '2024-11-21', 1, '2024-11-21 19:30:24', '2024-11-21 19:32:40'),
@@ -972,9 +993,10 @@ INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_
 (21, 'pedromarquezsolano@gmail.com', 'PEDRO', 'MARQUEZ SOLANO', '$2y$12$17VUIE5uom4i0BwKbE5iOeilpGoQ/49xDLaVS2wpRwHE78Z.H7ubW', 2, 1, '1733545477_21.png', '2024-12-07', NULL, 1, '2024-12-07 04:02:40', '2024-12-07 04:24:37'),
 (22, 'franzmartinez@gmail.com', 'FRANZ', 'MARTINES CORDOVA', '$2y$12$d1S4ablslqEETd.tZ6.14ewIqpnETYSHQ0T4zXjfDzkcnuqz0PR8m', 2, 1, NULL, '2024-12-07', '2024-12-09', 1, '2024-12-07 04:43:09', '2024-12-09 21:00:39'),
 (23, 'asd@gmail.com', 'ASD', 'ASD ASD', '$2y$12$iNicax6glaArdLBR5WRT6Oc4N5l/BZbUDo6CTlevOi/Ag6hvKSUgm', 2, 1, NULL, '2024-12-07', NULL, 1, '2024-12-07 15:17:04', '2024-12-07 15:17:04'),
-(24, 'sandro@gmail.com', 'SANDRO', 'BALTAZAR', '$2y$12$s7112lHPXnbJzCOSibrvreYtb7i0DFD0q/ObWFljgE1A8UW4fbvQm', 2, 1, NULL, '2024-12-09', NULL, 1, '2024-12-09 21:07:53', '2024-12-09 21:07:53'),
-(25, 'fernandamarquez@gmail.com', 'FERNANDA', 'MARQUEZ', '$2y$12$uLkoxJWNyXOtnRFYLIuofOxpHI5qzHQSJXccGbafr1vUbePQVDxLq', 2, 1, NULL, '2024-12-09', NULL, 1, '2024-12-09 21:09:43', '2024-12-09 21:09:43'),
-(26, 'sergio@gmail.com', 'SERGIO', 'CACERES', '$2y$12$JBpCLZIPlWxiWQodFRqrt.5KYRqJHvc0/zVrGO5CZpMynFAm0BVUO', 2, 1, NULL, '2024-12-09', NULL, 1, '2024-12-09 21:10:39', '2024-12-09 21:10:39');
+(24, 'sandro@gmail.com', 'SANDRO', 'BALTAZAR', '$2y$12$s7112lHPXnbJzCOSibrvreYtb7i0DFD0q/ObWFljgE1A8UW4fbvQm', 2, 1, NULL, '2024-12-09', '2024-12-09', 1, '2024-12-09 21:07:53', '2024-12-10 00:07:20'),
+(25, 'fernandamarquez@gmail.com', 'FERNANDA', 'MARQUEZ', '$2y$12$uLkoxJWNyXOtnRFYLIuofOxpHI5qzHQSJXccGbafr1vUbePQVDxLq', 2, 1, NULL, '2024-12-09', '2024-12-09', 1, '2024-12-09 21:09:43', '2024-12-10 00:06:54'),
+(26, 'sergio@gmail.com', 'SERGIO', 'CACERES', '$2y$12$JBpCLZIPlWxiWQodFRqrt.5KYRqJHvc0/zVrGO5CZpMynFAm0BVUO', 2, 1, NULL, '2024-12-09', NULL, 1, '2024-12-09 21:10:39', '2024-12-09 21:10:39'),
+(27, 'FPAREDES', 'FERNANDO', 'PAREDES', '$2y$12$e8pNAaUdRynS3MUpWevhiO6XTaZXVfNBG6hDwXqbhFcHMA8yi0il2', 4, 1, NULL, '2024-12-09', '2024-12-09', 1, '2024-12-09 23:58:09', '2024-12-09 23:58:22');
 
 --
 -- Índices para tablas volcadas
@@ -1121,31 +1143,31 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_ofertas`
 --
 ALTER TABLE `historial_ofertas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `parametrizacions`
@@ -1157,7 +1179,7 @@ ALTER TABLE `parametrizacions`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacions`
@@ -1187,7 +1209,7 @@ ALTER TABLE `recuperar_passwords`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `subastas`
@@ -1199,13 +1221,13 @@ ALTER TABLE `subastas`
 -- AUTO_INCREMENT de la tabla `subasta_clientes`
 --
 ALTER TABLE `subasta_clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas

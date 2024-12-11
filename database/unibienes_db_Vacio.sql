@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 09-12-2024 a las 22:03:28
+-- Tiempo de generación: 11-12-2024 a las 18:18:40
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -155,7 +155,8 @@ INSERT INTO `modulos` (`id`, `modulo`, `nombre`, `accion`, `descripcion`, `creat
 (22, 'Clientes', 'clientes.edit', 'EDITAR CLIENTE', 'MODIFICAR LA CONTRASEÑA DE LOS CLIENTES', NULL, NULL),
 (23, 'Clientes', 'clientes.destroy', 'ELIMINAR', 'ELIMINAR CLIENTES', NULL, NULL),
 (24, 'Publicaciones', 'publicacions.aprobar_comprobante', 'APROBAR COMPROBANTES DE PAGOS', 'APROBAR COMPROBANTE DE PAGO', NULL, NULL),
-(25, 'Publicaciones', 'publicacions.rechazar_comprobante', 'RECHAZAR COMPROBANTES DE PAGOS', 'RECHAZAR COMPROBANTE DE PAGO', NULL, NULL);
+(25, 'Publicaciones', 'publicacions.rechazar_comprobante', 'RECHAZAR COMPROBANTES DE PAGOS', 'RECHAZAR COMPROBANTE DE PAGO', NULL, NULL),
+(26, 'Publicaciones', 'publicacions.destroy_habilitado', 'ELIMINAR HABILITADOS', 'ELIMINAR PUBLICACIONES HABILITADAS', '2024-11-18 16:10:12', '2024-11-18 16:10:12');
 
 -- --------------------------------------------------------
 
@@ -559,7 +560,7 @@ ALTER TABLE `historial_ofertas`
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`

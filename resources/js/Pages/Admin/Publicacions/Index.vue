@@ -28,6 +28,7 @@ const columns = [
     {
         title: "",
         data: "id",
+        name: "id",
     },
     {
         title: "Usuario",
@@ -75,6 +76,9 @@ const columns = [
             if (row.estado_sub === 1) {
                 clase = `bg-success`;
             }
+            if (row.estado_sub === 6) {
+                clase = `bg-danger`;
+            }
             return `<span class="badge ${clase}">${row.estado_txt}</span>`;
         },
     },
@@ -91,6 +95,21 @@ const columns = [
                 row.estado_sub == 3
             ) {
                 buttons += `<button class="mx-0 rounded-0 btn btn-primary verSubasta" data-id="${row.subasta.id}">${row.subasta.subasta_clientes.length}<br/><i class="fa fa-users"></i></button> `;
+
+                if (
+                    row.estado_sub == 1 &&
+                    (props_page.auth?.user.permisos == "*" ||
+                        props_page.auth?.user.permisos.includes(
+                            "publicacions.destroy_habilitado"
+                        ))
+                ) {
+                    buttons += `<button class="mx-0 rounded-0 btn btn-danger eliminar_habilitado" data-id="${
+                        row.id
+                    }" data-nombre="${row.id} | ${row.categoria}"
+                    data-url="${route("publicacions.destroy", row.id)}"
+                    data-estado="6"
+                    style="min-height:53px;"><i class="fa fa-ban"></i></button>`;
+                }
             }
 
             if (
@@ -103,18 +122,22 @@ const columns = [
                 }
             }
 
+            if (row.estado_sub == 6) {
+                buttons += `<button class="mx-0 rounded-0 btn btn-primary verPublicacion" data-id="${row.id}"><i class="fa fa-eye"></i></button> `;
+            }
+
             if (
                 props_page.auth?.user.permisos == "*" ||
                 props_page.auth?.user.permisos.includes("publicacions.destroy")
             ) {
                 if (row.estado_sub == 0) {
                     buttons += ` <button class="mx-0 rounded-0 btn btn-danger eliminar"
-     data-id="${row.id}"
-     data-nombre="${row.id} | ${row.categoria}"
-     data-url="${route(
-         "publicacions.destroy",
-         row.id
-     )}"><i class="fa fa-trash"></i></button>`;
+                     data-id="${row.id}" data-nombre="${row.id} | ${
+                        row.categoria
+                    }"
+                      data-url="${route("publicacions.destroy", row.id)}"
+                    data-estado="5"
+                      ><i class="fa fa-trash"></i></button>`;
                 }
             }
             return buttons;
@@ -125,6 +148,7 @@ const loading = ref(false);
 const accion_dialog = ref(0);
 const open_dialog = ref(false);
 const open_dialog_hab = ref(false);
+const accion_dialog_hab = ref(0);
 
 const agregarRegistro = () => {
     limpiarPublicacion();
@@ -149,6 +173,18 @@ const accionesRow = () => {
             open_dialog_hab.value = true;
         });
     });
+
+    // verPublicacion
+    $("#table-publicacion").on("click", "button.verPublicacion", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        axios.get(route("publicacions.show", id)).then((response) => {
+            setPublicacion(response.data);
+            open_dialog_hab.value = true;
+            accion_dialog_hab.value = 1;
+        });
+    });
+
     // editar
     $("#table-publicacion").on("click", "button.editar", function (e) {
         e.preventDefault();
@@ -164,6 +200,7 @@ const accionesRow = () => {
         e.preventDefault();
         let nombre = $(this).attr("data-nombre");
         let id = $(this).attr("data-id");
+        let estado = $(this).attr("data-estado");
         Swal.fire({
             title: "¿Quierés eliminar este registro?",
             html: `<strong>${nombre}</strong>`,
@@ -175,13 +212,41 @@ const accionesRow = () => {
         }).then(async (result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                let respuesta = await deletePublicacion(id);
+                let respuesta = await deletePublicacion(id, { estado });
                 if (respuesta && respuesta.sw) {
                     updateDatatable();
                 }
             }
         });
     });
+    // eliminar_habilitado
+    $("#table-publicacion").on(
+        "click",
+        "button.eliminar_habilitado",
+        function (e) {
+            e.preventDefault();
+            let nombre = $(this).attr("data-nombre");
+            let id = $(this).attr("data-id");
+            let estado = $(this).attr("data-estado");
+            Swal.fire({
+                title: "¿Quierés eliminar este registro?",
+                html: `<strong>${nombre}</strong>`,
+                showCancelButton: true,
+                confirmButtonColor: "#B61431",
+                confirmButtonText: "Si, eliminar",
+                cancelButtonText: "No, cancelar",
+                denyButtonText: `No, cancelar`,
+            }).then(async (result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    let respuesta = await deletePublicacion(id, { estado });
+                    if (respuesta && respuesta.sw) {
+                        updateDatatable();
+                    }
+                }
+            });
+        }
+    );
 };
 
 var datatable = null;
@@ -197,7 +262,10 @@ onMounted(async () => {
     datatable = initDataTable(
         "#table-publicacion",
         columns,
-        route("publicacions.api")
+        route("publicacions.api"),
+        {
+            order: [[0, "desc"]],
+        }
     );
     input_search = document.querySelector('input[type="search"]');
 
@@ -306,6 +374,7 @@ onBeforeUnmount(() => {
 
     <Habilitar
         :open_dialog="open_dialog_hab"
+        :accion_dialog="accion_dialog_hab"
         @envio-formulario="updateDatatable"
         @cerrar-dialog="open_dialog_hab = false"
     ></Habilitar>

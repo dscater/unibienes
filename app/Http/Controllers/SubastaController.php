@@ -31,9 +31,9 @@ class SubastaController extends Controller
         $lastId = $request->input('lastId');
         $maxima_puja = $request->input("maxima_puja");
         $consulta_publicacions = SubastaCliente::with(["cliente", "subasta"])->select("subasta_clientes.*");
-        if ($search && trim($search) != '') {
-            $consulta_publicacions->where("nombre", "LIKE", "%$search%");
-        }
+        // if ($search && trim($search) != '') {
+        //     $consulta_publicacions->where("nombre", "LIKE", "%$search%");
+        // }
 
         $consulta_publicacions->where("subasta_id", $subasta->id);
 
