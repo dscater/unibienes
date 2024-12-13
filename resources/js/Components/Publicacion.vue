@@ -446,7 +446,7 @@ onBeforeUnmount(() => {
                     <!-- END product-info-header -->
                     <!-- BEGIN product-purchase-container -->
                     <div class="text-center mb-21">
-                        <div
+                        <!-- <div
                             v-if="
                                 oSubastaCliente &&
                                 oSubastaCliente.estado_puja == 2
@@ -454,7 +454,7 @@ onBeforeUnmount(() => {
                             class="alert alert-success"
                         >
                             GANADOR
-                        </div>
+                        </div> -->
                         <button
                             class="btn btn-lg mb-2"
                             @click="realizarOferta"

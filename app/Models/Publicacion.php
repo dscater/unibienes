@@ -420,4 +420,15 @@ class Publicacion extends Model
             ]);
         }
     }
+
+    public static function verificaFechaLimitePublicacion($publicacion)
+    {
+        $fecha_hora_limite = date("Y-m-d H:i", strtotime($publicacion->fecha_limite . ' ' . $publicacion->hora_limite));
+        $fecha_hora_actual = date("Y-m-d H:i");
+
+        if ($fecha_hora_actual < $fecha_hora_limite) {
+            return true;
+        }
+        return throw new Exception("No se pudo completar el registro debido a que la fecha y hora de la subasta ya se vencio", 400);
+    }
 }

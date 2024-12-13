@@ -177,6 +177,7 @@ const registrarPuja = () => {
         })
         .catch((error) => {
             enviando.value = false;
+            dialog.value = false;
             error_monto.value = false;
             console.log("ERROR");
             console.log(error);
@@ -190,6 +191,14 @@ const registrarPuja = () => {
                             ? error.response.data.message
                             : "Hay errores en el formulario"
                     }`,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: `Aceptar`,
+                });
+            } else if (error.status == 400) {
+                Swal.fire({
+                    icon: "info",
+                    title: "Error",
+                    text: `${error.response.data.message}`,
                     confirmButtonColor: "#3085d6",
                     confirmButtonText: `Aceptar`,
                 });

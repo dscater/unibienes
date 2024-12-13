@@ -137,6 +137,7 @@ const registrarComprobante = () => {
         })
         .catch((error) => {
             enviando.value = false;
+            dialog.value = false;
             console.log("ERROR");
             console.log(error);
             if (error.status == 422) {
@@ -145,6 +146,14 @@ const registrarComprobante = () => {
                     icon: "info",
                     title: "Error",
                     text: `Tienes errores en el formulario`,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: `Aceptar`,
+                });
+            } else if (error.status == 400) {
+                Swal.fire({
+                    icon: "info",
+                    title: "Error",
+                    text: `${error.response.data.message}`,
                     confirmButtonColor: "#3085d6",
                     confirmButtonText: `Aceptar`,
                 });

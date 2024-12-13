@@ -8,6 +8,7 @@ use App\Models\NotificacionUser;
 use App\Models\Publicacion;
 use App\Models\Subasta;
 use App\Models\SubastaCliente;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -91,57 +92,62 @@ class SubastaController extends Controller
         $fecha_hora_limite = date("Y-m-d H:i", strtotime($publicacion->fecha_limite . ' ' . $publicacion->hora_limite));
         $fecha_hora_actual = date("Y-m-d H:i");
 
-        if ($fecha_hora_actual < $fecha_hora_limite) {
-            // actualizar ganador
-            DB::update("UPDATE subasta_clientes SET estado_puja = 0 WHERE subasta_id = $subasta->id");
-            // $subasta->subasta_clientes()->update(["estado_puja" => 0]);
+        DB::beginTransaction();
+        try {
+            if (Publicacion::verificaFechaLimitePublicacion($publicacion)) {
+                // actualizar ganador
+                DB::update("UPDATE subasta_clientes SET estado_puja = 0 WHERE subasta_id = $subasta->id");
+                // $subasta->subasta_clientes()->update(["estado_puja" => 0]);
 
-            // verificar monto
-            $monto_puja_actual = SubastaController::getMontoPujaActual($publicacion);
-            $monto_validacion = $monto_puja_actual;
-            if ($monto_puja_actual > -1) {
-                if (count($subasta->subasta_clientes_puja) > 0) {
-                    $monto_validacion++;
-                }
-                $mensaje = "El monto debe ser mayor o igual a " . number_format($monto_validacion, 2, ".", ",") . " " . $publicacion->moneda;
-                if (!$monto_puja || $monto_puja < $monto_validacion) {
+                // verificar monto
+                $monto_puja_actual = SubastaController::getMontoPujaActual($publicacion);
+                $monto_validacion = $monto_puja_actual;
+                if ($monto_puja_actual > -1) {
+                    if (count($subasta->subasta_clientes_puja) > 0) {
+                        $monto_validacion++;
+                    }
+                    $mensaje = "El monto debe ser mayor o igual a " . number_format($monto_validacion, 2, ".", ",") . " " . $publicacion->moneda;
+                    if (!$monto_puja || $monto_puja < $monto_validacion) {
+                        return response()->JSON([
+                            "message" => "Debes ingresar un monto valido. " . $mensaje
+                        ], 422);
+                    }
+                } else {
                     return response()->JSON([
-                        "message" => "Debes ingresar un monto valido. " . $mensaje
+                        "message" => "Ocurrió un error al registrar la puja, intente de nuevo por favor"
                     ], 422);
                 }
-            } else {
+
+                $subasta_cliente->update([
+                    "puja" => $monto_puja,
+                    "fecha_oferta" => date("Y-m-d"),
+                    "hora_oferta" => date("H:i"),
+                ]);
+
+                $maxima_puja = SubastaCliente::where("subasta_id", $subasta->id)->orderBy("puja", "desc")->get()->first();
+                $maxima_puja->estado_puja = 1;
+                $maxima_puja->save();
+
+                // AGREAR AL HISTORIAL
+                $subasta_cliente->historial_ofertas()->create([
+                    "subasta_id" => $subasta_cliente->subasta_id,
+                    "cliente_id" => $subasta_cliente->cliente_id,
+                    "puja" => $subasta_cliente->puja,
+                    "fecha_oferta" => $subasta_cliente->fecha_oferta,
+                    "hora_oferta" => $subasta_cliente->hora_oferta,
+                ]);
+                DB::commit();
                 return response()->JSON([
-                    "message" => "Ocurrió un error al registrar la puja, intente de nuevo por favor"
-                ], 422);
+                    "publicacion" => $publicacion->load(["subasta.subasta_clientes_puja"]),
+                    "subasta_cliente" => $subasta_cliente->load("historial_ofertas")
+                ]);
             }
-
-            $subasta_cliente->update([
-                "puja" => $monto_puja,
-                "fecha_oferta" => date("Y-m-d"),
-                "hora_oferta" => date("H:i"),
-            ]);
-
-            $maxima_puja = SubastaCliente::where("subasta_id", $subasta->id)->orderBy("puja", "desc")->get()->first();
-            $maxima_puja->estado_puja = 1;
-            $maxima_puja->save();
-
-            // AGREAR AL HISTORIAL
-            $subasta_cliente->historial_ofertas()->create([
-                "subasta_id" => $subasta_cliente->subasta_id,
-                "cliente_id" => $subasta_cliente->cliente_id,
-                "puja" => $subasta_cliente->puja,
-                "fecha_oferta" => $subasta_cliente->fecha_oferta,
-                "hora_oferta" => $subasta_cliente->hora_oferta,
-            ]);
-
+        } catch (\Exception $e) {
+            DB::rollBack();
             return response()->JSON([
-                "publicacion" => $publicacion->load(["subasta.subasta_clientes_puja"]),
-                "subasta_cliente" => $subasta_cliente->load("historial_ofertas")
-            ]);
+                "message" => $e->getMessage()
+            ], $e->getCode());
         }
-        return response()->JSON([
-            "message" => "No se pudo registrar su oferta/puja debido a que la hora y fecha limite de subasta ya vencio"
-        ], 422);
     }
 
     public function registrarComprobante(Request $request)
@@ -157,11 +163,11 @@ class SubastaController extends Controller
 
         DB::beginTransaction();
         try {
+            $publicacion_id = $request->publicacion_id;
+            $publicacion = Publicacion::find($publicacion_id);
             $user = Auth::user();
-            if ($user->role_id == 2) {
-                $publicacion_id = $request->publicacion_id;
+            if ($user->role_id == 2 && Publicacion::verificaFechaLimitePublicacion($publicacion)) {
                 $comprobante = $request->comprobante;
-
                 $subasta_cliente_id = null;
                 $subasta_cliente = null;
                 $eliminar_archivo = null;
@@ -171,7 +177,6 @@ class SubastaController extends Controller
                     $eliminar_archivo = $subasta_cliente->comprobante;
                 }
 
-                $publicacion = Publicacion::find($publicacion_id);
                 $cliente = $user->cliente;
 
                 $extension = "." . $comprobante->getClientOriginalExtension();
@@ -222,13 +227,15 @@ class SubastaController extends Controller
                     "subasta_cliente" => $subasta_cliente->load(["cliente", "subasta"]),
                     "message" => "Comprobante registrado, podra hacer una puja cuando su comprobante sea verificado"
                 ], 200);
+            } else {
+                throw new Exception("El role de usuario que tiene no puede realizar ofertas/pujas sobre las publicaciones", 400);
             }
-        } catch (\EXception $e) {
+        } catch (\Exception $e) {
             Log::debug($e->getMessage());
             DB::rollBack();
             return response()->JSON([
-                "message" => "Ocurrió un error inesperado, intente nuevamente mas tarde"
-            ], 500);
+                "message" => $e->getMessage()
+            ], $e->getCode());
         }
     }
 
