@@ -256,7 +256,7 @@ onBeforeUnmount(() => {
                                                             item.id
                                                         )
                                                     "
-                                                    class="mx-0 rounded-0 btn btn-primary comprobante"
+                                                    class="mx-0 rounded-0 btn btn-primary"
                                                     :data-id="item.id"
                                                     ><i class="fa fa-eye"></i
                                                 ></a>

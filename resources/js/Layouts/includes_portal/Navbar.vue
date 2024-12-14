@@ -409,6 +409,10 @@ onMounted(() => {
         height: 66px;
     }
 
+    .header-logo{
+        margin-right: 0px;
+    }
+
     .header-logo img:nth-child(2) {
         display: none;
     }

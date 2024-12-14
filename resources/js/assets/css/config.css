@@ -30,6 +30,19 @@
     max-width: 200px;
 }
 
+.button_subasta_clientes {
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    z-index: 1;
+    background-color: var(--principal_transparent);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.6rem;
+}
+
 .text-sm {
     font-size: 0.9em;
 }
@@ -167,6 +180,7 @@
     padding: 3px 14px 3px 14px;
     border-radius: 20px;
     border: solid 1px var(--principal-portal);
+    font-size: 0.96rem;
 }
 
 .section_page .titlesec img {

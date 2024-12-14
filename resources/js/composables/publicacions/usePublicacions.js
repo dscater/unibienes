@@ -145,7 +145,7 @@ export const usePublicacions = () => {
         }
     };
 
-    const setPublicacion = (item = null) => {
+    const setPublicacion = (item = null, con_subasta = false) => {
         if (item) {
             oPublicacion.id = item.id;
             oPublicacion.categoria = item.categoria;
@@ -166,6 +166,9 @@ export const usePublicacions = () => {
             );
             oPublicacion.publicacion_detalles = item.publicacion_detalles;
             oPublicacion.publicacion_imagens = item.publicacion_imagens;
+            if (con_subasta) {
+                oPublicacion.subasta = item.subasta;
+            }
             oPublicacion._method = "PUT";
             return oPublicacion;
         }

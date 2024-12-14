@@ -676,7 +676,6 @@ const logout = () => {
                         <div class="menu-text">Clientes por Subasta</div>
                     </Link>
                 </div>
-
                 <div
                     v-if="
                         user_logeado.permisos == '*' ||
@@ -707,7 +706,6 @@ const logout = () => {
                 >
                     GRÁFICAS
                 </div>
-
                 <div
                     v-if="
                         user_logeado.permisos == '*' ||
@@ -730,6 +728,30 @@ const logout = () => {
                             <i class="fa fa-chart-pie"></i>
                         </div>
                         <div class="menu-text">Subastas</div>
+                    </Link>
+                </div>
+                <div
+                    v-if="
+                        user_logeado.permisos == '*' ||
+                        user_logeado.permisos.includes(
+                            'reportes.subasta_clientes'
+                        )
+                    "
+                    class="menu-item"
+                    :class="[
+                        route_current == 'reportes.g_puja_clientes'
+                            ? 'active'
+                            : 'none',
+                    ]"
+                >
+                    <Link
+                        :href="route('reportes.g_puja_clientes')"
+                        class="menu-link"
+                    >
+                        <div class="menu-icon">
+                            <i class="fa fa-chart-pie"></i>
+                        </div>
+                        <div class="menu-text">Ofertas/Pujas</div>
                     </Link>
                 </div>
                 <div class="menu-header">OTROS</div>

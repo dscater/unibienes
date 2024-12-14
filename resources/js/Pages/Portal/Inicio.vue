@@ -208,6 +208,7 @@ onMounted(() => {
     padding: 3px 14px 3px 14px;
     border-radius: 20px;
     border: solid 1px var(--principal-portal);
+    font-size: 0.97rem;
 }
 
 .seccion_categoria .titlesec img {

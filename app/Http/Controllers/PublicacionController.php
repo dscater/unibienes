@@ -238,7 +238,7 @@ class PublicacionController extends Controller
 
     public function show(Publicacion $publicacion)
     {
-        return response()->JSON($publicacion->load(["publicacion_detalles", "publicacion_imagens"]));
+        return response()->JSON($publicacion->load(["subasta.subasta_clientes.cliente", "publicacion_detalles", "publicacion_imagens"]));
     }
 
     public function publicacionPortal(Publicacion $publicacion)

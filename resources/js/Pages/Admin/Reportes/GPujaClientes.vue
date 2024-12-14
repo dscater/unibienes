@@ -1,9 +1,11 @@
 <script setup>
 import { useApp } from "@/composables/useApp";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, nextTick } from "vue";
 import { Head, usePage } from "@inertiajs/vue3";
 import Highcharts from "highcharts";
 import exporting from "highcharts/modules/exporting";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
 exporting(Highcharts);
 Highcharts.setOptions({
     lang: {
@@ -62,72 +64,103 @@ const cargarListas = () => {
     cargarClientes();
 };
 
+const aPublicacions = ref([]);
+
 const generarGrafico = async () => {
     generando.value = true;
+    axios;
     axios
-        .get(route("reportes.gr_subasta_clientes"), { params: form.value })
+        .get(route("reportes.gr_puja_clientes"), { params: form.value })
         .then((response) => {
-            // Create the chart
-            Highcharts.chart("container", {
-                chart: {
-                    type: "column",
-                },
-                title: {
-                    align: "center",
-                    text: "Clientes Registrados por subasta",
-                },
-                subtitle: {
-                    align: "left",
-                    text: "",
-                },
-                accessibility: {
-                    announceNewData: {
-                        enabled: true,
-                    },
-                },
-                xAxis: {
-                    type: "category",
-                },
-                yAxis: {
-                    title: {
-                        text: "Cantidad de Proponentes",
-                    },
-                },
-                legend: {
-                    enabled: false,
-                },
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            format: "{point.y:.0f}",
-                        },
-                    },
-                },
-                tooltip: {
-                    formatter: function () {
-                        return (
-                            '<span style="font-size:11px">PUBLICACIÓN NRO. ' +
-                            this.point.nro_pub +
-                            "</span><br>" +
-                            "<b>" +
-                            this.point.y +
-                            "</b> PROPONENTES VERIFICADOS<br>"
-                        );
-                    },
-                },
+            aPublicacions.value = response.data.publicacions;
+            const array_data = response.data.array_data;
+            const array_fechas = response.data.array_fechas;
 
-                series: [
-                    {
-                        name: "PUBLICACIÓN",
-                        colorByPoint: true,
-                        data: response.data.data,
-                    },
-                ],
+            nextTick(() => {
+                aPublicacions.value.forEach((publicacion, index) => {
+                    const containerId = `chart-${index}`;
+                    const container = document.getElementById(containerId);
+
+                    // Verificar que el contenedor exista y tenga un tamaño válido
+                    if (container) {
+                        renderChart(
+                            containerId,
+                            publicacion,
+                            array_data[publicacion.id],
+                            array_fechas
+                        );
+                    } else {
+                        console.error(`Contenedor ${containerId} no válido.`);
+                    }
+                });
             });
+            // Create the chart
             generando.value = false;
         });
+};
+
+const renderChart = (containerId, publicacion, data, categories) => {
+    Highcharts.chart(containerId, {
+        chart: {
+            type: "line",
+        },
+        title: {
+            align: "center",
+            text: `PUBLICACIÓN NRO. ${publicacion.id} - ${publicacion.categoria}<br/>${publicacion.moneda}`,
+        },
+        subtitle: {
+            align: "left",
+            text: "",
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+            },
+        },
+        xAxis: {
+            categories: categories,
+        },
+        yAxis: {
+            title: {
+                text: "Total Oferta/Puja",
+            },
+        },
+        legend: {
+            enabled: true,
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    // format: "{point.y}",
+                    style: {
+                        fontSize: "11px",
+                        fontWeight: "bold",
+                    },
+                    formatter: function () {
+                        return getFormatoMoneda(this.point.y); // Aquí se aplica el formato de moneda
+                    },
+                },
+            },
+        },
+        tooltip: {
+            formatter: function () {
+                let fecha_hora_puja = ``;
+
+                this.point.array_pujas.forEach((elem) => {
+                    fecha_hora_puja = `<b>- ${
+                        elem.fecha_hora_oferta_t
+                    }:</b> ${publicacion.moneda_txt} ${getFormatoMoneda(elem.puja)}<br/>`;
+                });
+
+                return `<span style="font-size:11px">${this.series.name}</span><br>
+            ${fecha_hora_puja}`;
+            },
+        },
+
+        series: data,
+    });
 };
 
 onMounted(() => {
@@ -138,15 +171,15 @@ onMounted(() => {
 });
 </script>
 <template>
-    <Head title="Subastas"></Head>
+    <Head title="Ofertas/Pujas"></Head>
     <!-- BEGIN breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
-        <li class="breadcrumb-item active">Gráficas > Subastas</li>
+        <li class="breadcrumb-item active">Gráficas > Ofertas/Pujas</li>
     </ol>
     <!-- END breadcrumb -->
     <!-- BEGIN page-header -->
-    <h1 class="page-header">Gráficas > Subastas</h1>
+    <h1 class="page-header">Gráficas > Ofertas/Pujas</h1>
     <!-- END page-header -->
     <div class="row">
         <div class="col-md-6 mx-auto">
@@ -204,6 +237,16 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-20px" id="container"></div>
+    </div>
+    <div class="row mt-3" id="contenedor">
+        <div
+            v-for="(publicacion, index) in aPublicacions"
+            :key="index"
+            class="col-md-6 mb-3"
+            :id="'chart-container-' + index"
+        >
+            <!-- Aquí se renderizará el gráfico -->
+            <div :id="'chart-' + index" class="chart"></div>
+        </div>
     </div>
 </template>

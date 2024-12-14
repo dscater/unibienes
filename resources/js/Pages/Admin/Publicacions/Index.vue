@@ -3,10 +3,11 @@ import { useApp } from "@/composables/useApp";
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
 import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { initDataTable } from "@/composables/datatable.js";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
 import Formulario from "./Formulario.vue";
 import Habilitar from "./Habilitar.vue";
+import ListaSubastaClientes from "./ListaSubastaClientes.vue";
 import { useFormater } from "@/composables/useFormater";
 const { getFormatoMoneda } = useFormater();
 const { props: props_page } = usePage();
@@ -94,7 +95,20 @@ const columns = [
                 row.estado_sub == 2 ||
                 row.estado_sub == 3
             ) {
-                buttons += `<button class="mx-0 rounded-0 btn btn-primary verSubasta" data-id="${row.subasta.id}">${row.subasta.subasta_clientes.length}<br/><i class="fa fa-users"></i></button> `;
+                buttons += `
+                    <div style="position:relative;width:auto; display:inline-flex; flex-direction:column; width:40px;">
+                        <span class="d-block button_subasta_clientes verSubastaClientes"
+                            data-id="${row.id}"
+                        ><i class="fa fa-external-link"></i></span>  
+                        <button class="mx-0 rounded-0 btn btn-primary verSubasta" 
+                        data-id="${row.subasta.id}"
+                        style="z-index:0;"
+                        >
+                            ${row.subasta.subasta_clientes.length}<br/>
+                            <i class="fa fa-users"></i>
+                        </button>
+                    </div>
+                `;
 
                 if (
                     row.estado_sub == 1 &&
@@ -108,7 +122,7 @@ const columns = [
                     }" data-nombre="${row.id} | ${row.categoria}"
                     data-url="${route("publicacions.destroy", row.id)}"
                     data-estado="6"
-                    style="min-height:53px;"><i class="fa fa-ban"></i></button>`;
+                    style="min-height:53px;margin-top:14px;"><i class="fa fa-ban"></i></button>`;
                 }
             }
 
@@ -149,6 +163,8 @@ const accion_dialog = ref(0);
 const open_dialog = ref(false);
 const open_dialog_hab = ref(false);
 const accion_dialog_hab = ref(0);
+const open_dialog_lista_sc = ref(false);
+const accion_dialog_lista_sc = ref(0);
 
 const agregarRegistro = () => {
     limpiarPublicacion();
@@ -157,6 +173,16 @@ const agregarRegistro = () => {
 };
 
 const accionesRow = () => {
+    // verSubastaClientes
+    $("#table-publicacion").on("click", ".verSubastaClientes", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        axios.get(route("publicacions.show", id)).then((response) => {
+            setPublicacion(response.data, true);
+            open_dialog_lista_sc.value = true;
+        });
+    });
+
     // verSubasta
     $("#table-publicacion").on("click", "button.verSubasta", function (e) {
         e.preventDefault();
@@ -256,6 +282,16 @@ const loading_table = ref(false);
 const datatableInitialized = ref(false);
 const updateDatatable = () => {
     datatable.ajax.reload();
+    iniciaTooltip();
+};
+
+const iniciaTooltip = () => {
+    const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+    );
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+        new bootstrap.Tooltip(tooltipTriggerEl); // Inicializa el tooltip
+    });
 };
 
 onMounted(async () => {
@@ -278,9 +314,11 @@ onMounted(async () => {
             loading_table.value = false;
         }, 500);
     });
-
     datatableInitialized.value = true;
     accionesRow();
+    nextTick(() => {
+        iniciaTooltip();
+    });
 });
 onBeforeUnmount(() => {
     if (datatable) {
@@ -378,4 +416,11 @@ onBeforeUnmount(() => {
         @envio-formulario="updateDatatable"
         @cerrar-dialog="open_dialog_hab = false"
     ></Habilitar>
+
+    <ListaSubastaClientes
+        :open_dialog="open_dialog_lista_sc"
+        :accion_dialog="accion_dialog_lista_sc"
+        @cerrar-dialog="open_dialog_lista_sc = false"
+    ></ListaSubastaClientes>
 </template>
+<style scoped></style>

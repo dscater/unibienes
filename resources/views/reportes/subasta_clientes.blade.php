@@ -225,6 +225,10 @@
                         <td width="10%">CATEGORÍA:</td>
                         <td>{{ $publicacion->categoria }} </td>
                     </tr>
+                    <tr>
+                        <td width="10%">NRO. DEL BIEN OFERTADO:</td>
+                        <td>{{ $publicacion->id }} </td>
+                    </tr>
                 </tbody>
             </table>
             <table border="1">

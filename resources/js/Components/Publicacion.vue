@@ -39,6 +39,7 @@ const modal_dialog_comprobante = ref(false);
 const modal_dialog_puja = ref(false);
 const modal_dialog_historial_ofertas = ref(false);
 const data_puja = ref(null);
+const swRealizarOferta = ref(true);
 // 3 detalles
 const primerosTres = ref(props.publicacion.publicacion_detalles.slice(0, 3));
 
@@ -49,6 +50,8 @@ watch(
     () => props.publicacion,
     (newValue) => {
         oPublicacion.value = newValue;
+        swRealizarOferta.value =
+            oPublicacion.value.esta_vigente == true ? true : false;
     }
 );
 
@@ -58,6 +61,9 @@ watch(oPublicacion.value, (newValue) => {
     primerosTres.value = oPublicacion.value.publicacion_detalles.slice(0, 3);
     // restantes
     restantes.value = oPublicacion.value.publicacion_detalles.slice(3);
+
+    swRealizarOferta.value =
+        oPublicacion.value.esta_vigente == true ? true : false;
 });
 
 const verDetallesPublicacion = () => {
@@ -131,7 +137,6 @@ const horasDif = ref(0);
 const diasDif = ref(0);
 const strRestante = ref("");
 const intervalConteo = ref(null);
-const swRealizarOferta = ref(true);
 
 const iniciaConteoFinalizacion = () => {
     // Fecha en formato DD/MM/YYYY HH:MM:SS
@@ -166,13 +171,14 @@ const iniciaConteoFinalizacion = () => {
         diasDif.value = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
 
         if (
-            segundosDif.value <= 0 &&
+            segundosDif.value < 1 &&
             minutosDif.value <= 0 &&
             horasDif.value <= 0 &&
             diasDif.value <= 0
         ) {
             verificarGanadorPublicacion();
             clearInterval(intervalConteo.value);
+            oPublicacion.value.esta_vigente = false;
             swRealizarOferta.value = false;
         }
     }
@@ -191,6 +197,7 @@ const verificarGanadorPublicacion = () => {
 
 const verificaSwOferta = () => {
     if (oPublicacion.value.estado_sub == 1) {
+        iniciaConteoFinalizacion();
         intervalConteo.value = setInterval(() => {
             iniciaConteoFinalizacion();
         }, 1000);
@@ -248,6 +255,8 @@ const verOfertas = () => {
 var intervalSubastaClientes = ref(null);
 
 onMounted(() => {
+    swRealizarOferta.value =
+        oPublicacion.value.esta_vigente == true ? true : false;
     obtieneInfoSubastaCliente();
     verificaSwOferta();
     if (props.detalle_lista && oPublicacion.value.estado_sub == 1) {

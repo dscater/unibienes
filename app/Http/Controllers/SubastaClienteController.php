@@ -49,7 +49,7 @@ class SubastaClienteController extends Controller
             $notificacion_user->save();
         }
 
-        $subasta_cliente = $subasta_cliente->load(["cliente", "subasta.publicacion", "historial_ofertas"]);
+        $subasta_cliente = $subasta_cliente->load(["cliente", "subasta.publicacion.publicacion_detalles","subasta.publicacion.publicacion_imagens", "historial_ofertas"]);
         return Inertia::render("Admin/Publicacions/SubastaCliente", compact("subasta_cliente"));
     }
 

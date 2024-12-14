@@ -6,6 +6,7 @@ import { ref, onMounted, computed, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
 import VerificarComprobante from "./VerificarComprobante.vue";
 import { useFormater } from "@/composables/useFormater";
+import PublicacionAdmin from "@/Components/PublicacionAdmin.vue";
 const { getFormatoMoneda } = useFormater();
 const props = defineProps({
     subasta_cliente: {
@@ -97,27 +98,14 @@ onBeforeUnmount(() => {});
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-12 p-3">
-                            <p>
-                                <strong>Categoría: </strong>
-                                {{
-                                    subasta_cliente.subasta.publicacion
-                                        .categoria
-                                }}
-                            </p>
-                            <p>
-                                <strong>Monto garantía: </strong>
-                                {{
-                                    getFormatoMoneda(
-                                        subasta_cliente.subasta.publicacion
-                                            .monto_garantia
-                                    )
-                                }}
-                            </p>
-                            <p>
-                                <strong>Moneda: </strong>
-                                {{ subasta_cliente.subasta.publicacion.moneda }}
-                            </p>
+                        <div class="col-md-6 offset-md-3 p-3">
+                            <PublicacionAdmin
+                                :publicacion="
+                                    itemSubastaCliente.subasta.publicacion
+                                "
+                                :column="true"
+                                :link="true"
+                            ></PublicacionAdmin>
                         </div>
                         <div class="col-12">
                             <div class="card">
@@ -170,7 +158,10 @@ onBeforeUnmount(() => {});
                         <div class="col-md-4 offset-md-4 mt-3">
                             <div class="card">
                                 <div class="card-header bg-primary">
-                                    <h5 class="text-white"><i class="fa fa-list"></i> Historial de ofertas</h5>
+                                    <h5 class="text-white">
+                                        <i class="fa fa-list"></i> Historial de
+                                        ofertas
+                                    </h5>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered">

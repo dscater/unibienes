@@ -166,6 +166,7 @@
         <thead class="bg-principal">
             <tr>
                 <th width="3%">N°</th>
+                <th width="5%">NRO. DEL BIEN</th>
                 <th>USUARIO</th>
                 <th>CATEGORÍA</th>
                 <th>MONEDA</th>
@@ -192,6 +193,7 @@
 
                 <tr>
                     <td class="centreado">{{ $cont++ }}</td>
+                    <td class="centreado">{{ $publicacion->id }}</td>
                     <td>{{ $publicacion->user->full_name }}</td>
                     <td class="">{{ $publicacion->categoria }}</td>
                     <td class="">{{ $publicacion->moneda }}</td>

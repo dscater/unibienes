@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
         <div class="row">
             <!-- BEGIN product-detail -->
             <div
-                class="p-3"
+                class="contenedor_imagen p-0"
                 :class="[
                     props.column ? 'flex-column' : '',
                     props.detalle_lista
@@ -288,9 +288,14 @@ onBeforeUnmount(() => {
     width: 20%;
     border-radius: 5px;
     position: absolute;
-    left: 10px;
+    left: 0px;
     top: 0px;
     z-index: 500;
+}
+
+
+.contenedor_imagen {
+    position: relative;
 }
 
 .product_info_imagen {

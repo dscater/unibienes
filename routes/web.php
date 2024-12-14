@@ -163,9 +163,11 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     Route::get('reportes/subasta_clientes', [ReporteController::class, 'subasta_clientes'])->name("reportes.subasta_clientes");
     Route::get('reportes/r_subasta_clientes', [ReporteController::class, 'r_subasta_clientes'])->name("reportes.r_subasta_clientes");
 
-
     Route::get('reportes/g_subasta_clientes', [ReporteController::class, 'g_subasta_clientes'])->name("reportes.g_subasta_clientes");
     Route::get('reportes/gr_subasta_clientes', [ReporteController::class, 'gr_subasta_clientes'])->name("reportes.gr_subasta_clientes");
+
+    Route::get('reportes/g_puja_clientes', [ReporteController::class, 'g_puja_clientes'])->name("reportes.g_puja_clientes");
+    Route::get('reportes/gr_puja_clientes', [ReporteController::class, 'gr_puja_clientes'])->name("reportes.gr_puja_clientes");
 
     Route::get('reportes/clientes', [ReporteController::class, 'clientes'])->name("reportes.clientes");
     Route::get('reportes/r_clientes', [ReporteController::class, 'r_clientes'])->name("reportes.r_clientes");

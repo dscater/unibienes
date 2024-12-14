@@ -30,7 +30,12 @@ class Publicacion extends Model
     ];
 
     // APPENDS
-    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt", "moneda_txt"];
+    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt", "moneda_txt", "esta_vigente"];
+
+    public function getEstaVigenteAttribute()
+    {
+        return Publicacion::verificaFechaLimitePublicacionBoolean($this);
+    }
 
     public function getMonedaTxtAttribute()
     {
@@ -419,6 +424,18 @@ class Publicacion extends Model
                 'error' =>  $e->getMessage(),
             ]);
         }
+    }
+
+
+    public static function verificaFechaLimitePublicacionBoolean($publicacion)
+    {
+        $fecha_hora_limite = date("Y-m-d H:i", strtotime($publicacion->fecha_limite . ' ' . $publicacion->hora_limite));
+        $fecha_hora_actual = date("Y-m-d H:i");
+
+        if ($fecha_hora_actual < $fecha_hora_limite) {
+            return true;
+        }
+        return false;
     }
 
     public static function verificaFechaLimitePublicacion($publicacion)
