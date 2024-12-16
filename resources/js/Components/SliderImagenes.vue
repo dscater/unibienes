@@ -207,10 +207,13 @@ img.oculto {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 90vw;
+    height: 98vh;
 }
 
 .contenendor_principal_slider:fullscreen .contenedor_sliders img {
-    width: 94% !important;
+    width: 100%;
+    height: 100%;
 }
 
 /* Estilo para los botones cuando estamos en pantalla completa */

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 11-12-2024 a las 18:18:11
+-- Tiempo de generación: 16-12-2024 a las 14:31:48
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -228,7 +228,9 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (101, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 23<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 60000.00<br/>ubicacion: COCHABAMBA<br/>observaciones: LOTE DE TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 6000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:03:48<br/>updated_at: 2024-12-11 13:55:03<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '13:55:03', '2024-12-11 17:55:03', '2024-12-11 17:55:03'),
 (102, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:07:55<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:07:55', '2024-12-11 18:07:55', '2024-12-11 18:07:55'),
 (103, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:09:46<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:09:46', '2024-12-11 18:09:46', '2024-12-11 18:09:46'),
-(104, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:10:48<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:10:48', '2024-12-11 18:10:48', '2024-12-11 18:10:48');
+(104, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 22<br/>user_id: 15<br/>categoria: ECOLÓGICO<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 30000.00<br/>ubicacion: LA PAZ<br/>observaciones: TERRENO<br/>fecha_limite: 2024-11-26<br/>hora_limite: 18:00:00<br/>monto_garantia: 3000.00<br/>estado_sub: 6<br/>created_at: 2024-11-20 20:01:32<br/>updated_at: 2024-12-11 14:10:48<br/>', NULL, 'PUBLICACIONES', '2024-12-11', '14:10:48', '2024-12-11 18:10:48', '2024-12-11 18:10:48'),
+(105, 2, 'CREACIÓN', 'EL USUARIO JPERES REGISTRO UNA PUBLICACIÓN', 'id: 32<br/>nro: <br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 50000<br/>ubicacion: LA PAZ<br/>observaciones: <br/>fecha_limite: 2024-12-23<br/>hora_limite: 12:00<br/>monto_garantia: 20000<br/>estado_sub: <br/>created_at: 2024-12-16 09:35:27<br/>updated_at: 2024-12-16 09:35:27<br/>', NULL, 'PUBLICACIONES', '2024-12-16', '09:35:27', '2024-12-16 13:35:27', '2024-12-16 13:35:27'),
+(106, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA PUBLICACIÓN', 'id: 32<br/>nro: <br/>user_id: 2<br/>categoria: VEHÍCULOS<br/>moneda: BOLIVIANOS (BS)<br/>oferta_inicial: 50000.00<br/>ubicacion: LA PAZ<br/>observaciones: <br/>fecha_limite: 2024-12-23<br/>hora_limite: 12:00:00<br/>monto_garantia: 20000.00<br/>estado_sub: 6<br/>created_at: 2024-12-16 09:35:27<br/>updated_at: 2024-12-16 09:38:11<br/>', NULL, 'PUBLICACIONES', '2024-12-16', '09:38:11', '2024-12-16 13:38:11', '2024-12-16 13:38:11');
 
 -- --------------------------------------------------------
 
@@ -282,7 +284,8 @@ INSERT INTO `historial_ofertas` (`id`, `subasta_cliente_id`, `subasta_id`, `clie
 (27, 26, 24, 19, 10001.00, '2024-12-09', '20:15:00', '2024-12-10 00:15:17', '2024-12-10 00:15:17'),
 (28, 25, 24, 20, 10002.00, '2024-12-09', '20:16:00', '2024-12-10 00:16:24', '2024-12-10 00:16:24'),
 (29, 26, 24, 19, 10003.00, '2024-12-09', '20:17:00', '2024-12-10 00:17:10', '2024-12-10 00:17:10'),
-(30, 25, 24, 20, 10004.00, '2024-12-09', '20:17:00', '2024-12-10 00:17:39', '2024-12-10 00:17:39');
+(30, 25, 24, 20, 10004.00, '2024-12-09', '20:17:00', '2024-12-10 00:17:39', '2024-12-10 00:17:39'),
+(31, 27, 22, 2, 20504.00, '2024-12-13', '11:37:00', '2024-12-13 15:37:18', '2024-12-13 15:37:18');
 
 -- --------------------------------------------------------
 
@@ -380,7 +383,8 @@ INSERT INTO `notificacions` (`id`, `descripcion`, `fecha`, `hora`, `modulo`, `re
 (24, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-12-07', '01:32:00', 'SUBASTA CLIENTE', 23, '2024-12-07 05:32:28', '2024-12-07 05:32:28'),
 (25, 'CARLOS MARTINES CHOQUE REGISTRO SU COMPROBANTE', '2024-12-09', '16:17:00', 'SUBASTA CLIENTE', 24, '2024-12-09 20:17:48', '2024-12-09 20:17:48'),
 (26, 'FERNANDA MARQUEZ REGISTRO SU COMPROBANTE', '2024-12-09', '20:07:00', 'SUBASTA CLIENTE', 25, '2024-12-10 00:07:04', '2024-12-10 00:07:04'),
-(27, 'SANDRO BALTAZAR REGISTRO SU COMPROBANTE', '2024-12-09', '20:07:00', 'SUBASTA CLIENTE', 26, '2024-12-10 00:07:28', '2024-12-10 00:07:28');
+(27, 'SANDRO BALTAZAR REGISTRO SU COMPROBANTE', '2024-12-09', '20:07:00', 'SUBASTA CLIENTE', 26, '2024-12-10 00:07:28', '2024-12-10 00:07:28'),
+(28, 'MARIA PAREDES MAMANI REGISTRO SU COMPROBANTE', '2024-12-13', '11:36:00', 'SUBASTA CLIENTE', 27, '2024-12-13 15:36:52', '2024-12-13 15:36:52');
 
 -- --------------------------------------------------------
 
@@ -424,11 +428,12 @@ INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `
 (20, 20, 2, 0, '2024-12-03 04:57:09', '2024-12-03 04:57:09'),
 (21, 21, 2, 1, '2024-12-03 05:03:10', '2024-12-03 05:03:18'),
 (22, 22, 2, 0, '2024-12-07 04:53:32', '2024-12-07 04:53:32'),
-(23, 23, 2, 0, '2024-12-07 04:54:25', '2024-12-07 04:54:25'),
-(24, 24, 2, 0, '2024-12-07 05:32:28', '2024-12-07 05:32:28'),
-(25, 25, 2, 0, '2024-12-09 20:17:48', '2024-12-09 20:17:48'),
-(26, 26, 2, 0, '2024-12-10 00:07:04', '2024-12-10 00:07:04'),
-(27, 27, 2, 0, '2024-12-10 00:07:28', '2024-12-10 00:07:28');
+(23, 23, 2, 1, '2024-12-07 04:54:25', '2024-12-14 16:36:09'),
+(24, 24, 2, 1, '2024-12-07 05:32:28', '2024-12-14 16:36:07'),
+(25, 25, 2, 1, '2024-12-09 20:17:48', '2024-12-14 16:36:05'),
+(26, 26, 2, 1, '2024-12-10 00:07:04', '2024-12-14 16:36:03'),
+(27, 27, 2, 1, '2024-12-10 00:07:28', '2024-12-14 14:06:53'),
+(28, 28, 4, 0, '2024-12-13 15:36:52', '2024-12-13 15:36:52');
 
 -- --------------------------------------------------------
 
@@ -446,7 +451,8 @@ CREATE TABLE `parametrizacions` (
   `nro_imagenes_pub` int NOT NULL,
   `tiempo_pub` int NOT NULL,
   `terminos_condiciones` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `verificar_comprobante` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `verificar_comprobante` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comp_rechazado` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -455,8 +461,8 @@ CREATE TABLE `parametrizacions` (
 -- Volcado de datos para la tabla `parametrizacions`
 --
 
-INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `datos_banco`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `verificar_comprobante`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"mensaje@emsytsrl.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"8Z@d>&kj^y\", \"encriptado\": \"tls\"}', '{\"qr\": \"1733204666.png\", \"banco\": \"BANCO UNIÓN\", \"titular\": \"NOMBRE TITULAR\", \"nro_cuenta\": \"111110002222\"}', 3, 2, '<h4>TÉRMINOS Y CONDICIONES </h4>\n<p><strong>1. Adhesión.</strong> El proponente, de manera libre y voluntaria, se adhiere a los términos y condiciones aquí señalados. </p>\n<p><strong>2. Medio formal de comunicaciones.</strong> Todos los actos relacionados a la subasta electrónica serán comunicados única y exclusivamente a través del correo electrónico. </p>\n<p><strong>3. Catálogo de Lotes y Bienes Recuperados Individuales.</strong> El proponente podrá consultar, a través del catálogo electrónico alojado en el Portal Oficial de Subastas de UNIBIENES S.A., los Bienes Recuperados a subastarse, el plazo para la recepción de ofertas y la ubicación de estas. </p>\n<p><strong>4. Exhibición de las Bienes Recuperados a subastar.</strong> Los proponentes podrán observar las Bienes Recuperados físicamente en los días y horas señalados en el Portal Oficial de Subastas de UNIBIENES S.A. de igual forma los \n    proponentes, deberán cumplir con las medidas de seguridad correspondientes, previo a su ingreso a los predios almacenados por UNIBIENES S.A. donde se encuentren las Bienes Recuperados de su interés. </p>\n<p><strong>5. Pago de Garantía.</strong> El proponente deberá realizar el depósito de garantía a la cuenta establecida de UNIBIENES S.A., a través de cualquiera de las entidades financieras correspondientes o mediante servicios de banca electrónica.</p>\n<p><strong>6. Registro de Ofertas.</strong> Los proponentes registrarán sus ofertas a través del Portal Oficial de Subastas. Para los fines de adjudicación del Lote o Bien Recuperado Individual, únicamente serán consideradas las propuestas presentadas dentro del plazo establecido según convocatoria.</p>\n<p><strong>7. Adjudicación.</strong> Será declarado ganador el proponente que haya ofertado el precio más alto por el Bien Recuperado a momento del cierre de ofertas en el Portal Oficial de Subastas.</p>\n<p><strong>8. Pago de la Oferta por Bienes Recuperados.</strong> El proponente deberá realizar el pago del monto ofertado por el Bien Recuperado a la cuenta establecida por UNIBIENES S.A. a través de cualquier entidad financiera o mediante servicios de banca electrónica.</p>\n<p>El pago de la oferta por el Bien Recuperado deberá realizarse en un plazo máximo de tres (3) días hábiles, computables a partir de la entrega de la nota de adjudicación al proponente. En caso que el proponente no realice el pago, le otorga a UNIBIENES S.A. la facultad para ejecutar la garantía depositada.</p>\n<p><strong>9. Adjudicación.</strong> Realizado el pago del monto ofertado, UNIBIENES S.A. verificará y notificará la recepción del pago al proponente adjudicado, a través del correo electrónico, o cualquier otro medio verificable.</p>\n<p><strong>10. Retiro de las Bienes Recuperados adjudicados.</strong> El proponente adjudicado deberá retirar las Bienes Recuperados adjudicados del almacén de UNIBIENES S.A. en un plazo no mayor a quince (15) días hábiles, computables a partir del cambio de nombre del bien sujeto a registro o notificación de recepción del pago (para bienes no sujetos a registro).</p>\n<p>En caso de no retirar los bienes recuperados adjudicados dentro de los quince (15) días, se deberá pagar los costos de guardaje por día adicional computables desde el día hábil dieciséis (16). Si el Bien Recuperado no es retirado dentro de los treinta (30) días hábiles siguientes, el proponente adjudicado deberá abonar a cuentas de la Compañía un 3% adicional mensual del monto total de la adjudicación por incumplimiento a los plazos de retiro de los bienes recuperados adjudicados. Si los costos de guardaje y el porcentaje de abono por no recojo (incumplimiento a plazos de recojo) ascienden al monto de la oferta pagada por el bien recuperado adjudicado, el proponente acepta perder el derecho a la adjudicación del bien recuperado y UNIBIENES S.A. podrá disponer del bien recuperado no adjudicado.</p>\n<p><strong>11. Privacidad de información.</strong> La información personal proporcionada por el proponente, tendrá carácter confidencial.</p>\n<p><strong>12. Restricciones.</strong> UNIBIENES S.A. se reserva el derecho de aplicar restricciones a los proponentes ante la verificación de consulta en listas especiales o la evidencia de comportamientos prohibidos que afecten a los proponentes o intereses de UNIBIENES S.A.</p>\n<p><strong>13. Responsabilidades.</strong> UNIBIENES S.A. no asume responsabilidad alguna por cualquier acción o perjuicio que pudiera resultar por la calidad, funcionalidad o información introducida en el Portal Oficial de Subastas y que pudieren derivar en la reprogramación de periodos de oferta, suspensión o finalización excepcional de la subasta.</p>\n<p>El proponente acepta que al realizar transacciones vía internet con UNIBIENES S.A. lo hace bajo su propio riesgo, en ningún caso UNIBIENES S.A. se hace responsable por lucro cesante o por cualquier otro perjuicio que haya podido sufrir, debido a las transacciones realizadas o no realizadas.</p>\n<p><strong>14. Devolución de Garantía.</strong> UNIBIENES S.A. procederá a la devolución del depósito de garantía al proponente no adjudicado en un plazo de siete (7) días hábiles aproximadamente.</p>\n<p><strong>15. Soporte técnico para el uso del Portal Oficial de Subastas.</strong> El proponente podrá solicitar a UNIBIENES S.A., soporte técnico a través de los medios de contacto formales por problemas o errores en el uso del Portal Oficial de Subastas.</p>\n<p><strong>16. Modificación.</strong> UNIBIENES S.A. podrá modificar los Términos y Condiciones sin previo aviso, siendo estos cambios aplicables a todas las operaciones efectuados en el Portal Oficial de la Subastas de UNIBIENES S.A. según el periodo de vigencia de los procesos.</p>', 'Estamos verificando tu comprobante y te enviaremos un correo de confirmación para que pueda realizar tus ofertas/pujas. Cualquiera información comunicarse al <strong>77256805</strong>', '2024-11-16 20:43:43', '2024-12-09 20:24:33');
+INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `datos_banco`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `verificar_comprobante`, `comp_rechazado`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"mensaje@emsytsrl.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"8Z@d>&kj^y\", \"encriptado\": \"tls\"}', '{\"qr\": \"1733204666.png\", \"banco\": \"BANCO UNIÓN\", \"titular\": \"NOMBRE TITULAR\", \"nro_cuenta\": \"111110002222\"}', 3, 2, '<h4>TÉRMINOS Y CONDICIONES </h4>\n<p><strong>1. Adhesión.</strong> El proponente, de manera libre y voluntaria, se adhiere a los términos y condiciones aquí señalados. </p>\n<p><strong>2. Medio formal de comunicaciones.</strong> Todos los actos relacionados a la subasta electrónica serán comunicados única y exclusivamente a través del correo electrónico. </p>\n<p><strong>3. Catálogo de Lotes y Bienes Recuperados Individuales.</strong> El proponente podrá consultar, a través del catálogo electrónico alojado en el Portal Oficial de Subastas de UNIBIENES S.A., los Bienes Recuperados a subastarse, el plazo para la recepción de ofertas y la ubicación de estas. </p>\n<p><strong>4. Exhibición de las Bienes Recuperados a subastar.</strong> Los proponentes podrán observar las Bienes Recuperados físicamente en los días y horas señalados en el Portal Oficial de Subastas de UNIBIENES S.A. de igual forma los \n    proponentes, deberán cumplir con las medidas de seguridad correspondientes, previo a su ingreso a los predios almacenados por UNIBIENES S.A. donde se encuentren las Bienes Recuperados de su interés. </p>\n<p><strong>5. Pago de Garantía.</strong> El proponente deberá realizar el depósito de garantía a la cuenta establecida de UNIBIENES S.A., a través de cualquiera de las entidades financieras correspondientes o mediante servicios de banca electrónica.</p>\n<p><strong>6. Registro de Ofertas.</strong> Los proponentes registrarán sus ofertas a través del Portal Oficial de Subastas. Para los fines de adjudicación del Lote o Bien Recuperado Individual, únicamente serán consideradas las propuestas presentadas dentro del plazo establecido según convocatoria.</p>\n<p><strong>7. Adjudicación.</strong> Será declarado ganador el proponente que haya ofertado el precio más alto por el Bien Recuperado a momento del cierre de ofertas en el Portal Oficial de Subastas.</p>\n<p><strong>8. Pago de la Oferta por Bienes Recuperados.</strong> El proponente deberá realizar el pago del monto ofertado por el Bien Recuperado a la cuenta establecida por UNIBIENES S.A. a través de cualquier entidad financiera o mediante servicios de banca electrónica.</p>\n<p>El pago de la oferta por el Bien Recuperado deberá realizarse en un plazo máximo de tres (3) días hábiles, computables a partir de la entrega de la nota de adjudicación al proponente. En caso que el proponente no realice el pago, le otorga a UNIBIENES S.A. la facultad para ejecutar la garantía depositada.</p>\n<p><strong>9. Adjudicación.</strong> Realizado el pago del monto ofertado, UNIBIENES S.A. verificará y notificará la recepción del pago al proponente adjudicado, a través del correo electrónico, o cualquier otro medio verificable.</p>\n<p><strong>10. Retiro de las Bienes Recuperados adjudicados.</strong> El proponente adjudicado deberá retirar las Bienes Recuperados adjudicados del almacén de UNIBIENES S.A. en un plazo no mayor a quince (15) días hábiles, computables a partir del cambio de nombre del bien sujeto a registro o notificación de recepción del pago (para bienes no sujetos a registro).</p>\n<p>En caso de no retirar los bienes recuperados adjudicados dentro de los quince (15) días, se deberá pagar los costos de guardaje por día adicional computables desde el día hábil dieciséis (16). Si el Bien Recuperado no es retirado dentro de los treinta (30) días hábiles siguientes, el proponente adjudicado deberá abonar a cuentas de la Compañía un 3% adicional mensual del monto total de la adjudicación por incumplimiento a los plazos de retiro de los bienes recuperados adjudicados. Si los costos de guardaje y el porcentaje de abono por no recojo (incumplimiento a plazos de recojo) ascienden al monto de la oferta pagada por el bien recuperado adjudicado, el proponente acepta perder el derecho a la adjudicación del bien recuperado y UNIBIENES S.A. podrá disponer del bien recuperado no adjudicado.</p>\n<p><strong>11. Privacidad de información.</strong> La información personal proporcionada por el proponente, tendrá carácter confidencial.</p>\n<p><strong>12. Restricciones.</strong> UNIBIENES S.A. se reserva el derecho de aplicar restricciones a los proponentes ante la verificación de consulta en listas especiales o la evidencia de comportamientos prohibidos que afecten a los proponentes o intereses de UNIBIENES S.A.</p>\n<p><strong>13. Responsabilidades.</strong> UNIBIENES S.A. no asume responsabilidad alguna por cualquier acción o perjuicio que pudiera resultar por la calidad, funcionalidad o información introducida en el Portal Oficial de Subastas y que pudieren derivar en la reprogramación de periodos de oferta, suspensión o finalización excepcional de la subasta.</p>\n<p>El proponente acepta que al realizar transacciones vía internet con UNIBIENES S.A. lo hace bajo su propio riesgo, en ningún caso UNIBIENES S.A. se hace responsable por lucro cesante o por cualquier otro perjuicio que haya podido sufrir, debido a las transacciones realizadas o no realizadas.</p>\n<p><strong>14. Devolución de Garantía.</strong> UNIBIENES S.A. procederá a la devolución del depósito de garantía al proponente no adjudicado en un plazo de siete (7) días hábiles aproximadamente.</p>\n<p><strong>15. Soporte técnico para el uso del Portal Oficial de Subastas.</strong> El proponente podrá solicitar a UNIBIENES S.A., soporte técnico a través de los medios de contacto formales por problemas o errores en el uso del Portal Oficial de Subastas.</p>\n<p><strong>16. Modificación.</strong> UNIBIENES S.A. podrá modificar los Términos y Condiciones sin previo aviso, siendo estos cambios aplicables a todas las operaciones efectuados en el Portal Oficial de la Subastas de UNIBIENES S.A. según el periodo de vigencia de los procesos.</p>', 'Estamos verificando tu comprobante y te enviaremos un correo de confirmación para que pueda realizar tus ofertas/pujas. Cualquiera información comunicarse al <strong>77256805</strong>', 'TU COMPROBANTE FUE RECHAZADO, ENVÍANOS UN COMPROBANTE LEGIBLE. CUALQUIER CONSULTA O DUDA COMUNÍCATE AL SIGUIENTE CORREO ELECTRÓNICO INSTITUCIONAL: XXXXXXXXXXXXXX@UNIBIENES.COM.BO Y EN CASO DE NO RECIBIR UNA REPUESTA PRONTA COMUNÍCATE AL SIGUIENTE NÚMERO XXXXX</br>\n<p><b>Nueva linea</b></p>', '2024-11-16 20:43:43', '2024-12-16 14:30:35');
 
 -- --------------------------------------------------------
 
@@ -497,6 +503,7 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 
 CREATE TABLE `publicacions` (
   `id` bigint UNSIGNED NOT NULL,
+  `nro` bigint DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `categoria` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `moneda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -515,36 +522,37 @@ CREATE TABLE `publicacions` (
 -- Volcado de datos para la tabla `publicacions`
 --
 
-INSERT INTO `publicacions` (`id`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
-(3, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-12-11 18:14:39'),
-(4, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 3, '2024-11-13 18:32:59', '2024-12-11 18:14:39'),
-(5, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-12-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-12-02 18:49:07'),
-(6, 6, 'VEHÍCULOS', 'DÓLARES (USD)', 1000.00, 'LA PAZ', 'OBS', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-20 08:08:13', '2024-12-02 16:04:01'),
-(7, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'COCHABAMBA', 'OBS', '2024-11-30', '12:00:00', 10000.00, 3, '2024-11-20 08:13:24', '2024-12-02 16:04:01'),
-(8, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'VEHÍCULO', '2024-11-22', '18:00:00', 20000.00, 3, '2024-11-20 21:28:57', '2024-11-26 09:10:31'),
-(9, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 100000.00, 'LA PAZ', 'VEHÍCULO', '2024-11-22', '18:00:00', 10000.00, 3, '2024-11-20 21:32:37', '2024-12-02 17:32:24'),
-(10, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 120000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-22', '18:00:00', 5000.00, 3, '2024-11-20 21:53:43', '2024-12-02 16:41:48'),
-(11, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 250000.00, 'LA PAZ', '30000', '2024-11-25', '18:00:00', 20000.00, 3, '2024-11-20 21:56:08', '2024-11-27 23:44:11'),
-(12, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'CASA TIPO VIVIENDA', '2024-11-18', '18:00:00', 20000.00, 3, '2024-11-20 21:59:08', '2024-11-22 07:59:00'),
-(13, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 100000.00, 'ORURO', 'VEHÍCULO', '2024-11-25', '18:00:00', 5000.00, 3, '2024-11-20 23:38:27', '2024-11-27 23:44:11'),
-(14, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-25', '18:00:00', 20000.00, 3, '2024-11-20 23:40:18', '2024-11-27 23:44:11'),
-(15, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 150000.00, 'SANTA CRUZ', 'VEHÍCULO SEMINUEVO', '2024-11-25', '18:00:00', 15000.00, 3, '2024-11-20 23:43:30', '2024-11-27 23:44:11'),
-(16, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 250000.00, 'LA PAZ', 'CASA', '2024-11-25', '18:00:00', 30000.00, 0, '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
-(17, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'CASA', '2024-11-25', '18:00:00', 15000.00, 3, '2024-11-20 23:49:33', '2024-11-27 23:44:11'),
-(18, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 180000.00, 'COCHABAMBA', 'CASA', '2024-11-25', '18:00:00', 25000.00, 3, '2024-11-20 23:51:55', '2024-11-27 23:44:11'),
-(19, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 140000.00, 'LA PAZ', 'CASA', '2024-11-26', '18:00:00', 20000.00, 3, '2024-11-20 23:54:18', '2024-12-02 17:32:24'),
-(20, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 120000.00, 'CHUQUISACA', 'CASA', '2024-11-26', '18:00:00', 12000.00, 0, '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
-(21, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 50000.00, 'LA PAZ', 'TERRENO FÉRTIL', '2024-11-26', '18:00:00', 5000.00, 3, '2024-11-20 23:59:24', '2024-11-30 01:19:02'),
-(22, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 30000.00, 'LA PAZ', 'TERRENO', '2024-11-26', '18:00:00', 3000.00, 3, '2024-11-21 00:01:32', '2024-12-11 18:10:48'),
-(23, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 60000.00, 'COCHABAMBA', 'LOTE DE TERRENO', '2024-11-26', '18:00:00', 6000.00, 3, '2024-11-21 00:03:48', '2024-12-11 17:55:03'),
-(24, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-26', '18:00:00', 20000.00, 3, '2024-11-21 19:26:49', '2024-12-02 17:32:24'),
-(25, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', '', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-26 08:07:27', '2024-12-07 06:37:37'),
-(26, 2, 'OTROS BIENES', 'BOLIVIANOS (BS)', 2000.00, 'LA PAZ', '', '2024-12-02', '14:00:00', 400.00, 3, '2024-11-26 08:28:21', '2024-12-07 04:43:28'),
-(27, 2, 'ECOLÓGICO', 'DÓLARES (USD)', 4000.00, 'LA PAZ', '', '2024-12-04', '12:00:00', 2000.00, 3, '2024-12-02 16:08:30', '2024-12-07 07:38:36'),
-(28, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'LA PAZ', '', '2024-12-20', '12:00:00', 7000.00, 1, '2024-12-02 17:54:14', '2024-12-02 17:54:21'),
-(29, 2, 'OTROS BIENES', 'DÓLARES (USD)', 35000.00, 'LA PAZ', 'OBS', '2024-12-20', '12:00:00', 20000.00, 0, '2024-12-03 04:37:53', '2024-12-03 05:45:26'),
-(30, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', 'OBS', '2024-12-04', '10:00:00', 5000.00, 0, '2024-12-03 15:33:59', '2024-12-03 15:33:59'),
-(31, 2, 'OTROS BIENES', 'DÓLARES (USD)', 10000.00, 'SANTA CRUZ', '', '2024-12-20', '12:00:00', 5000.00, 1, '2024-12-07 04:44:10', '2024-12-07 04:46:21');
+INSERT INTO `publicacions` (`id`, `nro`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
+(3, 1, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-12-16 13:31:24'),
+(4, 2, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 3, '2024-11-13 18:32:59', '2024-12-16 13:31:24'),
+(5, NULL, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-12-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-12-02 18:49:07'),
+(6, 3, 6, 'VEHÍCULOS', 'DÓLARES (USD)', 1000.00, 'LA PAZ', 'OBS', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-20 08:08:13', '2024-12-16 13:31:24'),
+(7, 4, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'COCHABAMBA', 'OBS', '2024-11-30', '12:00:00', 10000.00, 3, '2024-11-20 08:13:24', '2024-12-16 13:31:24'),
+(8, 5, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'VEHÍCULO', '2024-11-22', '18:00:00', 20000.00, 3, '2024-11-20 21:28:57', '2024-12-16 13:31:24'),
+(9, 6, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 100000.00, 'LA PAZ', 'VEHÍCULO', '2024-11-22', '18:00:00', 10000.00, 3, '2024-11-20 21:32:37', '2024-12-16 13:31:24'),
+(10, 7, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 120000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-22', '18:00:00', 5000.00, 3, '2024-11-20 21:53:43', '2024-12-16 13:31:24'),
+(11, 8, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 250000.00, 'LA PAZ', '30000', '2024-11-25', '18:00:00', 20000.00, 3, '2024-11-20 21:56:08', '2024-12-16 13:31:24'),
+(12, 9, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'CASA TIPO VIVIENDA', '2024-11-18', '18:00:00', 20000.00, 3, '2024-11-20 21:59:08', '2024-12-16 13:31:24'),
+(13, 10, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 100000.00, 'ORURO', 'VEHÍCULO', '2024-11-25', '18:00:00', 5000.00, 3, '2024-11-20 23:38:27', '2024-12-16 13:31:24'),
+(14, 11, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-11-25', '18:00:00', 20000.00, 3, '2024-11-20 23:40:18', '2024-12-16 13:31:24'),
+(15, 12, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 150000.00, 'SANTA CRUZ', 'VEHÍCULO SEMINUEVO', '2024-11-25', '18:00:00', 15000.00, 3, '2024-11-20 23:43:30', '2024-12-16 13:31:24'),
+(16, NULL, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 250000.00, 'LA PAZ', 'CASA', '2024-11-25', '18:00:00', 30000.00, 0, '2024-11-20 23:46:52', '2024-11-20 23:46:52'),
+(17, 13, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 150000.00, 'LA PAZ', 'CASA', '2024-11-25', '18:00:00', 15000.00, 3, '2024-11-20 23:49:33', '2024-12-16 13:31:24'),
+(18, 14, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 180000.00, 'COCHABAMBA', 'CASA', '2024-11-25', '18:00:00', 25000.00, 3, '2024-11-20 23:51:55', '2024-12-16 13:31:24'),
+(19, 15, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 140000.00, 'LA PAZ', 'CASA', '2024-11-26', '18:00:00', 20000.00, 3, '2024-11-20 23:54:18', '2024-12-16 13:31:24'),
+(20, NULL, 15, 'OTROS BIENES', 'BOLIVIANOS (BS)', 120000.00, 'CHUQUISACA', 'CASA', '2024-11-26', '18:00:00', 12000.00, 0, '2024-11-20 23:56:30', '2024-11-20 23:56:30'),
+(21, 16, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 50000.00, 'LA PAZ', 'TERRENO FÉRTIL', '2024-11-26', '18:00:00', 5000.00, 3, '2024-11-20 23:59:24', '2024-12-16 13:31:24'),
+(22, 17, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 30000.00, 'LA PAZ', 'TERRENO', '2024-11-26', '18:00:00', 3000.00, 3, '2024-11-21 00:01:32', '2024-12-16 13:31:24'),
+(23, 18, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 60000.00, 'COCHABAMBA', 'LOTE DE TERRENO', '2024-11-26', '18:00:00', 6000.00, 3, '2024-11-21 00:03:48', '2024-12-16 13:31:24'),
+(24, 19, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-12-14', '12:35:00', 20000.00, 3, '2024-11-21 19:26:49', '2024-12-16 13:31:24'),
+(25, 20, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', '', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-26 08:07:27', '2024-12-16 13:31:24'),
+(26, 21, 2, 'OTROS BIENES', 'BOLIVIANOS (BS)', 2000.00, 'LA PAZ', '', '2024-12-02', '14:00:00', 400.00, 3, '2024-11-26 08:28:21', '2024-12-16 13:31:24'),
+(27, 22, 2, 'ECOLÓGICO', 'DÓLARES (USD)', 4000.00, 'LA PAZ', '', '2024-12-04', '12:00:00', 2000.00, 3, '2024-12-02 16:08:30', '2024-12-16 13:31:24'),
+(28, 23, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'LA PAZ', '', '2024-12-13', '11:38:00', 7000.00, 3, '2024-12-02 17:54:14', '2024-12-16 13:31:24'),
+(29, NULL, 2, 'OTROS BIENES', 'DÓLARES (USD)', 35000.00, 'LA PAZ', 'OBS', '2024-12-20', '12:00:00', 20000.00, 0, '2024-12-03 04:37:53', '2024-12-03 05:45:26'),
+(30, NULL, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', 'OBS', '2024-12-04', '10:00:00', 5000.00, 0, '2024-12-03 15:33:59', '2024-12-03 15:33:59'),
+(31, 24, 2, 'OTROS BIENES', 'DÓLARES (USD)', 10000.00, 'SANTA CRUZ', '', '2024-12-20', '12:00:00', 5000.00, 1, '2024-12-07 04:44:10', '2024-12-16 13:31:24'),
+(32, NULL, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 50000.00, 'LA PAZ', '', '2024-12-23', '12:00:00', 20000.00, 6, '2024-12-16 13:35:27', '2024-12-16 13:38:11');
 
 -- --------------------------------------------------------
 
@@ -685,7 +693,10 @@ INSERT INTO `publicacion_detalles` (`id`, `publicacion_id`, `caracteristica`, `d
 (123, 30, 'C3', 'D3', '2024-12-03 15:33:59', '2024-12-03 15:33:59'),
 (124, 31, 'CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1CAR1', 'DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1DET1', '2024-12-07 04:44:10', '2024-12-07 04:44:10'),
 (125, 31, 'CAR2', 'DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2DET2', '2024-12-07 04:44:10', '2024-12-07 04:44:10'),
-(126, 31, 'CAR3', 'DET3', '2024-12-07 04:44:10', '2024-12-07 04:44:10');
+(126, 31, 'CAR3', 'DET3', '2024-12-07 04:44:10', '2024-12-07 04:44:10'),
+(127, 32, 'C1', 'D1', '2024-12-16 13:35:27', '2024-12-16 13:35:27'),
+(128, 32, 'C2', 'D2', '2024-12-16 13:35:27', '2024-12-16 13:35:27'),
+(129, 32, 'C3', 'D3', '2024-12-16 13:35:27', '2024-12-16 13:35:27');
 
 -- --------------------------------------------------------
 
@@ -795,7 +806,10 @@ INSERT INTO `publicacion_imagens` (`id`, `publicacion_id`, `imagen`, `status`, `
 (106, 30, '21733240039.webp', 1, '2024-12-03 15:33:59', '2024-12-03 15:33:59'),
 (107, 31, '01733546650.jpg', 1, '2024-12-07 04:44:10', '2024-12-07 04:44:10'),
 (108, 31, '11733546650.jpg', 1, '2024-12-07 04:44:10', '2024-12-07 04:44:10'),
-(109, 31, '21733546650.jpg', 1, '2024-12-07 04:44:10', '2024-12-07 04:44:10');
+(109, 31, '21733546650.jpg', 1, '2024-12-07 04:44:10', '2024-12-07 04:44:10'),
+(110, 32, '01734356127.jpeg', 0, '2024-12-16 13:35:27', '2024-12-16 13:38:11'),
+(111, 32, '11734356127.jpeg', 0, '2024-12-16 13:35:27', '2024-12-16 13:38:11'),
+(112, 32, '21734356127.jpg', 0, '2024-12-16 13:35:27', '2024-12-16 13:38:11');
 
 -- --------------------------------------------------------
 
@@ -886,9 +900,10 @@ INSERT INTO `subastas` (`id`, `publicacion_id`, `estado`, `fecha_registro`, `cre
 (19, 24, 2, '2024-11-21', '2024-11-21 19:27:26', '2024-11-27 23:44:34'),
 (20, 25, 2, '2024-11-26', '2024-11-26 08:20:45', '2024-12-02 16:05:38'),
 (21, 26, 2, '2024-12-02', '2024-12-02 16:17:24', '2024-12-02 18:00:02'),
-(22, 28, 1, '2024-12-02', '2024-12-02 17:54:21', '2024-12-02 17:54:21'),
+(22, 28, 2, '2024-12-02', '2024-12-02 17:54:21', '2024-12-13 15:30:04'),
 (23, 27, 2, '2024-12-03', '2024-12-03 04:56:20', '2024-12-07 07:38:06'),
-(24, 31, 1, '2024-12-07', '2024-12-07 04:46:21', '2024-12-07 04:46:21');
+(24, 31, 1, '2024-12-07', '2024-12-07 04:46:21', '2024-12-07 04:46:21'),
+(25, 32, 1, '2024-12-16', '2024-12-16 13:37:20', '2024-12-16 13:37:20');
 
 -- --------------------------------------------------------
 
@@ -933,7 +948,7 @@ INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `p
 (15, 21, 2, 1, 3020.00, '21733145634.pdf', 1, 2, '2024-12-02', '13:59:00', '2024-12-02 17:20:34', '2024-12-02 17:59:59'),
 (16, 21, 1, 1, 3019.00, '11733146355.pdf', 1, 0, '2024-12-02', '13:59:00', '2024-12-02 17:32:35', '2024-12-02 17:59:38'),
 (17, 22, 1, 1, 20502.00, '11733147726.pdf', 1, 0, '2024-12-02', '14:04:00', '2024-12-02 17:55:26', '2024-12-02 18:04:28'),
-(18, 22, 3, 1, 20503.00, '31733147779.png', 1, 0, '2024-12-02', '14:04:00', '2024-12-02 17:56:19', '2024-12-02 18:04:43'),
+(18, 22, 3, 1, 20503.00, '31733147779.png', 1, 0, '2024-12-02', '14:04:00', '2024-12-02 17:56:19', '2024-12-13 15:29:59'),
 (19, 23, 1, 1, 4500.00, '11733201829.png', 1, 2, '2024-12-03', '01:05:00', '2024-12-03 04:57:09', '2024-12-07 07:38:03'),
 (20, 23, 2, 1, 4001.00, '21733202190.pdf', 1, 0, '2024-12-03', '01:05:00', '2024-12-03 05:03:10', '2024-12-03 05:05:07'),
 (21, 24, 16, 1, 0.00, '161733547212.pdf', 0, 0, NULL, NULL, '2024-12-07 04:53:32', '2024-12-07 04:53:32'),
@@ -941,7 +956,8 @@ INSERT INTO `subasta_clientes` (`id`, `subasta_id`, `cliente_id`, `garantia`, `p
 (23, 24, 2, 1, 0.00, '21733549548.pdf', 1, 0, NULL, NULL, '2024-12-07 05:32:28', '2024-12-07 06:17:52'),
 (24, 24, 1, 1, 0.00, '11733775468.png', 0, 0, NULL, NULL, '2024-12-09 20:17:48', '2024-12-09 20:17:48'),
 (25, 24, 20, 1, 10004.00, '201733789224.pdf', 1, 1, '2024-12-09', '20:17:00', '2024-12-10 00:07:04', '2024-12-10 00:17:39'),
-(26, 24, 19, 1, 10003.00, '191733789248.pdf', 1, 0, '2024-12-09', '20:17:00', '2024-12-10 00:07:28', '2024-12-10 00:17:10');
+(26, 24, 19, 1, 10003.00, '191733789248.pdf', 1, 0, '2024-12-09', '20:17:00', '2024-12-10 00:07:28', '2024-12-10 00:17:10'),
+(27, 22, 2, 1, 20504.00, '21734104212.pdf', 1, 2, '2024-12-13', '11:37:00', '2024-12-13 15:36:52', '2024-12-13 15:37:59');
 
 -- --------------------------------------------------------
 
@@ -970,11 +986,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-12-11', 1, '2024-11-09 18:47:19', '2024-12-11 16:54:39'),
-(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$36K0jnlnyAJiaJ.aSSDQoeVzBpZzhDXCtPqHMQ8LrSe5dKy/TS.TO', 3, 1, '1732740859_2.jpg', '2024-11-11', '2024-12-11', 1, '2024-11-11 22:53:46', '2024-12-11 16:54:34'),
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-12-16', 1, '2024-11-09 18:47:19', '2024-12-16 13:08:02'),
+(2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$36K0jnlnyAJiaJ.aSSDQoeVzBpZzhDXCtPqHMQ8LrSe5dKy/TS.TO', 3, 1, '1732740859_2.jpg', '2024-11-11', '2024-12-16', 1, '2024-11-11 22:53:46', '2024-12-16 13:34:52'),
 (3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-12-09', 1, '2024-11-13 20:33:34', '2024-12-09 21:34:41'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', '2024-12-02', 1, '2024-11-13 22:13:05', '2024-12-02 17:53:18'),
-(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$PPiB1npLDn/PeZxqkGMXBeD0qFSia1PfxRPVum6NHcpaoTAIgRmqi', 2, 1, '1732079915_maria@gmail.com.jpg', '2024-11-16', '2024-12-09', 1, '2024-11-16 19:36:05', '2024-12-09 21:39:06'),
+(5, 'maria@gmail.com', 'MARIA', 'PAREDES MAMANI', '$2y$12$PPiB1npLDn/PeZxqkGMXBeD0qFSia1PfxRPVum6NHcpaoTAIgRmqi', 2, 1, '1732079915_maria@gmail.com.jpg', '2024-11-16', '2024-12-16', 1, '2024-11-16 19:36:05', '2024-12-16 13:21:50'),
 (6, 'MPAREDES', 'MARCOS', 'PAREDES', '$2y$12$DHvmogz6tfn9yImxpTn.1.EPmH1B7SHaT5iGOyhiSjKx.Tzrd8ZDe', 3, 1, NULL, '2024-11-20', '2024-11-20', 1, '2024-11-20 05:37:37', '2024-11-20 05:37:46'),
 (7, 'pablo@gmail.com', 'PABLO', 'MARTINEZ RAMIRES', '$2y$12$hOZda1iFWdM3zEBqhKNpk.0n0T6IDHU1B7o2c1q6.bKkpoVorkvR.', 2, 1, NULL, '2024-11-20', '2024-12-02', 1, '2024-11-20 08:36:38', '2024-12-02 17:52:46'),
 (8, 'carmen@gmail.com', 'CARMEN', 'GONZALES GONZALES', '$2y$12$0L7M00Gx5b1dOphdTtdCZuaPurzrM16iHNc7BqtTChW.r./5PAAMW', 2, 1, NULL, '2024-11-20', NULL, 1, '2024-11-20 08:38:16', '2024-11-20 08:38:16'),
@@ -991,7 +1007,7 @@ INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_
 (19, 'carlos12@gmail.com', 'CARLOS', 'MEDRANO MONTES', '$2y$12$vki4qr47qVfCJlnIZBjfruOJVJcSEPU3vh80fAZbqzC2zB7JI.D2C', 2, 1, NULL, '2024-11-21', '2024-11-21', 1, '2024-11-21 19:34:55', '2024-11-21 19:36:40'),
 (20, 'ramiro12@gmail.com', 'RAMIRO', 'FERNANDEZ LOPEZ', '$2y$12$YVzu96U4TUCckhd7G.mKUufFGPBoDgTWxI93YGYC9RChV9pFsVrwG', 2, 1, NULL, '2024-11-21', '2024-11-21', 1, '2024-11-22 02:03:32', '2024-11-22 02:04:19'),
 (21, 'pedromarquezsolano@gmail.com', 'PEDRO', 'MARQUEZ SOLANO', '$2y$12$17VUIE5uom4i0BwKbE5iOeilpGoQ/49xDLaVS2wpRwHE78Z.H7ubW', 2, 1, '1733545477_21.png', '2024-12-07', NULL, 1, '2024-12-07 04:02:40', '2024-12-07 04:24:37'),
-(22, 'franzmartinez@gmail.com', 'FRANZ', 'MARTINES CORDOVA', '$2y$12$d1S4ablslqEETd.tZ6.14ewIqpnETYSHQ0T4zXjfDzkcnuqz0PR8m', 2, 1, NULL, '2024-12-07', '2024-12-09', 1, '2024-12-07 04:43:09', '2024-12-09 21:00:39'),
+(22, 'franzmartinez@gmail.com', 'FRANZ', 'MARTINES CORDOVA', '$2y$12$d1S4ablslqEETd.tZ6.14ewIqpnETYSHQ0T4zXjfDzkcnuqz0PR8m', 2, 1, NULL, '2024-12-07', '2024-12-16', 1, '2024-12-07 04:43:09', '2024-12-16 14:11:06'),
 (23, 'asd@gmail.com', 'ASD', 'ASD ASD', '$2y$12$iNicax6glaArdLBR5WRT6Oc4N5l/BZbUDo6CTlevOi/Ag6hvKSUgm', 2, 1, NULL, '2024-12-07', NULL, 1, '2024-12-07 15:17:04', '2024-12-07 15:17:04'),
 (24, 'sandro@gmail.com', 'SANDRO', 'BALTAZAR', '$2y$12$s7112lHPXnbJzCOSibrvreYtb7i0DFD0q/ObWFljgE1A8UW4fbvQm', 2, 1, NULL, '2024-12-09', '2024-12-09', 1, '2024-12-09 21:07:53', '2024-12-10 00:07:20'),
 (25, 'fernandamarquez@gmail.com', 'FERNANDA', 'MARQUEZ', '$2y$12$uLkoxJWNyXOtnRFYLIuofOxpHI5qzHQSJXccGbafr1vUbePQVDxLq', 2, 1, NULL, '2024-12-09', '2024-12-09', 1, '2024-12-09 21:09:43', '2024-12-10 00:06:54'),
@@ -1143,13 +1159,13 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_ofertas`
 --
 ALTER TABLE `historial_ofertas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
@@ -1161,13 +1177,13 @@ ALTER TABLE `modulos`
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `parametrizacions`
@@ -1185,19 +1201,19 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `publicacions`
 --
 ALTER TABLE `publicacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacion_detalles`
 --
 ALTER TABLE `publicacion_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacion_imagens`
 --
 ALTER TABLE `publicacion_imagens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT de la tabla `recuperar_passwords`
@@ -1215,13 +1231,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `subastas`
 --
 ALTER TABLE `subastas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `subasta_clientes`
 --
 ALTER TABLE `subasta_clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

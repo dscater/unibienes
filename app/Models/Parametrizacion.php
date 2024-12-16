@@ -18,7 +18,8 @@ class Parametrizacion extends Model
         "nro_imagenes_pub",
         "tiempo_pub",
         "terminos_condiciones",
-        "verificar_comprobante"
+        "verificar_comprobante",
+        "comp_rechazado"
     ];
 
     protected $appends = ["o_servidor_correo", "o_datos_banco", "url_qr"];

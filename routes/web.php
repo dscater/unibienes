@@ -44,6 +44,7 @@ Route::get('/registro', function () {
 })->name("registro");
 Route::get('/getTerminosCondiciones', [PortalController::class, 'getTerminosCondiciones'])->name("getTerminosCondiciones");
 Route::get('/getMensajeVerificaComprobante', [PortalController::class, 'getMensajeVerificaComprobante'])->name("getMensajeVerificaComprobante");
+Route::get('/getMensajesParametrizacion', [PortalController::class, 'getMensajesParametrizacion'])->name("getMensajesParametrizacion");
 Route::get('/olvido_contrasena', [RecuperarContrasenaController::class, 'olvido_contrasena'])->name("olvido_contrasena");
 Route::post('/solicitar_recuperacion', [RecuperarContrasenaController::class, 'solicitar_recuperacion'])->name("solicitar_recuperacion");
 Route::get('/recuperar_password/{recuperar_password}', [RecuperarContrasenaController::class, 'recuperar_password'])->name("recuperar_password");
@@ -125,6 +126,7 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     );
 
     // PUBLICACIONES
+    Route::get("publicacions/corrigeNroCorrelativo", [PublicacionController::class, 'corrigeNroCorrelativo'])->name("publicacions.corrigeNroCorrelativo");
     Route::get("publicacions/api", [PublicacionController::class, 'api'])->name("publicacions.api");
     Route::get("publicacions/paginado", [PublicacionController::class, 'paginado'])->name("publicacions.paginado");
     Route::get("publicacions/listado", [PublicacionController::class, 'listado'])->name("publicacions.listado");

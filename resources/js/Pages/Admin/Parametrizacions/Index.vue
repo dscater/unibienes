@@ -74,6 +74,7 @@ if (props_page.parametrizacion != null) {
         tiempo_pub: "",
         terminos_condiciones: "",
         verificar_comprobante: "",
+        comp_rechazado: "",
         titular: "TITULAR",
         banco: "BANCO",
         nro_cuenta: "11111",
@@ -303,12 +304,25 @@ onMounted(() => {});
                     <textarea
                         class="form-control"
                         v-model="form.verificar_comprobante"
-                        rows="1"
+                        rows="3"
                     ></textarea>
                     <span
                         class="text-danger"
                         v-if="form.errors?.verificar_comprobante"
                         >{{ form.errors.verificar_comprobante }}</span
+                    >
+                </div>
+                <div class="col-md-12 form-group mb-3">
+                    <label for="">Mensaje comprobante rechazado*</label>
+                    <textarea
+                        class="form-control"
+                        v-model="form.comp_rechazado"
+                        rows="3"
+                    ></textarea>
+                    <span
+                        class="text-danger"
+                        v-if="form.errors?.comp_rechazado"
+                        >{{ form.errors.comp_rechazado }}</span
                     >
                 </div>
             </div>

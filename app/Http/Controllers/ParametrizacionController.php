@@ -17,6 +17,7 @@ class ParametrizacionController extends Controller
         "tiempo_pub" => "required|int|min:1",
         "terminos_condiciones" => "required|string|min:4",
         "verificar_comprobante" => "required|string|min:4",
+        "comp_rechazado" => "required|string|min:4",
         "host" => "required",
         "puerto" => "required|int",
         "encriptado" => "required",
@@ -27,6 +28,8 @@ class ParametrizacionController extends Controller
         "titular" => "required",
         "banco" => "required",
         "nro_cuenta" => "required",
+
+
     ];
 
     public $messages = [
@@ -48,6 +51,9 @@ class ParametrizacionController extends Controller
         "verificar_comprobante.required" => "Este campo es obligatorio",
         "verificar_comprobante.string" => "Debes ingresar solo texto",
         "verificar_comprobante.min" => "Debes ingresar al menos :min caracteres",
+        "comp_rechazado.required" => "Este campo es obligatorio",
+        "comp_rechazado.string" => "Debes ingresar solo texto",
+        "comp_rechazado.min" => "Debes ingresar al menos :min caracteres",
         "host.required" => "Este campo es obligatorio",
         "puerto.required" => "Este campo es obligatorio",
         "puerto.int" => "Ingresa un valor entero",
@@ -126,6 +132,7 @@ class ParametrizacionController extends Controller
                 "tiempo_pub" => $request->tiempo_pub,
                 "terminos_condiciones" => $request->terminos_condiciones,
                 "verificar_comprobante" => $request->verificar_comprobante,
+                "comp_rechazado" => $request->comp_rechazado,
             ];
             if (!$parametrizacion) {
                 Parametrizacion::create($datos);

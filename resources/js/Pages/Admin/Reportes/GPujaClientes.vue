@@ -106,11 +106,11 @@ const renderChart = (containerId, publicacion, data, categories) => {
         },
         title: {
             align: "center",
-            text: `PUBLICACIÓN NRO. ${publicacion.id} - ${publicacion.categoria}<br/>${publicacion.moneda}`,
+            text: `PUBLICACIÓN NRO. ${publicacion.nro} - ${publicacion.categoria}<br/>${publicacion.moneda_exp}`,
         },
         subtitle: {
-            align: "left",
-            text: "",
+            align: "center",
+            text: `PUBLICACIÓN ${publicacion.estado_txt}`,
         },
         accessibility: {
             announceNewData: {
@@ -122,7 +122,7 @@ const renderChart = (containerId, publicacion, data, categories) => {
         },
         yAxis: {
             title: {
-                text: "Total Oferta/Puja",
+                text: "Monto de la Oferta/Puja",
             },
         },
         legend: {

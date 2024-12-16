@@ -315,10 +315,7 @@ onMounted(() => {});
                                 "
                             >
                                 <div class="col-12">
-                                    <div class="alert alert-info mb-2 text-sm">
-                                        Tos los campos con
-                                        <strong>*</strong> son obligatorios
-                                    </div>
+                                    <div class="alert alert-info mb-2 text-sm font-weight-bold">Verifica tu oferta antes de registrarla</div>
                                 </div>
                             </div>
                             <form

@@ -26,6 +26,7 @@ const props = defineProps({
 
 const modal_dialog_datos_pago = ref(false);
 const dialog = ref(props.open_dialog);
+const m_comp_rechazado = ref("");
 const oPublicacion = ref(props.publicacion);
 const oSubastaCliente = ref(props.subasta_cliente);
 const aDetalles = ref(props.detalles);
@@ -51,6 +52,7 @@ watch(
     async (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
+            getMVerificaCompRechazado();
             document
                 .getElementsByTagName("body")[0]
                 .classList.add("modal-open");
@@ -101,6 +103,18 @@ const cerrarDialog = () => {
     enviando.value = false;
     input_file.value = null;
     document.getElementsByTagName("body")[0].classList.remove("modal-open");
+};
+
+const getMVerificaCompRechazado = () => {
+    axios
+        .get(route("getMensajesParametrizacion"), {
+            params: {
+                q: Math.floor(Date.now() / 1000),
+            },
+        })
+        .then((response) => {
+            m_comp_rechazado.value = response.data.comp_rechazado;
+        });
 };
 
 const registrarComprobante = () => {
@@ -217,21 +231,8 @@ onMounted(() => {});
                             <div
                                 class="alert alert-danger"
                                 v-if="oSubastaCliente"
+                                v-html="m_comp_rechazado"
                             >
-                                <i class="fa fa-info-circle"></i> Su comprobante
-                                fue rechazado
-                                <ul>
-                                    <li>
-                                        El comprobante debe poder verse de forma
-                                        clara
-                                    </li>
-                                    <li>
-                                        Verifique que no exista alguna problema
-                                        con su banco
-                                    </li>
-                                </ul>
-                                <i class="far fa-circle"></i> Por favor, vuelva
-                                a cargar su comprobante
                             </div>
                             <div class="alert alert-info" v-else>
                                 <p>

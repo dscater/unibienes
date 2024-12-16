@@ -28,8 +28,8 @@ const {
 const columns = [
     {
         title: "",
-        data: "id",
-        name: "id",
+        data: "nro",
+        name: "nro",
     },
     {
         title: "Usuario",
@@ -96,10 +96,7 @@ const columns = [
                 row.estado_sub == 3
             ) {
                 buttons += `
-                    <div style="position:relative;width:auto; display:inline-flex; flex-direction:column; width:40px;">
-                        <span class="d-block button_subasta_clientes verSubastaClientes"
-                            data-id="${row.id}"
-                        ><i class="fa fa-external-link"></i></span>  
+                    
                         <button class="mx-0 rounded-0 btn btn-primary verSubasta" 
                         data-id="${row.subasta.id}"
                         style="z-index:0;"
@@ -107,7 +104,7 @@ const columns = [
                             ${row.subasta.subasta_clientes.length}<br/>
                             <i class="fa fa-users"></i>
                         </button>
-                    </div>
+                 
                 `;
 
                 if (
@@ -122,7 +119,7 @@ const columns = [
                     }" data-nombre="${row.id} | ${row.categoria}"
                     data-url="${route("publicacions.destroy", row.id)}"
                     data-estado="6"
-                    style="min-height:53px;margin-top:14px;"><i class="fa fa-ban"></i></button>`;
+                    style="min-height:53px;"><i class="fa fa-ban"></i></button>`;
                 }
             }
 

@@ -150,6 +150,7 @@ export const usePublicacions = () => {
             oPublicacion.id = item.id;
             oPublicacion.categoria = item.categoria;
             oPublicacion.moneda = item.moneda;
+            oPublicacion.moneda_txt = item.moneda_txt;
             oPublicacion.oferta_inicial = item.oferta_inicial;
             oPublicacion.oferta_inicial_us = getFormatoMoneda(
                 item.oferta_inicial

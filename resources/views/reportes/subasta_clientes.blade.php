@@ -227,7 +227,7 @@
                     </tr>
                     <tr>
                         <td width="10%">NRO. DEL BIEN OFERTADO:</td>
-                        <td>{{ $publicacion->id }} </td>
+                        <td>{{ $publicacion->nro }} </td>
                     </tr>
                 </tbody>
             </table>

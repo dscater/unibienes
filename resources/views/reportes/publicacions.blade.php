@@ -193,7 +193,7 @@
 
                 <tr>
                     <td class="centreado">{{ $cont++ }}</td>
-                    <td class="centreado">{{ $publicacion->id }}</td>
+                    <td class="centreado">{{ $publicacion->nro }}</td>
                     <td>{{ $publicacion->user->full_name }}</td>
                     <td class="">{{ $publicacion->categoria }}</td>
                     <td class="">{{ $publicacion->moneda }}</td>

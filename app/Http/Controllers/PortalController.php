@@ -55,4 +55,20 @@ class PortalController extends Controller
 
         return response()->JSON($verificar_comprobante);
     }
+
+    public function getMensajesParametrizacion()
+    {
+        $verificar_comprobante = "";
+        $comp_rechazado = "";
+        $parametrizacion = Parametrizacion::first();
+        if ($parametrizacion) {
+            $verificar_comprobante = $parametrizacion->verificar_comprobante;
+            $comp_rechazado = $parametrizacion->comp_rechazado;
+        }
+
+        return response()->JSON([
+            "verificar_comprobante" => $verificar_comprobante,
+            "comp_rechazado" => $comp_rechazado,
+        ]);
+    }
 }

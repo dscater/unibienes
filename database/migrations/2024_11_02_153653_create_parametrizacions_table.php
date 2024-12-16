@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer("tiempo_pub");
             $table->text("terminos_condiciones");
             $table->text("verificar_comprobante");
+            $table->text("comp_rechazado");
             $table->timestamps();
         });
     }

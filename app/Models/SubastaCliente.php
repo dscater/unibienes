@@ -21,7 +21,20 @@ class SubastaCliente extends Model
         "hora_oferta"
     ];
 
-    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante", "fecha_oferta_t", "hora_oferta_t", "fecha_registro", "fecha_hora_registro"];
+    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante", "fecha_oferta_t", "hora_oferta_t", "fecha_registro", "fecha_hora_registro", "puja_t"];
+
+    public function getPujaTAttribute()
+    {
+        if ($this->estado_comprobante == 0) {
+            return '<span class="badge bg-gray">SIN PUJA</span>';
+        }
+
+        if ($this->estado_comprobante == 2) {
+            return '<span class="badge bg-danger">SIN PUJA</span>';
+        }
+
+        return number_format($this->puja, 2, ".", ",");
+    }
 
     public function getFechaRegistroAttribute()
     {
@@ -88,10 +101,18 @@ class SubastaCliente extends Model
 
     public function getEstadoPujaTAttribute()
     {
-        $estado = "";
+        $estado = "PARTICIPANDO";
 
         if ($this->estado_puja === 1) {
+            $estado = 'PARTICIPANDO';
+        }
+
+        if ($this->estado_puja === 2) {
             $estado = 'GANADOR';
+        }
+
+        if ($this->estado_comprobante === 0) {
+            $estado = 'PENDIENTE';
         }
 
         return $estado;

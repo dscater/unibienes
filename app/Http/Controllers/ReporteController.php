@@ -167,7 +167,7 @@ class ReporteController extends Controller
 
         $publicacions->whereNotIn("estado_sub", [5]);
 
-        $publicacions = $publicacions->get();
+        $publicacions = $publicacions->orderBy("nro", "desc")->get();
 
         if ($formato == "pdf") {
             $pdf = PDF::loadView('reportes.publicacions', compact('publicacions'))->setPaper('legal', 'landscape');
@@ -235,7 +235,7 @@ class ReporteController extends Controller
             $cont = 1;
             foreach ($publicacions as $publicacion) {
                 $sheet->setCellValue('A' . $fila, $cont++);
-                $sheet->setCellValue('B' . $fila, $publicacion->id);
+                $sheet->setCellValue('B' . $fila, $publicacion->nro);
                 $sheet->setCellValue('C' . $fila, $publicacion->user->full_name);
                 $sheet->setCellValue('D' . $fila, $publicacion->categoria);
                 $sheet->setCellValue('E' . $fila, $publicacion->moneda);
@@ -398,21 +398,21 @@ class ReporteController extends Controller
                     $sheet->setCellValue('A' . $fila, 'NOMBRE DEL SUBASTADOR:');
                     $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
                     $sheet->setCellValue('C' . $fila, $publicacion->user->full_name);
-                    $sheet->mergeCells("C" . $fila . ":T" . $fila);  //COMBINAR CELDAS
-                    $sheet->getStyle('A' . $fila . ':T' . $fila)->applyFromArray($this->bodyTabla);
+                    $sheet->mergeCells("C" . $fila . ":U" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':U' . $fila)->applyFromArray($this->bodyTabla);
                     $fila++;
                     $sheet->setCellValue('A' . $fila, 'CATEGORÍA:');
                     $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
                     $sheet->setCellValue('C' . $fila, $publicacion->categoria);
-                    $sheet->mergeCells("C" . $fila . ":T" . $fila);  //COMBINAR CELDAS
-                    $sheet->getStyle('A' . $fila . ':T' . $fila)->applyFromArray($this->bodyTabla);
+                    $sheet->mergeCells("C" . $fila . ":U" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':U' . $fila)->applyFromArray($this->bodyTabla);
                     $fila++;
                     $sheet->setCellValue('A' . $fila, 'NRO. DEL BIEN OFERTADO:');
                     $sheet->mergeCells("A" . $fila . ":B" . $fila);  //COMBINAR CELDAS
-                    $sheet->setCellValue('C' . $fila, $publicacion->id . "");
-                    $sheet->mergeCells("C" . $fila . ":T" . $fila);  //COMBINAR CELDAS
-                    $sheet->getStyle('A' . $fila . ':T' . $fila)->applyFromArray($this->bodyTabla);
-                    $sheet->getStyle('C' . $fila . ':T' . $fila)->applyFromArray($this->textLeft);
+                    $sheet->setCellValue('C' . $fila, $publicacion->nro . "");
+                    $sheet->mergeCells("C" . $fila . ":U" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':U' . $fila)->applyFromArray($this->bodyTabla);
+                    $sheet->getStyle('C' . $fila . ':U' . $fila)->applyFromArray($this->textLeft);
                     $fila++;
 
                     $sheet->setCellValue('A' . $fila, 'N°');
@@ -433,9 +433,10 @@ class ReporteController extends Controller
                     $sheet->setCellValue('P' . $fila, "COMPROBANTE");
                     $sheet->setCellValue('Q' . $fila, "COMPROBANTE DE PAGO DE GARANTÍA\n(DOCUMENTO PARA DESCARGAR)");
                     $sheet->setCellValue('R' . $fila, "CARNET DE IDENTIDAD\n(DOCUMENTO PARA DESCARGAR)");
-                    $sheet->setCellValue('S' . $fila, 'CARACTERISTICAS-DETALLES');
-                    $sheet->setCellValue('T' . $fila, 'SUBASTA VIGENTE/FINALIZADA');
-                    $sheet->getStyle('A' . $fila . ':T' . $fila)->applyFromArray($this->headerTabla);
+                    $sheet->setCellValue('S' . $fila, 'DATOS PARA DEVOLUCIÓN');
+                    $sheet->setCellValue('T' . $fila, 'CARACTERISTICAS-DETALLES');
+                    $sheet->setCellValue('U' . $fila, 'SUBASTA VIGENTE/FINALIZADA');
+                    $sheet->getStyle('A' . $fila . ':U' . $fila)->applyFromArray($this->headerTabla);
                     $fila++;
                     $cont = 1;
 
@@ -490,12 +491,20 @@ class ReporteController extends Controller
                         $sheet->setCellValue('P' . $fila, $subasta_cliente->estado_comprobante_t);
                         $sheet->setCellValue('Q' . $fila, $subasta_cliente->url_comprobante);
                         $sheet->setCellValue('R' . $fila, $subasta_cliente->cliente->url_ci_anverso . "\n" . $subasta_cliente->cliente->url_ci_reverso);
-                        $sheet->setCellValue('S' . $fila, $text);
-                        $sheet->setCellValue('T' . $fila, $publicacion->estado_txt . ($publicacion->estado_txt == 'FINALIZADO' && $subasta_cliente->estado_puja == 2 ? "\n(GANADOR)" : ''));
-                        $sheet->getStyle('A' . $fila . ':T' . $fila)->applyFromArray($this->bodyTabla);
+
+                        // datos para devolucion
+                        $text_devolucion = "";
+                        $text_devolucion .= "BANCO: " . $subasta_cliente->cliente->banco . "\n";
+                        $text_devolucion .= "NRO. DE CUENTA: " . $subasta_cliente->cliente->nro_cuenta . "\n";
+                        $text_devolucion .= "MONEDA: " . $subasta_cliente->cliente->moneda;
+                        $sheet->setCellValue('S' . $fila, $text_devolucion);
+
+                        $sheet->setCellValue('T' . $fila, $text);
+                        $sheet->setCellValue('U' . $fila, $publicacion->estado_txt . ($publicacion->estado_txt == 'FINALIZADO' && $subasta_cliente->estado_puja == 2 ? "\n(GANADOR)" : ''));
+                        $sheet->getStyle('A' . $fila . ':U' . $fila)->applyFromArray($this->bodyTabla);
 
                         if ($publicacion->estado_txt == 'FINALIZADO' && $subasta_cliente->estado_puja == 2) {
-                            $sheet->getStyle('A' . $fila . ':T' . $fila)->applyFromArray($this->bgGanador);
+                            $sheet->getStyle('A' . $fila . ':U' . $fila)->applyFromArray($this->bgGanador);
                         }
 
                         $fila++;
@@ -526,9 +535,10 @@ class ReporteController extends Controller
             $sheet->getColumnDimension('Q')->setWidth(20);
             $sheet->getColumnDimension('R')->setWidth(20);
             $sheet->getColumnDimension('S')->setWidth(35);
-            $sheet->getColumnDimension('T')->setWidth(15);
+            $sheet->getColumnDimension('T')->setWidth(35);
+            $sheet->getColumnDimension('U')->setWidth(15);
 
-            foreach (range('A', 'T') as $columnID) {
+            foreach (range('A', 'U') as $columnID) {
                 $sheet->getStyle($columnID)->getAlignment()->setWrapText(true);
             }
 
@@ -537,7 +547,7 @@ class ReporteController extends Controller
             $sheet->getPageMargins()->setRight(0.1);
             $sheet->getPageMargins()->setLeft(0.1);
             $sheet->getPageMargins()->setBottom(0.1);
-            $sheet->getPageSetup()->setPrintArea('A:T');
+            $sheet->getPageSetup()->setPrintArea('A:U');
             $sheet->getPageSetup()->setFitToWidth(1);
             $sheet->getPageSetup()->setFitToHeight(0);
 
@@ -591,8 +601,8 @@ class ReporteController extends Controller
 
             $data[] = [
                 "y" => (int)$total,
-                "name" => "PUBLICACIÓN NRO. " . $publicacion->id . " | " . $publicacion->categoria,
-                "nro_pub" => $publicacion->id
+                "name" => "PUBLICACIÓN NRO. " . $publicacion->nro . " | " . $publicacion->categoria,
+                "nro_pub" => $publicacion->nro
             ];
         }
 
@@ -634,8 +644,8 @@ class ReporteController extends Controller
             if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
                 $publicacions->where("user_id", Auth::user()->id);
             }
-            $publicacions->whereNotIn("estado_sub", [5]);
-            $publicacions = $publicacions->get();
+            $publicacions->whereNotIn("estado_sub", [0, 5, 6]);
+            $publicacions = $publicacions->orderBy("estado_sub", "asc")->get();
 
             foreach ($publicacions as $publicacion) {
                 $data_contenedor = [];

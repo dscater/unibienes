@@ -249,6 +249,8 @@ class PublicacionController extends Controller
 
     public function habilitaPublicacion(Publicacion $publicacion)
     {
+        $nro = Publicacion::getNroCorrelativo();
+        $publicacion->nro = $nro;
         $publicacion->estado_sub = 1;
         $publicacion->save();
 
@@ -276,5 +278,15 @@ class PublicacionController extends Controller
             'sw' => true,
             'message' => 'El registro se eliminó correctamente'
         ], 200);
+    }
+
+    public function corrigeNroCorrelativo()
+    {
+        $publicacions = Publicacion::whereNotIn("estado_sub", [0, 5, 6])->get();
+        foreach ($publicacions as $key => $publicacion) {
+            $publicacion->nro = $key + 1;
+            $publicacion->save();
+        }
+        return 'Correcto <a href="' . route('inicio') . '">Volver al inicio</a>';
     }
 }

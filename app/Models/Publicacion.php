@@ -17,6 +17,7 @@ class Publicacion extends Model
     use HasFactory;
 
     protected $fillable = [
+        "nro",
         "user_id",
         "categoria",
         "moneda",
@@ -30,11 +31,21 @@ class Publicacion extends Model
     ];
 
     // APPENDS
-    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt", "moneda_txt", "esta_vigente"];
+    protected $appends = ["fecha_hora_limite", "fecha_hora_limite_am", "fecha_limite_t", "hora_limite_t", "estado_sub_t", "estado_txt", "moneda_txt","moneda_exp", "esta_vigente"];
 
     public function getEstaVigenteAttribute()
     {
         return Publicacion::verificaFechaLimitePublicacionBoolean($this);
+    }
+
+
+    public function getMonedaExpAttribute()
+    {
+        $moneda = "Exp. en Dólares"; // DÓLARES (USD)
+        if ($this->moneda == 'BOLIVIANOS (BS)')
+            $moneda = "Exp. en Bolivianos";
+
+        return $moneda;
     }
 
     public function getMonedaTxtAttribute()
@@ -143,6 +154,17 @@ class Publicacion extends Model
             $item->save();
         }
         return true;
+    }
+
+    public static function getNroCorrelativo()
+    {
+        $nro = 1;
+        $ultimo = Publicacion::orderBy("nro", "desc")->get()->first();
+        if ($ultimo && $ultimo->nro) {
+            $nro = (int)$ultimo->nro + 1;
+        }
+
+        return $nro;
     }
 
     public static function actualizaEstadoUsuario()
@@ -396,6 +418,7 @@ class Publicacion extends Model
             PublicacionDetalle::eliminaDetallesPublicacion($eliminados_detalles);
 
             // eliminar
+            $publicacion->nro = NULL;
             $publicacion->estado_sub = $estado;
             $publicacion->save();
 

@@ -3,6 +3,9 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import { usePublicacions } from "@/composables/publicacions/usePublicacions";
 import { watch, ref, computed, defineEmits, onMounted, nextTick } from "vue";
 import PublicacionAdmin from "@/Components/PublicacionAdmin.vue";
+import { useFormater } from "@/composables/useFormater";
+const { getFormatoMoneda } = useFormater();
+
 const props = defineProps({
     open_dialog: {
         type: Boolean,
@@ -149,7 +152,7 @@ onMounted(() => {});
                         </p>
                         <p>
                             <strong>Oferta inicial: </strong
-                            >{{ oPublicacion.oferta_inicial }}
+                            >{{ oPublicacion.moneda_txt }} {{ getFormatoMoneda(oPublicacion.oferta_inicial) }}
                         </p>
                         <p>
                             <strong>Ubicación: </strong
@@ -165,7 +168,7 @@ onMounted(() => {});
                         </p>
                         <p>
                             <strong>Monto de garantía: </strong
-                            >{{ oPublicacion.monto_garantia }}
+                            >{{ oPublicacion.moneda_txt }} {{ getFormatoMoneda(oPublicacion.monto_garantia) }}
                         </p>
                     </form>
                 </div>

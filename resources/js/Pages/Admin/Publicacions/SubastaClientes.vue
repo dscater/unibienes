@@ -189,22 +189,26 @@ onBeforeUnmount(() => {
                                             <td>{{ item.cliente.full_ci }}</td>
                                             <td>{{ item.cliente.fono }}</td>
                                             <td>{{ item.cliente.email }}</td>
-                                            <td>{{ getFormatoMoneda(item.puja) }}</td>
+                                            <td v-html="item.puja_t">
+                                            </td>
                                             <td>
                                                 <span
                                                     class="badge"
-                                                    :class="[
-                                                        item.estado_puja == 2
-                                                            ? 'bg-success'
-                                                            : 'bg-gray',
-                                                    ]"
+                                                    :class="{
+                                                        'bg-gray':
+                                                            item.estado_comprobante ==
+                                                            0,
+                                                        'bg-primary':
+                                                            item.estado_puja ==
+                                                                1 ||
+                                                            item.estado_puja ==
+                                                                0,
+                                                        'bg-success':
+                                                            item.estado_puja ==
+                                                            2,
+                                                    }"
                                                 >
-                                                    {{
-                                                        getEstadoParticipando(
-                                                            item.subasta.estado,
-                                                            item.estado_puja
-                                                        )
-                                                    }}
+                                                    {{ item.estado_puja_t }}
                                                 </span>
                                             </td>
                                             <td>

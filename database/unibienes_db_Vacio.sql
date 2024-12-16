@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 11-12-2024 a las 18:18:40
+-- Tiempo de generación: 16-12-2024 a las 14:31:02
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -207,6 +207,7 @@ CREATE TABLE `parametrizacions` (
   `tiempo_pub` int NOT NULL,
   `terminos_condiciones` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `verificar_comprobante` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comp_rechazado` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -215,8 +216,8 @@ CREATE TABLE `parametrizacions` (
 -- Volcado de datos para la tabla `parametrizacions`
 --
 
-INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `datos_banco`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `verificar_comprobante`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"mensaje@emsytsrl.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"8Z@d>&kj^y\", \"encriptado\": \"tls\"}', '{\"qr\": \"1733204666.png\", \"banco\": \"BANCO UNIÓN\", \"titular\": \"NOMBRE TITULAR\", \"nro_cuenta\": \"111110002222\"}', 3, 2, 'Términos y condiciones unibienes', '', '2024-11-16 20:43:43', '2024-12-03 05:44:26');
+INSERT INTO `parametrizacions` (`id`, `user_id`, `inactividad_cliente`, `tipo_cambio`, `servidor_correo`, `datos_banco`, `nro_imagenes_pub`, `tiempo_pub`, `terminos_condiciones`, `verificar_comprobante`, `comp_rechazado`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 6.96, '{\"host\": \"smtp.hostinger.com\", \"correo\": \"mensaje@emsytsrl.com\", \"driver\": \"smtp\", \"nombre\": \"unibienes\", \"puerto\": \"587\", \"password\": \"8Z@d>&kj^y\", \"encriptado\": \"tls\"}', '{\"qr\": \"1733204666.png\", \"banco\": \"BANCO UNIÓN\", \"titular\": \"NOMBRE TITULAR\", \"nro_cuenta\": \"111110002222\"}', 3, 2, 'Términos y condiciones unibienes', 'Estamos verificando tu comprobante y te enviaremos un correo de confirmación para que pueda realizar tus ofertas/pujas. Cualquiera información comunicarse al <strong>77256805</strong>', 'TU COMPROBANTE FUE RECHAZADO, ENVÍANOS UN COMPROBANTE LEGIBLE. CUALQUIER CONSULTA O DUDA COMUNÍCATE AL SIGUIENTE CORREO ELECTRÓNICO INSTITUCIONAL: XXXXXXXXXXXXXX@UNIBIENES.COM.BO Y EN CASO DE NO RECIBIR UNA REPUESTA PRONTA COMUNÍCATE AL SIGUIENTE NÚMERO XXXXX', '2024-11-16 20:43:43', '2024-12-03 05:44:26');
 
 -- --------------------------------------------------------
 
@@ -255,6 +256,7 @@ INSERT INTO `permisos` (`id`, `role_id`, `modulo_id`, `created_at`, `updated_at`
 
 CREATE TABLE `publicacions` (
   `id` bigint UNSIGNED NOT NULL,
+  `nro` bigint DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `categoria` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `moneda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,

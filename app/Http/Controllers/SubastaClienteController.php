@@ -90,6 +90,11 @@ class SubastaClienteController extends Controller
             $mensaje = 'Tu comprobante ha sido verificado. Ahora puedes realizar tus ofertas/pujas en esta  <a href="' . $url . '">PUBLICACIÓN</a>';
             if ($subasta_cliente->estado_comprobante == 2) {
                 $mensaje = 'Tu comprobante ha sido rechazado. Por favor verifica que no vea un problema con tu banco o que el monto de garantía sea correcto en la siguiente  <a href="' . $url . '">PUBLICACIÓN</a>';
+                if($parametrizacion->comp_rechazado){
+                    $mensaje = $parametrizacion->comp_rechazado;
+                    $mensaje .= '<br/><a href="' . $url . '">Ver publicación</a>';
+                }
+
             }
 
             $datos = [
