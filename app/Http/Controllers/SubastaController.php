@@ -45,7 +45,7 @@ class SubastaController extends Controller
         $publicacions_puja  = $consulta_publicacions->max("puja");
         $total = count($publicacions_id);
         $maxima_puja = $total > 0 ? (float)$publicacions_puja : $maxima_puja;
-        $lastId = $total > 0 ? $publicacions_id[0]->id : $lastId;
+        $lastIdPub = $total > 0 ? $publicacions_id[0]->id : $lastId;
 
         // obtener los registros a mostrar
         if ($lastId != 0 && $maxima_puja == 0) {
@@ -56,6 +56,7 @@ class SubastaController extends Controller
             ->orderBy("subasta_clientes.puja", "desc")
             ->get();
 
+        $lastId = $lastIdPub;
 
         return response()->JSON(
             [

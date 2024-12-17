@@ -21,6 +21,11 @@ return new class extends Migration
             $table->integer("estado_comprobante");
             $table->integer("estado_puja");
             $table->date("fecha_oferta")->nullable();
+            $table->time("hora_oferta")->nullable();
+            $table->integer("devolucion")->default(0);
+            $table->text("descripcion_devolucion")->nullable()->default(NULL);
+            $table->date("fecha_devolucion")->nullable()->default(NULL);
+            $table->time("hora_devolucion")->nullable()->default(NULL);
             $table->timestamps();
 
             $table->foreign("subasta_id")->on("subastas")->references("id");

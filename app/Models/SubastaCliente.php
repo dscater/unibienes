@@ -18,10 +18,72 @@ class SubastaCliente extends Model
         "estado_comprobante",
         "estado_puja", //[0:no_ganador, 1:ganador_parcial, 2:ganador]
         "fecha_oferta",
-        "hora_oferta"
+        "hora_oferta",
+        "devolucion",
+        "descripcion_devolucion",
+        "fecha_devolucion",
+        "hora_devolucion",
     ];
 
-    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante", "fecha_oferta_t", "hora_oferta_t", "fecha_registro", "fecha_hora_registro", "puja_t"];
+    protected $appends = ["estado_comprobante_t", "estado_puja_t", "tipo_comprobante", "url_comprobante", "fecha_oferta_t", "hora_oferta_t", "fecha_registro", "fecha_hora_registro", "puja_t", "devolucion_span", "devolucion_txt", "fecha_devolucion_t", "fecha_hora_devolucion", "monto_garantia_pub", "moneda_abrev_pub"];
+
+    public function getMonedaAbrevPubAttribute()
+    {
+        $moneda = "USD"; // DÓLARES (USD)
+        if ($this->subasta->publicacion->moneda == 'BOLIVIANOS (BS)')
+            $moneda = "BS";
+
+        return $moneda;
+    }
+
+    public function getMontoGarantiaPubAttribute()
+    {
+        return number_format($this->subasta->publicacion->monto_garantia, 2, ".", ",");
+    }
+
+    public function getFechaHoraDevolucionAttribute()
+    {
+        if ($this->fecha_devolucion && $this->hora_devolucion) {
+            return date("d/m/Y H:i", strtotime($this->fecha_devolucion . ' ' . $this->hora_devolucion));
+        }
+
+        if ($this->fecha_devolucion) {
+            return date("d/m/Y", strtotime($this->fecha_devolucion));
+        }
+
+        return "-";
+    }
+
+    public function getFechaDevolucionTAttribute()
+    {
+        if ($this->fecha_devolucion) {
+            return date("d/m/Y", strtotime($this->fecha_devolucion));
+        }
+
+        return "-";
+    }
+
+    public function getDevolucionTxtAttribute()
+    {
+        $span = 'PENDIENTE';
+
+        if ($this->devolucion == 1) {
+            $span = 'REALIZADO';
+        }
+
+        return $span;
+    }
+
+    public function getDevolucionSpanAttribute()
+    {
+        $span = '<span class="badge bg-gray">PENDIENTE</span>';
+
+        if ($this->devolucion == 1) {
+            $span = '<span class="badge bg-success">REALIZADO</span>';
+        }
+
+        return $span;
+    }
 
     public function getPujaTAttribute()
     {
@@ -30,7 +92,11 @@ class SubastaCliente extends Model
         }
 
         if ($this->estado_comprobante == 2) {
-            return '<span class="badge bg-danger">SIN PUJA</span>';
+            if ($this->puja > 0) {
+                return '<span class="badge bg-danger">' . number_format($this->puja, 2, ".", ",") . '</span>';
+            } else {
+                return '<span class="badge bg-danger">SIN PUJA</span>';
+            }
         }
 
         return number_format($this->puja, 2, ".", ",");

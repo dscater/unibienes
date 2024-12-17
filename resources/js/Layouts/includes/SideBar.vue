@@ -404,6 +404,7 @@ const route_current = ref("");
 
 router.on("navigate", (event) => {
     route_current.value = route().current();
+    // console.log(route_current.value);
     appOption.appSidebarMobileToggled = false;
     // if (mobile.value) {
     //     toggleDrawer(false);
@@ -546,6 +547,28 @@ const logout = () => {
                             <i class="fa fa-list"></i>
                         </div>
                         <div class="menu-text">Publicaciones</div>
+                    </Link>
+                </div>
+                <div
+                    v-if="
+                        user_logeado.permisos == '*' ||
+                        user_logeado.permisos.includes('publicacions.index')
+                    "
+                    class="menu-item"
+                    :class="[
+                        route_current == 'publicacions.devolucions'
+                            ? 'active'
+                            : '',
+                    ]"
+                >
+                    <Link
+                        :href="route('publicacions.devolucions')"
+                        class="menu-link"
+                    >
+                        <div class="menu-icon">
+                            <i class="fa fa-clipboard-list"></i>
+                        </div>
+                        <div class="menu-text">Devolución de garantías</div>
                     </Link>
                 </div>
 

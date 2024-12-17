@@ -187,7 +187,7 @@ onMounted(() => {
                                 <h4>Datos para devolución</h4>
                                 <p><strong>Banco: </strong>{{ oUsuario.cliente?.banco }}</p>
                                 <p><strong>Número de cuenta: </strong>{{ oUsuario.cliente?.nro_cuenta }}</p>
-                                <p><strong>Moneda de cuenta bancaria:</strong>{{ oUsuario.cliente?.moneda }}</p>
+                                <p><strong>Moneda de cuenta bancaria: </strong>{{ oUsuario.cliente?.moneda }}</p>
                             </div>
                         </div>
                     </form>

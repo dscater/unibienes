@@ -126,6 +126,7 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     );
 
     // PUBLICACIONES
+    Route::get("publicacions/devolucion", [PublicacionController::class, 'devolucions'])->name("publicacions.devolucions");
     Route::get("publicacions/corrigeNroCorrelativo", [PublicacionController::class, 'corrigeNroCorrelativo'])->name("publicacions.corrigeNroCorrelativo");
     Route::get("publicacions/api", [PublicacionController::class, 'api'])->name("publicacions.api");
     Route::get("publicacions/paginado", [PublicacionController::class, 'paginado'])->name("publicacions.paginado");
@@ -148,6 +149,7 @@ Route::middleware(['auth', 'permisoUsuario'])->prefix("admin")->group(function (
     Route::get("publicacions/subastas_clientes/show/{subasta_cliente}", [SubastaClienteController::class, 'show'])->name("subasta_clientes.show");
     Route::get("publicacions/subastas_clientes/getInfo/{subasta_cliente}", [SubastaClienteController::class, 'getInfo'])->name("subasta_clientes.getInfo");
     Route::put("publicacions/subastas_clientes/update/{subasta_cliente}", [SubastaClienteController::class, 'update'])->name("subasta_clientes.update");
+    Route::put("publicacions/subastas_clientes/registrarDevolucion/{subasta_cliente}", [SubastaClienteController::class, 'registrarDevolucion'])->name("subasta_clientes.registrarDevolucion");
 
     // NOTIFICACIONES
     Route::get("notificacions/listadoPorUsuario", [NotificacionController::class, 'listadoPorUsuario'])->name("notificacions.listadoPorUsuario");

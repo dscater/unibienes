@@ -55,6 +55,13 @@ class Subasta extends Model
         return $this->hasMany(SubastaCliente::class, 'subasta_id');
     }
 
+    public function subasta_clientes_devolucion()
+    {
+        return $this->hasMany(SubastaCliente::class, 'subasta_id')
+            ->where("estado_puja", 0)
+            ->where("estado_comprobante", 1);
+    }
+
     public function subasta_clientes_puja()
     {
         return $this->hasMany(SubastaCliente::class, 'subasta_id')

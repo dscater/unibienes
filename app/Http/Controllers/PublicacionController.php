@@ -8,6 +8,7 @@ use App\Models\Parametrizacion;
 use App\Models\Publicacion;
 use App\Models\PublicacionDetalle;
 use App\Models\PublicacionImagen;
+use App\Models\SubastaCliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,13 +25,25 @@ class PublicacionController extends Controller
         return Inertia::render("Admin/Publicacions/Index");
     }
 
-    public function listado()
+    public function devolucions()
+    {
+        return Inertia::render("Admin/Publicacions/Devolucions");
+    }
+
+    public function listado(Request $request)
     {
         $publicacions = Publicacion::select("publicacions.*");
 
         $permisos = Auth::user()->permisos;
         if (is_array($permisos) && !in_array("publicacions.todos", $permisos)) {
             $publicacions->where("user_id", Auth::user()->id);
+        }
+
+        if ($request->con_subasta) {
+            // verificar si existe en Subasta
+            $publicacions->whereNotIn("estado_sub", [0, 5, 6]);
+            $publicacions->whereHas('subasta');
+            $publicacions->orderBy('fecha_limite', "desc");
         }
 
         $publicacions = $publicacions->get();
@@ -179,50 +192,56 @@ class PublicacionController extends Controller
     {
         $subasta = $publicacion->subasta;
         if ($subasta && count($subasta->subasta_clientes) > 0) {
-            $subasta_cliente = null;
-            $subasta_clientes = $subasta->subasta_clientes_puja;
-            $publicacion->estado_sub = 2;
-            $subasta->estado = 2;
-            $subasta_cliente = $subasta_clientes[0];
-            $subasta_cliente->estado_puja = 2;
-            $subasta_cliente->save();
-            if (count($subasta_clientes) <= 0) {
-                // sin ganador
-                $publicacion->estado_sub = 4;
-                $subasta->estado = 0;
+            $ganador = SubastaCliente::where("subasta_id", $subasta->id)
+                ->where("estado_puja", 2)->get()->first();
+            if (!$ganador) {
+                $subasta_cliente = null;
+                $subasta_clientes = $subasta->subasta_clientes_puja;
+                $publicacion->estado_sub = 2;
+                $subasta->estado = 2;
+                $subasta_cliente = $subasta_clientes[0];
+                $subasta_cliente->estado_puja = 2;
+                $subasta_cliente->save();
+                if (count($subasta_clientes) <= 0) {
+                    // sin ganador
+                    $publicacion->estado_sub = 4;
+                    $subasta->estado = 0;
+                }
+
+                // enviar mensaje ganador
+                // enviar correo
+                $parametrizacion = Parametrizacion::first();
+                if ($parametrizacion) {
+                    $servidor_correo = json_decode($parametrizacion->servidor_correo);
+                    Config::set(
+                        [
+                            'mail.mailers.default' => $servidor_correo->driver,
+                            'mail.mailers.smtp.host' => $servidor_correo->host,
+                            'mail.mailers.smtp.port' => $servidor_correo->puerto,
+                            'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
+                            'mail.mailers.smtp.username' => $servidor_correo->correo,
+                            'mail.mailers.smtp.password' => $servidor_correo->password,
+                            'mail.from.address' => $servidor_correo->correo,
+                            'mail.from.name' => $servidor_correo->nombre,
+                        ]
+                    );
+
+                    $url =  route('publicacions.publicacionPortal', $publicacion->id);
+
+                    $mensaje = 'La Subasta fue concluida. UNIBIENES S.A. se contactará con usted para comunicarle detalles del resultado de la subasta. Puedes ver la publicación  <a href="' . $url . '">aquí</a>';
+                    $datos = [
+                        "mensaje" =>  $mensaje,
+                    ];
+
+                    Mail::to($subasta_cliente->cliente->email)
+                        ->send(new MensajeGanadorMail($datos));
+                }
+
+                $publicacion->save();
+                $subasta->save();
+            } else {
+                $subasta_cliente = $ganador;
             }
-
-            // enviar mensaje ganador
-            // enviar correo
-            $parametrizacion = Parametrizacion::first();
-            if ($parametrizacion) {
-                $servidor_correo = json_decode($parametrizacion->servidor_correo);
-                Config::set(
-                    [
-                        'mail.mailers.default' => $servidor_correo->driver,
-                        'mail.mailers.smtp.host' => $servidor_correo->host,
-                        'mail.mailers.smtp.port' => $servidor_correo->puerto,
-                        'mail.mailers.smtp.encryption' => $servidor_correo->encriptado,
-                        'mail.mailers.smtp.username' => $servidor_correo->correo,
-                        'mail.mailers.smtp.password' => $servidor_correo->password,
-                        'mail.from.address' => $servidor_correo->correo,
-                        'mail.from.name' => $servidor_correo->nombre,
-                    ]
-                );
-
-                $url =  route('publicacions.publicacionPortal', $publicacion->id);
-
-                $mensaje = 'La Subasta fue concluida. UNIBIENES S.A. se contactará con usted para comunicarle detalles del resultado de la subasta. Puedes ver la publicación  <a href="' . $url . '">aquí</a>';
-                $datos = [
-                    "mensaje" =>  $mensaje,
-                ];
-
-                Mail::to($subasta_cliente->cliente->email)
-                    ->send(new MensajeGanadorMail($datos));
-            }
-
-            $publicacion->save();
-            $subasta->save();
 
             return response()->JSON([
                 "subasta_cliente" => $subasta_cliente->load(["cliente", "historial_ofertas"]),
@@ -238,7 +257,7 @@ class PublicacionController extends Controller
 
     public function show(Publicacion $publicacion)
     {
-        return response()->JSON($publicacion->load(["subasta.subasta_clientes.cliente", "publicacion_detalles", "publicacion_imagens"]));
+        return response()->JSON($publicacion->load(["subasta.subasta_clientes.cliente", "publicacion_detalles", "publicacion_imagens", "subasta.subasta_clientes_devolucion.cliente"]));
     }
 
     public function publicacionPortal(Publicacion $publicacion)

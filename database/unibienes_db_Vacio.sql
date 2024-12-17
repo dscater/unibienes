@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 16-12-2024 a las 14:31:02
+-- Tiempo de generación: 17-12-2024 a las 14:25:38
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -372,6 +372,10 @@ CREATE TABLE `subasta_clientes` (
   `estado_puja` int NOT NULL DEFAULT '0',
   `fecha_oferta` date DEFAULT NULL,
   `hora_oferta` time DEFAULT NULL,
+  `devolucion` int NOT NULL DEFAULT '0',
+  `descripcion_devolucion` text COLLATE utf8mb4_unicode_ci,
+  `fecha_devolucion` date DEFAULT NULL,
+  `hora_devolucion` time DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

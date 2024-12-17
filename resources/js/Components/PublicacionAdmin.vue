@@ -125,6 +125,7 @@ const verificarGanadorPublicacion = () => {
 };
 
 onMounted(() => {
+    iniciaConteoFinalizacion();
     intervalConteo.value = setInterval(iniciaConteoFinalizacion, 1000);
 });
 
@@ -292,7 +293,6 @@ onBeforeUnmount(() => {
     top: 0px;
     z-index: 500;
 }
-
 
 .contenedor_imagen {
     position: relative;

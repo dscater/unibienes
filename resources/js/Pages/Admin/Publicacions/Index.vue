@@ -279,17 +279,8 @@ const loading_table = ref(false);
 const datatableInitialized = ref(false);
 const updateDatatable = () => {
     datatable.ajax.reload();
-    iniciaTooltip();
 };
 
-const iniciaTooltip = () => {
-    const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-    );
-    tooltipTriggerList.forEach((tooltipTriggerEl) => {
-        new bootstrap.Tooltip(tooltipTriggerEl); // Inicializa el tooltip
-    });
-};
 
 onMounted(async () => {
     datatable = initDataTable(
@@ -313,9 +304,6 @@ onMounted(async () => {
     });
     datatableInitialized.value = true;
     accionesRow();
-    nextTick(() => {
-        iniciaTooltip();
-    });
 });
 onBeforeUnmount(() => {
     if (datatable) {
