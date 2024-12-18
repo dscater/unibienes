@@ -117,7 +117,7 @@ onBeforeUnmount(() => {});
                     <div class="row mt-3" v-if="oPublicacion">
                         <div class="col-12">
                             <h4 class="w-100 text-center">
-                                Lista de clientes para devolución
+                                ESTADO DE LA DEVOLUCIÓN EFECTIVA DE GARANTÍAS
                             </h4>
                         </div>
                         <div class="col-12" style="overflow: auto">

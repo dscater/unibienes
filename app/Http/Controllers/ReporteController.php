@@ -427,9 +427,9 @@ class ReporteController extends Controller
                     $sheet->setCellValue('J' . $fila, 'ÚLTIMA FECHA DE LA OFERTA'); //
                     $sheet->setCellValue('K' . $fila, 'HORA DE LA OFERTA');
                     $sheet->setCellValue('L' . $fila, 'ÚLTIMA HORA DE LA OFERTA'); //
-                    $sheet->setCellValue('M' . $fila, "OFERTA\nMONTO " . $publicacion->moneda);
-                    $sheet->setCellValue('N' . $fila, "OFERTA FINAL\nMONTO " . $publicacion->moneda); //
-                    $sheet->setCellValue('O' . $fila, "MONTO DE GARANTÍA\n" . $publicacion->moneda);
+                    $sheet->setCellValue('M' . $fila, "OFERTA\nMONTO " . $publicacion->moneda_txt);
+                    $sheet->setCellValue('N' . $fila, "OFERTA FINAL\nMONTO " . $publicacion->moneda_txt); //
+                    $sheet->setCellValue('O' . $fila, "MONTO DE GARANTÍA\n" . $publicacion->moneda_txt."\n-\nESTADO DEVOLUCIÓN");
                     $sheet->setCellValue('P' . $fila, "COMPROBANTE");
                     $sheet->setCellValue('Q' . $fila, "COMPROBANTE DE PAGO DE GARANTÍA\n(DOCUMENTO PARA DESCARGAR)");
                     $sheet->setCellValue('R' . $fila, "CARNET DE IDENTIDAD\n(DOCUMENTO PARA DESCARGAR)");
@@ -487,7 +487,14 @@ class ReporteController extends Controller
                         }
                         $sheet->setCellValue('M' . $fila, $texto);
                         $sheet->setCellValue('N' . $fila, number_format($subasta_cliente->puja, 2, ".", ","));
-                        $sheet->setCellValue('O' . $fila, $publicacion->monto_garantia);
+
+                        $txt_devolucion = "";
+                        if ($subasta_cliente->estado_puja != 2 && $subasta_cliente->estado_comprobante == 1)
+                        {
+                        $txt_devolucion = "\nDEVOLUCIÓN\n";
+                        $txt_devolucion .= $subasta_cliente->devolucion_txt;
+                        }
+                        $sheet->setCellValue('O' . $fila, $publicacion->monto_garantia.$txt_devolucion);
                         $sheet->setCellValue('P' . $fila, $subasta_cliente->estado_comprobante_t);
                         $sheet->setCellValue('Q' . $fila, $subasta_cliente->url_comprobante);
                         $sheet->setCellValue('R' . $fila, $subasta_cliente->cliente->url_ci_anverso . "\n" . $subasta_cliente->cliente->url_ci_reverso);

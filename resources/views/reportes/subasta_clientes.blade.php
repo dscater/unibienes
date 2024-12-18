@@ -237,15 +237,15 @@
                         <th width="3%">N°</th>
                         <th>NOMBRE DEL PARTICIPANTE</th>
                         <th>CARNET DE IDENTIDAD</th>
-                        <th>COMPLEMENTO</th>
+                        <th width="4%">COMPLEMENTO</th>
                         <th>CORREO ELECTRÓNICO</th>
                         <th>NRO. DE CELULAR</th>
                         <th>USUARIO DEL PARTICIPANTE</th>
                         <th>NOMBRE DEL BIEN OFERTADO</th>
                         <th>FECHA DE LA OFERTA</th>
                         <th>HORA DE LA OFERTA</th>
-                        <th>OFERTA <br />MONTO {{ $publicacion->moneda }}</th>
-                        <th>MONTO DE GARANTÍA {{ $publicacion->moneda }}</th>
+                        <th>OFERTA <br />MONTO <br/>{{ $publicacion->moneda_txt }}</th>
+                        <th>MONTO DE GARANTÍA <br/>{{ $publicacion->moneda_txt }}<br/>-<br/>ESTADO DEVOLUCIÓN</th>
                         <th>COMPROBANTE</th>
                         <th>COMPROBANTE DE PAGO DE GARANTÍA <br />(DOCUMENTO PARA DESCARGAR)</th>
                         <th>CARNET DE IDENTIDAD <br />(DOCUMENTO PARA DESCARGAR)</th>
@@ -290,7 +290,7 @@
                                     {{ $subasta_cliente->hora_oferta_t }}
                                 @endif
                             </td>
-                            <td class="">
+                            <td class="centreado">
                                 @if (count($subasta_cliente->historial_ofertas) > 0)
                                     @foreach ($subasta_cliente->historial_ofertas as $key_ho => $historial_oferta)
                                         <span class="{{ $key_ho == 0 ? 'bold text-md' : '' }}">-
@@ -300,7 +300,15 @@
                                     {{ number_format($subasta_cliente->puja, 2, '.', ',') }}
                                 @endif
                             </td>
-                            <td class="">{{ number_format($publicacion->monto_garantia, 2, '.', ',') }}</td>
+                            <td class="centreado">
+                                {{ number_format($publicacion->monto_garantia, 2, '.', ',') }}
+                                @if ($subasta_cliente->estado_puja != 2 && $subasta_cliente->estado_comprobante == 1)
+                                    <br />
+                                    DEVOLUCIÓN
+                                    <br />
+                                    {{ $subasta_cliente->devolucion_txt }}
+                                @endif
+                            </td>
                             <td>
                                 {{ $subasta_cliente->estado_comprobante_t }}
                             </td>
