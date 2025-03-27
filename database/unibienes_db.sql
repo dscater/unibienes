@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 17-12-2024 a las 14:26:10
+-- Tiempo de generación: 27-03-2025 a las 20:38:32
 -- Versión del servidor: 8.0.30
--- Versión de PHP: 8.2.22
+-- Versión de PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -535,7 +535,7 @@ CREATE TABLE `publicacions` (
 
 INSERT INTO `publicacions` (`id`, `nro`, `user_id`, `categoria`, `moneda`, `oferta_inicial`, `ubicacion`, `observaciones`, `fecha_limite`, `hora_limite`, `monto_garantia`, `estado_sub`, `created_at`, `updated_at`) VALUES
 (3, 1, 2, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 1000.00, 'LA PAZ', 'OBSERVACIONES PUBLICACION UNO', '2024-11-16', '16:58:00', 600.00, 3, '2024-11-13 03:47:31', '2024-12-17 13:34:48'),
-(4, 2, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 2, '2024-11-13 18:32:59', '2024-12-17 14:18:42'),
+(4, 2, 2, 'OTROS BIENES', 'DÓLARES (USD)', 20000.00, 'LA PAZ', 'OBS. PUBLICACION', '2024-11-20', '10:00:00', 10000.00, 3, '2024-11-13 18:32:59', '2024-12-17 14:29:07'),
 (5, NULL, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 8000.00, 'COCHABAMBA', 'OBS. VEHICULO', '2024-12-20', '12:00:00', 1000.00, 0, '2024-11-13 22:15:26', '2024-12-02 18:49:07'),
 (6, 3, 6, 'VEHÍCULOS', 'DÓLARES (USD)', 1000.00, 'LA PAZ', 'OBS', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-20 08:08:13', '2024-12-16 13:31:24'),
 (7, 4, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'COCHABAMBA', 'OBS', '2024-11-30', '12:00:00', 10000.00, 3, '2024-11-20 08:13:24', '2024-12-16 13:31:24'),
@@ -556,9 +556,9 @@ INSERT INTO `publicacions` (`id`, `nro`, `user_id`, `categoria`, `moneda`, `ofer
 (22, 17, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 30000.00, 'LA PAZ', 'TERRENO', '2024-11-26', '18:00:00', 3000.00, 3, '2024-11-21 00:01:32', '2024-12-16 13:31:24'),
 (23, 18, 15, 'ECOLÓGICO', 'BOLIVIANOS (BS)', 60000.00, 'COCHABAMBA', 'LOTE DE TERRENO', '2024-11-26', '18:00:00', 6000.00, 3, '2024-11-21 00:03:48', '2024-12-16 13:31:24'),
 (24, 19, 15, 'VEHÍCULOS', 'BOLIVIANOS (BS)', 200000.00, 'LA PAZ', 'VEHÍCULO SEMINUEVO', '2024-12-14', '12:35:00', 20000.00, 3, '2024-11-21 19:26:49', '2024-12-16 13:31:24'),
-(25, 20, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', '', '2024-11-30', '12:00:00', 5000.00, 2, '2024-11-26 08:07:27', '2024-12-17 14:01:40'),
-(26, 21, 2, 'OTROS BIENES', 'BOLIVIANOS (BS)', 2000.00, 'LA PAZ', '', '2024-12-02', '14:00:00', 400.00, 2, '2024-11-26 08:28:21', '2024-12-17 13:55:55'),
-(27, 22, 2, 'ECOLÓGICO', 'DÓLARES (USD)', 4000.00, 'LA PAZ', '', '2024-12-04', '12:00:00', 2000.00, 2, '2024-12-02 16:08:30', '2024-12-17 13:55:16'),
+(25, 20, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', '', '2024-11-30', '12:00:00', 5000.00, 3, '2024-11-26 08:07:27', '2024-12-17 14:29:07'),
+(26, 21, 2, 'OTROS BIENES', 'BOLIVIANOS (BS)', 2000.00, 'LA PAZ', '', '2024-12-02', '14:00:00', 400.00, 3, '2024-11-26 08:28:21', '2024-12-17 14:29:07'),
+(27, 22, 2, 'ECOLÓGICO', 'DÓLARES (USD)', 4000.00, 'LA PAZ', '', '2024-12-04', '12:00:00', 2000.00, 3, '2024-12-02 16:08:30', '2024-12-17 14:29:07'),
 (28, 23, 4, 'VEHÍCULOS', 'DÓLARES (USD)', 20000.00, 'LA PAZ', '', '2024-12-13', '11:38:00', 7000.00, 3, '2024-12-02 17:54:14', '2024-12-16 13:31:24'),
 (29, 25, 2, 'OTROS BIENES', 'DÓLARES (USD)', 35000.00, 'LA PAZ', 'OBS', '2024-12-20', '12:00:00', 20000.00, 1, '2024-12-03 04:37:53', '2024-12-17 12:36:28'),
 (30, 26, 2, 'VEHÍCULOS', 'DÓLARES (USD)', 10000.00, 'LA PAZ', 'OBS', '2024-12-20', '10:00:00', 5000.00, 1, '2024-12-03 15:33:59', '2024-12-17 12:44:00'),
@@ -575,7 +575,7 @@ CREATE TABLE `publicacion_detalles` (
   `id` bigint UNSIGNED NOT NULL,
   `publicacion_id` bigint UNSIGNED NOT NULL,
   `caracteristica` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detalle` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detalle` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1007,7 +1007,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombres`, `apellidos`, `password`, `role_id`, `acceso`, `foto`, `fecha_registro`, `ultima_sesion`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-12-16', 1, '2024-11-09 18:47:19', '2024-12-16 13:08:02'),
+(1, 'admin', 'admin', 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 1, 1, NULL, '2024-11-09', '2024-12-18', 1, '2024-11-09 18:47:19', '2024-12-18 16:25:42'),
 (2, 'JPERES', 'JUAN', 'PERES MAMANI', '$2y$12$36K0jnlnyAJiaJ.aSSDQoeVzBpZzhDXCtPqHMQ8LrSe5dKy/TS.TO', 3, 1, '1732740859_2.jpg', '2024-11-11', '2024-12-17', 1, '2024-11-11 22:53:46', '2024-12-17 12:21:30'),
 (3, 'carlos@gmail.com', 'CARLOS', 'MARTINES CHOQUE', '$2y$12$gHVL0X8zeL7mZXZ3uftNWOuAK3SumYhoBNNJzUQNPeD7dd94Q46ke', 2, 1, '1731796210_carlos@gmail.com.jpg', '2024-11-13', '2024-12-17', 1, '2024-11-13 20:33:34', '2024-12-17 12:41:45'),
 (4, 'APAREDES', 'ALBERTO', 'PAREDES', '$2y$12$NSeoWEEWnGVX75lEk0EfoeRLO5IKrh7AdXhfxFHMjwz6zzaMG2ISu', 3, 1, NULL, '2024-11-13', '2024-12-02', 1, '2024-11-13 22:13:05', '2024-12-02 17:53:18'),
