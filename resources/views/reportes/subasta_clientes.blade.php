@@ -189,8 +189,9 @@
                     // Illuminate\Support\Facades\Log::debug($fecha_ini);
                     // Illuminate\Support\Facades\Log::debug($fecha_fin);
                     $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
-                        ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
-                        ->orWhere('fecha_oferta', null)
+                        ->where(function ($query) use ($fecha_ini, $fecha_fin) {
+                            $query->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])->orWhereNull('fecha_oferta');
+                        })
                         // ->orWhereBetween('created_at', [
                         //     Carbon\Carbon::parse($fecha_ini)->startOfDay(),
                         //     Carbon\Carbon::parse($fecha_fin)->endOfDay(),
@@ -211,9 +212,7 @@
         @endphp
         @if ($publicacion->subasta && count($subasta_clientes) > 0)
             @php
-                $detalles = App\Models\PublicacionDetalle::where('publicacion_id', $publicacion->id)
-                    ->get()
-                    ->take(3);
+                $detalles = App\Models\PublicacionDetalle::where('publicacion_id', $publicacion->id)->get()->take(3);
             @endphp
             <table>
                 <tbody>
@@ -244,8 +243,8 @@
                         <th>NOMBRE DEL BIEN OFERTADO</th>
                         <th>FECHA DE LA OFERTA</th>
                         <th>HORA DE LA OFERTA</th>
-                        <th>OFERTA <br />MONTO <br/>{{ $publicacion->moneda_txt }}</th>
-                        <th>MONTO DE GARANTÍA <br/>{{ $publicacion->moneda_txt }}<br/>-<br/>ESTADO DEVOLUCIÓN</th>
+                        <th>OFERTA <br />MONTO <br />{{ $publicacion->moneda_txt }}</th>
+                        <th>MONTO DE GARANTÍA <br />{{ $publicacion->moneda_txt }}<br />-<br />ESTADO DEVOLUCIÓN</th>
                         <th>COMPROBANTE</th>
                         <th>COMPROBANTE DE PAGO DE GARANTÍA <br />(DOCUMENTO PARA DESCARGAR)</th>
                         <th>CARNET DE IDENTIDAD <br />(DOCUMENTO PARA DESCARGAR)</th>

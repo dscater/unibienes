@@ -378,8 +378,9 @@ class ReporteController extends Controller
                             'subasta_id',
                             $publicacion->subasta->id,
                         )
-                            ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
-                            ->orWhere('fecha_oferta', null)
+                            ->where(function ($query) use ($fecha_ini, $fecha_fin) {
+                                $query->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])->orWhereNull('fecha_oferta');
+                            })
                             // ->where('puja', '>', 0)
                             // ->where('estado_comprobante', 1)
                             ->get();
@@ -429,7 +430,7 @@ class ReporteController extends Controller
                     $sheet->setCellValue('L' . $fila, 'ÚLTIMA HORA DE LA OFERTA'); //
                     $sheet->setCellValue('M' . $fila, "OFERTA\nMONTO " . $publicacion->moneda_txt);
                     $sheet->setCellValue('N' . $fila, "OFERTA FINAL\nMONTO " . $publicacion->moneda_txt); //
-                    $sheet->setCellValue('O' . $fila, "MONTO DE GARANTÍA\n" . $publicacion->moneda_txt."\n-\nESTADO DEVOLUCIÓN");
+                    $sheet->setCellValue('O' . $fila, "MONTO DE GARANTÍA\n" . $publicacion->moneda_txt . "\n-\nESTADO DEVOLUCIÓN");
                     $sheet->setCellValue('P' . $fila, "COMPROBANTE");
                     $sheet->setCellValue('Q' . $fila, "COMPROBANTE DE PAGO DE GARANTÍA\n(DOCUMENTO PARA DESCARGAR)");
                     $sheet->setCellValue('R' . $fila, "CARNET DE IDENTIDAD\n(DOCUMENTO PARA DESCARGAR)");
@@ -489,12 +490,11 @@ class ReporteController extends Controller
                         $sheet->setCellValue('N' . $fila, number_format($subasta_cliente->puja, 2, ".", ","));
 
                         $txt_devolucion = "";
-                        if ($subasta_cliente->estado_puja != 2 && $subasta_cliente->estado_comprobante == 1)
-                        {
-                        $txt_devolucion = "\nDEVOLUCIÓN\n";
-                        $txt_devolucion .= $subasta_cliente->devolucion_txt;
+                        if ($subasta_cliente->estado_puja != 2 && $subasta_cliente->estado_comprobante == 1) {
+                            $txt_devolucion = "\nDEVOLUCIÓN\n";
+                            $txt_devolucion .= $subasta_cliente->devolucion_txt;
                         }
-                        $sheet->setCellValue('O' . $fila, $publicacion->monto_garantia.$txt_devolucion);
+                        $sheet->setCellValue('O' . $fila, $publicacion->monto_garantia . $txt_devolucion);
                         $sheet->setCellValue('P' . $fila, $subasta_cliente->estado_comprobante_t);
                         $sheet->setCellValue('Q' . $fila, $subasta_cliente->url_comprobante);
                         $sheet->setCellValue('R' . $fila, $subasta_cliente->cliente->url_ci_anverso . "\n" . $subasta_cliente->cliente->url_ci_reverso);
