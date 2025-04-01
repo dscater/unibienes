@@ -379,7 +379,11 @@ class ReporteController extends Controller
                             $publicacion->subasta->id,
                         )
                             ->where(function ($query) use ($fecha_ini, $fecha_fin) {
-                                $query->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin]);
+                                $query->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                                    ->orWhereBetween('created_at', [
+                                        Carbon::parse($fecha_ini)->startOfDay(),
+                                        Carbon::parse($fecha_fin)->endOfDay(),
+                                    ]);
                             })
                             // ->where('puja', '>', 0)
                             // ->where('estado_comprobante', 1)

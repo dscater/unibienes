@@ -190,12 +190,13 @@
                     // Illuminate\Support\Facades\Log::debug($fecha_fin);
                     $subasta_clientes = App\Models\SubastaCliente::where('subasta_id', $publicacion->subasta->id)
                         ->where(function ($query) use ($fecha_ini, $fecha_fin) {
-                            $query->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin]);
+                            $query
+                                ->whereBetween('fecha_oferta', [$fecha_ini, $fecha_fin])
+                                ->orWhereBetween('created_at', [
+                                    Carbon\Carbon::parse($fecha_ini)->startOfDay(),
+                                    Carbon\Carbon::parse($fecha_fin)->endOfDay(),
+                                ]);
                         })
-                        // ->orWhereBetween('created_at', [
-                        //     Carbon\Carbon::parse($fecha_ini)->startOfDay(),
-                        //     Carbon\Carbon::parse($fecha_fin)->endOfDay(),
-                        // ])
                         // ->where('puja', '>', 0)
                         // ->where('estado_comprobante', 1)
                         ->get();
