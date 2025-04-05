@@ -247,6 +247,14 @@ class PublicacionController extends Controller
                 "subasta_cliente" => $subasta_cliente->load(["cliente", "historial_ofertas"]),
                 "publicacion" => $publicacion->load(["publicacion_detalles", "publicacion_imagens", "subasta.historial_ofertas"])
             ]);
+        } else {
+            // sin ganador
+            $publicacion->estado_sub = 4;
+            if ($subasta) {
+                $subasta->estado = 0;
+                $subasta->save();
+            }
+            $publicacion->save();
         }
 
         return response()->JSON([
