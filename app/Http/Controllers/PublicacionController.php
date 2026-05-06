@@ -191,7 +191,8 @@ class PublicacionController extends Controller
     public function verificaGanador(Publicacion $publicacion)
     {
         $subasta = $publicacion->subasta;
-        if ($subasta && count($subasta->subasta_clientes) > 0) {
+
+        if ($subasta && !$publicacion->esta_vigente) {
             $ganador = SubastaCliente::where("subasta_id", $subasta->id)
                 ->where("estado_puja", 2)->get()->first();
             if (!$ganador) {

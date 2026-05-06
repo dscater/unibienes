@@ -65,6 +65,7 @@ onMounted(() => {
                 <div
                     class="col-lg-6 col-md-6 col-sm-12"
                     v-for="item in listVehiculos"
+                    :key="item.id"
                 >
                     <Publicacion
                         :publicacion="item"

@@ -65,6 +65,7 @@ onMounted(() => {
                 <div
                     class="col-lg-6 col-md-6 col-sm-12"
                     v-for="item in listVehiculos"
+                    :key="item.id"
                 >
                     <Publicacion
                         :publicacion="item"
@@ -76,9 +77,7 @@ onMounted(() => {
             </div>
             <!-- END row -->
             <div class="row mb-3" v-if="page >= 1 && listVehiculos.length > 0">
-                <div
-                    class="col-12 text-center font-weight-bold"
-                >
+                <div class="col-12 text-center font-weight-bold">
                     <button
                         class="btn bg-dark text-white mx-1"
                         v-if="page > 1"
